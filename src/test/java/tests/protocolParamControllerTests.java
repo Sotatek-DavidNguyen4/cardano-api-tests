@@ -12,6 +12,6 @@ public class protocolParamControllerTests extends BaseTest {
     ProtocolSteps protocolSteps = new ProtocolSteps();
     @Test(description = "verify that get protocal successfull", groups={"protocol"})
     public void getCurrentProtocol(){
-        System.out.println(protocolSteps.getProtocolHistoryChange());
+        System.out.println(protocolSteps.getProtocolHistoryChange() + "");
     }
 }
