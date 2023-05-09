@@ -1,0 +1,2 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Tue May 09 10:07:42 GMT 2023","Tue May 09 10:07:46 GMT 2023","3876","Setel Regression Suite","Setel Admin test on chrome","tests.protocolParamControllerTests","tests.protocolParamControllerTests","getCurrentProtocol","verify that get protocal successfull",""
