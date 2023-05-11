@@ -1,14 +1,13 @@
 package microservices.pool.steps;
 
-import constants.Endpoint;
 import core.BaseApi;
 import io.qameta.allure.Step;
 import microservices.pool.models.PoolResponse;
 import static org.assertj.core.api.Assertions.assertThat;
 import org.testng.Assert;
+import constants.Endpoints;
 
 import java.util.Collections;
-import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
@@ -16,13 +15,13 @@ import java.util.stream.Collectors;
 public class PoolSteps extends BaseApi {
     @Step
     public PoolSteps when_getRegistrationPoolList(Map<String, Object> params){
-        sendGet(Endpoint.REGISTRATION_POOLS, params);
+        sendGet(Endpoints.PoolControllerApi.REGISTRATION_POOLS, params);
         return this;
     }
 
     @Step
     public PoolSteps when_getDeRegistrationPoolList(Map<String, Object> params){
-        sendGet(Endpoint.DEREGISTRATION_POOLS, params);
+        sendGet(Endpoints.PoolControllerApi.DEREGISTRATION_POOLS, params);
         return this;
     }
 
