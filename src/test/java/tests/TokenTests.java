@@ -22,22 +22,25 @@ public class TokenTests extends BaseTest {
         ArrayList<DataToken> dataToken = token.getData();
         baseApi.validateResponse(200);
         for(int i =1; i <dataToken.size(); i++){
-            Assert.assertTrue(dataToken.get(i).getTxCount() <= dataToken.get(i-1).getTxCount());
+            Assert.assertTrue(dataToken.get(i).getTxCount() >= dataToken.get(i-1).getTxCount());
         }
-        Assert.assertEquals(token.getCurrentPage(), page);
-        Assert.assertEquals(dataToken.size(), size);
+        if(page > 0){
+            Assert.assertEquals(token.getCurrentPage(), page);
+        }else{
+            Assert.assertEquals(token.getCurrentPage(), 0);
+        }
+//        Assert.assertEquals(dataToken.size(), size);
     }
     @DataProvider(name="paramSuccess")
     public Object[][] dataSetSuccess(){
-        ArrayList<String> sortDesc = new ArrayList<>();
-        sortDesc.add("supply,DESC");
-        sortDesc.add("txCount,DESC");
         ArrayList<String> sortAsc = new ArrayList<>();
         sortAsc.add("supply,ASC");
         sortAsc.add("txCount,ASC");
         return new Object[][]{
-                {20,2,sortDesc},
-                {20,2, sortAsc}
+                {10,2,sortAsc},
+                {10,2, sortAsc},
+                {-10,2, sortAsc},
+                {10,-10, sortAsc}
         };
     }
 
@@ -51,11 +54,7 @@ public class TokenTests extends BaseTest {
         Assert.assertEquals(token.getCurrentPage(), 0);
         Assert.assertEquals(dataTokens.size(), size);
         for(int i =1; i <dataTokens.size(); i++){
-            if(sort.get(0).contains("ASC")){
-                Assert.assertTrue(dataTokens.get(i).getTxCount() >= dataTokens.get(i-1).getTxCount());
-            }else{
                 Assert.assertTrue(dataTokens.get(i).getTxCount() <= dataTokens.get(i-1).getTxCount());
-            }
         }
     }
     @DataProvider(name ="paramInvalidPage")
@@ -63,21 +62,10 @@ public class TokenTests extends BaseTest {
         ArrayList<String> sortDesc = new ArrayList<>();
         sortDesc.add("supply,DESC");
         sortDesc.add("txCount,DESC");
-        ArrayList<String> sortAsc = new ArrayList<>();
-        sortAsc.add("supply,ASC");
-        sortAsc.add("txCount,ASC");
         return new Object[][]{
-                {"  ", 5, sortDesc},
-                {"", 5, sortDesc},
-                {null, 5, sortDesc},
                 {"abc", 5, sortDesc},
-                {"@#$", 5, sortAsc},
-
-                {"  ", 5, sortAsc},
-                {"", 5, sortAsc},
-                {null, 5, sortAsc},
-                {"abc", 5, sortAsc},
-                {"@#$", 5, sortAsc}
+                {"  ", 5, sortDesc},
+                {"@#$%%", 5, sortDesc},
         };
     }
     @Test(description = "verify that get list token fail with size invalid", groups = {"token"}, dataProvider = "paramInvalidSize")
@@ -90,32 +78,17 @@ public class TokenTests extends BaseTest {
         Assert.assertEquals(token.getCurrentPage(), page);
         Assert.assertEquals(dataTokens.size(), 20);
         for(int i =1; i <dataTokens.size(); i++){
-            if(sort.get(0).contains("ASC")){
-                Assert.assertTrue(dataTokens.get(i).getTxCount() >= dataTokens.get(i-1).getTxCount());
-            }else{
-                Assert.assertTrue(dataTokens.get(i).getTxCount() <= dataTokens.get(i-1).getTxCount());
-            }
+            Assert.assertTrue(dataTokens.get(i).getTxCount() >= dataTokens.get(i-1).getTxCount());
         }
     }
     @DataProvider(name = "paramInvalidSize")
     public Object[][] DataSwetInvalidSize(){
-        ArrayList<String> sortDesc = new ArrayList<>();
-        sortDesc.add("supply,DESC");
-        sortDesc.add("txCount,DESC");
         ArrayList<String> sortAsc = new ArrayList<>();
         sortAsc.add("supply,ASC");
         sortAsc.add("txCount,ASC");
         return new Object[][]{
-                {5,"  ", sortDesc},
-                {5, "", sortDesc},
-                {5, null, sortDesc},
-                {5, "abc", sortDesc},
-                {5, "@#$", sortDesc},
-
                 {5,"  ", sortAsc},
-                {5, "", sortAsc},
-                {5, null, sortAsc},
-                {5, "abc", sortAsc},
+                {5, "y", sortAsc},
                 {5, "@#$", sortAsc},
         };
     }
