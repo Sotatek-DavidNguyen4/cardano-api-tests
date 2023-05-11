@@ -32,15 +32,33 @@ public class PoolTests extends BaseTest {
                 .validateResponse(HttpURLConnection.HTTP_OK);
         params.put("page", "");
         params.put("size", "");
-        params.put("sort", "asc");
+        params.put("sort", "ascending");
         poolSteps.when_getRegistrationPoolList(params)
+                .validateResponse(HttpURLConnection.HTTP_INTERNAL_ERROR);
+    }
+
+    @Test(description = "API: Get de-registration pool list", groups = {"pool"})
+    public void get_de_registration_pool_list() {
+        Map<String, Object> params = new HashMap<>();
+        params.put("page", "");
+        params.put("size", "");
+        params.put("sort", "");
+        poolSteps.when_getDeRegistrationPoolList(params)
+                .validateResponse(HttpURLConnection.HTTP_OK);
+        params.put("page", 0);
+        params.put("size", 2);
+        params.put("sort", "");
+        poolSteps.when_getDeRegistrationPoolList(params)
+                .validateResponse(HttpURLConnection.HTTP_OK);
+        params.put("page", 1000);
+        params.put("size", "");
+        params.put("sort", "");
+        poolSteps.when_getDeRegistrationPoolList(params)
                 .validateResponse(HttpURLConnection.HTTP_OK);
         params.put("page", "");
         params.put("size", "");
-        params.put("sort", "desc");
-        poolSteps.when_getRegistrationPoolList(params)
-                .validateResponse(HttpURLConnection.HTTP_OK);
-        params.put("page", "#$#$");
-        params.put("size", "");
-        params.put("sort", "");    }
+        params.put("sort", "ascending");
+        poolSteps.when_getDeRegistrationPoolList(params)
+                .validateResponse(HttpURLConnection.HTTP_INTERNAL_ERROR);
+    }
 }
