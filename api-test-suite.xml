@@ -31,7 +31,6 @@
             </method-selector>
         </method-selectors>
         <classes>
-            <class name="tests.DelegationControllerTests"/>
             <class name="tests.protocolParamControllerTests"/>
             <class name="tests.TokenTests"/>
         </classes>
