@@ -1,8 +1,5 @@
 package constants;
 
-public class Endpoints {
-    public static class DelegationApi {
-
-        public static final String POOL_DETAIL_URI = "delegations/pool-detail-header/{poolView}";
-    }
+public class EndPoints {
+    public static final String GET_LIST_TOKEN = "/tokens";
 }

@@ -119,4 +119,40 @@ public class TokenTests extends BaseTest {
                 {5, "@#$", sortAsc},
         };
     }
+    @Test(description = "verify that get list token fail with sort invalid", groups = {"token"}, dataProvider = "paramInvalidSort")
+    public void getListTokenWithSortInvalid(int page, int size, ArrayList<String>sort){
+        TokenSteps tokenSteps = new TokenSteps();
+        tokenSteps.getListTokens(page, size, sort);
+        Token token = (Token) tokenSteps.saveResponseObject(Token.class);
+        ArrayList<DataToken> dataTokens = token.getData();
+        baseApi.validateResponse(200);
+        Assert.assertEquals(token.getCurrentPage(), page);
+        Assert.assertEquals(dataTokens.size(), 20);
+        for(int i =1; i <dataTokens.size(); i++){
+            if(sort.get(0).contains("ASC")){
+                Assert.assertTrue(dataTokens.get(i).getTxCount() >= dataTokens.get(i-1).getTxCount());
+            }else{
+                Assert.assertTrue(dataTokens.get(i).getTxCount() <= dataTokens.get(i-1).getTxCount());
+            }
+        }
+    }
+    @DataProvider(name = "paramInvalidSort")
+    public Object[][] DataSwetInvalidSort(){
+        ArrayList<String> sortNull = null;
+        ArrayList<String> sortBlank = new ArrayList<>();
+        sortBlank.add("");
+        ArrayList<String> sortSpace = new ArrayList<>();
+        sortSpace.add("   ");
+        ArrayList<String> sortAbc = new ArrayList<>();
+        sortAbc.add("   ");
+        ArrayList<String> sortSepecialCharacter = new ArrayList<>();
+        sortAbc.add("@#$");
+        return new Object[][]{
+                {20,5, sortNull},
+                {20,5, sortBlank},
+                {20,5, sortSpace},
+                {20,5, sortAbc},
+                {20,5, sortSepecialCharacter},
+        };
+    }
 }

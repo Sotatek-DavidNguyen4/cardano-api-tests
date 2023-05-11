@@ -10,5 +10,8 @@
         <module name="api-core" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="api-core" target="1.8" />
+    </bytecodeTargetLevel>
   </component>
 </project>
