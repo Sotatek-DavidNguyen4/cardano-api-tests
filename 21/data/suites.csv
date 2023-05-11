@@ -1,0 +1,2 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Thu May 11 02:55:52 GMT 2023","Thu May 11 02:55:55 GMT 2023","3568","Setel Regression Suite","Setel Admin test on chrome","tests.DelegationControllerTests","tests.DelegationControllerTests","getCurrentProtocol","verify that get data for pool detail successfully",""
