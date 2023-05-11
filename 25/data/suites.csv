@@ -1,0 +1,3 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"passed","Thu May 11 03:48:58 GMT 2023","Thu May 11 03:49:07 GMT 2023","9037","Setel Regression Suite","Setel Admin test on chrome","tests.PoolTests","tests.PoolTests","get_de_registration_pool_list","API: Get de-registration pool list",""
+"passed","Thu May 11 03:49:07 GMT 2023","Thu May 11 03:49:13 GMT 2023","6248","Setel Regression Suite","Setel Admin test on chrome","tests.PoolTests","tests.PoolTests","get_registration_pool_list","API: Get registration pool list",""
