@@ -4,6 +4,7 @@ import base.BaseTest;
 import microservices.pool.models.PoolResponse;
 import microservices.pool.steps.PoolSteps;
 import org.testng.annotations.Test;
+import util.CreateParameters;
 
 import java.net.HttpURLConnection;
 import java.util.HashMap;
@@ -14,51 +15,47 @@ public class PoolTests extends BaseTest {
     private PoolResponse poolResponse;
     @Test(description = "API: Get registration pool list", groups = {"pool"})
     public void get_registration_pool_list() {
-        Map<String, Object> params = new HashMap<>();
-        params.put("page", "");
-        params.put("size", "");
-        params.put("sort", "");
-        poolSteps.when_getRegistrationPoolList(params)
+        Map<String, Object> param = new CreateParameters()
+                .withPage("")
+                .withPageSize("")
+                .withSort("")
+                .getParamsMap();
+        poolSteps.when_getRegistrationPoolList(param)
                 .validateResponse(HttpURLConnection.HTTP_OK);
-        params.put("page", 0);
-        params.put("size", 2);
-        params.put("sort", "");
-        poolSteps.when_getRegistrationPoolList(params)
+
+        param.replace("page", "0");
+        poolSteps.when_getRegistrationPoolList(param)
                 .validateResponse(HttpURLConnection.HTTP_OK);
-        params.put("page", 1000);
-        params.put("size", "");
-        params.put("sort", "");
-        poolSteps.when_getRegistrationPoolList(params)
+
+        param.replace("size", "1");
+        poolSteps.when_getRegistrationPoolList(param)
                 .validateResponse(HttpURLConnection.HTTP_OK);
-        params.put("page", "");
-        params.put("size", "");
-        params.put("sort", "ascending");
-        poolSteps.when_getRegistrationPoolList(params)
+
+        param.replace("sort", "ascending");
+        poolSteps.when_getRegistrationPoolList(param)
                 .validateResponse(HttpURLConnection.HTTP_INTERNAL_ERROR);
     }
 
     @Test(description = "API: Get de-registration pool list", groups = {"pool"})
     public void get_de_registration_pool_list() {
-        Map<String, Object> params = new HashMap<>();
-        params.put("page", "");
-        params.put("size", "");
-        params.put("sort", "");
-        poolSteps.when_getDeRegistrationPoolList(params)
+        Map<String, Object> param = new CreateParameters()
+                .withPage("")
+                .withPageSize("")
+                .withSort("")
+                .getParamsMap();
+        poolSteps.when_getDeRegistrationPoolList(param)
                 .validateResponse(HttpURLConnection.HTTP_OK);
-        params.put("page", 0);
-        params.put("size", 2);
-        params.put("sort", "");
-        poolSteps.when_getDeRegistrationPoolList(params)
+
+        param.replace("page", "0");
+        poolSteps.when_getDeRegistrationPoolList(param)
                 .validateResponse(HttpURLConnection.HTTP_OK);
-        params.put("page", 1000);
-        params.put("size", "");
-        params.put("sort", "");
-        poolSteps.when_getDeRegistrationPoolList(params)
+
+        param.replace("size", "1");
+        poolSteps.when_getDeRegistrationPoolList(param)
                 .validateResponse(HttpURLConnection.HTTP_OK);
-        params.put("page", "");
-        params.put("size", "");
-        params.put("sort", "ascending");
-        poolSteps.when_getDeRegistrationPoolList(params)
+
+        param.replace("sort", "ascending");
+        poolSteps.when_getDeRegistrationPoolList(param)
                 .validateResponse(HttpURLConnection.HTTP_INTERNAL_ERROR);
     }
 }
