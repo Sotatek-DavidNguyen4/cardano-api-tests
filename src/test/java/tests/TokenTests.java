@@ -5,34 +5,23 @@ import core.BaseApi;
 import microservices.token.models.DataToken;
 import microservices.token.models.Token;
 import microservices.token.steps.TokenSteps;
-import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.util.ArrayList;
 
 public class TokenTests extends BaseTest {
+    private TokenSteps tokenSteps = new TokenSteps();
     private Token token = new Token();
-    BaseApi baseApi = new BaseApi();
+    private ArrayList<DataToken> dataTokens;
     @Test(description = "verify that get list token successfull", groups={"token"}, dataProvider = "paramSuccess")
     public void getListTokenSuccess(int page, int size, ArrayList<String> sort){
-        TokenSteps tokenSteps = new TokenSteps();
-        tokenSteps.getListTokens(page, size, sort);
-        token = (Token) tokenSteps.saveResponseObject(Token.class);
-        ArrayList<DataToken> dataToken = token.getData();
-        baseApi.validateResponse(200);
-        for(int i =1; i <dataToken.size(); i++){
-            if(sort.get(0).contains("ASC")){
-                Assert.assertTrue(dataToken.get(i).getTxCount() >= dataToken.get(i-1).getTxCount());
-            }else{
-                Assert.assertTrue(dataToken.get(i).getTxCount() <= dataToken.get(i-1).getTxCount());
-            }
-        }
-        if(page > 0){
-            Assert.assertEquals(token.getCurrentPage(), page);
-        }else{
-            Assert.assertEquals(token.getCurrentPage(), 0);
-        }
+        tokenSteps.getListTokens(page, size, sort)
+                .verifyResponseGetListToken(200);
+        token = tokenSteps.saveResponseListToken();
+        dataTokens = token.getData();
+        tokenSteps.verifyNumberPage(token.getCurrentPage(), page)
+                .verifySizeOfResponse(dataTokens.size(), size);
     }
     @DataProvider(name="paramSuccess")
     public Object[][] dataSetSuccess(){
@@ -52,16 +41,12 @@ public class TokenTests extends BaseTest {
 
     @Test(description = "verify that get list token with page invalid", groups = {"token"}, dataProvider = "paramInvalidPage")
     public void getListTokenWithPageInvalid(String page, int size, ArrayList<String>sort){
-        TokenSteps tokenSteps = new TokenSteps();
-        tokenSteps.getListTokensWithPageInvalid(page, size, sort);
-        Token token = (Token) tokenSteps.saveResponseObject(Token.class);
-        ArrayList<DataToken> dataTokens = token.getData();
-        baseApi.validateResponse(200);
-        Assert.assertEquals(token.getCurrentPage(), 0);
-        Assert.assertEquals(dataTokens.size(), size);
-        for(int i =1; i <dataTokens.size(); i++){
-            Assert.assertTrue(dataTokens.get(i).getTxCount() <= dataTokens.get(i-1).getTxCount());
-        }
+        tokenSteps.getListTokensWithPageInvalid(page, size, sort)
+                .verifyResponseGetListToken(200);
+        token = tokenSteps.saveResponseListToken();
+        dataTokens = token.getData();
+        tokenSteps.verifyNumberPageInvalid(token.getCurrentPage())
+                .verifySizeOfResponse(dataTokens.size(), size);
     }
     @DataProvider(name ="paramInvalidPage")
     public Object[][] dataSetInvalidPage(){
@@ -76,16 +61,12 @@ public class TokenTests extends BaseTest {
     }
     @Test(description = "verify that get list token with size invalid", groups = {"token"}, dataProvider = "paramInvalidSize")
     public void getListTokenWithSizeInvalid(int page, String size, ArrayList<String>sort){
-        TokenSteps tokenSteps = new TokenSteps();
-        tokenSteps.getListTokensWithSizeInvalid(page, size, sort);
-        Token token = (Token) tokenSteps.saveResponseObject(Token.class);
-        ArrayList<DataToken> dataTokens = token.getData();
-        baseApi.validateResponse(200);
-        Assert.assertEquals(token.getCurrentPage(), page);
-        Assert.assertEquals(dataTokens.size(), 20);
-        for(int i =1; i <dataTokens.size(); i++){
-            Assert.assertTrue(dataTokens.get(i).getTxCount() >= dataTokens.get(i-1).getTxCount());
-        }
+        tokenSteps.getListTokensWithSizeInvalid(page, size, sort)
+                .verifyResponseGetListToken(200);
+        token = tokenSteps.saveResponseListToken();
+        dataTokens = token.getData();
+        tokenSteps.verifyNumberPage(token.getCurrentPage(), page)
+                .verifySizeInvalidOfResponse(dataTokens.size());
     }
     @DataProvider(name = "paramInvalidSize")
     public Object[][] DataSwetInvalidSize(){
@@ -101,8 +82,8 @@ public class TokenTests extends BaseTest {
     @Test(description = "verify that get list token with sort invalid", groups = {"token"}, dataProvider = "paramInvalidSort")
     public void getListTokenWithSortInvalid(int page, int size, ArrayList<String>sort){
         TokenSteps tokenSteps = new TokenSteps();
-        tokenSteps.getListTokensWithSortNull(page, size, sort);
-        baseApi.validateResponse(200);
+        tokenSteps.getListTokensWithSortInvalid(page, size, sort)
+                .verifyResponseGetListToken(200);
     }
     @DataProvider(name = "paramInvalidSort")
     public Object[][] DataSwetInvalidSort(){
