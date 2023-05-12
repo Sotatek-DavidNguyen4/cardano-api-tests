@@ -2,6 +2,7 @@ package util;
 
 import groovy.lang.Tuple2;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,6 +50,11 @@ public class CreateParameters {
 
     public CreateParameters withPageSize(Object pageSize) {
         paramsMap.put("size", pageSize);
+        return this;
+    }
+    public CreateParameters withSort(ArrayList<String> sort){
+        paramsMap.put("sort", sort.get(0));
+        paramsMap.put("sort", sort.get(1));
         return this;
     }
 

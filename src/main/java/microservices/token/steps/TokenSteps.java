@@ -1,26 +1,18 @@
 package microservices.token.steps;
 
-import com.fasterxml.jackson.databind.ser.Serializers;
 import constants.Endpoints;
 import core.BaseApi;
 import io.qameta.allure.Step;
 import microservices.token.models.Token;
 import org.testng.Assert;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Map;
 
 public class TokenSteps extends BaseApi {
     private BaseApi baseApi = new BaseApi();
     private Token token = new Token();
-    @Step
-    public TokenSteps getListTokens(int page, int size, ArrayList<String> sort){
-        Map<String, Object> paramsToken = new HashMap<>();
-        paramsToken.put("page", page);
-        paramsToken.put("size", size);
-        paramsToken.put("sort", sort.get(0));
-        paramsToken.put("sort", sort.get(1));
+    @Step("get list token")
+    public TokenSteps getListTokens(Map<String, Object> paramsToken){
         sendGet(Endpoints.TokenApi.GET_LIST_TOKEN, paramsToken);
         return this;
     }
@@ -53,12 +45,7 @@ public class TokenSteps extends BaseApi {
         return this;
     }
     @Step("get list token with page invalid")
-    public TokenSteps getListTokensWithPageInvalid(String page, int size, ArrayList<String> sort){
-        Map<String, Object> paramsToken = new HashMap<>();
-        paramsToken.put("page", page);
-        paramsToken.put("size", size);
-        paramsToken.put("sort", sort.get(0));
-        paramsToken.put("sort", sort.get(1));
+    public TokenSteps getListTokensWithPageInvalid(Map<String, Object> paramsToken){
         sendGet(Endpoints.TokenApi.GET_LIST_TOKEN, paramsToken);
         return this;
     }
@@ -68,12 +55,7 @@ public class TokenSteps extends BaseApi {
         return this;
     }
     @Step("get list token with size invalid")
-    public TokenSteps getListTokensWithSizeInvalid(int page, String size, ArrayList<String> sort){
-        Map<String, Object> paramsToken = new HashMap<>();
-        paramsToken.put("page", page);
-        paramsToken.put("size", size);
-        paramsToken.put("sort", sort.get(0));
-        paramsToken.put("sort", sort.get(1));
+    public TokenSteps getListTokensWithSizeInvalid(Map<String, Object> paramsToken){
         sendGet(Endpoints.TokenApi.GET_LIST_TOKEN, paramsToken);
         return this;
     }
@@ -83,11 +65,7 @@ public class TokenSteps extends BaseApi {
         return this;
     }
     @Step("get list token with sort invalid")
-    public TokenSteps getListTokensWithSortInvalid(int page, int size, ArrayList<String> sort){
-        Map<String, Object> paramsToken = new HashMap<>();
-        paramsToken.put("page", page);
-        paramsToken.put("size", size);
-        paramsToken.put("sort", sort);
+    public TokenSteps getListTokensWithSortInvalid(Map<String, Object> paramsToken){
         sendGet(Endpoints.TokenApi.GET_LIST_TOKEN, paramsToken);
         return this;
     }
