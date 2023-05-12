@@ -29,7 +29,6 @@ public class TokenTests extends BaseTest {
         }else{
             Assert.assertEquals(token.getCurrentPage(), 0);
         }
-//        Assert.assertEquals(dataToken.size(), size);
     }
     @DataProvider(name="paramSuccess")
     public Object[][] dataSetSuccess(){

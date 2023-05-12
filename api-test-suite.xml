@@ -32,6 +32,7 @@
         </method-selectors>
         <classes>
             <class name="tests.DelegationControllerTests"/>
+            <class name="tests.TokenTests"/>
         </classes>
     </test>
 </suite>
