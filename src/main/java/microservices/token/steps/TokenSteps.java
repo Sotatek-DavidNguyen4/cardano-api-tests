@@ -67,7 +67,7 @@ public class TokenSteps extends BaseApi {
         Assert.assertEquals(pageNumberActual, 0);
         return this;
     }
-    @Step()
+    @Step("get list token with size invalid")
     public TokenSteps getListTokensWithSizeInvalid(int page, String size, ArrayList<String> sort){
         Map<String, Object> paramsToken = new HashMap<>();
         paramsToken.put("page", page);
@@ -82,7 +82,7 @@ public class TokenSteps extends BaseApi {
         Assert.assertEquals(sizeActual, 20);
         return this;
     }
-    @Step()
+    @Step("get list token with sort invalid")
     public TokenSteps getListTokensWithSortInvalid(int page, int size, ArrayList<String> sort){
         Map<String, Object> paramsToken = new HashMap<>();
         paramsToken.put("page", page);
@@ -91,7 +91,7 @@ public class TokenSteps extends BaseApi {
         sendGet(Endpoints.TokenApi.GET_LIST_TOKEN, paramsToken);
         return this;
     }
-    @Step()
+    @Step("get a token")
     public TokenSteps getAToken(String tokenId){
         sendGet(Endpoints.TokenApi.GET_A_TOKEN, "tokenId", tokenId);
         return this;
