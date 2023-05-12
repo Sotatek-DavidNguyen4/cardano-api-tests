@@ -111,9 +111,9 @@ public class TokenTests extends BaseTest {
         ArrayList<String> sortTxCountAsc = new ArrayList<>();
         sortTxCountAsc.add("txCount,ASC");
         ArrayList<String> sortSupplyAsc = new ArrayList<>();
-        sortSupplyAsc.add("txCount,ASC");
+        sortSupplyAsc.add("supply,ASC");
         ArrayList<String> sortSupplyDesc = new ArrayList<>();
-        sortSupplyDesc.add("txCount,DESC");
+        sortSupplyDesc.add("supply,DESC");
         return new Object[][]{
                 {10,2, sortTxCountDesc},
                 {10,2, sortTxCountAsc},
