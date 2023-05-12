@@ -22,7 +22,11 @@ public class TokenTests extends BaseTest {
         ArrayList<DataToken> dataToken = token.getData();
         baseApi.validateResponse(200);
         for(int i =1; i <dataToken.size(); i++){
-            Assert.assertTrue(dataToken.get(i).getTxCount() >= dataToken.get(i-1).getTxCount());
+            if(sort.get(0).contains("ASC")){
+                Assert.assertTrue(dataToken.get(i).getTxCount() >= dataToken.get(i-1).getTxCount());
+            }else{
+                Assert.assertTrue(dataToken.get(i).getTxCount() <= dataToken.get(i-1).getTxCount());
+            }
         }
         if(page > 0){
             Assert.assertEquals(token.getCurrentPage(), page);
@@ -35,15 +39,18 @@ public class TokenTests extends BaseTest {
         ArrayList<String> sortAsc = new ArrayList<>();
         sortAsc.add("supply,ASC");
         sortAsc.add("txCount,ASC");
+        ArrayList<String> sortDesc = new ArrayList<>();
+        sortDesc.add("supply,DESC");
+        sortDesc.add("txCount,DESC");
         return new Object[][]{
                 {10,2,sortAsc},
-                {10,2, sortAsc},
+                {10,2, sortDesc},
                 {-10,2, sortAsc},
                 {10,-10, sortAsc}
         };
     }
 
-    @Test(description = "verify that get list token fail with page invalid", groups = {"token"}, dataProvider = "paramInvalidPage")
+    @Test(description = "verify that get list token with page invalid", groups = {"token"}, dataProvider = "paramInvalidPage")
     public void getListTokenWithPageInvalid(String page, int size, ArrayList<String>sort){
         TokenSteps tokenSteps = new TokenSteps();
         tokenSteps.getListTokensWithPageInvalid(page, size, sort);
@@ -67,7 +74,7 @@ public class TokenTests extends BaseTest {
                 {"@#$%%", 5, sortDesc},
         };
     }
-    @Test(description = "verify that get list token fail with size invalid", groups = {"token"}, dataProvider = "paramInvalidSize")
+    @Test(description = "verify that get list token with size invalid", groups = {"token"}, dataProvider = "paramInvalidSize")
     public void getListTokenWithSizeInvalid(int page, String size, ArrayList<String>sort){
         TokenSteps tokenSteps = new TokenSteps();
         tokenSteps.getListTokensWithSizeInvalid(page, size, sort);
@@ -89,6 +96,29 @@ public class TokenTests extends BaseTest {
                 {5,"  ", sortAsc},
                 {5, "y", sortAsc},
                 {5, "@#$", sortAsc},
+        };
+    }
+    @Test(description = "verify that get list token with sort invalid", groups = {"token"}, dataProvider = "paramInvalidSort")
+    public void getListTokenWithSortInvalid(int page, int size, ArrayList<String>sort){
+        TokenSteps tokenSteps = new TokenSteps();
+        tokenSteps.getListTokensWithSortNull(page, size, sort);
+        baseApi.validateResponse(200);
+    }
+    @DataProvider(name = "paramInvalidSort")
+    public Object[][] DataSwetInvalidSort(){
+        ArrayList<String> sortTxCountDesc = new ArrayList<>();
+        sortTxCountDesc.add("txCount,DESC");
+        ArrayList<String> sortTxCountAsc = new ArrayList<>();
+        sortTxCountAsc.add("txCount,ASC");
+        ArrayList<String> sortSupplyAsc = new ArrayList<>();
+        sortSupplyAsc.add("txCount,ASC");
+        ArrayList<String> sortSupplyDesc = new ArrayList<>();
+        sortSupplyDesc.add("txCount,DESC");
+        return new Object[][]{
+                {10,2, sortTxCountDesc},
+                {10,2, sortTxCountAsc},
+                {10,2, sortSupplyAsc},
+                {10,2, sortSupplyDesc}
         };
     }
 }
