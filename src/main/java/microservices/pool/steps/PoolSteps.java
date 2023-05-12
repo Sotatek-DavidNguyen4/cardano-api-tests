@@ -13,19 +13,19 @@ import java.util.stream.Collectors;
 
 
 public class PoolSteps extends BaseApi {
-    @Step
+    @Step("Get registration pool list")
     public PoolSteps when_getRegistrationPoolList(Map<String, Object> params){
         sendGet(Endpoints.PoolControllerApi.REGISTRATION_POOLS, params);
         return this;
     }
 
-    @Step
+    @Step("Get de-registration pool list")
     public PoolSteps when_getDeRegistrationPoolList(Map<String, Object> params){
         sendGet(Endpoints.PoolControllerApi.DEREGISTRATION_POOLS, params);
         return this;
     }
 
-    @Step
+    @Step("Verify registration pool list response")
     public PoolSteps verify_registrationPoolList(PoolResponse poolResponse, Map<String, Object> params){
         assertThat(poolResponse.getTotalItems())
                 .as("Value of field 'totalItems' is wrong")
