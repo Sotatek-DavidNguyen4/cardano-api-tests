@@ -33,6 +33,7 @@
         <classes>
             <class name="tests.DelegationControllerTests"/>
             <class name="tests.PoolTests"/>
+            <class name="tests.TokenTests"/>
         </classes>
     </test>
 </suite>
