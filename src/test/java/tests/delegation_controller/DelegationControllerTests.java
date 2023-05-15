@@ -3,6 +3,7 @@ package tests.delegation_controller;
 import base.BaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import microservices.delegation.models.PoolDetailDelegatorModel;
 import microservices.delegation.models.PoolDetailHeaderModel;
 import microservices.delegation.steps.DelegationControllerSteps;
 import org.testng.annotations.DataProvider;
@@ -84,7 +85,7 @@ public class DelegationControllerTests extends BaseTest {
 
     }
     @DataProvider(name ="paramInvalidPoolView")
-    public Object[][] dataSetInvalidPage(){
+    public Object[][] dataSetInvalidPoolView(){
         return new Object[][]{
                 {"pool1547tew8vmuj0g6vj3k5jfddudextcw6hsk2hwgg6pkhk7lwph"},
                 {null},
@@ -92,6 +93,54 @@ public class DelegationControllerTests extends BaseTest {
                 {"&^^^^*"},
                 {123},
                 {"text"}
+        };
+    }
+    @Test(description = "verify that get data for pool detail delegators unsuccessfully with invalid page", groups={"delegation", "delegation-detail-delegators"}, dataProvider = "paramInvalidPage")
+    public void getPoolDetailDelegatorUnsuccessfullyWithInvalidPage(Object page){
+        Map<String, Object> param = new CreateParameters().withPoolView(poolView).withPage(page).withPageSize(1).getParamsMap();
+
+        //successfully
+        PoolDetailDelegatorModel poolDetailDelegatorModel = (PoolDetailDelegatorModel) delegationControllerSteps
+                .getDataForPoolDetailDelegator(param)
+                .validateStatusCode(200)
+                .saveResponseObject(PoolDetailDelegatorModel.class);
+        //verify data null
+        delegationControllerSteps
+                .verifyDataNull(poolDetailDelegatorModel);
+    }
+    @DataProvider(name ="paramInvalidPage")
+    public Object[][] dataSetInvalidPage(){
+        return new Object[][]{
+                {" "},
+                {null},
+                {"text"},
+                {-1},
+                {0.999},
+                {"%*^^^"}
+        };
+    }
+    @Test(description = "verify that get data for pool detail delegators unsuccessfully with invalid size", groups={"delegation", "delegation-detail-delegators"}, dataProvider = "paramInvalidSize")
+    public void getPoolDetailDelegatorUnsuccessfullyWithInvalidSize(Object size){
+        Map<String, Object> param = new CreateParameters().withPoolView(poolView).withPage(2).withPageSize(size).getParamsMap();
+
+        //successfully
+        PoolDetailDelegatorModel poolDetailDelegatorModel = (PoolDetailDelegatorModel) delegationControllerSteps
+                .getDataForPoolDetailDelegator(param)
+                .validateStatusCode(200)
+                .saveResponseObject(PoolDetailDelegatorModel.class);
+        //verify data null
+        delegationControllerSteps
+                .verifyDataNull(poolDetailDelegatorModel);
+    }
+    @DataProvider(name ="paramInvalidSize")
+    public Object[][] dataSetInvalidSize(){
+        return new Object[][]{
+                {" "},
+                {2.999},
+                {-11},
+                {"tesst"},
+                {"TESST"},
+                {"12abvvvff"}
         };
     }
 }
