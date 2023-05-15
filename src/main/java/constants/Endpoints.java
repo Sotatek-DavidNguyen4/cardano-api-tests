@@ -4,6 +4,8 @@ public class Endpoints {
     public static class DelegationApi {
 
         public static final String POOL_DETAIL_URI = "delegations/pool-detail-header/{poolView}";
+        public static final String POOL_DETAIL_DELEGATORS_URI = "delegations/pool-detail-delegators";
+
     }
 
     public static class PoolControllerApi {
