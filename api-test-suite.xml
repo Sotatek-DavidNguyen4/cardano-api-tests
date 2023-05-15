@@ -31,7 +31,7 @@
             </method-selector>
         </method-selectors>
         <classes>
-            <class name="tests.DelegationControllerTests"/>
+            <class name="tests.delegation_controller.DelegationControllerTests"/>
             <class name="tests.PoolTests"/>
             <class name="tests.TokenTests"/>
         </classes>
