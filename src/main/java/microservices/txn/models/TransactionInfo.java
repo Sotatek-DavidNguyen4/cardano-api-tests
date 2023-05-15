@@ -15,6 +15,6 @@ public class TransactionInfo {
     public int epochNo;
     public String status;
     public int confirmation;
-    public int fee;
-    public int totalOutput;
+    public long fee;
+    public long totalOutput;
 }

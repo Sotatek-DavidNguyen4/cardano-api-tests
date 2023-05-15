@@ -10,7 +10,9 @@ public class Endpoints {
         public static final String REGISTRATION_POOLS = "pools/registration";
         public static final String DEREGISTRATION_POOLS = "pools/de-registration";
     }
-    public static final String HASH_ID = "hash";
-    public static final String TRANSACTION_HASH = "txn/{" + HASH_ID + "}";
+    public static class TransactionApi {
+        public static final String HASH_ID = "hash";
+        public static final String TRANSACTION_HASH = "txs/{" + HASH_ID + "}";
+    }
 
 }
