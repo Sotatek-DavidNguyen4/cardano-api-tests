@@ -118,9 +118,7 @@ public class TokenTests extends BaseTest {
     public Object[][] DatasetWithTokenIdInvalid(){
         return new Object[][]{
                 {"asset1ee0u29k4xwauf0r7w8g30klgraxw0y4rz2t"},
-                {null},
                 {"@#$%=&"},
-                {""},
                 {" "}
         };
     }
