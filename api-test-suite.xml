@@ -32,6 +32,8 @@
         </method-selectors>
         <classes>
             <class name="tests.delegation_controller.DelegationControllerTests"/>
+            <class name="tests.delegation_controller.DelegationHeaderTests"/>
+            <class name="tests.delegation_controller.PoolDetailAnalyticTests"/>
             <class name="tests.PoolTests"/>
             <class name="tests.TokenTests"/>
             <class name="tests.TransactionTests"></class>
