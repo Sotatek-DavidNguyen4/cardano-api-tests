@@ -17,7 +17,6 @@ public class TokenTests extends BaseTest {
     private TokenSteps tokenSteps = new TokenSteps();
     private Token token = new Token();
     private ArrayList<DataToken> dataTokens;
-    private BaseSteps baseSteps = new BaseSteps();
     @Test(description = "verify that get list token successfull", groups={"token"}, dataProvider = "paramSuccess")
     public void getListTokenSuccess(int page, int size, String sort){
         Map<String, Object> param = new CreateParameters()
