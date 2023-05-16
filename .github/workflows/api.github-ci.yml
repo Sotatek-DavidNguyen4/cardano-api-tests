@@ -10,7 +10,7 @@ name: api.github-ci
 
 on:
  schedule:
- - cron: "0 0 * * *"
+ - cron: "00 18 * * *"
  workflow_dispatch:
     inputs:
       api-group:
