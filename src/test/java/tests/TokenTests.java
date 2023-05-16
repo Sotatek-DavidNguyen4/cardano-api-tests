@@ -124,7 +124,7 @@ public class TokenTests extends BaseTest {
     @Test(description = "get token txs | success", groups = {"token"})
     public void getTokenTxs(){
         tokenSteps.getTokenTxs("asset1d9v7aptfvpx7we2la8f25kwprkj2ma5rp6uwzv")
-                .verifyResponseGetListToken(200);
+                .validateStatusCode(200);
     }
     @Test(description = "get token txs | invalid page", groups = {"token"}, dataProvider = "paramTokenTxsPageInvalid")
     public void getTokenTxsInvalidPage(String page, int size){
@@ -133,7 +133,7 @@ public class TokenTests extends BaseTest {
                 .withPageSize(size)
                 .getParamsMap();
         tokenSteps.getTokenTxsParamInvalid("asset1d9v7aptfvpx7we2la8f25kwprkj2ma5rp6uwzv", param)
-                .verifyResponseGetListToken(200);
+                .validateResponse(200);
     }
     @DataProvider(name = "paramTokenTxsPageInvalid")
     public Object[][] DatasetTokenTxsPageInvalid(){
@@ -152,7 +152,7 @@ public class TokenTests extends BaseTest {
                 .withPageSize(size)
                 .getParamsMap();
         tokenSteps.getTokenTxsParamInvalid("asset1d9v7aptfvpx7we2la8f25kwprkj2ma5rp6uwzv", param)
-                .verifyResponseGetListToken(200);
+                .validateResponse(200);
     }
     @DataProvider(name = "paramTokenTxsSizeInvalid")
     public Object[][] DatasetTokenTxsSizeInvalid(){
