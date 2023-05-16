@@ -4,13 +4,13 @@ import constants.Endpoints;
 import core.BaseApi;
 import io.qameta.allure.Step;
 import microservices.common.models.ErrorResponse;
+import microservices.common.steps.BaseSteps;
 import microservices.token.models.Token;
 import org.testng.Assert;
 
 import java.util.Map;
 
-public class TokenSteps extends BaseApi {
-    private BaseApi baseApi = new BaseApi();
+public class TokenSteps extends BaseSteps {
     private Token token = new Token();
     @Step("get list token")
     public TokenSteps getListTokens(Map<String, Object> paramsToken){
@@ -38,11 +38,6 @@ public class TokenSteps extends BaseApi {
         }else {
             Assert.assertEquals(sizeActual, sizeExpect);
         }
-        return this;
-    }
-    @Step("verify status response of get list token")
-    public TokenSteps verifyResponseGetListToken(int statusCode){
-        baseApi.validateResponse(statusCode);
         return this;
     }
     @Step("get list token with page invalid")
@@ -73,13 +68,6 @@ public class TokenSteps extends BaseApi {
     @Step("get a token")
     public TokenSteps getAToken(String tokenId){
         sendGet(Endpoints.TokenApi.GET_A_TOKEN, "tokenId", tokenId);
-        return this;
-    }
-    @Step("verify error message")
-    public TokenSteps verifyErrorMessage(String code, String message){
-        ErrorResponse errorResponse = (ErrorResponse) saveResponseObject(ErrorResponse.class);
-        Assert.assertEquals(errorResponse.getErrorCode(), code);
-        Assert.assertEquals(errorResponse.getErrorMessage(), message);
         return this;
     }
 }

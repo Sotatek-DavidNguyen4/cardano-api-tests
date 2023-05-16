@@ -26,7 +26,7 @@ public class TokenTests extends BaseTest {
                 .withSort(sort)
                 .getParamsMap();
         tokenSteps.getListTokens(param)
-                .verifyResponseGetListToken(HttpURLConnection.HTTP_OK);
+                .validateResponse(HttpURLConnection.HTTP_OK);
         token = tokenSteps.saveResponseListToken();
         dataTokens = token.getData();
         tokenSteps.verifyNumberPage(token.getCurrentPage(), page)
@@ -50,7 +50,7 @@ public class TokenTests extends BaseTest {
                 .withSort(sort)
                 .getParamsMap();
         tokenSteps.getListTokensWithPageInvalid(param)
-                .verifyResponseGetListToken(HttpURLConnection.HTTP_OK);
+                .validateResponse(HttpURLConnection.HTTP_OK);
         token = tokenSteps.saveResponseListToken();
         dataTokens = token.getData();
         tokenSteps.verifyNumberPageInvalid(token.getCurrentPage())
@@ -72,7 +72,7 @@ public class TokenTests extends BaseTest {
                 .withSort(sort)
                 .getParamsMap();
         tokenSteps.getListTokensWithSizeInvalid(param)
-                .verifyResponseGetListToken(HttpURLConnection.HTTP_OK);
+                .validateStatusCode(HttpURLConnection.HTTP_OK);
         token = tokenSteps.saveResponseListToken();
         dataTokens = token.getData();
         tokenSteps.verifyNumberPage(token.getCurrentPage(), page)
@@ -94,7 +94,7 @@ public class TokenTests extends BaseTest {
                 .withSort(sort)
                 .getParamsMap();
         tokenSteps.getListTokensWithSortInvalid(param)
-                .verifyResponseGetListToken(HttpURLConnection.HTTP_OK);
+                .validateStatusCode(HttpURLConnection.HTTP_OK);
     }
     @DataProvider(name = "paramInvalidSort")
     public Object[][] DataSwetInvalidSort(){
@@ -108,12 +108,11 @@ public class TokenTests extends BaseTest {
     @Test(description = "verify that get a token with tokenId valid | success", groups = {"token"})
     public void getATokenSuccess(){
         tokenSteps.getAToken("asset1ee0u29k4xwauf0r7w8g30klgraxw0y4rz2t7xs")
-                .verifyResponseGetListToken(HttpURLConnection.HTTP_OK);
+                .validateStatusCode(HttpURLConnection.HTTP_OK);
     }
     @Test(description = "verify that get a token with tokenId invalid | fail", groups = {"token"}, dataProvider = "tokenIdInvalid")
     public void getATokenFail(String tokenId){
-        tokenSteps.getAToken(tokenId);
-        baseSteps
+        tokenSteps.getAToken(tokenId)
                 .then_verifyErrorResponse(HttpURLConnection.HTTP_BAD_REQUEST,"Token not found", "BC_404-TOKEN_NOT_FOUND");
     }
     @DataProvider(name = "tokenIdInvalid")
