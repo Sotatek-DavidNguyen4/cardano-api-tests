@@ -1,1 +1,0 @@
-[{"uid":"4867323d938872ff","name":"API: Get registration pool list","time":{"start":1683779306353,"stop":1683779314376,"duration":8023},"status":"passed","severity":"normal"},{"uid":"b59e14facaf0e617","name":"API: Get de-registration pool list","time":{"start":1683779295821,"stop":1683779306341,"duration":10520},"status":"passed","severity":"normal"}]
