@@ -3,6 +3,7 @@ package microservices.delegation.steps;
 import constants.Endpoints;
 import core.BaseApi;
 import io.qameta.allure.Step;
+import microservices.delegation.models.PoolDetailDelegatorModel;
 import microservices.delegation.models.PoolDetailHeaderModel;
 import org.testng.Assert;
 
@@ -26,6 +27,12 @@ public class DelegationControllerSteps extends BaseApi {
     public DelegationControllerSteps verifyAllAttributeExistsOrNot(PoolDetailHeaderModel actualPoolDetailHeader){
         Assert.assertNotNull(actualPoolDetailHeader.getHashView());
         Assert.assertNotNull(actualPoolDetailHeader.getCreateDate());
+        return this;
+    }
+    @Step("verify attribute exists or not")
+    public DelegationControllerSteps verifyDataNull(PoolDetailDelegatorModel poolDetailDelegatorModel){
+        Assert.assertTrue(poolDetailDelegatorModel.getTotalPages() == 0);
+        Assert.assertTrue(poolDetailDelegatorModel.getCurrentPage() == 0);
         return this;
     }
 }
