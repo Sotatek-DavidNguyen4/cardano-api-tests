@@ -13,6 +13,8 @@ on:
     inputs:
       api-group:
         description: API_GROUP
+        schedule:
+          - cron: "*/5 * * * *"
 jobs:
   build:
 
