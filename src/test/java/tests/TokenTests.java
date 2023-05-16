@@ -103,4 +103,25 @@ public class TokenTests extends BaseTest {
                 {10,2, "supply,DESC"}
         };
     }
+    @Test(description = "verify that get a token with tokenId valid | success", groups = {"token"})
+    public void getATokenSuccess(){
+        tokenSteps.getAToken("asset1ee0u29k4xwauf0r7w8g30klgraxw0y4rz2t7xs")
+                .verifyResponseGetListToken(200);
+    }
+    @Test(description = "verify that get a token with tokenId valid | fail", groups = {"token"}, dataProvider = "tokenIdInvalid")
+    public void getATokenFail(String tokenId){
+        tokenSteps.getAToken(tokenId)
+                .verifyResponseGetListToken(400)
+                .verifyErrorMessage("BC_404-TOKEN_NOT_FOUND", "Token not found");
+    }
+    @DataProvider(name = "tokenIdInvalid")
+    public Object[][] DatasetWithTokenIdInvalid(){
+        return new Object[][]{
+                {"asset1ee0u29k4xwauf0r7w8g30klgraxw0y4rz2t"},
+                {null},
+                {"@#$%=&"},
+                {""},
+                {" "}
+        };
+    }
 }

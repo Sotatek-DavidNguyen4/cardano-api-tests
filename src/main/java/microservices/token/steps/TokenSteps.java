@@ -3,6 +3,7 @@ package microservices.token.steps;
 import constants.Endpoints;
 import core.BaseApi;
 import io.qameta.allure.Step;
+import microservices.common.model.ErrorMessage;
 import microservices.token.models.Token;
 import org.testng.Assert;
 
@@ -72,6 +73,13 @@ public class TokenSteps extends BaseApi {
     @Step("get a token")
     public TokenSteps getAToken(String tokenId){
         sendGet(Endpoints.TokenApi.GET_A_TOKEN, "tokenId", tokenId);
+        return this;
+    }
+    @Step("verify error message")
+    public TokenSteps verifyErrorMessage(String code, String message){
+        ErrorMessage errorMessage = (ErrorMessage) saveResponseObject(ErrorMessage.class);
+        Assert.assertEquals(errorMessage.getErrorCode(), code);
+        Assert.assertEquals(errorMessage.getErrorMessage(), message);
         return this;
     }
 }
