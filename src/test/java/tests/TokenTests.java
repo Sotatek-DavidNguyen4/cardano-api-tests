@@ -126,7 +126,7 @@ public class TokenTests extends BaseTest {
         tokenSteps.getTokenTxs("asset1d9v7aptfvpx7we2la8f25kwprkj2ma5rp6uwzv")
                 .validateStatusCode(200);
     }
-    @Test(description = "get token txs | invalid page", groups = {"token"}, dataProvider = "paramTokenTxsPageInvalid")
+    @Test(description = "get token txs invalid page", groups = {"token"}, dataProvider = "paramTokenTxsPageInvalid")
     public void getTokenTxsInvalidPage(String page, int size){
         Map<String, Object> param = new CreateParameters()
                 .withPage(page)
@@ -145,7 +145,7 @@ public class TokenTests extends BaseTest {
                 {"@#$", 5}
         };
     }
-    @Test(description = "get token txs | invalid size", groups = {"token"}, dataProvider = "paramTokenTxsSizeInvalid")
+    @Test(description = "get token txs invalid size", groups = {"token"}, dataProvider = "paramTokenTxsSizeInvalid")
     public void getTokenTxsSizeInvalid(int page, String size){
         Map<String, Object> param = new CreateParameters()
                 .withPage(page)
