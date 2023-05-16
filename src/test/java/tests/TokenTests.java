@@ -24,7 +24,7 @@ public class TokenTests extends BaseTest {
                 .withSort(sort)
                 .getParamsMap();
         tokenSteps.getListTokens(param)
-                .verifyResponseGetListToken(HttpURLConnection.HTTP_OK);
+                    .verifyResponseGetListToken(HttpURLConnection.HTTP_OK);
         token = tokenSteps.saveResponseListToken();
         dataTokens = token.getData();
         tokenSteps.verifyNumberPage(token.getCurrentPage(), page)

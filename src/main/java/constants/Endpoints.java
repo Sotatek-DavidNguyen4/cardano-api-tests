@@ -14,4 +14,8 @@ public class Endpoints {
         public static final String GET_LIST_TOKEN = "/tokens";
         public static final String GET_A_TOKEN = "/tokens/{tokenId}";
     }
+
+    public static class ContractApi {
+        public static final String GET_LIST_CONTRACT ="/contracts";
+    }
 }
