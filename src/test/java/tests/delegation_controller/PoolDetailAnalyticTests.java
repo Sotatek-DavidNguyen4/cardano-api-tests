@@ -34,9 +34,8 @@ public class PoolDetailAnalyticTests extends BaseTest {
 
         ErrorResponse errorResponse = (ErrorResponse) delegationPoolDetailAnalyticSteps
                 .getDataForPoolDetailAnalytics(param)
-                .validateStatusCode(HttpURLConnection.HTTP_BAD_REQUEST)
                 .saveResponseObject(ErrorResponse.class);
-        baseSteps.then_verifyErrorResponse(HttpURLConnection.HTTP_BAD_REQUEST, errorResponse.getErrorMessage(), errorResponse.getErrorCode());
+        delegationPoolDetailAnalyticSteps.then_verifyErrorResponse(HttpURLConnection.HTTP_BAD_REQUEST, errorResponse.getErrorMessage(), errorResponse.getErrorCode());
     }
     @DataProvider(name ="paramInvalidPoolView")
     public Object[][] dataSetInvalidSize(){
