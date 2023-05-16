@@ -8,6 +8,7 @@ import microservices.common.steps.BaseSteps;
 import microservices.delegation.steps.DelegationPoolDetailAnalyticSteps;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import sun.net.www.protocol.http.HttpURLConnection;
 import util.CreateParameters;
 
 import java.util.Map;
@@ -25,7 +26,7 @@ public class PoolDetailAnalyticTests extends BaseTest {
         //successfully
         delegationPoolDetailAnalyticSteps
                 .getDataForPoolDetailAnalytics(param)
-                .validateStatusCode(200);
+                .validateStatusCode(HttpURLConnection.HTTP_OK);
     }
     @Test(description = "verify that get data uSsuccessfully from params 'poolViews' ", groups={"delegation", "delegation-detail-analytics"}, dataProvider = "paramInvalidPoolView")
     public void verifyGetDataFromPoolDetailAnalyticsUnsuccessfully(Object poolView){
@@ -33,9 +34,9 @@ public class PoolDetailAnalyticTests extends BaseTest {
 
         ErrorResponse errorResponse = (ErrorResponse) delegationPoolDetailAnalyticSteps
                 .getDataForPoolDetailAnalytics(param)
-                .validateStatusCode(400)
+                .validateStatusCode(HttpURLConnection.HTTP_BAD_REQUEST)
                 .saveResponseObject(ErrorResponse.class);
-        baseSteps.then_verifyErrorResponse(400, errorResponse.getErrorMessage(), errorResponse.getErrorCode());
+        baseSteps.then_verifyErrorResponse(HttpURLConnection.HTTP_BAD_REQUEST, errorResponse.getErrorMessage(), errorResponse.getErrorCode());
     }
     @DataProvider(name ="paramInvalidPoolView")
     public Object[][] dataSetInvalidSize(){
