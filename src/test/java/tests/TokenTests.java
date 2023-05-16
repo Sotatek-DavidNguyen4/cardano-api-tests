@@ -108,18 +108,42 @@ public class TokenTests extends BaseTest {
         tokenSteps.getTokenTxs("asset1d9v7aptfvpx7we2la8f25kwprkj2ma5rp6uwzv")
                 .verifyResponseGetListToken(200);
     }
-    @Test(description = "get token txs | invalid page", groups = {"token"})
+    @Test(description = "get token txs | invalid page", groups = {"token"}, dataProvider = "paramTokenTxsPageInvalid")
     public void getTokenTxsInvalidPage(String page, int size){
         Map<String, Object> param = new CreateParameters()
                 .withPage(page)
                 .withPageSize(size)
                 .getParamsMap();
-        tokenSteps.getTokenTxsWithPageInvalid("asset1d9v7aptfvpx7we2la8f25kwprkj2ma5rp6uwzv", param)
+        tokenSteps.getTokenTxsParamInvalid("asset1d9v7aptfvpx7we2la8f25kwprkj2ma5rp6uwzv", param)
                 .verifyResponseGetListToken(200);
     }
+    @DataProvider(name = "paramTokenTxsPageInvalid")
     public Object[][] DatasetTokenTxsPageInvalid(){
         return new Object[][]{
-                {}
+                {" ", 5},
+                {"", 5},
+                {null, 5},
+                {"abc", 5},
+                {"@#$", 5}
+        };
+    }
+    @Test(description = "get token txs | invalid size", groups = {"token"}, dataProvider = "paramTokenTxsSizeInvalid")
+    public void getTokenTxsSizeInvalid(int page, String size){
+        Map<String, Object> param = new CreateParameters()
+                .withPage(page)
+                .withPageSize(size)
+                .getParamsMap();
+        tokenSteps.getTokenTxsParamInvalid("asset1d9v7aptfvpx7we2la8f25kwprkj2ma5rp6uwzv", param)
+                .verifyResponseGetListToken(200);
+    }
+    @DataProvider(name = "paramTokenTxsSizeInvalid")
+    public Object[][] DatasetTokenTxsSizeInvalid(){
+        return new Object[][]{
+                {0, null},
+                {0, ""},
+                {0, " "},
+                {0, "abc"},
+                {0, "@#$"},
         };
     }
 }

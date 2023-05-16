@@ -80,7 +80,7 @@ public class TokenSteps extends BaseApi {
         return this;
     }
     @Step("get token txs with page invalid")
-    public TokenSteps getTokenTxsWithPageInvalid(String tokenId, Map<String, Object> param){
+    public TokenSteps getTokenTxsParamInvalid(String tokenId, Map<String, Object> param){
         sendGet(Endpoints.TokenApi.GET_TXS, param, "tokenId", tokenId);
         return this;
     }
