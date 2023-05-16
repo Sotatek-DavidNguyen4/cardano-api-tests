@@ -17,7 +17,6 @@ import java.util.Map;
 @Feature("api-delegation")
 public class PoolDetailAnalyticTests extends BaseTest {
     DelegationPoolDetailAnalyticSteps delegationPoolDetailAnalyticSteps = new DelegationPoolDetailAnalyticSteps();
-    BaseSteps baseSteps = new BaseSteps();
     Object poolView = "pool1547tew8vmuj0g6vj3k5jfddudextcw6hsk2hwgg6pkhk7lwphe6";
     @Test(description = "verify that get data successfully from params 'poolViews' ", groups={"delegation", "delegation-detail-analytics"})
     public void verifyGetDataFromPoolDetailAnalyticsSuccessfully(){
