@@ -103,4 +103,23 @@ public class TokenTests extends BaseTest {
                 {10,2, "supply,DESC"}
         };
     }
+    @Test(description = "get token txs | success", groups = {"token"})
+    public void getTokenTxs(){
+        tokenSteps.getTokenTxs("asset1d9v7aptfvpx7we2la8f25kwprkj2ma5rp6uwzv")
+                .verifyResponseGetListToken(200);
+    }
+    @Test(description = "get token txs | invalid page", groups = {"token"})
+    public void getTokenTxsInvalidPage(String page, int size){
+        Map<String, Object> param = new CreateParameters()
+                .withPage(page)
+                .withPageSize(size)
+                .getParamsMap();
+        tokenSteps.getTokenTxsWithPageInvalid("asset1d9v7aptfvpx7we2la8f25kwprkj2ma5rp6uwzv", param)
+                .verifyResponseGetListToken(200);
+    }
+    public Object[][] DatasetTokenTxsPageInvalid(){
+        return new Object[][]{
+                {}
+        };
+    }
 }
