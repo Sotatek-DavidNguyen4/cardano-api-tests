@@ -15,6 +15,7 @@ public class Endpoints {
     public static class TokenApi {
         public static final String GET_LIST_TOKEN = "/tokens";
         public static final String GET_A_TOKEN = "/tokens/{tokenId}";
+        public static final String GET_TXS = "/tokens/{tokenId}/txs";
     }
     public static class TransactionApi {
         public static final String HASH_ID = "hash";
