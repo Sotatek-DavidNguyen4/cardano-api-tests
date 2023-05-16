@@ -21,7 +21,6 @@ public class DelegationControllerSteps extends BaseApi {
     @Step("get data for pool detail delegators")
     public DelegationControllerSteps getDataForPoolDetailDelegator(Map<String, Object> param){
         sendGet(Endpoints.DelegationApi.POOL_DETAIL_DELEGATORS_URI, param);
-        System.out.println(getResponse().getBody().prettyPrint());
         return this;
     }
     @Step("verify attribute exists or not")
