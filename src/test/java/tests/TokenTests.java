@@ -121,13 +121,13 @@ public class TokenTests extends BaseTest {
                 {" "}
         };
     }
-    @Test(description = "get token txs | success", groups = {"token"})
+    @Test(description = "get token txs valid param", groups = {"token"})
     public void getTokenTxs(){
         tokenSteps.getTokenTxs("asset1d9v7aptfvpx7we2la8f25kwprkj2ma5rp6uwzv")
                 .validateStatusCode(HttpURLConnection.HTTP_OK);
     }
-    @Test(description = "get token txs invalid page", groups = {"token"}, dataProvider = "paramTokenTxsPageInvalid")
-    public void getTokenTxsInvalidPage(String page, int size){
+    @Test(description = "get token txs invalid param", groups = {"token"}, dataProvider = "paramTokenTxsParamInvalid")
+    public void getTokenTxsInvalidParam(Object page, Object size){
         Map<String, Object> param = new CreateParameters()
                 .withPage(page)
                 .withPageSize(size)
@@ -135,28 +135,16 @@ public class TokenTests extends BaseTest {
         tokenSteps.getTokenTxsParamInvalid("asset1d9v7aptfvpx7we2la8f25kwprkj2ma5rp6uwzv", param)
                 .validateResponse(HttpURLConnection.HTTP_OK);
     }
-    @DataProvider(name = "paramTokenTxsPageInvalid")
-    public Object[][] DatasetTokenTxsPageInvalid(){
+    @DataProvider(name = "paramTokenTxsParamInvalid")
+    public Object[][] DatasetTokenTxsParamInvalid(){
         return new Object[][]{
+                // data for page invalid
                 {" ", 5},
                 {"", 5},
                 {null, 5},
                 {"abc", 5},
-                {"@#$", 5}
-        };
-    }
-    @Test(description = "get token txs invalid size", groups = {"token"}, dataProvider = "paramTokenTxsSizeInvalid")
-    public void getTokenTxsSizeInvalid(int page, String size){
-        Map<String, Object> param = new CreateParameters()
-                .withPage(page)
-                .withPageSize(size)
-                .getParamsMap();
-        tokenSteps.getTokenTxsParamInvalid("asset1d9v7aptfvpx7we2la8f25kwprkj2ma5rp6uwzv", param)
-                .validateResponse(HttpURLConnection.HTTP_OK);
-    }
-    @DataProvider(name = "paramTokenTxsSizeInvalid")
-    public Object[][] DatasetTokenTxsSizeInvalid(){
-        return new Object[][]{
+                {"@#$", 5},
+                //data for size invalid
                 {0, null},
                 {0, ""},
                 {0, " "},
