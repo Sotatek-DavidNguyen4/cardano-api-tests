@@ -21,30 +21,53 @@ public class ContractTests extends BaseTest {
     private ArrayList<DataContract> dataContracts;
 
     @Test(description = "verify that get list contract successfully", groups={"contract"},dataProvider = "paramSuccess")
-    public void getListParamSuccess(int page, int size, String sort){
+    public void getListParamSuccess(Object page, Object size, String sort){
         Map<String, Object> param = new CreateParameters()
                 .withPage(page)
                 .withPageSize(size)
                 .withSort(sort)
                 .getParamsMap();
         contractSteps.getListContracts(param)
-                .verifyResponseGetListContract(HttpURLConnection.HTTP_OK);
+                .validateResponse(HttpURLConnection.HTTP_OK);
 
         contract = contractSteps.saveResponseListContract();
-
-        dataContracts = contract.getDataContracts();
-        System.out.println(contract.getCurrentPage());
-//        contractSteps.verifyNumberPage(contract.getCurrentPage(), 1)
-//                .verifySizeOfResponse(dataContracts.size(), 20);
+        dataContracts = contract.getData();
+        contractSteps.verifyNumberPage(contract.getCurrentPage(), page)
+                     .verifySizeOfResponse(dataContracts.size(), size)
+                     .verifyAddressNotNull(dataContracts)
+                     .verifyTxCountNotNull(dataContracts)
+                     .verifyBalanceNotNull(dataContracts);
     }
     @DataProvider(name="paramSuccess")
     public Object[][] dataSetSuccess(){
         return new Object[][]{
+                {null,null,null},
+                {1,null,null},
+                {null,2,null},
+                {null,null,"id"},
                 {1,1,"id"}
-//                {1,null,null},
-//                {null,2,null},
-//                {null,null,"id"},
-//                {1,1,"id"}
+        };
+    }
+
+    @Test(description = "verify that get list contract Unsuccessfully", groups={"contract"},dataProvider = "paramUnSuccess")
+    public void getListParamUnSuccess(Object page, Object size, String sort){
+        Map<String, Object> param = new CreateParameters()
+                .withPage(page)
+                .withPageSize(size)
+                .withSort(sort)
+                .getParamsMap();
+        contractSteps.getListContracts(param)
+                .validateResponse(HttpURLConnection.HTTP_BAD_REQUEST);
+    }
+    @DataProvider(name="paramUnSuccess")
+    public Object[][] dataSetUnSuccess(){
+        return new Object[][]{
+                {null,null,null},
+                {"abc",null,null},
+                {null,"abc",null},
+                {"asset1c6t4elexwkpuzq08ssylhhmc78ahlz0sgw5a7y","asset1c6t4elexwkpuzq08ssylhhmc78ahlz0sgw5a7y","asset1c6t4elexwkpuzq08ssylhhmc78ahlz0sgw5a7y"},
+                {"","",""},
+                {"asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr","asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr","asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr"}
         };
     }
 }

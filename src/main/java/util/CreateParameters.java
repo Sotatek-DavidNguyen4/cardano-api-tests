@@ -871,4 +871,9 @@ public class CreateParameters {
         paramsMap.put("timezone", timezone);
         return this;
     }
+    public CreateParameters withPoolView(Object poolView) {
+        paramsMap.put("poolView", poolView);
+        return this;
+    }
+
 }

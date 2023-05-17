@@ -5,6 +5,6 @@ import lombok.Data;
 @Data
 public class DataContract {
     private String address;
-    private int txCount;
-    private int balance;
+    private Object txCount;
+    private Object balance;
 }
