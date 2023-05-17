@@ -10,8 +10,8 @@ name: api.github-ci
 
 on:
  schedule:
- - cron: "*/5 * * * *"
-
+ - cron: "*/1 * * * *"
+ workflow_dispatch:
 jobs:
   build:
 
