@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: api.github-ci
+name: api.github-ci.cronjob
 
 on:
  schedule:
