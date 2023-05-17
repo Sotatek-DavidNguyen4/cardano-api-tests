@@ -29,4 +29,9 @@ public class Endpoints {
 
     }
 
+    public static class EpochApi{
+        public static final String GET_CURRENT_EPOCH ="/epochs/current";
+        public static final String GET_LIST_EPOCH_NO ="/epochs/{no}/blocks";
+    }
+
 }
