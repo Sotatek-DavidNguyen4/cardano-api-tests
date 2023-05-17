@@ -6,12 +6,16 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: api.github-ci
+name: api.github-ci.cronjob
 
 on:
  schedule:
- - cron: "*/1 * * * *"
+ - cron: "00 18 * * *"
  workflow_dispatch:
+    inputs:
+      api-group:
+        description: API_GROUP
+
 jobs:
   build:
 
@@ -36,7 +40,7 @@ jobs:
         GITHUB_TOKEN_REF: ${{ secrets.GH_PACKAGE_REPO_PASSWORD }}
         
     - name: Run test
-      run: mvn test
+      run: mvn test "-DcardanoAPI.group=${{github.event.inputs.api-group}}"
 
     - name: Get Allure history
       uses: actions/checkout@v2
