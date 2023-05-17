@@ -152,4 +152,21 @@ public class TokenTests extends BaseTest {
                 {0, "@#$"},
         };
     }
+    @Test(description = "get token mints with param valid", groups = {"token"}, dataProvider = "tokenMintsParamValid")
+    public void getTokenMints(Object page, Object size, String sort){
+        Map<String, Object> param = new CreateParameters()
+                .withPage(page)
+                .withPageSize(size)
+                .withSort(sort)
+                .getParamsMap();
+        tokenSteps.getTokenMintParamValid(param, "asset1998ard8xys6zatqmntlacgcwp6w52fuk52cynm")
+                .validateStatusCode(HttpURLConnection.HTTP_OK);
+    }
+    @DataProvider(name = "tokenMintsParamValid")
+    public Object[][] DatasetTokenMintsParamValid(){
+        return new Object[][]{
+                {1, 5, "id,ASC"},
+                {1, 5, "id,DESC"},
+        };
+    }
 }
