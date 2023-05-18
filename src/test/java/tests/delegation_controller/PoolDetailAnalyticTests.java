@@ -8,9 +8,10 @@ import microservices.common.steps.BaseSteps;
 import microservices.delegation.steps.DelegationPoolDetailAnalyticSteps;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import sun.net.www.protocol.http.HttpURLConnection;
+
 import util.CreateParameters;
 
+import java.net.HttpURLConnection;
 import java.util.Map;
 
 @Epic("cardano")

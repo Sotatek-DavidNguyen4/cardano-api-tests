@@ -4,7 +4,9 @@ import base.BaseTest;
 import microservices.delegation.models.HeaderModel;
 import microservices.delegation.steps.DelegationHeaderSteps;
 import org.testng.annotations.Test;
-import sun.net.www.protocol.http.HttpURLConnection;
+
+import java.net.HttpURLConnection;
+
 
 public class DelegationHeaderTests extends BaseTest {
     DelegationHeaderSteps delegationHeaderSteps = new DelegationHeaderSteps();
