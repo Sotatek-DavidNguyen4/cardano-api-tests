@@ -80,4 +80,9 @@ public class TokenSteps extends BaseSteps {
         sendGet(Endpoints.TokenApi.GET_TXS, param, Endpoints.TokenApi.TOKEN_ID, tokenId);
         return this;
     }
+    @Step("get token mints param valid")
+    public TokenSteps getTokenMintParamValid(Map<String, Object> param, String tokenId){
+        sendGet(Endpoints.TokenApi.GET_MINTS, param, Endpoints.TokenApi.TOKEN_ID, tokenId);
+        return this;
+    }
 }
