@@ -8,7 +8,7 @@ import microservices.delegation.models.PoolDetailHeaderModel;
 import microservices.delegation.steps.DelegationControllerSteps;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import sun.net.www.protocol.http.HttpURLConnection;
+import java.net.HttpURLConnection;
 import util.CreateParameters;
 
 import java.util.Map;
