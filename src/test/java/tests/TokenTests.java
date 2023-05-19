@@ -169,7 +169,7 @@ public class TokenTests extends BaseTest {
                 {1, 5, "id,DESC"},
         };
     }
-    @Test(description = "get token mints invalid param", groups = {"token"}, dataProvider = "paramTokenMintsParamInvalid")
+    @Test(description = "get token mints invalid param", groups = {"token"}, dataProvider = "tokenMintsParamInvalid")
     public void getTokenMintsInvalidParam(Object page, Object size, String sort){
         Map<String, Object> param = new CreateParameters()
                 .withPage(page)
@@ -179,7 +179,7 @@ public class TokenTests extends BaseTest {
         tokenSteps.getTokenTxsParamInvalid("asset1d9v7aptfvpx7we2la8f25kwprkj2ma5rp6uwzv", param)
                 .validateResponse(HttpURLConnection.HTTP_OK);
     }
-    @DataProvider(name = "paramTokenMintsParamInvalid")
+    @DataProvider(name = "tokenMintsParamInvalid")
     public Object[][] DatasetTokenMintsParamInvalid(){
         return new Object[][]{
                 // data for page invalid
