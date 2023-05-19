@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 
-name: api.github-ci
+run-name: Deploy to ${{ inputs.deploy_target }} by @${{ github.actor }}
 
 on:
  schedule:
@@ -68,4 +68,3 @@ jobs:
         PERSONAL_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         PUBLISH_BRANCH: gh-pages
         PUBLISH_DIR: allure-history
-        run-name: Deploy to ${{ inputs.deploy_target }} by @${{ github.actor }}
