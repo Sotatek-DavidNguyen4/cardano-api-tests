@@ -36,6 +36,7 @@
             <class name="tests.delegation_controller.PoolDetailAnalyticTests"/>
             <class name="tests.PoolTests"/>
             <class name="tests.TokenTests"/>
+            <class name="tests.StakeKeyTests"/>
             <class name="tests.TransactionTests"></class>
         </classes>
     </test>

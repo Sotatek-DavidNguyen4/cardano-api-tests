@@ -1,7 +1,6 @@
 package tests;
 
 import base.BaseTest;
-import constants.Endpoints;
 import microservices.stakeKey.steps.StakeKeySteps;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
