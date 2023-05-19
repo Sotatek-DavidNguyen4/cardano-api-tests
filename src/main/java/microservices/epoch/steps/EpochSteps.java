@@ -3,6 +3,7 @@ package microservices.epoch.steps;
 import constants.Endpoints;
 import core.BaseApi;
 import io.qameta.allure.Step;
+import microservices.common.steps.BaseSteps;
 import microservices.epoch.models.epoch.Epoch;
 import microservices.epoch.models.EpochCurrent;
 import microservices.epoch.models.epoch.EpochData;
@@ -15,7 +16,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-public class EpochSteps extends BaseApi {
+public class EpochSteps extends BaseSteps {
     private Epoch epoch = new Epoch();
     private EpochCurrent epochCurrent = new EpochCurrent();
     @Step("Get current epoch")

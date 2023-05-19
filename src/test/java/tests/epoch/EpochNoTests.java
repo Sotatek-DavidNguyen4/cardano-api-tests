@@ -4,6 +4,9 @@ import base.BaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
+import microservices.common.constants.APIErrorCode;
+import microservices.common.constants.APIErrorMessage;
+import microservices.common.models.ErrorResponse;
 import microservices.epoch.models.EpochCurrent;
 import microservices.epoch.models.epoch.Epoch;
 import microservices.epoch.models.epoch.EpochData;
@@ -52,9 +55,9 @@ public class EpochNoTests extends BaseTest {
 
     @Test(description = "Verify get epoch by epoch no Unsuccessfully" ,groups = {"epoch"},dataProvider = "dataGetEpochByNo")
     public void getEpochByNoUnSuccess(Object no){
-        epochData = (EpochData) epochSteps.getEpochByEpochNo(no)
-                .validateResponse(HttpURLConnection.HTTP_BAD_REQUEST)
-                .saveResponseObject(EpochData.class);
+        epochSteps.getEpochByEpochNo(no)
+                  .then_verifyErrorResponse(400, APIErrorMessage.EPOCH_NOT_FOUND, APIErrorCode.EPOCH_NOT_FOUND);
+
     }
     @DataProvider(name = "dataGetEpochByNo")
     public Object[][] dataGetListEpochByEpochNo(){
