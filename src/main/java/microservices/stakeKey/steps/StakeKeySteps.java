@@ -8,7 +8,7 @@ import javax.xml.ws.Endpoint;
 
 public class StakeKeySteps extends BaseSteps {
     @Step("get a stake detail by address")
-    public StakeKeySteps getStakeByAddress(String address){
+    public StakeKeySteps getStakeByAddress(Object address){
         sendGet(Endpoints.StakeKeyApi.GET_STAKE_ADDRESS, "address", address);
         return this;
     }
