@@ -37,6 +37,11 @@
             <class name="tests.PoolTests"/>
             <class name="tests.TokenTests"/>
             <class name="tests.TransactionTests"></class>
+            <class name="tests.ContractTests"></class>
+            <class name="tests.epoch.EpochCurrentTests"></class>
+            <class name="tests.epoch.EpochNoBlockTests"></class>
+            <class name="tests.epoch.EpochNoTests"></class>
+            <class name="tests.epoch.EpochTests"></class>
         </classes>
     </test>
 </suite>
