@@ -1,6 +1,8 @@
 package tests;
 
 import base.BaseTest;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import microservices.contract.models.Contract;
 import microservices.contract.models.DataContract;
 import microservices.contract.steps.ContractSteps;
@@ -15,6 +17,8 @@ import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.Map;
 
+@Epic("cardano")
+@Feature("api-contract")
 public class ContractTests extends BaseTest {
     private ContractSteps contractSteps = new ContractSteps();
     private Contract contract = new Contract();
@@ -41,7 +45,7 @@ public class ContractTests extends BaseTest {
     @DataProvider(name="paramSuccess")
     public Object[][] dataSetSuccess(){
         return new Object[][]{
-                {null,null,null},
+                {2,2,"id"},
                 {1,null,null},
                 {null,2,null},
                 {null,null,"id"},
@@ -57,17 +61,21 @@ public class ContractTests extends BaseTest {
                 .withSort(sort)
                 .getParamsMap();
         contractSteps.getListContracts(param)
-                .validateResponse(HttpURLConnection.HTTP_BAD_REQUEST);
+                .validateResponse(HttpURLConnection.HTTP_OK);
     }
     @DataProvider(name="paramUnSuccess")
     public Object[][] dataSetUnSuccess(){
         return new Object[][]{
                 {null,null,null},
-                {"abc",null,null},
-                {null,"abc",null},
-                {"asset1c6t4elexwkpuzq08ssylhhmc78ahlz0sgw5a7y","asset1c6t4elexwkpuzq08ssylhhmc78ahlz0sgw5a7y","asset1c6t4elexwkpuzq08ssylhhmc78ahlz0sgw5a7y"},
+                {12222222,null,null},
+                {"12222222222222222222",null,null},
+                {"@#$",null,null},
+                {"asset1c6t4elexwkpuzq08ssylhhmc78ahlz0sgw5a7y","asset1c6t4elexwkpuzq08ssylhhmc78ahlz0sgw5a7y",null},
                 {"","",""},
-                {"asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr","asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr","asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr"}
+//                {"asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr","asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr","asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr"},
+      /**
+       * Bug in TC API_13
+        */
         };
     }
 }

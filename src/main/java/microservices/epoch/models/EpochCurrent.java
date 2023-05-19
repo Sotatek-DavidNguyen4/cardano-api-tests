@@ -4,8 +4,8 @@ import lombok.Data;
 
 @Data
 public class EpochCurrent {
-    private Object no;
-    private Object slot;
-    private int totalSlot;
-    private Object account;
+    private Integer no;
+    private Integer slot;
+    private Integer totalSlot;
+    private Integer account;
 }

@@ -1,4 +1,4 @@
-package microservices.epoch.models;
+package microservices.epoch.models.epoch;
 
 import lombok.Data;
 import microservices.token.models.DataToken;
