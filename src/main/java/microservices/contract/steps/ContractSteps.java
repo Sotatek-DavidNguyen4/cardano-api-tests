@@ -19,11 +19,6 @@ public class ContractSteps extends BaseApi {
         sendGet(Endpoints.ContractApi.GET_LIST_CONTRACT, paramsContract);
         return this;
     }
-    @Step("save response get list contract")
-    public Contract saveResponseListContract(){
-        contract = (Contract) saveResponseObject(Contract.class);
-        return contract;
-    }
     @Step("verify number page of response get list contract")
     public ContractSteps verifyNumberPage(int pageNumberActual, Object pageNumberExpect){
         if(pageNumberExpect!=null){
@@ -44,30 +39,15 @@ public class ContractSteps extends BaseApi {
         return this;
     }
 
-    @Step("verify address not null")
-    public ContractSteps verifyAddressNotNull(ArrayList<DataContract> dataContracts){
+    @Step("verify response data not null")
+    public ContractSteps verifyResponseDataNotNull(ArrayList<DataContract> dataContracts){
         for (DataContract data:dataContracts)
              {
                  Assert.assertNotNull(data.getAddress());
-             }
-        return this;
-    }
-
-    @Step("verify txCount not null")
-    public ContractSteps verifyTxCountNotNull(ArrayList<DataContract> dataContracts){
-        for (DataContract data:dataContracts)
-             {
                  Assert.assertNotNull(data.getTxCount());
-             }
-        return this;
-    }
-
-    @Step("verify balance not null")
-    public ContractSteps verifyBalanceNotNull(ArrayList<DataContract> dataContracts){
-        for (DataContract data:dataContracts)
-             {
                  Assert.assertNotNull(data.getBalance());
              }
         return this;
     }
+
 }

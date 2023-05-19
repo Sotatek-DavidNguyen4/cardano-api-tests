@@ -39,7 +39,7 @@ public class EpochNoTests extends BaseTest {
 
     @Test(description = "Verify get epoch by current epoch successfully" ,groups = {"epoch"})
     public void getEpochByCurrentNo(){
-        epochCurrent =epochSteps.getCurrentEpoch().saveResponseCurrentEpoch();
+        epochCurrent =(EpochCurrent) epochSteps.getCurrentEpoch().saveResponseObject(EpochCurrent.class);
 
         epochData = (EpochData) epochSteps.getEpochByEpochNo(epochCurrent.getNo())
                 .validateResponse(HttpURLConnection.HTTP_OK)

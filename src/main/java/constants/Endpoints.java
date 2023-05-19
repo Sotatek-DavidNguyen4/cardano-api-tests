@@ -26,16 +26,16 @@ public class Endpoints {
     }
 
     public static class ContractApi {
-        public static final String GET_LIST_CONTRACT = "/contracts";
+        public static final String GET_LIST_CONTRACT = "contracts";
 
     }
 
     public static class EpochApi{
-        public static final String GET_EPOCH ="/epochs";
-        public static final String GET_CURRENT_EPOCH ="/epochs/current";
+        public static final String GET_EPOCH ="epochs";
+        public static final String GET_CURRENT_EPOCH ="epochs/current";
         public static final String EPOCH_NO = "epochNo";
-        public static final String GET_LIST_EPOCH_BY_EPOCH_NO ="/epochs/{"+ EPOCH_NO +"}/blocks";
-        public static final String GET_EPOCH_BY_EPOCH_NO ="/epochs/{"+ EPOCH_NO +"}";
+        public static final String GET_LIST_EPOCH_BY_EPOCH_NO ="epochs/{"+ EPOCH_NO +"}/blocks";
+        public static final String GET_EPOCH_BY_EPOCH_NO ="epochs/{"+ EPOCH_NO +"}";
 
     }
 

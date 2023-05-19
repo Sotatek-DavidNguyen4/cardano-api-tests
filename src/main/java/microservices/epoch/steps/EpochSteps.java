@@ -42,17 +42,6 @@ public class EpochSteps extends BaseApi {
         sendGet(Endpoints.EpochApi.GET_LIST_EPOCH_BY_EPOCH_NO,param,Endpoints.EpochApi.EPOCH_NO,epochNo);
         return this;
     }
-    @Step("Save response get current epoch")
-    public EpochCurrent saveResponseCurrentEpoch(){
-        epochCurrent = (EpochCurrent) saveResponseObject(EpochCurrent.class);
-        return epochCurrent;
-    }
-    @Step("Save response get list epoch")
-    public Epoch saveResponseListEpoch(){
-        epoch = (Epoch) saveResponseObject(Epoch.class);
-        return epoch;
-    }
-
     @Step("Verify current page")
     public EpochSteps verifyCurrentPage(Epoch epoch,Object page){
         if(page instanceof Integer && ((Integer) page).intValue()>0){
@@ -70,7 +59,7 @@ public class EpochSteps extends BaseApi {
         return this;
     }
 
-    @Step("Verify response static data of current epoch not null")
+    @Step("Verify response static data of current epoch")
     public EpochSteps verifyEpochCurrentResponse(EpochCurrent epochCurrent,Integer totalSlotExpected){
         Assert.assertEquals(epochCurrent.getTotalSlot(),totalSlotExpected);
         return this;
@@ -228,7 +217,7 @@ public class EpochSteps extends BaseApi {
                 case "outSum,ASC":
                     boolean isOutSumAsc = true;
                     for (int i = 0; i < epochData.size() - 1; i++) {
-                        if (epochData.get(i).getNo().compareTo(epochData.get(i + 1).getNo())>0) {
+                        if (epochData.get(i).getOutSum().compareTo(epochData.get(i + 1).getOutSum())>0) {
                             isOutSumAsc = false;
                             break;
                         }

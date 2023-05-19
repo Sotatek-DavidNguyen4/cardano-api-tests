@@ -45,7 +45,7 @@ public class EpochNoBlockTests extends BaseTest {
     }
     @Test(description = "Verify get block list of epoch by next epoch" ,groups = {"epoch"})
     public void getBlockListEpochByNextEpoch(){
-        epochCurrent =epochSteps.getCurrentEpoch().saveResponseCurrentEpoch();
+        epochCurrent =(EpochCurrent) epochSteps.getCurrentEpoch().saveResponseObject(EpochCurrent.class);
 
         epochByEpochNo = (EpochByEpochNo) epochSteps.getBLockListEpochByEpochNo(epochCurrent.getNo()+1)
                 .validateResponse(HttpURLConnection.HTTP_OK)
@@ -54,7 +54,7 @@ public class EpochNoBlockTests extends BaseTest {
     }
     @Test(description = "Verify get block list of epoch by current epoch" ,groups = {"epoch"})
     public void getBlockListEpochByCurrentEpoch(){
-        epochCurrent =epochSteps.getCurrentEpoch().saveResponseCurrentEpoch();
+        epochCurrent =(EpochCurrent) epochSteps.getCurrentEpoch().saveResponseObject(EpochCurrent.class);
 
         epochByEpochNo = (EpochByEpochNo) epochSteps.getBLockListEpochByEpochNo(epochCurrent.getNo())
                 .validateResponse(HttpURLConnection.HTTP_OK)

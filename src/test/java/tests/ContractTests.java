@@ -31,16 +31,14 @@ public class ContractTests extends BaseTest {
                 .withPageSize(size)
                 .withSort(sort)
                 .getParamsMap();
-        contractSteps.getListContracts(param)
-                .validateResponse(HttpURLConnection.HTTP_OK);
+        contract = (Contract) contractSteps.getListContracts(param)
+                .validateResponse(HttpURLConnection.HTTP_OK)
+                .saveResponseObject(Contract.class);
 
-        contract = contractSteps.saveResponseListContract();
         dataContracts = contract.getData();
         contractSteps.verifyNumberPage(contract.getCurrentPage(), page)
                      .verifySizeOfResponse(dataContracts.size(), size)
-                     .verifyAddressNotNull(dataContracts)
-                     .verifyTxCountNotNull(dataContracts)
-                     .verifyBalanceNotNull(dataContracts);
+                     .verifyResponseDataNotNull(dataContracts);
     }
     @DataProvider(name="paramSuccess")
     public Object[][] dataSetSuccess(){
@@ -53,7 +51,7 @@ public class ContractTests extends BaseTest {
         };
     }
 
-    @Test(description = "verify that get list contract Unsuccessfully", groups={"contract"},dataProvider = "paramUnSuccess")
+    @Test(description = "verify that get list contract with invalid data", groups={"contract"},dataProvider = "paramUnSuccess")
     public void getListParamUnSuccess(Object page, Object size, String sort){
         Map<String, Object> param = new CreateParameters()
                 .withPage(page)

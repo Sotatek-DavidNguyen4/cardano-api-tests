@@ -19,9 +19,9 @@ public class EpochCurrentTests extends BaseTest {
 
     @Test(description = "Verify get current epoch successfully" ,groups = {"epoch"})
     public void getCurrentEpoch(){
-        epochSteps.getCurrentEpoch()
-                  .validateResponse(HttpURLConnection.HTTP_OK);
-        epochCurrent = epochSteps.saveResponseCurrentEpoch();
+        epochCurrent = (EpochCurrent) epochSteps.getCurrentEpoch()
+                                                .validateResponse(HttpURLConnection.HTTP_OK)
+                                                .saveResponseObject(EpochCurrent.class);
 
         epochSteps.verifyEpochCurrentResponseNotNull(epochCurrent)
                   .verifyEpochCurrentResponse(epochCurrent,432000);

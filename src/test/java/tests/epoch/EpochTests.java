@@ -60,11 +60,8 @@ public class EpochTests extends BaseTest {
                 {null,null,"id,desc"},
                 {null,null,"id,ASC"},
                 {null,null,"outSum,desc"},
-//                {null,null,"outSum,ASC"},
-
-/**
- *Pending in TC API_2.31
-*/
+                {null,null,"outSum,ASC"},
+                
         };
     }
 
