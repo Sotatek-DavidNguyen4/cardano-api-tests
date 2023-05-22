@@ -15,7 +15,7 @@ public class AddressTransactionTests extends BaseTest {
     AddressTransactionSteps addressSteps = new AddressTransactionSteps();
 
     String address = "addr_test1vz09v9yfxguvlp0zsnrpa3tdtm7el8xufp3m5lsm7qxzclgmzkket";
-    @Test(description = "get the list transaction of address successfully")
+    @Test(description = "get the list transaction of address successfully", groups = {"addresses", "address-transaction"})
     public void getTheListTransactionOfAddressSuccessfully(){
         AddressTransactionModel addressTransactionModel = (AddressTransactionModel) addressSteps
                 .getTheTransactionOfAddress(address)
@@ -27,7 +27,7 @@ public class AddressTransactionTests extends BaseTest {
                 .verifyAddressInputIsSameAsOutputData(addressTransactionModel, address);
 
     }
-    @Test(description = "get the list transaction of address unsuccessfully", dataProvider = "paramInvalidAddress")
+    @Test(description = "get the list transaction of address unsuccessfully", groups = {"addresses", "address-transaction"}, dataProvider = "paramInvalidAddress")
     public void getTheListTransactionOfAddressUnsuccessfully(Object address){
         addressSteps
                 .getTheTransactionOfAddress(address)

@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 
 public class TopAddressTests extends BaseTest {
     TopAddressSteps topAddressSteps = new TopAddressSteps();
-    @Test(description = "verify get top-address successfully", groups={"address", "top-address"})
+    @Test(description = "verify get top-address successfully", groups={"addresses", "top-address"})
     public void verifyGetAddressResponseSuccessfully(){
 
         int page = 2;
@@ -70,7 +70,7 @@ public class TopAddressTests extends BaseTest {
                 .validateStatusCode(HttpURLConnection.HTTP_OK);
 
         topAddressSteps.verifyAttributeIsSortedCorrectly(topAddressModel);
-    }    @Test(description = "verify get top-address unsuccessfully", groups={"address", "top-address"}, dataProvider = "paramInvalidData")
+    }    @Test(description = "verify get top-address unsuccessfully", groups={"addresses", "top-address"}, dataProvider = "paramInvalidData")
     public void verifyGetAddressResponseUnsuccessfully(Object pageSize){
         int page = 12222222;
 
