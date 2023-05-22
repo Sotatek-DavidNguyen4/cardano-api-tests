@@ -15,12 +15,14 @@ public class AddressTransactionSteps extends BaseSteps {
     }
     @Step("verify address input is same as input data")
     public AddressTransactionSteps verifyAddressInputIsSameAsInputData(AddressTransactionModel actualAddressInput, String expectedAddressInput){
-        Assert.assertEquals(expectedAddressInput, actualAddressInput, "Verify address input is same as input data");
+        boolean flag = actualAddressInput.getData().stream().map(s -> s.getAddressesInput()).anyMatch(x -> x.listIterator().next().equals(expectedAddressInput));
+        Assert.assertTrue(flag,"all address input is same as input data");
         return this;
     }
     @Step("verify address output is same as input data")
-    public AddressTransactionSteps verifyAddressInputIsSameAsOutputData(AddressTransactionModel actualAddressInput, String expectedAddressInput){
-        Assert.assertEquals(actualAddressInput, actualAddressInput, "Verify address input is same as input data");
+    public AddressTransactionSteps verifyAddressInputIsSameAsOutputData(AddressTransactionModel actualAddressInput, String expectedAddressOutput){
+        boolean flag = actualAddressInput.getData().stream().map(s -> s.getAddressesInput()).anyMatch(x -> x.listIterator().next().equals(expectedAddressOutput));
+        Assert.assertTrue(flag,"all address input is same as input data");
         return this;
     }
 }

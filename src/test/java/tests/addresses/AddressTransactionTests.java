@@ -20,7 +20,7 @@ public class AddressTransactionTests extends BaseTest {
         AddressTransactionModel addressTransactionModel = (AddressTransactionModel) addressSteps
                 .getTheTransactionOfAddress(address)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
-                .saveResponseObject(AddressTransactionTests.class);
+                .saveResponseObject(AddressTransactionModel.class);
 
         addressSteps
                 .verifyAddressInputIsSameAsInputData(addressTransactionModel, address)
