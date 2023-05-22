@@ -875,4 +875,8 @@ public class CreateParameters {
         paramsMap.put("poolView", poolView);
         return this;
     }
+    public CreateParameters withAddress(Object address) {
+        paramsMap.put("address", address);
+        return this;
+    }
 }

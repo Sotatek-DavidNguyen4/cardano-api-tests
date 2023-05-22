@@ -29,7 +29,7 @@ public class PoolDetailAnalyticTests extends BaseTest {
     }
     @Test(description = "verify that get data uSsuccessfully from params 'poolViews' ", groups={"delegation", "delegation-detail-analytics"}, dataProvider = "paramInvalidPoolView")
     public void verifyGetDataFromPoolDetailAnalyticsUnsuccessfully(Object poolView){
-        Map<String, Object> param = new CreateParameters().withPoolView(poolView).getParamsMap();
+        Map<String, Object> param = new CreateParameters().withAddress(poolView).getParamsMap();
 
         ErrorResponse errorResponse = (ErrorResponse) delegationPoolDetailAnalyticSteps
                 .getDataForPoolDetailAnalytics(param)
