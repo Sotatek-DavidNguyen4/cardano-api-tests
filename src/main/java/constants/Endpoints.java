@@ -41,6 +41,6 @@ public class Endpoints {
     }
 
     public static class StakeKeyApi{
-        public static final String GET_STAKE_ADDRESS = "/stakes/address/{address}";
+        public static final String GET_STAKE_ADDRESS = "stakes/address/{address}";
     }
 }
