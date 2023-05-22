@@ -76,4 +76,4 @@ jobs:
           context: 'Test report'
           state: 'success'
           sha: ${{ github.event.pull_request.head.sha || github.sha }}
-          target_url: simple-elf.github.io/github-allure-history/${{ github.run_number }}
+          target_url: https://sotatek-davidnguyen4.github.io/cardano-api-tests/${{ github.run_number }}
