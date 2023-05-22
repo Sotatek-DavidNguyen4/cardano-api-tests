@@ -82,7 +82,7 @@ public class DelegationControllerTests extends BaseTest {
         //successfully without page and size
         delegationControllerSteps
                 .getDataForPoolDetailDelegator(param)
-                .validateStatusCode(HttpURLConnection.HTTP_BAD_REQUEST);
+                .validateStatusCode(HttpURLConnection.HTTP_BAD_REQUEST );
 
     }
     @DataProvider(name ="paramInvalidPoolView")
