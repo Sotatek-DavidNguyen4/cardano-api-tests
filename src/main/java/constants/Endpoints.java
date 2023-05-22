@@ -25,13 +25,28 @@ public class Endpoints {
     }
     public static class TokenApi {
         public static final String TOKEN_ID = "tokenId";
-        public static final String GET_LIST_TOKEN = "/tokens";
-        public static final String GET_A_TOKEN = "/tokens/{"+ TOKEN_ID +"}";
-        public static final String GET_TXS = "/tokens/{"+ TOKEN_ID +"}/txs";
+        public static final String GET_LIST_TOKEN = "tokens";
+        public static final String GET_A_TOKEN = "tokens/{"+ TOKEN_ID +"}";
+        public static final String GET_TXS = "tokens/{"+ TOKEN_ID +"}/txs";
+        public static final String GET_MINTS = "tokens/{"+ TOKEN_ID +"}/mints";
     }
     public static class TransactionApi {
         public static final String HASH_ID = "hash";
         public static final String TRANSACTION_HASH = "txs/{" + HASH_ID + "}";
+    }
+
+    public static class ContractApi {
+        public static final String GET_LIST_CONTRACT = "contracts";
+
+    }
+
+    public static class EpochApi{
+        public static final String GET_EPOCH ="epochs";
+        public static final String GET_CURRENT_EPOCH ="epochs/current";
+        public static final String EPOCH_NO = "epochNo";
+        public static final String GET_LIST_EPOCH_BY_EPOCH_NO ="epochs/{"+ EPOCH_NO +"}/blocks";
+        public static final String GET_EPOCH_BY_EPOCH_NO ="epochs/{"+ EPOCH_NO +"}";
+
     }
 
 }
