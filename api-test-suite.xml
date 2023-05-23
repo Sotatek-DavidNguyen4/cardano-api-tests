@@ -34,6 +34,11 @@
             <class name="tests.delegation_controller.DelegationControllerTests"/>
             <class name="tests.delegation_controller.DelegationHeaderTests"/>
             <class name="tests.delegation_controller.PoolDetailAnalyticTests"/>
+            <class name="tests.addresses.AddressAnalyticsTests"/>
+            <class name="tests.addresses.AddressesMinMaxBalanceTests"/>
+            <class name="tests.addresses.AddressTests"/>
+            <class name="tests.addresses.AddressTransactionTests"/>
+            <class name="tests.addresses.TopAddressTests"/>
             <class name="tests.PoolTests"/>
             <class name="tests.TokenTests"/>
             <class name="tests.StakeKeyTests"/>
