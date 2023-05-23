@@ -9,6 +9,15 @@ public class Endpoints {
         public static final String POOL_HEADER_URI = "delegations/header";
 
     }
+    public static class AddressesApi {
+
+        public static final String ADDRESS_URI = "addresses/{address}";
+        public static final String TOP_ADDRESS_URI = "addresses/top-addresses";
+        public static final String MIN_MAX_BALANCE_URI = "addresses/{address}";
+        public static final String ADDRESS_ANALYTICS_URI = "addresses/analytics/{address}/{type}";
+        public static final String ADDRESS_TRANSACTION_URI = "addresses/{address}/txs";
+
+    }
 
     public static class PoolControllerApi {
         public static final String REGISTRATION_POOLS = "pools/registration";

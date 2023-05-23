@@ -173,7 +173,7 @@ public class HttpRequest extends HttpRequestClientFactory {
      *                       (param1) and value is pathParameters's value (value1)
      * @return Response object instance
      */
-    public Response sendGetWithPathParams(String url, Map<String, String> pathParameters) {
+    public Response sendGetWithPathParams(String url, Map<String, Object> pathParameters) {
         RequestSpecification httpRequest = new HttpRequestBuilder().create().pathParams(pathParameters);
         return doGet(url,httpRequest);
     }
