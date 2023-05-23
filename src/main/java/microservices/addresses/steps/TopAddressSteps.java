@@ -28,8 +28,8 @@ public class TopAddressSteps extends BaseSteps {
         return this;
     }
     @Step("verify data amount is correct")
-    public TopAddressSteps verifyDataAmountIsCorrect(int expectedSize, int actualTotalItems, int ActualSize){
-        Assert.assertEquals(expectedSize, actualTotalItems, ActualSize);
+    public TopAddressSteps verifyDataAmountIsCorrect(int expectedSize, int ActualSize){
+        Assert.assertEquals(expectedSize, ActualSize);
         return this;
     }
     @Step("verify data value is empty")

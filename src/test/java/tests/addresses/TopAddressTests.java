@@ -43,7 +43,7 @@ public class TopAddressTests extends BaseTest {
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(TopAddressModel.class);
 
-        topAddressSteps.verifyDataAmountIsCorrect(pageSize, topAddressModel.getTotalItems(), topAddressModel.getData().size());
+        topAddressSteps.verifyDataAmountIsCorrect(pageSize, topAddressModel.getData().size());
 
         //with sort = "balance"
         param = new CreateParameters().withSort(sort).getParamsMap();
@@ -54,20 +54,22 @@ public class TopAddressTests extends BaseTest {
 
         topAddressSteps.verifyAttributeIsSortedCorrectly(topAddressModel);
 
-        //with page = 2 and size = 3 sort = id
+        //with page = 2 and size = 3 sort = "balance"
         param = new CreateParameters().withPage(page).withPageSize(pageSize).withSort(sort).getParamsMap();
-        topAddressSteps
+        topAddressModel = (TopAddressModel)topAddressSteps
                 .getDataForTopAddress(param)
-                .validateStatusCode(HttpURLConnection.HTTP_OK);
+                .validateStatusCode(HttpURLConnection.HTTP_OK)
+                .saveResponseObject(TopAddressModel.class);
 
         topAddressSteps.verifyAttributeIsSortedCorrectly(topAddressModel)
-                        .verifyDataAmountIsCorrect(pageSize, topAddressModel.getTotalItems(), topAddressModel.getData().size());
+                        .verifyDataAmountIsCorrect(pageSize, topAddressModel.getData().size());
 
         //with page = blank and size = 3 sort = balance
         param = new CreateParameters().withPageSize(pageSize).withSort(sort).getParamsMap();
-        topAddressSteps
+        topAddressModel = (TopAddressModel)topAddressSteps
                 .getDataForTopAddress(param)
-                .validateStatusCode(HttpURLConnection.HTTP_OK);
+                .validateStatusCode(HttpURLConnection.HTTP_OK)
+                .saveResponseObject(TopAddressModel.class);
 
         topAddressSteps.verifyAttributeIsSortedCorrectly(topAddressModel);
     }    @Test(description = "verify get top-address unsuccessfully", groups={"addresses", "top-address"}, dataProvider = "paramInvalidData")
