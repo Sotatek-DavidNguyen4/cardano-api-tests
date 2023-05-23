@@ -52,6 +52,7 @@ public class Endpoints {
         public static final String POLICY_ID = "policyId";
         public static final String GET_TOKEN_BY_POLICIES = "policies/{"+POLICY_ID+"}/tokens";
         public static final String GET_POLICY_DETAIL = "policies/{"+POLICY_ID+"}";
+        public static final String GET_HOLDER_BY_POLICIES = "policies/{"+POLICY_ID+"}/holders";
     }
 
 }
