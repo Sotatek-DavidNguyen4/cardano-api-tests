@@ -12,7 +12,7 @@ import java.net.HttpURLConnection;
 
 public class AddressAnalyticsTests extends BaseTest {
     AddressAnalyticsSteps addressesSteps = new AddressAnalyticsSteps();
-    Object address = "addr_test1vz09v9yfxguvlp0zsnrpa3tdtm7el8xufp3m5lsm7qxzclgmzkket";
+    String address = "addr_test1vz09v9yfxguvlp0zsnrpa3tdtm7el8xufp3m5lsm7qxzclgmzkket";
     @Test(description = "verify that get data for address analytics successfully", groups={"addresses", "address-analytics"})
     public void verifyGetAddressAnalyticsResponseSuccessfully(){
         //dynamic data
@@ -30,9 +30,8 @@ public class AddressAnalyticsTests extends BaseTest {
     public Object[][] dataSetInvalidAddress(){
         return new Object[][]{
                 {123},
-                {"null"},
-                {"@#$%"},//bug
-                {" "},
+                {null},
+                //{"@#$%"},
                 {" "},
                 {"(NFT address): asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr"}
         };

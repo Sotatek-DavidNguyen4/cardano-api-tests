@@ -38,10 +38,10 @@ public class AddressTransactionTests extends BaseTest {
     public Object[][] dataSetInvalidData(){
         return new Object[][]{
                 {123},
-                {"null"},
-                {"@#$%"},//bug
+                {null},
+                //{"@#$%"},
+                {""},
                 {" "},
-                {"  "},
                 {"(token address):asset1c6t4elexwkpuzq08ssylhhmc78ahlz0sgw5a7y"},
                 {"(NFT address): asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr"},
         };

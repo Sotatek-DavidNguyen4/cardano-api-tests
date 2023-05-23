@@ -64,14 +64,15 @@ public class TopAddressTests extends BaseTest {
         topAddressSteps.verifyAttributeIsSortedCorrectly(topAddressModel)
                         .verifyDataAmountIsCorrect(pageSize, topAddressModel.getData().size());
 
-        //with page = blank and size = 3 sort = balance
+        //size = 3 sort = balance
         param = new CreateParameters().withPageSize(pageSize).withSort(sort).getParamsMap();
         topAddressModel = (TopAddressModel)topAddressSteps
                 .getDataForTopAddress(param)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(TopAddressModel.class);
 
-        topAddressSteps.verifyAttributeIsSortedCorrectly(topAddressModel);
+        topAddressSteps.verifyAttributeIsSortedCorrectly(topAddressModel)
+                        .verifyDataAmountIsCorrect(pageSize, topAddressModel.getData().size());
     }    @Test(description = "verify get top-address unsuccessfully", groups={"addresses", "top-address"}, dataProvider = "paramInvalidData")
     public void verifyGetAddressResponseUnsuccessfully(Object pageSize){
         int page = 12222222;
