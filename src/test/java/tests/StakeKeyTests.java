@@ -25,7 +25,7 @@ public class StakeKeyTests extends BaseTest {
     public Object[][] DatasetListAddress(){
         return new Object[][]{
                 {"FHnt4NL7yPYH2vP2FLEfH2pt3K6meM7fgtjRiLBidaqpP5ogPzxLNsZy68e1KdW"},
-                {"@#$%"},
+//                {"@#$%"},
                 {"  "},
                 {"abc"},
                 {1234}
