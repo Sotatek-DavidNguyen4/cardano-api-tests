@@ -582,6 +582,7 @@ public class HttpRequest extends HttpRequestClientFactory {
                 then().
                 log().ifValidationFails().
                 extract().response();
+        System.out.println(url);
         setResponse(res);
         return res;
     }

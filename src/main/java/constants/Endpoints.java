@@ -18,7 +18,9 @@ public class Endpoints {
     }
     public static class TransactionApi {
         public static final String HASH_ID = "hash";
+        public static final String TYPE = "type";
         public static final String TRANSACTION_HASH = "txs/{" + HASH_ID + "}";
+        public static final String FILTER_TRANSACTION = "txs";
     }
 
 }
