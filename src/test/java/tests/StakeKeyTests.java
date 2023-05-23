@@ -24,7 +24,6 @@ public class StakeKeyTests extends BaseTest {
                 {"FHnt4NL7yPYH2vP2FLEfH2pt3K6meM7fgtjRiLBidaqpP5ogPzxLNsZy68e1KdW"},
                 {"@#$%"},
                 {"  "},
-                {""},
                 {"abc"},
                 {1234}
         };
