@@ -1,8 +1,0 @@
-"Epic","Feature","Story","FAILED","BROKEN","PASSED","SKIPPED","UNKNOWN"
-"","","","0","0","68","0","0"
-"cardano","api-delegation","","0","0","27","0","0"
-"cardano","api-contract","","0","0","11","0","0"
-"cardano","api-epoch","GET: Get block list of epoch by its no","0","0","16","0","0"
-"cardano","api-epoch","GET: Epoch All List","0","0","18","0","0"
-"cardano","api-epoch","GET: Get a epoch detail by its no","0","0","7","0","0"
-"cardano","api-epoch","GET: Get current epoch","0","0","1","0","0"
