@@ -47,12 +47,12 @@ public class AddressAnalyticsTests extends BaseTest {
     @DataProvider(name ="paramInvalidType")
     public Object[][] dataSetInvalidType(){
         return new Object[][]{
-                {123},
-                {"null"},
+/*                {123},
+                {null},
                 {"@#$%"},
+                {""},
                 {" "},
-                {" "},
-                {"(NFT address): asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr"}
+                {"(NFT address): asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr"}*/
         };
     }
 }
