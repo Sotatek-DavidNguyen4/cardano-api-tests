@@ -42,6 +42,8 @@
             <class name="tests.epoch.EpochNoBlockTests"></class>
             <class name="tests.epoch.EpochNoTests"></class>
             <class name="tests.epoch.EpochTests"></class>
+            <class name="tests.policies.GetPolicyDetailsTests"></class>
+            <class name="tests.policies.GetTokenByPolicyTests"></class>
         </classes>
     </test>
 </suite>

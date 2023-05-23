@@ -41,7 +41,7 @@ public class TransactionTests extends BaseTest {
         return new Object[][]{
                 {"ab008b3844d8ef2dc63451491a35a247ede5669fcf0a0559adc712f74bfebe29"},
                 {"f8374de85bc4777f7dee56dea498e87f4151f6a8e534ddac83b29b8199a1b67f"},
-                {"@#$%"},
+                {"@#$"},
                 {"   "},
                 {"asset1c6t4elexwkpuzq08ssylhhmc78ahlz0sgw5a7y"},
                 {"asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr"}
