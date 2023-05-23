@@ -1,6 +1,7 @@
 package tests;
 
 import base.BaseTest;
+import microservices.stakeKey.constants.StakeKeyConstants;
 import microservices.stakeKey.steps.StakeKeySteps;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -18,7 +19,7 @@ public class StakeKeyTests extends BaseTest {
     @Test(description = "get stake detail by address wrong format", groups = {"stakeKey"}, dataProvider = "listAddressWrongFormat")
     public void getStakeByAddresWrongFormat(Object address){
         stakeKeySteps.getStakeByAddress(address)
-                .validateStatusCode(HttpURLConnection.HTTP_BAD_REQUEST);
+                .then_verifyErrorResponse(HttpURLConnection.HTTP_BAD_REQUEST, StakeKeyConstants.STAKE_ADDRESS_MESSAGE_NOT_FOUND,StakeKeyConstants.STAKE_ADDRESS_NOT_FOUND);
     }
     @DataProvider(name = "listAddressWrongFormat")
     public Object[][] DatasetListAddress(){
