@@ -31,7 +31,7 @@ public class AddressAnalyticsTests extends BaseTest {
         return new Object[][]{
                 {123},
                 {"null"},
-                //{"@#$%"},
+                {"@#$%"},//bug
                 {" "},
                 {" "},
                 {"(NFT address): asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr"}
@@ -42,7 +42,7 @@ public class AddressAnalyticsTests extends BaseTest {
         //wait for this test case is fixed
         addressesSteps
                 .getAnAddressAnalytics(address, type)
-                //.then_verifyErrorResponse(HttpURLConnection.HTTP_BAD_REQUEST, AddressConstants.ERROR_MESSAGE, AddressConstants.ERROR_CODE)
+                .then_verifyErrorResponse(HttpURLConnection.HTTP_BAD_REQUEST, AddressConstants.ERROR_MESSAGE, AddressConstants.ERROR_CODE)
         ;
     }
     @DataProvider(name ="paramInvalidType")

@@ -39,7 +39,7 @@ public class AddressTransactionTests extends BaseTest {
         return new Object[][]{
                 {123},
                 {"null"},
-                //{"@#$%"},
+                {"@#$%"},//bug
                 {" "},
                 {"  "},
                 {"(token address):asset1c6t4elexwkpuzq08ssylhhmc78ahlz0sgw5a7y"},
