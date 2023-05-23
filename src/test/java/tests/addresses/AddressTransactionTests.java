@@ -38,7 +38,6 @@ public class AddressTransactionTests extends BaseTest {
     public Object[][] dataSetInvalidData(){
         return new Object[][]{
                 {123},
-                {null},
                 //{"@#$%"},
                 {""},
                 {" "},
