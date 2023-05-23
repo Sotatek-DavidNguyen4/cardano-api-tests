@@ -68,7 +68,4 @@ public class EpochNoTests extends BaseTest {
                 {"@$"},
         };
     }
-    /**
-     * case blank not automated
-     */
 }

@@ -58,7 +58,7 @@ public class GetTokenByPolicyTests extends BaseTest {
         };
     }
 
-    @Test(description = "verify get list tokens by policies Unsuccessfully", groups={"policy"},dataProvider = "getListTokenByPoliciesUnSuccess")
+    @Test(description = "verify get list tokens by Invalid policy", groups={"policy"},dataProvider = "getListTokenByInvalidPolicy")
     public void getListTokenByPoliciesUnSuccess(Object policyId){
 
         tokenByPolicy = (TokenByPolicy) policySteps.getTokenByPolicies(policyId)
@@ -68,8 +68,8 @@ public class GetTokenByPolicyTests extends BaseTest {
         policySteps.verifyPolicyResponse(tokenByPolicy,true,0,0,0);
     }
 
-    @DataProvider(name="getListTokenByPoliciesUnSuccess")
-    public Object[][] getListTokenByPoliciesUnSuccess(){
+    @DataProvider(name="getListTokenByInvalidPolicy")
+    public Object[][] getListTokenByInvalidPolicy(){
         return new Object[][]{
                 {123},
                 {"@#$"},
@@ -78,8 +78,4 @@ public class GetTokenByPolicyTests extends BaseTest {
                 {"asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr"},
         };
     }
-/**
- *
- * Cases null,blank not automated
- */
 }

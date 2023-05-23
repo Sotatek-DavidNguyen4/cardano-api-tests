@@ -50,8 +50,4 @@ public class GetPolicyDetailsTests extends BaseTest {
                 {"asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr"},
         };
     }
-/**
- *
- * Cases null,blank not automated
- */
 }
