@@ -39,5 +39,10 @@ public class Endpoints {
         public static final String GET_EPOCH_BY_EPOCH_NO ="epochs/{"+ EPOCH_NO +"}";
 
     }
+    public static class PoliciesApi{
+        public static final String POLICY_ID = "policyId";
+        public static final String GET_TOKEN_BY_POLICIES = "policies/{"+POLICY_ID+"}/tokens";
+        public static final String GET_POLICY_DETAIL = "policies/{"+POLICY_ID+"}";
+    }
 
 }

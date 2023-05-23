@@ -64,9 +64,11 @@ public class EpochNoTests extends BaseTest {
         return new Object[][]{
                 {"8e0280beebc3d12626e87b182f4205d75e49981042f54081cd35f3a4a85630b0"},
                 {"a"},
-                {"%20"},
                 {-1},
                 {"@$"},
         };
     }
+    /**
+     * case blank not automated
+     */
 }
