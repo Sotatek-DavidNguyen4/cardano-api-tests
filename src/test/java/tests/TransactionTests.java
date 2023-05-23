@@ -50,33 +50,35 @@ public class TransactionTests extends BaseTest {
     @Test(description = "Get filter transaction with sort", groups = "transactions")
     public void get_filter_transaction_success_with_sort() {
         MultiMap params = new MultiValueMap();
-//        params.put("sort", "fee,ASC");
-//        FilterTransactionResponse filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
-//                .validateResponse(HttpURLConnection.HTTP_OK)
-//                .saveResponseObject(FilterTransactionResponse.class);
-//        txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
-//
-//        params.put("sort", "fee,DESC");
-//        filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
-//                .validateResponse(HttpURLConnection.HTTP_OK)
-//                .saveResponseObject(FilterTransactionResponse.class);
-//        txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
-//
-//        params.put("sort", "outSum,ASC");
-//        filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
-//                .validateResponse(HttpURLConnection.HTTP_OK)
-//                .saveResponseObject(FilterTransactionResponse.class);
-//        txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
-//
-//        params.put("sort", "outSum,DESC");
-//        filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
-//                .validateResponse(HttpURLConnection.HTTP_OK)
-//                .saveResponseObject(FilterTransactionResponse.class);
-//        txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
+        params.put("sort", "fee,ASC");
+        FilterTransactionResponse filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
+                .validateResponse(HttpURLConnection.HTTP_OK)
+                .saveResponseObject(FilterTransactionResponse.class);
+        txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
 
         params.put("sort", "fee,DESC");
+        filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
+                .validateResponse(HttpURLConnection.HTTP_OK)
+                .saveResponseObject(FilterTransactionResponse.class);
+        txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
+
+        params.put("sort", "outSum,ASC");
+        filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
+                .validateResponse(HttpURLConnection.HTTP_OK)
+                .saveResponseObject(FilterTransactionResponse.class);
+        txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
+
         params.put("sort", "outSum,DESC");
-        FilterTransactionResponse filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
+        filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
+                .validateResponse(HttpURLConnection.HTTP_OK)
+                .saveResponseObject(FilterTransactionResponse.class);
+        txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
+
+        params.put("sort", "fee,DESC");
+        params.put("page", "1");
+        params.put("size", "4");
+        params.put("sort", "outSum,DESC");
+        filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
                 .validateResponse(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(FilterTransactionResponse.class);
         txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);

@@ -6,9 +6,6 @@ import java.util.List;
 
 public class SortListUtil {
     public static boolean isSortedByField(List<Object> objs, List<String> fields) {
-        for (int i = 0; i < objs.size() -1; i++) {
-            System.out.println("\n"+objs.get(i));
-        }
         Comparator<Object> comparator = (obj1, obj2) -> {
             for (String _field : fields) {
                 String[] temp = _field.split(",");
@@ -27,7 +24,7 @@ public class SortListUtil {
         for (int i = 0; i < objs.size() -1; i++) {
             Object cur = objs.get(i);
             Object next = objs.get(i + 1);
-            if (comparator.compare(cur, next) <= 0) {
+            if (comparator.compare(cur, next) < 0) {
                 check = false;
                 break;
             }

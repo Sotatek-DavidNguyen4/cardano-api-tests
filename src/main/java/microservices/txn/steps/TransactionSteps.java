@@ -33,7 +33,7 @@ public class TransactionSteps extends BaseSteps {
                 .as("Value of field 'tx.hash' is wrong")
                 .isEqualTo(hash);
         if (txnResponse.getTx().getHash() == "5526b1373acfc774794a62122f95583ff17febb2ca8a0fe948d097e29cf99099") {
-            assertThat(txnResponse.getTx().getTotalOutput())
+            assertThat(txnResponse.getTx().getOutSum())
                     .as("Value of field 'tx.totalOutput' is wrong")
                     .isEqualTo("30000000000000000");
         }
