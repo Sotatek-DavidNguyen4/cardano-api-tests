@@ -3,13 +3,14 @@ package microservices.token.steps;
 import constants.Endpoints;
 import core.BaseApi;
 import io.qameta.allure.Step;
+import microservices.common.models.ErrorResponse;
+import microservices.common.steps.BaseSteps;
 import microservices.token.models.Token;
 import org.testng.Assert;
 
 import java.util.Map;
 
-public class TokenSteps extends BaseApi {
-    private BaseApi baseApi = new BaseApi();
+public class TokenSteps extends BaseSteps {
     private Token token = new Token();
     @Step("get list token")
     public TokenSteps getListTokens(Map<String, Object> paramsToken){
@@ -39,11 +40,6 @@ public class TokenSteps extends BaseApi {
         }
         return this;
     }
-    @Step("verify status response of get list token")
-    public TokenSteps verifyResponseGetListToken(int statusCode){
-        baseApi.validateResponse(statusCode);
-        return this;
-    }
     @Step("get list token with page invalid")
     public TokenSteps getListTokensWithPageInvalid(Map<String, Object> paramsToken){
         sendGet(Endpoints.TokenApi.GET_LIST_TOKEN, paramsToken);
@@ -71,7 +67,22 @@ public class TokenSteps extends BaseApi {
     }
     @Step("get a token")
     public TokenSteps getAToken(String tokenId){
-        sendGet(Endpoints.TokenApi.GET_A_TOKEN, "tokenId", tokenId);
+        sendGet(Endpoints.TokenApi.GET_A_TOKEN, Endpoints.TokenApi.TOKEN_ID, tokenId);
+        return this;
+    }
+    @Step("get token txs")
+    public TokenSteps getTokenTxs(String tokenId){
+        sendGet(Endpoints.TokenApi.GET_TXS, Endpoints.TokenApi.TOKEN_ID, tokenId);
+        return this;
+    }
+    @Step("get token txs with params invalid")
+    public TokenSteps getTokenTxsParamInvalid(String tokenId, Map<String, Object> param){
+        sendGet(Endpoints.TokenApi.GET_TXS, param, Endpoints.TokenApi.TOKEN_ID, tokenId);
+        return this;
+    }
+    @Step("get token mints param valid")
+    public TokenSteps getTokenMintParamValid(Map<String, Object> param, String tokenId){
+        sendGet(Endpoints.TokenApi.GET_MINTS, param, Endpoints.TokenApi.TOKEN_ID, tokenId);
         return this;
     }
 }

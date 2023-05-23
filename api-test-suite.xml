@@ -32,9 +32,24 @@
         </method-selectors>
         <classes>
             <class name="tests.delegation_controller.DelegationControllerTests"/>
+            <class name="tests.delegation_controller.DelegationHeaderTests"/>
+            <class name="tests.delegation_controller.PoolDetailAnalyticTests"/>
+            <class name="tests.addresses.AddressAnalyticsTests"/>
+            <class name="tests.addresses.AddressesMinMaxBalanceTests"/>
+            <class name="tests.addresses.AddressTests"/>
+            <class name="tests.addresses.AddressTransactionTests"/>
+            <class name="tests.addresses.TopAddressTests"/>
             <class name="tests.PoolTests"/>
             <class name="tests.TokenTests"/>
+            <class name="tests.StakeKeyTests"/>
             <class name="tests.TransactionTests"></class>
+            <class name="tests.ContractTests"></class>
+            <class name="tests.epoch.EpochCurrentTests"></class>
+            <class name="tests.epoch.EpochNoBlockTests"></class>
+            <class name="tests.epoch.EpochNoTests"></class>
+            <class name="tests.epoch.EpochTests"></class>
+            <class name="tests.policies.GetPolicyDetailsTests"></class>
+            <class name="tests.policies.GetTokenByPolicyTests"></class>
         </classes>
     </test>
 </suite>
