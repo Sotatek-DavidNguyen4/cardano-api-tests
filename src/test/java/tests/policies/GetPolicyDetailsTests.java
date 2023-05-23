@@ -3,6 +3,7 @@ package tests.policies;
 import base.BaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import microservices.common.constants.APIErrorCode;
 import microservices.common.constants.APIErrorMessage;
 import microservices.policy.models.detail.PolicyDetail;
@@ -14,6 +15,7 @@ import java.net.HttpURLConnection;
 
 @Epic("cardano")
 @Feature("api-policy_controller")
+@Story("Get a policy detail")
 public class GetPolicyDetailsTests extends BaseTest {
     private PolicySteps policySteps = new PolicySteps();
     private PolicyDetail policyDetail = new PolicyDetail();

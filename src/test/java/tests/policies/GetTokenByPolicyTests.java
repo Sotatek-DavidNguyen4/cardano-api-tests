@@ -3,6 +3,7 @@ package tests.policies;
 import base.BaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import microservices.policy.models.token.TokenByPolicy;
 import microservices.policy.models.token.TokenByPolicyData;
 import microservices.policy.steps.PolicySteps;
@@ -14,6 +15,7 @@ import java.util.List;
 
 @Epic("cardano")
 @Feature("api-policy_controller")
+@Story("Get tokens by policies")
 public class GetTokenByPolicyTests extends BaseTest {
     private PolicySteps policySteps = new PolicySteps();
     private TokenByPolicy tokenByPolicy = new TokenByPolicy();
