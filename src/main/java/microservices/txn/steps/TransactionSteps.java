@@ -48,7 +48,7 @@ public class TransactionSteps extends BaseSteps {
 
     @Step("Verify filter transaction")
     public TransactionSteps then_verifyFilterTransactionResponse(FilterTransactionResponse filterTxsRes, Map<String, Object> params) {
-        RequestParams requestParams = new RequestParams(params);
+        RequestParams requestParams = new RequestParams(params, 0, 20);
         assertThat(filterTxsRes.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
