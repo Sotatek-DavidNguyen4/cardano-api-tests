@@ -13,4 +13,14 @@ public class StakeKeySteps extends BaseSteps {
         sendGet(Endpoints.StakeKeyApi.GET_STAKE_ADDRESS, "address", address);
         return this;
     }
+    @Step("get a stake instantaneous-rewards with stakeKey")
+    public StakeKeySteps getStakeInstantaneousRewards(Object stakeKey){
+        sendGet(Endpoints.StakeKeyApi.GET_STAKE_INSTANTANEOUS_REWARDS, Endpoints.StakeKeyApi.STAKE_KEY, stakeKey);
+        return this;
+    }
+    @Step("get a stake instantaneous rewards with param")
+    public StakeKeySteps getStakeInstantaneousRewardParam(Object stakeKey, Map<String, Object> param){
+        sendGet(Endpoints.StakeKeyApi.GET_STAKE_INSTANTANEOUS_REWARDS, param, Endpoints.StakeKeyApi.STAKE_KEY, stakeKey);
+        return this;
+    }
 }
