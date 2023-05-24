@@ -57,7 +57,6 @@ public class Endpoints {
     public static class StakeKeyApi{
         public static final String GET_STAKE_ADDRESS = "stakes/address/{address}";
         public static final String STAKE_KEY = "stakeKey";
-
         public static final String GET_STAKE_INSTANTANEOUS_REWARDS = "stakes/{"+ STAKE_KEY +"}/instantaneous-rewards";
     }
 }
