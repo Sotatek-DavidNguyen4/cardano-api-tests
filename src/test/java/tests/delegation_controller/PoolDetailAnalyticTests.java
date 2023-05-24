@@ -13,6 +13,7 @@ import util.CreateParameters;
 
 import java.util.Map;
 
+
 @Epic("cardano")
 @Feature("api-delegation")
 public class PoolDetailAnalyticTests extends BaseTest {

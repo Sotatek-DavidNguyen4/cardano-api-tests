@@ -1,6 +1,8 @@
 package tests.addresses;
 
 import base.BaseTest;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import microservices.addresses.constants.AddressConstants;
 import microservices.addresses.models.AddressModel;
 import microservices.addresses.steps.AddressSteps;
@@ -10,7 +12,8 @@ import util.CreateParameters;
 
 import java.net.HttpURLConnection;
 import java.util.Map;
-
+@Epic("cardano")
+@Feature("api-addresses")
 public class AddressTests extends BaseTest {
     AddressSteps addressSteps = new AddressSteps();
     Object address = "addr_test1vz09v9yfxguvlp0zsnrpa3tdtm7el8xufp3m5lsm7qxzclgmzkket";
