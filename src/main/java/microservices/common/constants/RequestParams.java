@@ -12,30 +12,30 @@ public class RequestParams {
 
     int size;
     List<String> sort;
-    public RequestParams(Map<String, Object> params){
+    public RequestParams(Map<String, Object> params, int defaultPage, int defaultSize){
         if (params.containsKey("page")) {
             try {
                 page = Integer.parseInt((String) ((List<String>) params.get("page")).get(0));
                 if (page < 0) {
-                    page = 0;
+                    page = defaultPage;
                 }
             } catch (NumberFormatException e) {
-                page = 0;
+                page = defaultPage;
             }
         } else {
-            page = 0;
+            page = defaultPage;
         }
         if (params.containsKey("size")) {
             try {
                 size = Integer.parseInt((String) ((List<String>) params.get("size")).get(0));
                 if (size < 0) {
-                    size = 20;
+                    size = defaultSize;
                 }
             } catch (NumberFormatException e) {
-                size = 20;
+                size = defaultSize;
             }
         } else {
-            size = 20;
+            size = defaultSize;
         }
         if (params.containsKey("sort")) {
             this.sort = (List<String>) params.get("sort");
