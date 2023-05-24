@@ -5,8 +5,11 @@ import microservices.stakeKey.constants.StakeKeyConstants;
 import microservices.stakeKey.steps.StakeKeySteps;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import util.CreateParameters;
 
 import java.net.HttpURLConnection;
+import java.util.Map;
+
 public class StakeKeyTests extends BaseTest {
     private StakeKeySteps stakeKeySteps = new StakeKeySteps();
     private String address = "addr_test1qr53akzyd4949txn5hu583yu0xatcvp2efec9tm56jpeg6xkfjf77qy57hqhnefcqyy7hmhsygj9j38rj984hn9r57fsq48dyr";
@@ -29,6 +32,47 @@ public class StakeKeyTests extends BaseTest {
                 {"  "},
                 {"abc"},
                 {1234}
+        };
+    }
+    @Test(description = "get stake instantaneous rewards with stake key", groups = {"stakeKey"}, dataProvider = "stakeKey")
+    public void getStakeInstantaneousReward(Object stakeKey){
+        stakeKeySteps.getStakeInstantaneousRewards(stakeKey)
+                .validateStatusCode(HttpURLConnection.HTTP_OK);
+    }
+    @DataProvider(name = "stakeKey")
+    public Object[][] DatasetStakeKey(){
+        return new Object[][]{
+                {"stake_test1urz3dwcwdhvl9dy75rj5krvpmjyldeyxqx5p6xms6xyjd7quqmq2p"},
+//                {"@#$%"},
+                {"  "},
+                {"abcd"},
+                {"12345"}
+        };
+    }
+    @Test(description = "get stake instantaneous rewards with param", groups = "stakeKey", dataProvider = "paramInstantaneousReward")
+    public void getStakkeInstantaneousRewardParam(Object page, Object size){
+        Map<String, Object> param = new CreateParameters()
+                .withPage(page)
+                .withPageSize(size)
+                .getParamsMap();
+        String stakeKey = "stake_test1urz3dwcwdhvl9dy75rj5krvpmjyldeyxqx5p6xms6xyjd7quqmq2p";
+        stakeKeySteps.getStakeInstantaneousRewardParam(stakeKey, param)
+                .validateStatusCode(HttpURLConnection.HTTP_OK);
+    }
+    @DataProvider(name = "paramInstantaneousReward")
+    public Object[][] DatasetParamStakeInstantaneousReward(){
+        return new Object[][]{
+//                {9, null},
+                {"abc", null},
+                {-10, null},
+                {" ", null},
+                {"@#$%", null},
+
+                {null, 1},
+                {null, "abc"},
+                {null, -10},
+                {null, " "},
+                {null, "@#$%"}
         };
     }
 }
