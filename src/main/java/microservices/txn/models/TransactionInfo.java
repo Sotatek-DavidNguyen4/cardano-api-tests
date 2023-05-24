@@ -1,5 +1,6 @@
 package microservices.txn.models;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -16,5 +17,6 @@ public class TransactionInfo {
     public String status;
     public int confirmation;
     public long fee;
-    public long totalOutput;
+    @SerializedName("totalOutput")
+    public long outSum;
 }

@@ -3,12 +3,15 @@ package tests;
 import base.BaseTest;
 import microservices.common.constants.APIErrorCode;
 import microservices.common.constants.APIErrorMessage;
-import microservices.common.models.ErrorResponse;
-import microservices.delegation.models.PoolDetailHeaderModel;
+import microservices.txn.models.FilterTransactionResponse;
 import microservices.txn.models.TransactionResponse;
 import microservices.txn.steps.TransactionSteps;
+import org.apache.commons.collections.MultiMap;
+import org.apache.commons.collections.map.MultiValueMap;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import java.net.HttpURLConnection;
+
 
 public class TransactionTests extends BaseTest {
     TransactionSteps txnSteps = new TransactionSteps();
@@ -17,7 +20,7 @@ public class TransactionTests extends BaseTest {
     @Test(description = "Get the transaction by valid hash", groups = "transactions", dataProvider = "validHash")
     public void get_transaction_by_valid_hash(String hash) {
          txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(hash)
-                .validateStatusCode(200)
+                .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(TransactionResponse.class);
          txnSteps.then_verifyTransactionResponse(txnResponse, hash);
     }
@@ -25,8 +28,65 @@ public class TransactionTests extends BaseTest {
     @Test(description = "Get the transaction by invalid hash", groups = "transactions", dataProvider = "invalidHash")
     public void get_transaction_by_invalid_hash(String hash) {
         txnSteps.when_getTransactionByHash(hash)
-                .then_verifyErrorResponse(400, APIErrorMessage.TRANSACTION_NOT_FOUND, APIErrorCode.TRANSACTION_NOT_FOUND);
+                .then_verifyErrorResponse(HttpURLConnection.HTTP_BAD_REQUEST, APIErrorMessage.TRANSACTION_NOT_FOUND, APIErrorCode.TRANSACTION_NOT_FOUND);
     }
+
+    @Test(description = "Get filter transaction without sort", groups = "transactions", dataProvider = "paramWithPage&Size")
+    public void get_filter_transaction_success_without_sort(String page, String size) {
+        MultiMap params = new MultiValueMap();
+        params.put("page", page);
+        params.put("size", size);
+        FilterTransactionResponse filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
+                .validateResponse(HttpURLConnection.HTTP_OK)
+                .saveResponseObject(FilterTransactionResponse.class);
+        txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
+    }
+
+    @Test(description = "Get filter transaction with sort", groups = "transactions")
+    public void get_filter_transaction_success_with_sort() {
+        MultiMap params = new MultiValueMap();
+        params.put("sort", "fee,ASC");
+        FilterTransactionResponse filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
+                .validateResponse(HttpURLConnection.HTTP_OK)
+                .saveResponseObject(FilterTransactionResponse.class);
+        txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
+
+        params.put("sort", "fee,DESC");
+        filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
+                .validateResponse(HttpURLConnection.HTTP_OK)
+                .saveResponseObject(FilterTransactionResponse.class);
+        txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
+
+        params.put("sort", "outSum,ASC");
+        filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
+                .validateResponse(HttpURLConnection.HTTP_OK)
+                .saveResponseObject(FilterTransactionResponse.class);
+        txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
+
+        params.put("sort", "outSum,DESC");
+        filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
+                .validateResponse(HttpURLConnection.HTTP_OK)
+                .saveResponseObject(FilterTransactionResponse.class);
+        txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
+
+        params.put("sort", "fee,DESC");
+        params.put("page", "1");
+        params.put("size", "4");
+        params.put("sort", "outSum,DESC");
+        filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
+                .validateResponse(HttpURLConnection.HTTP_OK)
+                .saveResponseObject(FilterTransactionResponse.class);
+        txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
+    }
+
+    @Test(description = "Get filter transaction with sort", groups = "transactions", dataProvider = "invalidSort")
+    public void get_filter_transaction_unsuccess_with_sort(String sort) {
+        MultiMap params = new MultiValueMap();
+        params.put("sort", sort);
+        txnSteps.when_filterTransaction(params)
+                .then_verifyErrorResponse(HttpURLConnection.HTTP_INTERNAL_ERROR, APIErrorMessage.UNKNOWN_MESSAGE, APIErrorCode.UNKNOWN_CODE);
+    }
+
 
     @DataProvider(name ="validHash")
     public Object[][] dataValidHash() {
@@ -45,6 +105,31 @@ public class TransactionTests extends BaseTest {
                 {"   "},
                 {"asset1c6t4elexwkpuzq08ssylhhmc78ahlz0sgw5a7y"},
                 {"asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr"}
+        };
+    }
+    @DataProvider(name ="paramWithPage&Size")
+    public Object[][] dataParamPageAndSize() {
+        return new Object[][]{
+                // size is null
+                {"1", ""},
+                {"a", ""},
+                {"-2", ""},
+                {"  ", ""},
+                {"@#$", ""},
+                // page is null
+                {"", "1"},
+                {"", "a"},
+                {"", "-2"},
+                {"", "  "},
+                {"", "@#$"},
+        };
+    }
+    @DataProvider(name ="invalidSort")
+    public Object[][] dataInvalidSort() {
+        return new Object[][]{
+                {"a"},
+                {"-2"},
+                {"@#$"},
         };
     }
 }
