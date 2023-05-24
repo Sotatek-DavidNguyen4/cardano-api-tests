@@ -3,19 +3,14 @@ package tests;
 import base.BaseTest;
 import microservices.common.constants.APIErrorCode;
 import microservices.common.constants.APIErrorMessage;
-import microservices.common.models.ErrorResponse;
-import microservices.delegation.models.PoolDetailHeaderModel;
 import microservices.txn.models.FilterTransactionResponse;
 import microservices.txn.models.TransactionResponse;
 import microservices.txn.steps.TransactionSteps;
-import org.apache.commons.collections4.MultiMap;
-import org.apache.commons.collections4.map.MultiValueMap;
+import org.apache.commons.collections.MultiMap;
+import org.apache.commons.collections.map.MultiValueMap;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import java.net.HttpURLConnection;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class TransactionTests extends BaseTest {
