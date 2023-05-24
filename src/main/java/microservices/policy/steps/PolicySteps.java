@@ -4,6 +4,8 @@ import constants.Endpoints;
 import io.qameta.allure.Step;
 import microservices.common.steps.BaseSteps;
 import microservices.policy.models.detail.PolicyDetail;
+import microservices.policy.models.holder.HolderByPolicy;
+import microservices.policy.models.holder.HolderByPolicyData;
 import microservices.policy.models.token.TokenByPolicy;
 import microservices.policy.models.token.TokenByPolicyData;
 import org.testng.Assert;
@@ -11,11 +13,14 @@ import org.testng.Assert;
 import java.util.List;
 
 public class PolicySteps extends BaseSteps {
-    TokenByPolicy tokenByPolicy = new TokenByPolicy();
-    TokenByPolicyData tokenByPolicyData = new TokenByPolicyData();
     @Step("Get tokens by policies")
     public PolicySteps getTokenByPolicies(Object policyId){
         sendGet(Endpoints.PoliciesApi.GET_TOKEN_BY_POLICIES,Endpoints.PoliciesApi.POLICY_ID,policyId);
+        return this;
+    }
+    @Step("Get list holder by policies")
+    public PolicySteps getListHolderByPolicies(Object policyId){
+        sendGet(Endpoints.PoliciesApi.GET_HOLDER_BY_POLICIES,Endpoints.PoliciesApi.POLICY_ID,policyId);
         return this;
     }
     @Step("Get a policy detail")
@@ -30,12 +35,20 @@ public class PolicySteps extends BaseSteps {
         Assert.assertNotNull(policyDetail.getPolicyScript());
         return this;
     }
-    @Step("Verify policy in response data of token got by policy")
-    public PolicySteps verifyPolicyResponse(TokenByPolicy tokenByPolicy, boolean isEmpty, int totalItemsExpected, int totalPagesExpected, int currentPageExpected){
+    @Step("Verify response data of token got by invalid policy")
+    public PolicySteps verifyTokenByPolicyResponse(TokenByPolicy tokenByPolicy, boolean isEmpty, int totalItemsExpected, int totalPagesExpected, int currentPageExpected){
         Assert.assertEquals(tokenByPolicy.getData().isEmpty(),isEmpty);
         Assert.assertEquals(tokenByPolicy.getTotalItems(),totalItemsExpected);
         Assert.assertEquals(tokenByPolicy.getTotalPages(),totalPagesExpected);
         Assert.assertEquals(tokenByPolicy.getCurrentPage(),currentPageExpected);
+        return this;
+    }
+    @Step("Verify response data of holder got by invalid policy")
+    public PolicySteps verifyHolderByPolicyResponse(HolderByPolicy holderByPolicy, boolean isEmpty, int totalItemsExpected, int totalPagesExpected, int currentPageExpected){
+        Assert.assertEquals(holderByPolicy.getData().isEmpty(),isEmpty);
+        Assert.assertEquals(holderByPolicy.getTotalItems(),totalItemsExpected);
+        Assert.assertEquals(holderByPolicy.getTotalPages(),totalPagesExpected);
+        Assert.assertEquals(holderByPolicy.getCurrentPage(),currentPageExpected);
         return this;
     }
     @Step("Verify policy in response data of token got by policy")
@@ -68,6 +81,18 @@ public class PolicySteps extends BaseSteps {
             Assert.assertNotNull(tokenByPolicyData.getSupply());
             Assert.assertNotNull(tokenByPolicyData.getTotalVolume());
             Assert.assertNotNull(tokenByPolicyData.getCreatedOn());
+        }
+        return this;
+    }
+    @Step("Verify response data of list holder got by policy not null")
+    public PolicySteps verifyResponseDataOfListHolderNotNull(List<HolderByPolicyData> listTokenByPolicyData){
+        for (HolderByPolicyData holderByPolicyData : listTokenByPolicyData){
+            Assert.assertNotNull(holderByPolicyData.getAddress());
+            Assert.assertNotNull(holderByPolicyData.getName());
+            Assert.assertNotNull(holderByPolicyData.getDisplayName());
+            Assert.assertNotNull(holderByPolicyData.getFingerprint());
+            Assert.assertNotNull(holderByPolicyData.getQuantity());
+
         }
         return this;
     }

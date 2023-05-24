@@ -50,6 +50,7 @@
             <class name="tests.epoch.EpochTests"></class>
             <class name="tests.policies.GetPolicyDetailsTests"></class>
             <class name="tests.policies.GetTokenByPolicyTests"></class>
+            <class name="tests.policies.GetHolderByPolicyTests"></class>
         </classes>
     </test>
 </suite>

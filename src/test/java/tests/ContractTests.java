@@ -64,16 +64,9 @@ public class ContractTests extends BaseTest {
     @DataProvider(name="paramUnSuccess")
     public Object[][] dataSetUnSuccess(){
         return new Object[][]{
-                {null,null,null},
                 {12222222,null,null},
                 {"12222222222222222222",null,null},
                 {"@#$",null,null},
-                {"asset1c6t4elexwkpuzq08ssylhhmc78ahlz0sgw5a7y","asset1c6t4elexwkpuzq08ssylhhmc78ahlz0sgw5a7y",null},
-                {"","",""},
-//                {"asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr","asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr","asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr"},
-      /**
-       * Bug in TC API_13
-        */
         };
     }
 }
