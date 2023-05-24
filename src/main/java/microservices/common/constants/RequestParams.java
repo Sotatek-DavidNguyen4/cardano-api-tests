@@ -15,7 +15,7 @@ public class RequestParams {
     public RequestParams(Map<String, Object> params){
         if (params.containsKey("page")) {
             try {
-                page = Integer.parseInt((String) ((List<String>) params.get("page")).get(0));
+                page = Integer.parseInt(((List<String>) params.get("page")).get(0));
                 if (page < 0) {
                     page = 0;
                 }
