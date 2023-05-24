@@ -40,8 +40,13 @@
             <class name="tests.addresses.AddressTransactionTests"/>
             <class name="tests.addresses.TopAddressTests"/>
             <class name="tests.PoolTests"/>
-            <class name="tests.TokenTests"/>
+            <class name="tests.tokens.Token"/>
+            <class name="tests.tokens.Tokens"/>
+            <class name="tests.tokens.TokenTxs"/>
+            <class name="tests.tokens.TokenMints"/>
             <class name="tests.stakes.StakeKeyAddress"/>
+            <class name="tests.stakes.StakeKeyInstantaneousRewards"/>
+            <class name="tests.stakes.Stake"/>
             <class name="tests.TransactionTests"></class>
             <class name="tests.ContractTests"></class>
             <class name="tests.epoch.EpochCurrentTests"></class>
