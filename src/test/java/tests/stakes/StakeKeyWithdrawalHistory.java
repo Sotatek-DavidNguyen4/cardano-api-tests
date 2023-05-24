@@ -1,4 +1,4 @@
-package tests.stakeKey;
+package tests.stakes;
 
 public class StakeKeyWithdrawalHistory {
 }

@@ -1,4 +1,4 @@
-package tests.stakeKey;
+package tests.stakes;
 
 import base.BaseTest;
 import microservices.stakeKey.constants.StakeKeyConstants;
