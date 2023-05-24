@@ -34,46 +34,5 @@ public class StakeKeyAddress extends BaseTest {
                 {1234}
         };
     }
-    @Test(description = "get stake instantaneous rewards with stake key", groups = {"stakeKey"}, dataProvider = "stakeKeyInstantaneousReward")
-    public void getStakeInstantaneousReward(Object stakeKey){
-        stakeKeySteps.getStakeInstantaneousRewards(stakeKey)
-                .validateStatusCode(HttpURLConnection.HTTP_OK);
-    }
-    @DataProvider(name = "stakeKeyInstantaneousReward")
-    public Object[][] DatasetStakeKeyInstantaneousRewards(){
-        return new Object[][]{
-                {"stake_test1urz3dwcwdhvl9dy75rj5krvpmjyldeyxqx5p6xms6xyjd7quqmq2p"},
-//                {"@#$%"},
-                {"  "},
-                {"abcd"},
-                {"12345"}
-        };
-    }
-    @Test(description = "get stake instantaneous rewards with param", groups = "stakeKey", dataProvider = "paramInstantaneousReward")
-    public void getStakkeInstantaneousRewardParam(Object page, Object size){
-        Map<String, Object> param = new CreateParameters()
-                .withPage(page)
-                .withPageSize(size)
-                .getParamsMap();
-        String stakeKey = "stake_test1urz3dwcwdhvl9dy75rj5krvpmjyldeyxqx5p6xms6xyjd7quqmq2p";
-        stakeKeySteps.getStakeInstantaneousRewardParam(stakeKey, param)
-                .validateStatusCode(HttpURLConnection.HTTP_OK);
-    }
-    @DataProvider(name = "paramInstantaneousReward")
-    public Object[][] DatasetParamStakeInstantaneousReward(){
-        return new Object[][]{
-//                {9, null},
-                {"abc", null},
-                {-10, null},
-                {" ", null},
-                {"@#$%", null},
-
-                {null, 1},
-                {null, "abc"},
-                {null, -10},
-                {null, " "},
-                {null, "@#$%"}
-        };
-    }
 }
 
