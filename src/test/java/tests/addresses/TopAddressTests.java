@@ -3,6 +3,8 @@ package tests.addresses;
 import base.BaseTest;
 import com.google.common.collect.Comparators;
 import com.google.common.collect.Ordering;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import microservices.addresses.models.AddressModel;
 import microservices.addresses.models.TopAddressModel;
 import microservices.addresses.steps.AddressSteps;
@@ -17,7 +19,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-
+@Epic("cardano")
+@Feature("api-addresses")
 public class TopAddressTests extends BaseTest {
     TopAddressSteps topAddressSteps = new TopAddressSteps();
     @Test(description = "verify get top-address successfully", groups={"addresses", "top-address"})

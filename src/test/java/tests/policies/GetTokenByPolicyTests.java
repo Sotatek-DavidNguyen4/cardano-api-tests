@@ -59,13 +59,13 @@ public class GetTokenByPolicyTests extends BaseTest {
     }
 
     @Test(description = "verify get list tokens by Invalid policy", groups={"policy"},dataProvider = "getListTokenByInvalidPolicy")
-    public void getListTokenByPoliciesUnSuccess(Object policyId){
+    public void getListTokenByInvalidPolicies(Object policyId){
 
         tokenByPolicy = (TokenByPolicy) policySteps.getTokenByPolicies(policyId)
                 .validateResponse(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(TokenByPolicy.class);
 
-        policySteps.verifyPolicyResponse(tokenByPolicy,true,0,0,0);
+        policySteps.verifyTokenByPolicyResponse(tokenByPolicy,true,0,0,0);
     }
 
     @DataProvider(name="getListTokenByInvalidPolicy")

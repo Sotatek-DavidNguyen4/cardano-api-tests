@@ -2,6 +2,8 @@ package tests.addresses;
 
 import base.BaseTest;
 import constants.Endpoints;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import microservices.addresses.constants.AddressConstants;
 import microservices.addresses.models.AddressTransactionModel;
 import microservices.addresses.steps.AddressTransactionSteps;
@@ -10,7 +12,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.net.HttpURLConnection;
-
+@Epic("cardano")
+@Feature("api-addresses")
 public class AddressTransactionTests extends BaseTest {
     AddressTransactionSteps addressSteps = new AddressTransactionSteps();
 

@@ -3,7 +3,6 @@ package microservices.addresses.steps;
 import com.google.common.collect.Ordering;
 import constants.Endpoints;
 import io.qameta.allure.Step;
-import microservices.addresses.constants.AddressConstants;
 import microservices.addresses.models.TopAddressModel;
 import microservices.common.steps.BaseSteps;
 import org.testng.Assert;

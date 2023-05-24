@@ -2,6 +2,8 @@ package tests.addresses;
 
 import base.BaseTest;
 import constants.enums.AnalyticsType;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import microservices.addresses.constants.AddressConstants;
 import microservices.addresses.steps.AddressAnalyticsSteps;
 import microservices.addresses.steps.AddressesMinMaxBalanceSteps;
@@ -10,6 +12,8 @@ import org.testng.annotations.Test;
 
 import java.net.HttpURLConnection;
 
+@Epic("cardano")
+@Feature("api-addresses")
 public class AddressAnalyticsTests extends BaseTest {
     AddressAnalyticsSteps addressesSteps = new AddressAnalyticsSteps();
     String address = "addr_test1vz09v9yfxguvlp0zsnrpa3tdtm7el8xufp3m5lsm7qxzclgmzkket";
