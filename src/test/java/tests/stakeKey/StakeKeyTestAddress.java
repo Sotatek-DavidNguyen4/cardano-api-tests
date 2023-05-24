@@ -1,4 +1,4 @@
-package tests;
+package tests.stakeKey;
 
 import base.BaseTest;
 import microservices.stakeKey.constants.StakeKeyConstants;
@@ -7,7 +7,8 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.net.HttpURLConnection;
-public class StakeKeyTests extends BaseTest {
+
+public class StakeKeyTestAddress extends BaseTest {
     private StakeKeySteps stakeKeySteps = new StakeKeySteps();
     private String address = "addr_test1qr53akzyd4949txn5hu583yu0xatcvp2efec9tm56jpeg6xkfjf77qy57hqhnefcqyy7hmhsygj9j38rj984hn9r57fsq48dyr";
 

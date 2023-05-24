@@ -13,4 +13,5 @@ public class StakeKeySteps extends BaseSteps {
         sendGet(Endpoints.StakeKeyApi.GET_STAKE_ADDRESS, "address", address);
         return this;
     }
+
 }
