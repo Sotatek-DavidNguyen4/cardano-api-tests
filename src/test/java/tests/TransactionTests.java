@@ -2,6 +2,8 @@ package tests;
 
 import base.BaseTest;
 import constants.enums.AnalyticsType;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import microservices.common.constants.APIErrorCode;
 import microservices.common.constants.APIErrorMessage;
 import microservices.txn.models.FilterTransactionResponse;
@@ -16,7 +18,8 @@ import org.testng.annotations.Test;
 import java.net.HttpURLConnection;
 import java.util.List;
 
-
+@Epic("cardano")
+@Feature("api-transactions")
 public class TransactionTests extends BaseTest {
     TransactionSteps txnSteps = new TransactionSteps();
     private TransactionResponse txnResponse;
