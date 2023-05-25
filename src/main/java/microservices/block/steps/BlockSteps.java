@@ -43,6 +43,7 @@ public class BlockSteps extends BaseSteps {
     }
 
     @Step("Verify filter block")
+
     public BlockSteps then_verifyFilterBlockResponse(BlockModels blockModels, Map<String, Object> params) {
         RequestParams requestParams = new RequestParams(params,0,20);
         assertThat(blockModels.getCurrentPage())
