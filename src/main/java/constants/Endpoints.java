@@ -61,5 +61,7 @@ public class Endpoints {
         public static final String GET_STAKE_ADDRESS = "stakes/address/{address}";
         public static final String STAKE_KEY = "stakeKey";
         public static final String GET_STAKE_INSTANTANEOUS_REWARDS = "stakes/{"+ STAKE_KEY +"}/instantaneous-rewards";
+        public static final String GET_STAKE_DE_REGISTRATION = "stakes/de-registration";
+        public static final String GET_STAKE_ANALYTICS = "stakes/analytics";
     }
 }
