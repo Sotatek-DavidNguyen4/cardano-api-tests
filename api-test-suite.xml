@@ -39,6 +39,7 @@
             <class name="tests.addresses.AddressTests"/>
             <class name="tests.addresses.AddressTransactionTests"/>
             <class name="tests.addresses.TopAddressTests"/>
+            <class name="tests.block.GetAllBlockTests"/>
             <class name="tests.PoolTests"/>
             <class name="tests.TokenTests"/>
             <class name="tests.stakes.StakeKeyAddress"/>

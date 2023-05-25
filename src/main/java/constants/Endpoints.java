@@ -18,6 +18,11 @@ public class Endpoints {
         public static final String ADDRESS_TRANSACTION_URI = "addresses/{address}/txs";
 
     }
+    public static class BlockApi {
+
+        public static final String BLOCK_URI = "blocks";
+
+    }
 
     public static class PoolControllerApi {
         public static final String REGISTRATION_POOLS = "pools/registration";
