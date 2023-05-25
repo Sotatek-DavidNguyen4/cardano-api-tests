@@ -11,9 +11,10 @@ import java.util.Map;
 
 public class TokenTxs extends BaseTest {
     private TokenSteps tokenSteps = new TokenSteps();
+    private String token = "asset1d9v7aptfvpx7we2la8f25kwprkj2ma5rp6uwzv";
     @Test(description = "get token txs valid param", groups = {"token"})
     public void getTokenTxs(){
-        tokenSteps.getTokenTxs("asset1d9v7aptfvpx7we2la8f25kwprkj2ma5rp6uwzv")
+        tokenSteps.getTokenTxs(token)
                 .validateStatusCode(HttpURLConnection.HTTP_OK);
     }
     @Test(description = "get token txs invalid param", groups = {"token"}, dataProvider = "paramTokenTxsParamInvalid")
@@ -22,7 +23,7 @@ public class TokenTxs extends BaseTest {
                 .withPage(page)
                 .withPageSize(size)
                 .getParamsMap();
-        tokenSteps.getTokenTxsParamInvalid("asset1d9v7aptfvpx7we2la8f25kwprkj2ma5rp6uwzv", param)
+        tokenSteps.getTokenTxsParamInvalid(token, param)
                 .validateResponse(HttpURLConnection.HTTP_OK);
     }
     @DataProvider(name = "paramTokenTxsParamInvalid")
