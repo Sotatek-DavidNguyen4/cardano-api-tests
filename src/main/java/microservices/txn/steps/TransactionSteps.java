@@ -1,22 +1,18 @@
 package microservices.txn.steps;
 
-import com.google.common.collect.Ordering;
 import constants.Endpoints;
-import core.BaseApi;
 import io.qameta.allure.Step;
 import microservices.common.constants.RequestParams;
 import microservices.common.steps.BaseSteps;
 //import microservices.txn.constants.Transaction;
-import microservices.common.util.SortListUtil;
-import microservices.txn.models.FilterTransactionResponse;
-import microservices.txn.models.TransactionInfo;
-import microservices.txn.models.TransactionResponse;
-import org.assertj.core.api.Assertions;
+import util.DateUtil;
+import util.SortListUtil;
+import microservices.txn.models.*;
 import org.testng.Assert;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
+import static constants.DateFormats.DATE_FORMAT;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class TransactionSteps extends BaseSteps {
@@ -59,8 +55,37 @@ public class TransactionSteps extends BaseSteps {
             boolean sorted = SortListUtil.isSortedByField(new ArrayList<>(filterTxsRes.getData()), requestParams.getSort());
             assertThat(sorted).as("Transaction is not sorted by inputted params").isEqualTo(true);
         }
+        return this;
+    }
 
+    @Step("Get number transaction on fixable days")
+    public TransactionSteps when_getTransactionOnFixableDays(String type) {
+        sendGet(Endpoints.TransactionApi.TRANSACTION_GRAPH, Endpoints.TransactionApi.TYPE, type);
+        return this;
+    }
 
+    @Step("Get current transaction")
+    public TransactionSteps when_getCurrentTransaction() {
+        sendGet(Endpoints.TransactionApi.TRANSACTION_CURRENT);
+        return this;
+    }
+
+    @Step("Get current transaction")
+    public TransactionSteps then_verifyCurrentTransactionResponse(List<Transaction> currentTransactionsList) {
+        Assert.assertEquals(currentTransactionsList.size(),4);
+        return this;
+    }
+
+    @Step("Verify transaction graph response")
+    public TransactionSteps then_verifyTypeTransactionResponse(List<TransactionGraphResponse> transactionGraphResponseList, int day) {
+        String endDate = DateUtil.getCurrentUTCDate(DATE_FORMAT[1]);
+        System.out.println(endDate);
+        String startDate = DateUtil.getCurrentUTCSubDays(day, DATE_FORMAT[1]);
+        System.out.println(startDate);
+        for (TransactionGraphResponse  txnGraph : transactionGraphResponseList) {
+            Assert.assertTrue(DateUtil.compareDurations(txnGraph.getDate(), startDate, endDate, DATE_FORMAT[1]),
+                    txnGraph.getDate() + " not true");
+        }
         return this;
     }
 }

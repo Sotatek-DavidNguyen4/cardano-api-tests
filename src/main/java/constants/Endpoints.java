@@ -35,6 +35,8 @@ public class Endpoints {
         public static final String TYPE = "type";
         public static final String TRANSACTION_HASH = "txs/{" + HASH_ID + "}";
         public static final String FILTER_TRANSACTION = "txs";
+        public static final String TRANSACTION_GRAPH = "txs/graph/{" + TYPE + "}";
+        public static final String TRANSACTION_CURRENT = "txs/current";
     }
 
     public static class ContractApi {
