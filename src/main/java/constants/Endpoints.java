@@ -18,6 +18,11 @@ public class Endpoints {
         public static final String ADDRESS_TRANSACTION_URI = "addresses/{address}/txs";
 
     }
+    public static class BlockApi {
+
+        public static final String BLOCK_URI = "blocks";
+
+    }
 
     public static class PoolControllerApi {
         public static final String REGISTRATION_POOLS = "pools/registration";
@@ -61,6 +66,7 @@ public class Endpoints {
         public static final String GET_STAKE_ADDRESS = "stakes/address/{address}";
         public static final String STAKE_KEY = "stakeKey";
         public static final String GET_STAKE_INSTANTANEOUS_REWARDS = "stakes/{"+ STAKE_KEY +"}/instantaneous-rewards";
+        public static final String GET_STAKE = "stakes/{"+ STAKE_KEY +"}";
         public static final String GET_STAKE_DE_REGISTRATION = "stakes/de-registration";
         public static final String GET_STAKE_ANALYTICS = "stakes/analytics";
     }

@@ -4,12 +4,7 @@ import constants.Endpoints;
 import io.qameta.allure.Step;
 import microservices.common.constants.RequestParams;
 import microservices.common.steps.BaseSteps;
-import microservices.common.util.SortListUtil;
 import microservices.stakeKey.models.deRegistration.StakeDeRegistration;
-import microservices.txn.models.FilterTransactionResponse;
-import microservices.txn.steps.TransactionSteps;
-
-import java.util.ArrayList;
 import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -49,6 +44,13 @@ public class StakeKeySteps extends BaseSteps {
         assertThat(stakeDeRegistration.getData().size())
                 .as("The size of page is wrong")
                 .isEqualTo(requestParams.getSize());
+        return this;
+    }
+
+    @Step("get a stake with stakeKey")
+    public StakeKeySteps getStakeWithStakeKey(Object stakeKey){
+        sendGet(Endpoints.StakeKeyApi.GET_STAKE, Endpoints.StakeKeyApi.STAKE_KEY, stakeKey);
+
         return this;
     }
 }
