@@ -33,7 +33,7 @@ public class BlockDetailTests extends BaseTest {
     public Object[][] dataSetInvalidBlockId(){
         return new Object[][]{
                 {"stake_test1urf6y7ktcqwzxd2tc3x54437jl6vcqvazgrdka3v2njdjzgyn6hgy"},
-                //{"@#$%"}, need dev fix this
+                {"@#$"},
                 {" "},
                 {"123ab"},
         };
