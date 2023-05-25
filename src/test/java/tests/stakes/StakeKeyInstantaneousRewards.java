@@ -13,7 +13,7 @@ public class StakeKeyInstantaneousRewards extends BaseTest {
     private StakeKeySteps stakeKeySteps = new StakeKeySteps();
     private String stakeKey = "stake_test1urz3dwcwdhvl9dy75rj5krvpmjyldeyxqx5p6xms6xyjd7quqmq2p";
 
-    @Test(description = "get stake instantaneous rewards with stake key", groups = {"stakeKey"}, dataProvider = "stakeKeyInstantaneousReward")
+    @Test(description = "get stake instantaneous rewards with stake key", groups = {"stake", "stake_instantaneour_rewards"}, dataProvider = "stakeKeyInstantaneousReward")
     public void getStakeInstantaneousReward(Object stakeKey){
         stakeKeySteps.getStakeInstantaneousRewards(stakeKey)
                 .validateStatusCode(HttpURLConnection.HTTP_OK);
