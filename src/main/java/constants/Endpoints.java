@@ -21,6 +21,7 @@ public class Endpoints {
     public static class BlockApi {
 
         public static final String BLOCK_URI = "blocks";
+        public static final String BLOCK_DETAIL_URI = "blocks/{blockId}";
 
     }
 
@@ -40,6 +41,8 @@ public class Endpoints {
         public static final String TYPE = "type";
         public static final String TRANSACTION_HASH = "txs/{" + HASH_ID + "}";
         public static final String FILTER_TRANSACTION = "txs";
+        public static final String TRANSACTION_GRAPH = "txs/graph/{" + TYPE + "}";
+        public static final String TRANSACTION_CURRENT = "txs/current";
     }
 
     public static class ContractApi {
@@ -67,6 +70,8 @@ public class Endpoints {
         public static final String STAKE_KEY = "stakeKey";
         public static final String GET_STAKE_INSTANTANEOUS_REWARDS = "stakes/{"+ STAKE_KEY +"}/instantaneous-rewards";
         public static final String GET_STAKE = "stakes/{"+ STAKE_KEY +"}";
+        public static final String GET_STAKE_DE_REGISTRATION = "stakes/de-registration";
+        public static final String GET_STAKE_ANALYTICS = "stakes/analytics";
         public static final String GET_STAKE_HISTORY = "stakes/{"+ STAKE_KEY +"}/stake-history";
     }
 }

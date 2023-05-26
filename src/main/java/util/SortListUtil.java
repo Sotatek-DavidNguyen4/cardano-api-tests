@@ -1,4 +1,4 @@
-package microservices.common.util;
+package util;
 
 import java.lang.reflect.Field;
 import java.util.Comparator;

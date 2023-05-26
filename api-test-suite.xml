@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Setel Regression Suite" configfailurepolicy="continue" verbose="1" parallel="classes" thread-count="3">
+    <parameter name="env" value="preprod"/>
     <test name="Setel Admin test on chrome">
         <method-selectors>
             <method-selector>
@@ -40,6 +41,7 @@
             <class name="tests.addresses.AddressTransactionTests"/>
             <class name="tests.addresses.TopAddressTests"/>
             <class name="tests.block.GetAllBlockTests"/>
+            <class name="tests.block.BlockDetailTests"/>
             <class name="tests.PoolTests"/>
             <class name="tests.tokens.Token"/>
             <class name="tests.tokens.Tokens"/>
@@ -48,6 +50,8 @@
             <class name="tests.stakes.StakeKeyAddress"/>
             <class name="tests.stakes.StakeKeyInstantaneousRewards"/>
             <class name="tests.stakes.Stake"/>
+            <class name="tests.stakes.GetDataForStakeDeRegistrationTest"/>
+            <class name="tests.stakes.StakeAnalyticsTest"/>
             <class name="tests.stakes.StakeKeyHistoryTests"/>
             <class name="tests.TransactionTests"></class>
             <class name="tests.ContractTests"></class>
