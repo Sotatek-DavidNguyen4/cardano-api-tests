@@ -1,9 +1,14 @@
 package tests;
 
 import base.BaseTest;
+import constants.enums.AnalyticsType;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import microservices.common.constants.APIErrorCode;
 import microservices.common.constants.APIErrorMessage;
 import microservices.txn.models.FilterTransactionResponse;
+import microservices.txn.models.Transaction;
+import microservices.txn.models.TransactionGraphResponse;
 import microservices.txn.models.TransactionResponse;
 import microservices.txn.steps.TransactionSteps;
 import org.apache.commons.collections.MultiMap;
@@ -11,11 +16,14 @@ import org.apache.commons.collections.map.MultiValueMap;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import java.net.HttpURLConnection;
+import java.util.List;
 
-
+@Epic("cardano")
+@Feature("api-transactions")
 public class TransactionTests extends BaseTest {
     TransactionSteps txnSteps = new TransactionSteps();
     private TransactionResponse txnResponse;
+    private String type;
 
     @Test(description = "Get the transaction by valid hash", groups = "transactions", dataProvider = "validHash")
     public void get_transaction_by_valid_hash(String hash) {
@@ -51,28 +59,32 @@ public class TransactionTests extends BaseTest {
                 .saveResponseObject(FilterTransactionResponse.class);
         txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
 
+        params = new MultiValueMap();
         params.put("sort", "fee,DESC");
         filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
                 .validateResponse(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(FilterTransactionResponse.class);
         txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
 
+        params = new MultiValueMap();
         params.put("sort", "outSum,ASC");
         filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
                 .validateResponse(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(FilterTransactionResponse.class);
         txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
 
+        params = new MultiValueMap();
         params.put("sort", "outSum,DESC");
         filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
                 .validateResponse(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(FilterTransactionResponse.class);
         txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
 
+        params = new MultiValueMap();
         params.put("sort", "fee,DESC");
+        params.put("sort", "outSum,DESC");
         params.put("page", "1");
         params.put("size", "4");
-        params.put("sort", "outSum,DESC");
         filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
                 .validateResponse(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(FilterTransactionResponse.class);
@@ -85,6 +97,45 @@ public class TransactionTests extends BaseTest {
         params.put("sort", sort);
         txnSteps.when_filterTransaction(params)
                 .then_verifyErrorResponse(HttpURLConnection.HTTP_INTERNAL_ERROR, APIErrorMessage.UNKNOWN_MESSAGE, APIErrorCode.UNKNOWN_CODE);
+    }
+
+    @Test(description = "Get number transaction with invalid days", groups = "transactions", dataProvider = "invalidType")
+    public void get_number_transaction_with_invalid_days(String type) {
+        txnSteps.when_getTransactionOnFixableDays(type)
+                .then_verifyErrorResponse(HttpURLConnection.HTTP_INTERNAL_ERROR, APIErrorMessage.UNKNOWN_MESSAGE, APIErrorCode.UNKNOWN_CODE);
+    }
+
+    @Test(description = "Get number transaction on fixable days", groups = "transactions")
+    public void get_number_transaction_on_fixable_days() {
+        //type = ONE_DAY
+        type = "ONE_DAY";
+        List<TransactionGraphResponse> transactionGraphResponseList = txnSteps.when_getTransactionOnFixableDays(type)
+                .validateResponse(HttpURLConnection.HTTP_OK)
+                .saveResponseListObject(TransactionGraphResponse[].class);
+        txnSteps.then_verifyTypeTransactionResponse(transactionGraphResponseList,1);
+
+       //type = ONE_WEEK
+        type = "ONE_WEEK";
+        transactionGraphResponseList = txnSteps.when_getTransactionOnFixableDays(type)
+                .validateResponse(HttpURLConnection.HTTP_OK)
+                .saveResponseListObject(TransactionGraphResponse[].class);
+        txnSteps.then_verifyTypeTransactionResponse(transactionGraphResponseList,7);
+
+        //type = TWO_WEEK
+        type = "TWO_WEEK";
+        transactionGraphResponseList = txnSteps.when_getTransactionOnFixableDays(type)
+                .validateResponse(HttpURLConnection.HTTP_OK)
+                .saveResponseListObject(TransactionGraphResponse[].class);
+        txnSteps.then_verifyTypeTransactionResponse(transactionGraphResponseList,14);
+
+    }
+
+    @Test(description = "Get current transaction", groups = "transactions")
+    public void get_current_transaction() {
+        List<Transaction> currentTransactionsList = txnSteps.when_getCurrentTransaction()
+                .validateResponse(HttpURLConnection.HTTP_OK)
+                .saveResponseListObject(Transaction[].class);
+        txnSteps.then_verifyCurrentTransactionResponse(currentTransactionsList);
     }
 
 
@@ -132,4 +183,20 @@ public class TransactionTests extends BaseTest {
                 {"@#$"},
         };
     }
+
+    @DataProvider(name ="invalidType")
+    public Object[][] dataInvalidType() {
+        return new Object[][]{
+                {"TWO_DAY"},
+                {"THREE_WEEK"},
+                {"TWO_MONTH"},
+                {"FOUR_MONTH"},
+                {"ONEDAY"},
+                {"ONE DAY"},
+                {"one day"},
+                {"1 day"},
+                {"   "},
+        };
+    }
+
 }
