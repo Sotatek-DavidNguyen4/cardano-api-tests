@@ -6,8 +6,8 @@ import microservices.block.constants.BlockConstants;
 import microservices.block.models.BlockModels;
 import microservices.common.constants.RequestParams;
 import microservices.common.steps.BaseSteps;
-import microservices.common.util.SortListUtil;
 import org.testng.Assert;
+import util.SortListUtil;
 
 import java.util.ArrayList;
 import java.util.Map;
