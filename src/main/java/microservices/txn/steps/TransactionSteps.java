@@ -5,6 +5,7 @@ import io.qameta.allure.Step;
 import microservices.common.constants.RequestParams;
 import microservices.common.steps.BaseSteps;
 //import microservices.txn.constants.Transaction;
+import util.AttributeStandard;
 import util.DateUtil;
 import util.SortListUtil;
 import microservices.txn.models.*;
@@ -14,6 +15,7 @@ import java.util.*;
 
 import static constants.DateFormats.DATE_FORMAT;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.testng.Assert.assertTrue;
 
 public class TransactionSteps extends BaseSteps {
 
@@ -28,6 +30,9 @@ public class TransactionSteps extends BaseSteps {
         assertThat(txnResponse.getTx().getHash())
                 .as("Value of field 'tx.hash' is wrong")
                 .isEqualTo(hash);
+        assertTrue(AttributeStandard.isValidDateFormat(txnResponse.getTx().getTime(), DATE_FORMAT[0]));
+        assertTrue(AttributeStandard.isValidHash(txnResponse.getTx().getHash()));
+        assertTrue(AttributeStandard.isValidBlockHash(txnResponse.getTx().getBlockHash()));
         if (txnResponse.getTx().getHash() == "5526b1373acfc774794a62122f95583ff17febb2ca8a0fe948d097e29cf99099") {
             assertThat(txnResponse.getTx().getOutSum())
                     .as("Value of field 'tx.totalOutput' is wrong")
@@ -55,6 +60,7 @@ public class TransactionSteps extends BaseSteps {
             boolean sorted = SortListUtil.isSortedByField(new ArrayList<>(filterTxsRes.getData()), requestParams.getSort());
             assertThat(sorted).as("Transaction is not sorted by inputted params").isEqualTo(true);
         }
+
         return this;
     }
 
@@ -79,11 +85,9 @@ public class TransactionSteps extends BaseSteps {
     @Step("Verify transaction graph response")
     public TransactionSteps then_verifyTypeTransactionResponse(List<TransactionGraphResponse> transactionGraphResponseList, int day) {
         String endDate = DateUtil.getCurrentUTCDate(DATE_FORMAT[1]);
-        System.out.println(endDate);
         String startDate = DateUtil.getCurrentUTCSubDays(day, DATE_FORMAT[1]);
-        System.out.println(startDate);
         for (TransactionGraphResponse  txnGraph : transactionGraphResponseList) {
-            Assert.assertTrue(DateUtil.compareDurations(txnGraph.getDate(), startDate, endDate, DATE_FORMAT[1]),
+            assertTrue(DateUtil.compareDurations(txnGraph.getDate(), startDate, endDate, DATE_FORMAT[1]),
                     txnGraph.getDate() + " not true");
         }
         return this;
