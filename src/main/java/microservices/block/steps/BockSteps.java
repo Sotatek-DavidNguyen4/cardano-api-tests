@@ -41,7 +41,7 @@ public class BockSteps extends BaseSteps {
 
     @Step("Verify filter block")
     public BockSteps then_verifyFilterBlockResponse(BlockModels blockModels, Map<String, Object> params) {
-        RequestParams requestParams = new RequestParams(params);
+        RequestParams requestParams = new RequestParams(params, 0, 20);
         assertThat(blockModels.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
