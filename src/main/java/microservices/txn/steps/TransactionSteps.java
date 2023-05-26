@@ -79,9 +79,7 @@ public class TransactionSteps extends BaseSteps {
     @Step("Verify transaction graph response")
     public TransactionSteps then_verifyTypeTransactionResponse(List<TransactionGraphResponse> transactionGraphResponseList, int day) {
         String endDate = DateUtil.getCurrentUTCDate(DATE_FORMAT[1]);
-        System.out.println(endDate);
         String startDate = DateUtil.getCurrentUTCSubDays(day, DATE_FORMAT[1]);
-        System.out.println(startDate);
         for (TransactionGraphResponse  txnGraph : transactionGraphResponseList) {
             Assert.assertTrue(DateUtil.compareDurations(txnGraph.getDate(), startDate, endDate, DATE_FORMAT[1]),
                     txnGraph.getDate() + " not true");
