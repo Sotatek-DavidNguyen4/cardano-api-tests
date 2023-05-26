@@ -39,7 +39,7 @@ public class AttributeStandard {
         }
     }
 
-    public static boolean isValidId(String txHash) {
+    public static boolean isValidHash(String txHash) {
         if(txHash != null && !txHash.isEmpty() && !txHash.trim().isEmpty()){
             return txHash.length() == 64;
         }else {
@@ -57,4 +57,5 @@ public class AttributeStandard {
         }
         return true;
     }
+
 }
