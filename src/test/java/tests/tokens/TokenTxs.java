@@ -43,7 +43,7 @@ public class TokenTxs extends BaseTest {
                 {"n"},
                 {"-1"},
                 {" "},
-                {"@#$$"}
+                {"@#$"}
         };
     }
     @Test(description = "get token txs with size", groups = {"token", "token_txs"}, dataProvider = "tokenTxsSize")
@@ -64,7 +64,7 @@ public class TokenTxs extends BaseTest {
                 {"v"},
                 {"-3"},
                 {" "},
-                {"@#$$"}
+                {"@#$"}
         };
     }
     @Test(description = "get token txs with tokenId invalid", groups = {"token", "token_txs"}, dataProvider = "tokenIdInvalid")
@@ -81,7 +81,7 @@ public class TokenTxs extends BaseTest {
     public Object[][] DataSetTokenIdInvalid(){
         return new Object[][]{
                 {"123"},
-//                {"@#$%"},
+                {"@#$"},
                 {"  "},
                 {"asset1c6t4elexwkpuzq08ssylhhmc78ahlz0sgw5a7y"},
                 {"asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr"}

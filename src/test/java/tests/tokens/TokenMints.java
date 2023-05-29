@@ -51,7 +51,7 @@ public class TokenMints extends BaseTest {
     @DataProvider (name = "tokenInvalid")
     public Object[][] DatasetTokenIdInvalid() {
         return new Object[][]{
-//                {"@#$%"},
+                {"@#$"},
                 {" "},
                 {"abc"},
                 {"12345"}
@@ -75,7 +75,7 @@ public class TokenMints extends BaseTest {
                 {"abc"},
                 {"-10"},
                 {" "},
-                {"@#$$"}
+                {"@#$"}
         };
     }
     @Test(description = "get token mint with size", groups = {"token", "token_mints"}, dataProvider = "tokenMintSize")
