@@ -77,7 +77,7 @@ public class BlockListTests extends BaseTest {
                 {"12345"},
         };
     }
-    @Test(description = "get block list unsuccessfully with invalid page", groups = {"block","block-detail"}, dataProvider = "paramInvalidSize")
+    @Test(description = "get block list unsuccessfully with invalid size", groups = {"block","block-detail"}, dataProvider = "paramInvalidSize")
     public void getBlockListUnsuccessfullyWithInvalidSize(Object size){
         MultiMap param = new CreateMultiParameters()
                 .withPageSize(size)
