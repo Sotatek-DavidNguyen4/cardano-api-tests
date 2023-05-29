@@ -17,7 +17,7 @@ import java.net.HttpURLConnection;
 @Feature("api-block")
 public class BlockListTests extends BaseTest {
     BlockSteps blockSteps = new BlockSteps();
-    String blockId = "950010";
+    private String blockId = "950010";
 
     @Test(description = "get block list successfully", groups = {"block","block-list"})
     public void getBlockListSuccessfully(){
@@ -28,7 +28,7 @@ public class BlockListTests extends BaseTest {
 
         blockSteps.then_verifyDataNotNull(blockListModel);
 
-        blockId = "950073";
+        String blockId = "950073";
         blockListModel = (BlockListModel) blockSteps
                 .getTxListOfBlock(blockId)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
