@@ -2,14 +2,15 @@ package microservices.pool.steps;
 
 import core.BaseApi;
 import io.qameta.allure.Step;
+import microservices.common.constants.RequestParams;
 import microservices.pool.models.PoolResponse;
 import static org.assertj.core.api.Assertions.assertThat;
-import org.testng.Assert;
-import constants.Endpoints;
 
-import java.util.Collections;
+import constants.Endpoints;
+import util.SortListUtil;
+
+import java.util.ArrayList;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 
 public class PoolSteps extends BaseApi {
@@ -25,16 +26,18 @@ public class PoolSteps extends BaseApi {
         return this;
     }
 
-    @Step("Verify registration pool list response")
-    public PoolSteps verify_registrationPoolList(PoolResponse poolResponse, Map<String, Object> params){
-        assertThat(poolResponse.getTotalItems())
-                .as("Value of field 'totalItems' is wrong")
-                .isEqualTo(params.get("totalItems"));
-        if (params.get("sort").equals("desc")) {
-            Assert.assertEquals(poolResponse.getData(),poolResponse.getData().stream().sorted(Collections.reverseOrder()).collect(Collectors.toList()));
-        }
-        if (params.get("sort").equals("asc")){
-            Assert.assertEquals(poolResponse.getData(),poolResponse.getData().stream().sorted().collect(Collectors.toList()));
+    @Step("Verify pool list response")
+    public PoolSteps then_verifyPoolListResponse(PoolResponse poolResponse, Map<String, Object> params) {
+        RequestParams requestParams = new RequestParams(params, 0, 10);
+        assertThat(poolResponse.getCurrentPage())
+                .as("Value of field 'currentPage' is wrong")
+                .isEqualTo(requestParams.getPage());
+        assertThat(poolResponse.getData().size())
+                .as("The size of page is wrong")
+                .isEqualTo(requestParams.getSize());
+        if (requestParams.getSort()!=null) {
+            boolean sorted = SortListUtil.isSortedByField(new ArrayList<>(poolResponse.getData()), requestParams.getSort());
+            assertThat(sorted).as("Pool registration list is not sorted by inputted params").isEqualTo(true);
         }
         return this;
     }
