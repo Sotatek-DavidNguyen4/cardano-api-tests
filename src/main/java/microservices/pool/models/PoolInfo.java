@@ -15,7 +15,7 @@ public class PoolInfo {
     public int slotNo;
     public String poolName;
     public long pledge;
-    public int cost;
+    public long cost;
     public double margin;
     public int poolId;
     public String poolView;
