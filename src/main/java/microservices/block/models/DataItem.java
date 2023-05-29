@@ -10,17 +10,16 @@ public class DataItem{
 	private String blockHash;
 	private long totalOutput;
 	private int epochNo;
-	private int epochSlotNo;
 	private List<String> addressesInput;
+	private int epochSlotNo;
 	private int blockNo;
-	private int fee;
-	private int slot;
-	private String time;
-	private List<String> addressesOutput;
-	private String hash;
 	private int txCount;
 	private String slotLeader;
 	@SerializedName("time")
 	private String id;
 	private int slotNo;
+	private String hash;
+	private int fee;
+	private int slot;
+	private List<String> addressesOutput;
 }
