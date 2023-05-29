@@ -18,7 +18,7 @@ public class Tokens extends BaseTest {
     private TokenSteps tokenSteps = new TokenSteps();
     private TokensModel token = new TokensModel();
     private ArrayList<TokenModel> dataTokens;
-    @Test(description = "verify that get list token successfull no key", groups={"token"})
+    @Test(description = "verify that get list token successfull no key", groups={"token", "tokens"})
     public void getListTokenSuccessNokey(){
         Map<String, Object> param = new CreateParameters()
                 .getParamsMap();

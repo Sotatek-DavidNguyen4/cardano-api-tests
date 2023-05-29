@@ -35,7 +35,7 @@ public class StakeKeyInstantaneousRewards extends BaseTest {
                 {"12345"}
         };
     }
-    @Test(description = "get stake instantaneous rewards with param", groups = "stakeKey", dataProvider = "paramInstantaneousReward")
+    @Test(description = "get stake instantaneous rewards with param", groups = {"stake", "stake_instantaneour_rewards"}, dataProvider = "paramInstantaneousReward")
     public void getStakkeInstantaneousRewardParam(Object page, Object size){
         Map<String, Object> param = new CreateParameters()
                 .withPage(page)
