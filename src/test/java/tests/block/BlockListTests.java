@@ -19,7 +19,7 @@ public class BlockListTests extends BaseTest {
     BlockSteps blockSteps = new BlockSteps();
     String blockId = "950010";
 
-    @Test(description = "get block list successfully", groups = {"block","block-detail"})
+    @Test(description = "get block list successfully", groups = {"block","block-list"})
     public void getBlockListSuccessfully(){
         BlockListModel blockListModel = (BlockListModel) blockSteps
                 .getTxListOfBlock(blockId)
@@ -36,7 +36,7 @@ public class BlockListTests extends BaseTest {
 
         blockSteps.then_verifyDataNull(blockListModel);
     }
-    @Test(description = "get block list unsuccessfully with invalid page", groups = {"block","block-detail"}, dataProvider = "paramInvalidPage")
+    @Test(description = "get block list unsuccessfully with invalid page", groups = {"block","block-list"}, dataProvider = "paramInvalidPage")
     public void getBlockListUnsuccessfullyWithInvalidPage(Object page){
         MultiMap param = new CreateMultiParameters()
                 .withPage(page)
@@ -58,7 +58,7 @@ public class BlockListTests extends BaseTest {
                 {"@#$%%"},
         };
     }
-    @Test(description = "get block list unsuccessfully with invalid blockId", groups = {"block","block-detail"}, dataProvider = "paramInvalidBlockId")
+    @Test(description = "get block list unsuccessfully with invalid blockId", groups = {"block","block-list"}, dataProvider = "paramInvalidBlockId")
     public void getBlockListUnsuccessfullyWithInvalidBlockId(Object blockId){
         BlockListModel blockListModel = (BlockListModel) blockSteps
                 .getTxListOfBlock(blockId)
@@ -77,7 +77,7 @@ public class BlockListTests extends BaseTest {
                 {"12345"},
         };
     }
-    @Test(description = "get block list unsuccessfully with invalid size", groups = {"block","block-detail"}, dataProvider = "paramInvalidSize")
+    @Test(description = "get block list unsuccessfully with invalid ", groups = {"block","block-list"}, dataProvider = "paramInvalidSize")
     public void getBlockListUnsuccessfullyWithInvalidSize(Object size){
         MultiMap param = new CreateMultiParameters()
                 .withPageSize(size)
