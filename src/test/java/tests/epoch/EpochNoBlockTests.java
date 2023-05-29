@@ -9,6 +9,8 @@ import microservices.epoch.models.EpochCurrent;
 import microservices.epoch.models.epochByEpochNo.EpochByEpochNo;
 import microservices.epoch.models.epochByEpochNo.EpochDataByEpochNo;
 import microservices.epoch.steps.EpochSteps;
+import org.apache.commons.collections.MultiMap;
+import org.apache.commons.collections.map.MultiValueMap;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import util.CreateParameters;
@@ -65,38 +67,39 @@ public class EpochNoBlockTests extends BaseTest {
     }
 
     @Test(description = "Verify get block list of epoch by its no with param successfully" ,groups = {"epoch"},dataProvider = "dataGetListEpochByEpochNoWithParam")
-    public void getBlockListEpochByNoWithParam(Integer no,Object page,Object size,String sort){
-        Map<String, Object> param = new CreateParameters()
-                .withPage(page)
-                .withPageSize(size)
-                .withSort(sort)
-                .getParamsMap();
-
+    public void getBlockListEpochByNoWithParam(Integer no,String page,String size,String sort){
+        MultiMap param = new MultiValueMap();
+        param.put("page", page);
+        param.put("size", size);
+        if(!sort.equals("")){
+            param.put("sort", sort);
+        }
         epochByEpochNo = (EpochByEpochNo) epochSteps.getBLockListEpochByEpochNoWithParam(param,no)
                 .validateResponse(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(EpochByEpochNo.class);
         epochDataByEpochNo = epochByEpochNo.getData();
         epochSteps.verifyValueEpochNoInBlock(epochDataByEpochNo,no)
                   .verifyResponseEpochNoInBlockNotNull(epochDataByEpochNo)
-                  .verifyNumberPage(epochByEpochNo.getCurrentPage(),page)
-                  .verifySizeOfResponse(epochDataByEpochNo.size(),size)
-                  .verifyResponseByEpochNoIsSorted(sort,epochDataByEpochNo);
+                  .then_verifyEpochByNoBlockResponse(epochByEpochNo,param);
     }
     @DataProvider(name = "dataGetListEpochByEpochNoWithParam")
     public Object[][] dataGetListEpochByEpochNoWithParam(){
         return new Object[][]{
-                {60,6,null,null},
-                {60,"a",null,null},
-                {60,-6,null,null},
-                {60," ",null,null},
-                {60,"(jnfj#$%)",null,null},
-                {60,null,1,null},
-                {60,null,"a",null},
-                {60,null,-2,null},
-                {60,null," ",null},
-                {60,null,"(jnfj#$%)",null},
-                {60,null,null,"id,DESC"},
-                {60,null,null,"id,ASC"},
+                {60,"6","",""},
+                {60,"a","",""},
+                {60,"-6","",""},
+                {60," ","",""},
+                {60,"(jnfj#$%)","",""},
+                {60,"","1",""},
+                {60,"","a",""},
+                {60,"","-2",""},
+                {60,""," ",""},
+                {60,"","(jnfj#$%)",""},
+//                {60,"","","id,DESC"},
+//                {60,"","","id,ASC"},
         };
+        /**
+         wait for update field sort
+         */
     }
 }

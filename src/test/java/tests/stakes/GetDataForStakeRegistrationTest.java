@@ -5,37 +5,36 @@ import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import microservices.stakeKey.models.deRegistration.StakeDeRegistration;
+import microservices.stakeKey.models.registration.StakeRegistration;
 import microservices.stakeKey.steps.StakeKeySteps;
 import org.apache.commons.collections.MultiMap;
 import org.apache.commons.collections.map.MultiValueMap;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
-
 import java.net.HttpURLConnection;
-
 
 
 @Epic("cardano")
 @Feature("api-stake-key-controller")
-@Story("Get Data For Stake De Registration")
-public class GetDataForStakeDeRegistrationTest extends BaseTest {
+@Story("Get Data For Stake Registration")
+public class GetDataForStakeRegistrationTest extends BaseTest {
     StakeKeySteps stakeKeySteps = new StakeKeySteps();
-    StakeDeRegistration stakeDeRegistration ;
-    @Test(description = "Verify data for stake de registration",groups = "stake-key-controller",dataProvider = "getParamForStakeDeRegistration")
+    StakeRegistration stakeRegistration ;
+    @Test(description = "Verify data for stake registration",groups = "stake-key-controller",dataProvider = "getParamForStakeRegistration")
     public void getDataForStakeDeRegistration(Object page,Object size){
         MultiMap params = new MultiValueMap();
         params.put("page", page);
         params.put("size", size);
-        stakeDeRegistration = (StakeDeRegistration) stakeKeySteps.getDataForStakeDeRegistration(params)
+        stakeRegistration = (StakeRegistration) stakeKeySteps.getDataForStakeRegistration(params)
                                                 .validateResponse(HttpURLConnection.HTTP_OK)
-                                                .saveResponseObject(StakeDeRegistration.class);
+                                                .saveResponseObject(StakeRegistration.class);
 
-        stakeKeySteps.then_verifyStakeDeRegistrationResponse(stakeDeRegistration,params)
-                     .then_verifyStakeDeRegistrationResponseNotNull(stakeDeRegistration.getData());
+        stakeKeySteps.then_verifyStakeRegistrationResponse(stakeRegistration,params)
+                     .then_verifyStakeRegistrationResponseNotNull(stakeRegistration.getData());
     }
-    @DataProvider(name = "getParamForStakeDeRegistration")
-    public Object[][] getParamForStakeDeRegistration(){
+    @DataProvider(name = "getParamForStakeRegistration")
+    public Object[][] getParamForStakeRegistration(){
         return new Object[][]{
                 {"",""},
                 {"0","20"},

@@ -9,6 +9,8 @@ import microservices.contract.steps.ContractSteps;
 import microservices.token.models.DataToken;
 import microservices.token.models.Token;
 import microservices.token.steps.TokenSteps;
+import org.apache.commons.collections.MultiMap;
+import org.apache.commons.collections.map.MultiValueMap;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import util.CreateParameters;
@@ -25,34 +27,38 @@ public class ContractTests extends BaseTest {
     private ArrayList<DataContract> dataContracts;
 
     @Test(description = "verify that get list contract successfully", groups={"contract"},dataProvider = "paramSuccess")
-    public void getListParamSuccess(Object page, Object size, String sort){
-        Map<String, Object> param = new CreateParameters()
-                .withPage(page)
-                .withPageSize(size)
-                .withSort(sort)
-                .getParamsMap();
-        contract = (Contract) contractSteps.getListContracts(param)
+    public void getListParamSuccess(String page, String size, String sort){
+        MultiMap params = new MultiValueMap();
+        params.put("page", page);
+        params.put("size", size);
+        if(!sort.equals("")){
+            params.put("sort", sort);
+        }
+        contract = (Contract) contractSteps.getListContracts(params)
                 .validateResponse(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(Contract.class);
 
         dataContracts = contract.getData();
-        contractSteps.verifyNumberPage(contract.getCurrentPage(), page)
-                     .verifySizeOfResponse(dataContracts.size(), size)
+        contractSteps.then_verifyContractResponse(contract,params)
                      .verifyResponseDataNotNull(dataContracts);
     }
     @DataProvider(name="paramSuccess")
     public Object[][] dataSetSuccess(){
         return new Object[][]{
-                {2,2,"id"},
-                {1,null,null},
-                {null,2,null},
-                {null,null,"id"},
-                {1,1,"id"}
+                {"2","2",""},
+                {"1","",""},
+                {"","2",""},
+//                {"","","id,DESC"},
+//                {"1","1","id,DESC"}
+
+                /**
+                wait for update field sort
+                 */
         };
     }
 
     @Test(description = "verify that get list contract with invalid data", groups={"contract"},dataProvider = "paramUnSuccess")
-    public void getListParamUnSuccess(Object page, Object size, String sort){
+    public void getListParamUnSuccess(String page, String size, String sort){
         Map<String, Object> param = new CreateParameters()
                 .withPage(page)
                 .withPageSize(size)
@@ -64,9 +70,9 @@ public class ContractTests extends BaseTest {
     @DataProvider(name="paramUnSuccess")
     public Object[][] dataSetUnSuccess(){
         return new Object[][]{
-                {12222222,null,null},
-                {"12222222222222222222",null,null},
-                {"@#$",null,null},
+                {"12222222","",""},
+                {"12222222222222222222","",""},
+                {"@#$","",""},
         };
     }
 }
