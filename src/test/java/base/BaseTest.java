@@ -32,7 +32,7 @@ public class BaseTest {
     public void postconditions() {
         RestAssured.reset();
     }
-    public boolean isStagingEnv() {
+    public boolean isPreprodEnv() {
         return System.getProperty("cardanoAPI.baseEnv").contains("preprod");
     }
 }

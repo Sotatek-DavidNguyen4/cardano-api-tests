@@ -3,6 +3,7 @@ package microservices.block.steps;
 import constants.Endpoints;
 import io.qameta.allure.Step;
 import microservices.block.constants.BlockConstants;
+import microservices.block.models.BlockListModel;
 import microservices.block.models.BlockModels;
 import microservices.common.constants.RequestParams;
 import microservices.common.steps.BaseSteps;
@@ -32,6 +33,16 @@ public class BlockSteps extends BaseSteps {
         sendGet(Endpoints.BlockApi.BLOCK_DETAIL_URI, BlockConstants.BOCK_ID, blockId);
         return this;
     }
+    @Step("get a list of block")
+    public BlockSteps getTxListOfBlock(Object blockId) {
+        sendGet(Endpoints.BlockApi.BLOCK_LIST_URI,BlockConstants.BOCK_ID, blockId);
+        return this;
+    }
+    @Step("get a list of block")
+    public BlockSteps getTxListOfBlock(Object blockId, Map<String, Object> param) {
+        sendGet(Endpoints.BlockApi.BLOCK_LIST_URI,param ,BlockConstants.BOCK_ID, blockId);
+        return this;
+    }
 
     @Step("verify value of attribute is correctly")
     public BlockSteps verifyValueOfAttributeIsCorrectly(BlockModels blockModels, Object value) {
@@ -56,6 +67,16 @@ public class BlockSteps extends BaseSteps {
             boolean sorted = SortListUtil.isSortedByField(new ArrayList<>(blockModels.getData()), requestParams.getSort());
             assertThat(sorted).as("block is not sorted by inputted params").isEqualTo(true);
         }
+        return this;
+    }
+    @Step("Verify data null")
+    public BlockSteps then_verifyDataNull(BlockListModel blockListModel) {
+        Assert.assertTrue(blockListModel.getData().isEmpty(),"data null");
+        return this;
+    }
+    @Step("Verify data not null")
+    public BlockSteps then_verifyDataNotNull(BlockListModel blockListModel) {
+        Assert.assertFalse(blockListModel.getData().isEmpty(),"data not null");
         return this;
     }
 }
