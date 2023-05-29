@@ -36,8 +36,8 @@ public class BlockListTests extends BaseTest {
 
         blockSteps.then_verifyDataNull(blockListModel);
     }
-    @Test(description = "get block list unsuccessfully with invalid page", groups = {"block","block-list"}, dataProvider = "paramInvalidPage")
-    public void getBlockListUnsuccessfullyWithInvalidPage(Object page){
+    @Test(description = "get block list successfully with invalid page", groups = {"block","block-list"}, dataProvider = "paramInvalidPage")
+    public void getBlockListSuccessfullyWithInvalidPage(Object page){
         MultiMap param = new CreateMultiParameters()
                 .withPage(page)
                 .getParamsMap();
@@ -77,8 +77,8 @@ public class BlockListTests extends BaseTest {
                 {"12345"},
         };
     }
-    @Test(description = "get block list unsuccessfully with invalid size", groups = {"block","block-list"}, dataProvider = "paramInvalidSize")
-    public void getBlockListUnsuccessfullyWithInvalidSize(Object size){
+    @Test(description = "get block list Successfully with invalid size", groups = {"block","block-list"}, dataProvider = "paramInvalidSize")
+    public void getBlockListSuccessfullyWithInvalidSize(Object size){
         MultiMap param = new CreateMultiParameters()
                 .withPageSize(size)
                 .getParamsMap();
