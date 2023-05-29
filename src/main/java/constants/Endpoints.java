@@ -22,6 +22,7 @@ public class Endpoints {
 
         public static final String BLOCK_URI = "blocks";
         public static final String BLOCK_DETAIL_URI = "blocks/{blockId}";
+        public static final String BLOCK_LIST_URI = "blocks/{blockId}/txs";
 
     }
 
