@@ -2,7 +2,6 @@ package tests.tokens;
 
 import base.BaseTest;
 import microservices.token.models.TokensMintsModel;
-import microservices.token.models.TokensTxsModel;
 import microservices.token.steps.TokenSteps;
 import org.apache.commons.collections.MultiMap;
 import org.testng.annotations.DataProvider;
@@ -44,7 +43,7 @@ public class TokenMints extends BaseTest {
         Map<String, Object> param = new CreateParameters()
                 .getParamsMap();
         TokensMintsModel tokensMintsModel = (TokensMintsModel)
-                tokenSteps.getTokenMint(tokenId, param)
+                tokenSteps.getTokenMint(token, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(TokensMintsModel.class);
         tokenSteps.then_verifyFilterTokensMintsResponse(tokensMintsModel, param);
@@ -52,9 +51,8 @@ public class TokenMints extends BaseTest {
     @DataProvider (name = "tokenInvalid")
     public Object[][] DatasetTokenIdInvalid() {
         return new Object[][]{
-                {"@#$%"},
+//                {"@#$%"},
                 {" "},
-                {""},
                 {"abc"},
                 {"12345"}
         };

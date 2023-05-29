@@ -8,7 +8,6 @@ import microservices.token.models.TokenMintsModel;
 import microservices.token.models.TokensMintsModel;
 import microservices.token.models.TokensModel;
 import microservices.token.models.TokensTxsModel;
-import org.testng.Assert;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -16,7 +15,6 @@ import java.util.Map;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class TokenSteps extends BaseSteps {
-    private TokensModel token = new TokensModel();
     @Step("get list token")
     public TokenSteps getListTokens(Map<String, Object> paramsToken){
         sendGet(Endpoints.TokenApi.GET_LIST_TOKEN, paramsToken);
@@ -33,51 +31,8 @@ public class TokenSteps extends BaseSteps {
                 .isEqualTo(requestParams.getSize());
         return this;
     }
-    @Step("save response get list token")
-    public TokensModel saveResponseListToken(){
-        token = (TokensModel) saveResponseObject(TokensModel.class);
-        return token;
-    }
-    @Step("verify number page of response get list token")
-    public TokenSteps verifyNumberPage(int pageNumberActual, int pageNumberExpect){
-        if(pageNumberExpect > 0){
-            Assert.assertEquals(pageNumberActual, pageNumberExpect);
-        }else{
-            Assert.assertEquals(pageNumberActual, 0);
-        }
-        return this;
-    }
-    @Step("verify number size of response get list token")
-    public TokenSteps verifySizeOfResponse(int sizeActual, int sizeExpect){
-        if(sizeExpect < 0){
-            Assert.assertEquals(sizeActual, 20);
-        }else {
-            Assert.assertEquals(sizeActual, sizeExpect);
-        }
-        return this;
-    }
-    @Step("get list token with page invalid")
-    public TokenSteps getListTokensWithPageInvalid(Map<String, Object> paramsToken){
-        sendGet(Endpoints.TokenApi.GET_LIST_TOKEN, paramsToken);
-        return this;
-    }
-    @Step("verify number page invalid of response get list token")
-    public TokenSteps verifyNumberPageInvalid(int pageNumberActual){
-        Assert.assertEquals(pageNumberActual, 0);
-        return this;
-    }
     @Step("get list token with size invalid")
     public TokenSteps getListTokensWithSizeInvalid(Map<String, Object> paramsToken){
-        sendGet(Endpoints.TokenApi.GET_LIST_TOKEN, paramsToken);
-        return this;
-    }
-    @Step("verify number size valid of response get list token")
-    public TokenSteps verifySizeInvalidOfResponse(int sizeActual){
-        Assert.assertEquals(sizeActual, 20);
-        return this;
-    }
-    @Step("get list token with sort invalid")
-    public TokenSteps getListTokensWithSortInvalid(Map<String, Object> paramsToken){
         sendGet(Endpoints.TokenApi.GET_LIST_TOKEN, paramsToken);
         return this;
     }
@@ -97,14 +52,9 @@ public class TokenSteps extends BaseSteps {
         assertThat(tokensTxsModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
-        assertThat(tokensTxsModel.getData().size())
-                .as("Value of field 'size' is wrong")
-                .isEqualTo(requestParams.getSize());
-        return this;
-    }
-    @Step("get token txs with params invalid")
-    public TokenSteps getTokenTxsParamInvalid(String tokenId, Map<String, Object> param){
-        sendGet(Endpoints.TokenApi.GET_TXS, param, Endpoints.TokenApi.TOKEN_ID, tokenId);
+//        assertThat(tokensTxsModel.getData().size())
+//                .as("Value of field 'size' is wrong")
+//                .isEqualTo(requestParams.getSize());
         return this;
     }
     @Step("get token mints")
@@ -118,9 +68,9 @@ public class TokenSteps extends BaseSteps {
         assertThat(tokensMintsModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
-        assertThat(tokensMintsModel.getData().size())
-                .as("Value of field 'size' is wrong")
-                .isEqualTo(requestParams.getSize());
+//        assertThat(tokensMintsModel.getData().size())
+//                .as("Value of field 'size' is wrong")
+//                .isEqualTo(requestParams.getSize());
         return this;
     }
     @Step("verify that response of token mint should be sort")

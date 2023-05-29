@@ -2,7 +2,6 @@ package tests.tokens;
 
 import base.BaseTest;
 import microservices.token.constants.TokenConstants;
-import microservices.token.models.TokenModel;
 import microservices.token.steps.TokenSteps;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;

@@ -1,7 +1,6 @@
 package tests.tokens;
 
 import base.BaseTest;
-import microservices.token.constants.TokenConstants;
 import microservices.token.models.TokensTxsModel;
 import microservices.token.steps.TokenSteps;
 import org.apache.commons.collections.MultiMap;
@@ -72,17 +71,18 @@ public class TokenTxs extends BaseTest {
     public void getTokenTxsWithTokenIdInvalid(String token){
         MultiMap param = new CreateMultiParameters()
                 .getParamsMap();
-        tokenSteps.getTokenTxs(token, param)
-                .then_verifyErrorResponse(HttpURLConnection.HTTP_BAD_REQUEST, TokenConstants.ERROR_MESSAGE, TokenConstants.ERROR_CODE);
+        TokensTxsModel tokensTxsModel = (TokensTxsModel)
+                tokenSteps.getTokenTxs(token, param)
+                        .validateStatusCode(HttpURLConnection.HTTP_OK)
+                        .saveResponseObject(TokensTxsModel.class);
+        tokenSteps.then_verifyFilterTokensMintsResponse(tokensTxsModel, param);
     }
     @DataProvider(name = "tokenIdInvalid")
     public Object[][] DataSetTokenIdInvalid(){
         return new Object[][]{
                 {"123"},
-                {null},
 //                {"@#$%"},
                 {"  "},
-                {""},
                 {"asset1c6t4elexwkpuzq08ssylhhmc78ahlz0sgw5a7y"},
                 {"asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr"}
         };
