@@ -15,11 +15,11 @@ import java.util.Map;
 public class StakeKeyAddress extends BaseTest {
     private StakeKeySteps stakeKeySteps = new StakeKeySteps();
     private String address = "addr_test1qr53akzyd4949txn5hu583yu0xatcvp2efec9tm56jpeg6xkfjf77qy57hqhnefcqyy7hmhsygj9j38rj984hn9r57fsq48dyr";
-
+    private String stakeAddress = "stake_test1urtyeyl0qz20tsteu5uqzz0tamczyfzegn3ezn6mej360ycky7cg5";
     @Test(description = "get a stake detail by address", groups = {"stake", "stake_address"})
     public void getStakeByAddress(){
         Map<String, Object> expected = new HashMap<>();
-        expected.put("stakeAddress", "stake_test1urtyeyl0qz20tsteu5uqzz0tamczyfzegn3ezn6mej360ycky7cg5");
+        expected.put("stakeAddress", stakeAddress);
         StakeModel stakeModel = (StakeModel)
         stakeKeySteps.getStakeByAddress(address)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
