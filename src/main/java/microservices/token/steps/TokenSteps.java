@@ -31,8 +31,6 @@ public class TokenSteps extends BaseSteps {
         assertThat(tokensModel.getData().size())
                 .as("Value of field 'size' is wrong")
                 .isEqualTo(requestParams.getSize());
-        System.out.println("current page: " +tokensModel.getCurrentPage());
-        System.out.println("current size: " +tokensModel.getData().size());
         return this;
     }
     @Step("save response get list token")
@@ -102,8 +100,6 @@ public class TokenSteps extends BaseSteps {
         assertThat(tokensTxsModel.getData().size())
                 .as("Value of field 'size' is wrong")
                 .isEqualTo(requestParams.getSize());
-        System.out.println("current page: " +tokensTxsModel.getCurrentPage());
-        System.out.println("current size: " +tokensTxsModel.getData().size());
         return this;
     }
     @Step("get token txs with params invalid")
