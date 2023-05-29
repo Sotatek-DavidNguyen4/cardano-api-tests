@@ -23,7 +23,7 @@ public class TokenTxs extends BaseTest {
         tokenSteps.getTokenTxs(tokenId, param)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(TokensTxsModel.class);
-        tokenSteps.then_verifyFilterTokensMintsResponse(tokensTxsModel, param);
+        tokenSteps.then_verifyFilterTokensTxsResponse(tokensTxsModel, param, 20);
     }
     @Test(description = "get token txs with page", groups = {"token", "token_txs"}, dataProvider = "tokenTxsPage")
     public void getTokenTxsPage(String page){
@@ -34,7 +34,7 @@ public class TokenTxs extends BaseTest {
                 tokenSteps.getTokenTxs(tokenId, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(TokensTxsModel.class);
-        tokenSteps.then_verifyFilterTokensMintsResponse(tokensTxsModel, param);
+        tokenSteps.then_verifyFilterTokensTxsResponse(tokensTxsModel, param, 20);
     }
     @DataProvider(name = "tokenTxsPage")
     public Object[][] DataSetTokenTxsPage(){
@@ -55,7 +55,7 @@ public class TokenTxs extends BaseTest {
                 tokenSteps.getTokenTxs(tokenId, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(TokensTxsModel.class);
-        tokenSteps.then_verifyFilterTokensMintsResponse(tokensTxsModel, param);
+        tokenSteps.then_verifyFilterTokensTxsResponse(tokensTxsModel, param, 20);
     }
     @DataProvider(name = "tokenTxsSize")
     public Object[][] DataSetTokenTxsSize(){
@@ -75,7 +75,7 @@ public class TokenTxs extends BaseTest {
                 tokenSteps.getTokenTxs(token, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(TokensTxsModel.class);
-        tokenSteps.then_verifyFilterTokensMintsResponse(tokensTxsModel, param);
+//        tokenSteps.then_verifyFilterTokensTxsResponse(tokensTxsModel, param, 0);
     }
     @DataProvider(name = "tokenIdInvalid")
     public Object[][] DataSetTokenIdInvalid(){

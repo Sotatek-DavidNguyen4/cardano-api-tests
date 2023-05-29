@@ -23,7 +23,7 @@ public class TokenMints extends BaseTest {
         tokenSteps.getTokenMint(tokenId, param)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(TokensMintsModel.class);
-        tokenSteps.then_verifyFilterTokensMintsResponse(tokensMintsModel, param);
+        tokenSteps.then_verifyFilterTokensMintsResponse(tokensMintsModel, param, 20);
     }
     @Test(description = "get token mints all key", groups = {"token", "token_mints"})
     public void getTokenMintsAllKey(){
@@ -36,7 +36,7 @@ public class TokenMints extends BaseTest {
                 tokenSteps.getTokenMint(tokenId, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(TokensMintsModel.class);
-        tokenSteps.then_verifyFilterTokensMintsResponse(tokensMintsModel, param);
+        tokenSteps.then_verifyFilterTokensMintsResponse(tokensMintsModel, param, 20);
     }
     @Test(description = "get token mints invalid tokenId", groups = {"token", "token_mints"}, dataProvider = "tokenInvalid")
     public void getTokenMintsInvalidParam(String token){
@@ -46,7 +46,7 @@ public class TokenMints extends BaseTest {
                 tokenSteps.getTokenMint(token, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(TokensMintsModel.class);
-        tokenSteps.then_verifyFilterTokensMintsResponse(tokensMintsModel, param);
+        tokenSteps.then_verifyFilterTokensMintsResponse(tokensMintsModel, param, 0);
     }
     @DataProvider (name = "tokenInvalid")
     public Object[][] DatasetTokenIdInvalid() {
@@ -66,7 +66,7 @@ public class TokenMints extends BaseTest {
                 tokenSteps.getTokenMint(tokenId, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(TokensMintsModel.class);
-        tokenSteps.then_verifyFilterTokensMintsResponse(tokensMintsModel, param);
+        tokenSteps.then_verifyFilterTokensMintsResponse(tokensMintsModel, param, 20);
     }
     @DataProvider(name = "tokenMintPage")
     public Object[][] DataSetTokenMintPage(){
@@ -87,7 +87,7 @@ public class TokenMints extends BaseTest {
                 tokenSteps.getTokenMint(tokenId, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(TokensMintsModel.class);
-        tokenSteps.then_verifyFilterTokensMintsResponse(tokensMintsModel, param);
+        tokenSteps.then_verifyFilterTokensMintsResponse(tokensMintsModel, param, 20);
     }
     @DataProvider(name = "tokenMintSize")
     public Object[][] DataSetTokenMintSize(){
@@ -108,7 +108,7 @@ public class TokenMints extends BaseTest {
                 tokenSteps.getTokenMint(tokenId, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(TokensMintsModel.class);
-        tokenSteps.then_verifyFilterTokensMintsResponse(tokensMintsModel, param);
+        tokenSteps.then_verifyFilterTokensMintsResponse(tokensMintsModel, param, 20);
     }
     @DataProvider(name = "tokenMintSort")
     public Object[][] DataSetTokenMintSort(){

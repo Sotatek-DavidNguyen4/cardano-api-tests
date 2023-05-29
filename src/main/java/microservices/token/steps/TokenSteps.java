@@ -47,14 +47,15 @@ public class TokenSteps extends BaseSteps {
         return this;
     }
     @Step("verify that current page of token txs")
-    public TokenSteps then_verifyFilterTokensMintsResponse(TokensTxsModel tokensTxsModel, Map<String,Object> param){
-        RequestParams requestParams = new RequestParams(param, 0, 20);
+    public TokenSteps then_verifyFilterTokensTxsResponse(TokensTxsModel tokensTxsModel, Map<String,Object> param, int defaultSize){
+        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
         assertThat(tokensTxsModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
-//        assertThat(tokensTxsModel.getData().size())
-//                .as("Value of field 'size' is wrong")
-//                .isEqualTo(requestParams.getSize());
+
+        assertThat(tokensTxsModel.getData().size())
+                .as("Value of field 'size' is wrong")
+                .isEqualTo(requestParams.getSize());
         return this;
     }
     @Step("get token mints")
@@ -63,14 +64,14 @@ public class TokenSteps extends BaseSteps {
         return this;
     }
     @Step("verify that current page of token mints")
-    public TokenSteps then_verifyFilterTokensMintsResponse(TokensMintsModel tokensMintsModel, Map<String,Object> param){
-        RequestParams requestParams = new RequestParams(param, 0, 20);
+    public TokenSteps then_verifyFilterTokensMintsResponse(TokensMintsModel tokensMintsModel, Map<String,Object> param, int defaultSize){
+        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
         assertThat(tokensMintsModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
-//        assertThat(tokensMintsModel.getData().size())
-//                .as("Value of field 'size' is wrong")
-//                .isEqualTo(requestParams.getSize());
+        assertThat(tokensMintsModel.getData().size())
+                .as("Value of field 'size' is wrong")
+                .isEqualTo(requestParams.getSize());
         return this;
     }
     @Step("verify that response of token mint should be sort")
