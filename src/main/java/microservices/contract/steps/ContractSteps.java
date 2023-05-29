@@ -5,8 +5,6 @@ import core.BaseApi;
 import io.qameta.allure.Step;
 import microservices.contract.models.Contract;
 import microservices.contract.models.DataContract;
-import microservices.token.models.Token;
-import microservices.token.steps.TokenSteps;
 import org.testng.Assert;
 
 import java.util.ArrayList;
