@@ -36,6 +36,7 @@ public class Endpoints {
         public static final String GET_A_TOKEN = "tokens/{"+ TOKEN_ID +"}";
         public static final String GET_TXS = "tokens/{"+ TOKEN_ID +"}/txs";
         public static final String GET_MINTS = "tokens/{"+ TOKEN_ID +"}/mints";
+        public static final String GET_TOP_HOLDERS = "tokens/{"+ TOKEN_ID +"}/top_holders";
     }
     public static class TransactionApi {
         public static final String HASH_ID = "hash";

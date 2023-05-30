@@ -3,7 +3,6 @@ package microservices.token.steps;
 import constants.Endpoints;
 import core.BaseApi;
 import io.qameta.allure.Step;
-import microservices.common.models.ErrorResponse;
 import microservices.common.steps.BaseSteps;
 import microservices.token.models.Token;
 import org.testng.Assert;
@@ -83,6 +82,11 @@ public class TokenSteps extends BaseSteps {
     @Step("get token mints param valid")
     public TokenSteps getTokenMintParamValid(Map<String, Object> param, String tokenId){
         sendGet(Endpoints.TokenApi.GET_MINTS, param, Endpoints.TokenApi.TOKEN_ID, tokenId);
+        return this;
+    }
+    @Step("get token top holder")
+    public TokenSteps getTokenTopHolder(String tokenId){
+        sendGet(Endpoints.TokenApi.GET_TOP_HOLDERS, Endpoints.TokenApi.TOKEN_ID, tokenId );
         return this;
     }
 }
