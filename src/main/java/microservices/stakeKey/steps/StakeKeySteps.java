@@ -7,12 +7,17 @@ import microservices.common.steps.BaseSteps;
 import microservices.stakeKey.models.StakeModel;
 import microservices.stakeKey.models.deRegistration.StakeDeRegistration;
 import microservices.stakeKey.models.StakeHistory;
+import microservices.stakeKey.models.deRegistration.StakeDeRegistrationData;
+import microservices.stakeKey.models.registration.StakeRegistration;
+import microservices.stakeKey.models.registration.StakeRegistrationData;
+import microservices.stakeKey.models.topDelegators.TopDelegators;
+import microservices.stakeKey.models.topDelegators.TopDelegatorsData;
 import microservices.stakeKey.models.withdrawalHistory.WithdrawalHistoryModel;
 import microservices.token.models.TokensMintsModel;
 import microservices.token.steps.TokenSteps;
 import org.testng.Assert;
 
-import javax.xml.ws.Endpoint;
+import java.util.List;
 import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -38,6 +43,16 @@ public class StakeKeySteps extends BaseSteps {
         sendGet(Endpoints.StakeKeyApi.GET_STAKE_INSTANTANEOUS_REWARDS, param, Endpoints.StakeKeyApi.STAKE_KEY, stakeKey);
         return this;
     }
+    @Step("Get top delegators")
+    public StakeKeySteps getTopDelegators(Map<String, Object> param){
+        sendGet(Endpoints.StakeKeyApi.GET_TOP_DELEGATORS, param);
+        return this;
+    }
+    @Step("get Data For Stake Registration with param")
+    public StakeKeySteps getDataForStakeRegistration(Map<String, Object> param){
+        sendGet(Endpoints.StakeKeyApi.GET_STAKE_REGISTRATION, param);
+        return this;
+    }
     @Step("get Data For Stake De Registration with param")
     public StakeKeySteps getDataForStakeDeRegistration(Map<String, Object> param){
         sendGet(Endpoints.StakeKeyApi.GET_STAKE_DE_REGISTRATION, param);
@@ -46,6 +61,28 @@ public class StakeKeySteps extends BaseSteps {
     @Step("get active stake, live stake and total stake")
     public StakeKeySteps getStakeAnalytics(){
         sendGet(Endpoints.StakeKeyApi.GET_STAKE_ANALYTICS);
+        return this;
+    }
+    @Step("Verify currentPage and size of get top delegators response")
+    public StakeKeySteps then_verifyTopDelegatorsResponse(TopDelegators topDelegators, Map<String, Object> params) {
+        RequestParams requestParams = new RequestParams(params, 0, 20);
+        assertThat(topDelegators.getCurrentPage())
+                .as("Value of field 'currentPage' is wrong")
+                .isEqualTo(requestParams.getPage());
+        assertThat(topDelegators.getData().size())
+                .as("The size of page is wrong")
+                .isEqualTo(requestParams.getSize());
+        return this;
+    }
+    @Step("Verify currentPage and size of get Data For Stake Registration response")
+    public StakeKeySteps then_verifyStakeRegistrationResponse(StakeRegistration stakeRegistration, Map<String, Object> params) {
+        RequestParams requestParams = new RequestParams(params, 0, 20);
+        assertThat(stakeRegistration.getCurrentPage())
+                .as("Value of field 'currentPage' is wrong")
+                .isEqualTo(requestParams.getPage());
+        assertThat(stakeRegistration.getData().size())
+                .as("The size of page is wrong")
+                .isEqualTo(requestParams.getSize());
         return this;
     }
     @Step("Verify currentPage and size of get Data For Stake De Registration response")
@@ -57,6 +94,43 @@ public class StakeKeySteps extends BaseSteps {
         assertThat(stakeDeRegistration.getData().size())
                 .as("The size of page is wrong")
                 .isEqualTo(requestParams.getSize());
+        return this;
+    }
+    @Step("Verify data for get top delegators response not null")
+    public StakeKeySteps then_verifyGetTopDelegatorsResponseNotNull(List<TopDelegatorsData> topDelegatorsDataList) {
+        for (TopDelegatorsData topDelegatorsData:topDelegatorsDataList){
+            Assert.assertNotNull(topDelegatorsData.getBalance());
+            Assert.assertNotNull(topDelegatorsData.getPoolId());
+            Assert.assertNotNull(topDelegatorsData.getStakeKey());
+        }
+        return this;
+    }
+    @Step("Verify Data For Stake Registration response not null")
+    public StakeKeySteps then_verifyStakeRegistrationResponseNotNull(List<StakeRegistrationData> stakeRegistrationDatas) {
+        for (StakeRegistrationData stakeRegistrationData:stakeRegistrationDatas){
+            Assert.assertNotNull(stakeRegistrationData.getTxId());
+            Assert.assertNotNull(stakeRegistrationData.getTxHash());
+            Assert.assertNotNull(stakeRegistrationData.getTxTime());
+            Assert.assertNotNull(stakeRegistrationData.getBlock());
+            Assert.assertNotNull(stakeRegistrationData.getEpoch());
+            Assert.assertNotNull(stakeRegistrationData.getSlotNo());
+            Assert.assertNotNull(stakeRegistrationData.getEpochSlotNo());
+            Assert.assertNotNull(stakeRegistrationData.getStakeKey());
+        }
+        return this;
+    }
+    @Step("Verify Data For Stake De Registration response not null")
+    public StakeKeySteps then_verifyStakeDeRegistrationResponseNotNull(List<StakeDeRegistrationData> stakeDeRegistrationDatas) {
+        for (StakeDeRegistrationData stakeDeRegistrationData:stakeDeRegistrationDatas){
+            Assert.assertNotNull(stakeDeRegistrationData.getTxId());
+            Assert.assertNotNull(stakeDeRegistrationData.getTxHash());
+            Assert.assertNotNull(stakeDeRegistrationData.getTxTime());
+            Assert.assertNotNull(stakeDeRegistrationData.getBlock());
+            Assert.assertNotNull(stakeDeRegistrationData.getEpoch());
+            Assert.assertNotNull(stakeDeRegistrationData.getSlotNo());
+            Assert.assertNotNull(stakeDeRegistrationData.getEpochSlotNo());
+            Assert.assertNotNull(stakeDeRegistrationData.getStakeKey());
+        }
         return this;
     }
 
