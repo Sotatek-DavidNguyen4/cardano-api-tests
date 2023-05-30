@@ -92,6 +92,11 @@ public class TokenSteps extends BaseSteps {
         sendGet(Endpoints.TokenApi.GET_TOP_HOLDERS, Endpoints.TokenApi.TOKEN_ID, tokenId );
         return this;
     }
+    @Step("get token top holder param valid")
+    public TokenSteps getTokenTopHoldersParamValid(Map<String, Object> param, String tokenId){
+        sendGet(Endpoints.TokenApi.GET_TOP_HOLDERS, param, Endpoints.TokenApi.TOKEN_ID, tokenId );
+        return this;
+    }
     @Step("verify that current page of token top holders")
     public TokenSteps then_verifyFilterTokensTopHoldersResponse(TokensTopHolderModel tokensTopHolderModel, Map<String,Object> param, int defaultSize){
         RequestParams requestParams = new RequestParams(param, 0, defaultSize);

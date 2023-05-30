@@ -3,7 +3,10 @@ package tests.tokens;
 import base.BaseTest;
 import microservices.token.models.TokensTopHolderModel;
 import microservices.token.steps.TokenSteps;
+import org.apache.commons.collections.MultiMap;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import util.CreateMultiParameters;
 import util.CreateParameters;
 
 import java.net.HttpURLConnection;
@@ -22,6 +25,25 @@ public class TokenTopHolder extends BaseTest {
                 .saveResponseObject(TokensTopHolderModel.class);
         tokenSteps.then_verifyFilterTokensTopHoldersResponse(tokensTopHolderModel, param, 10);
     }
-    @Test(description = "get token top holders with page", groups = {"token", "top_holder"})
-    public void getTokenTopHolderWithPage(){}
+    @Test(description = "get token top holders with page", groups = {"token", "top_holder"}, dataProvider = "page")
+    public void getTokenTopHolderWithPage(Object page){
+        MultiMap param = new CreateMultiParameters()
+                .withPage(page)
+                .getParamsMap();
+        TokensTopHolderModel tokensTopHolderModel = (TokensTopHolderModel)
+                tokenSteps.getTokenTopHoldersParamValid(param, tokenId)
+                        .validateStatusCode(HttpURLConnection.HTTP_OK)
+                        .saveResponseObject(TokensTopHolderModel.class);
+        tokenSteps.then_verifyFilterTokensTopHoldersResponse(tokensTopHolderModel, param, 10);
+    }
+    @DataProvider(name="page")
+    public Object[][] dataSetPage(){
+        return new Object[][]{
+                {"0"},
+                {"n"},
+                {"-1"},
+                {"@#$"},
+                {"  "},
+        };
+    }
 }
