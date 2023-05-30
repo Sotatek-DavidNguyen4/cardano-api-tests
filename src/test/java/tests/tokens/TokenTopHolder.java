@@ -46,4 +46,25 @@ public class TokenTopHolder extends BaseTest {
                 {"  "},
         };
     }
+    @Test(description = "get token top holders with size", groups = {"token", "top_holder"}, dataProvider = "size")
+    public void getTokenTopHolderWithSize(Object size){
+        MultiMap param = new CreateMultiParameters()
+                .withPageSize(size)
+                .getParamsMap();
+        TokensTopHolderModel tokensTopHolderModel = (TokensTopHolderModel)
+                tokenSteps.getTokenTopHoldersParamValid(param, tokenId)
+                        .validateStatusCode(HttpURLConnection.HTTP_OK)
+                        .saveResponseObject(TokensTopHolderModel.class);
+        tokenSteps.then_verifyFilterTokensTopHoldersResponse(tokensTopHolderModel, param, 10);
+    }
+    @DataProvider(name="size")
+    public Object[][] dataSetSize(){
+        return new Object[][]{
+                {"2"},
+                {"v"},
+                {"-2"},
+                {"@#$"},
+                {"  "},
+        };
+    }
 }
