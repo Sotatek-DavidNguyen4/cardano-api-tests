@@ -1,13 +1,16 @@
 package microservices.token.steps;
 
 import constants.Endpoints;
-import core.BaseApi;
 import io.qameta.allure.Step;
+import microservices.common.constants.RequestParams;
 import microservices.common.steps.BaseSteps;
 import microservices.token.models.Token;
+import microservices.token.models.TokensTopHolderModel;
 import org.testng.Assert;
 
 import java.util.Map;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class TokenSteps extends BaseSteps {
     private Token token = new Token();
@@ -87,6 +90,18 @@ public class TokenSteps extends BaseSteps {
     @Step("get token top holder")
     public TokenSteps getTokenTopHolder(String tokenId){
         sendGet(Endpoints.TokenApi.GET_TOP_HOLDERS, Endpoints.TokenApi.TOKEN_ID, tokenId );
+        return this;
+    }
+    @Step("verify that current page of token top holders")
+    public TokenSteps then_verifyFilterTokensTopHoldersResponse(TokensTopHolderModel tokensTopHolderModel, Map<String,Object> param, int defaultSize){
+        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
+        assertThat(tokensTopHolderModel.getCurrentPage())
+                .as("Value of field 'currentPage' is wrong")
+                .isEqualTo(requestParams.getPage());
+
+        assertThat(tokensTopHolderModel.getData().size())
+                .as("Value of field 'size' is wrong")
+                .isEqualTo(requestParams.getSize());
         return this;
     }
 }

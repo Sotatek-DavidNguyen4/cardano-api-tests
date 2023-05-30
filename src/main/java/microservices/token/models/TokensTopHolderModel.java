@@ -1,7 +1,9 @@
 package microservices.token.models;
 
-import java.util.ArrayList;
+import lombok.Data;
 
+import java.util.ArrayList;
+@Data
 public class TokensTopHolderModel {
     private ArrayList<TokenTopHolderModel> data;
     private int totalItems;
