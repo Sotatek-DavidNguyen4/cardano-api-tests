@@ -1,7 +1,6 @@
 package tests.tokens;
 
 import base.BaseTest;
-import microservices.token.models.TokenModel;
 import microservices.token.models.TokensModel;
 import microservices.token.steps.TokenSteps;
 import org.apache.commons.collections.MultiMap;
@@ -11,7 +10,6 @@ import util.CreateMultiParameters;
 import util.CreateParameters;
 
 import java.net.HttpURLConnection;
-import java.util.ArrayList;
 import java.util.Map;
 
 public class Tokens extends BaseTest {
