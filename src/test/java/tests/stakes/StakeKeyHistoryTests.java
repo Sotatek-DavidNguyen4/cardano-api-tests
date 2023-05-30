@@ -47,7 +47,7 @@ public class StakeKeyHistoryTests extends BaseTest {
     @DataProvider(name = "stakeKeyInvalid")
     public Object[][] DatasetStakeInvalid(){
         return new Object[][]{
-//                {"@#$%"},
+                {"@#$"},
                 {" "},
                 {"abcd"},
                 {"12345"}

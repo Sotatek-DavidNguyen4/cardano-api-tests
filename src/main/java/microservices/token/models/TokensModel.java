@@ -1,12 +1,12 @@
-package microservices.epoch.models.epoch;
+package microservices.token.models;
 
 import lombok.Data;
 
 import java.util.ArrayList;
 
 @Data
-public class Epoch {
-    private ArrayList<EpochData> data;
+public class TokensModel {
+    private ArrayList<TokenModel> data;
     private int totalItems;
     private int totalPages;
     private int currentPage;

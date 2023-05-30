@@ -10,6 +10,6 @@ public class StakeModel {
     private long  totalStake;
     private long rewardAvailable;
     private long rewardWithdrawn;
-    private Object pool;
+    private PoolModel pool;
     private ArrayList<Object> rewardPools;
 }
