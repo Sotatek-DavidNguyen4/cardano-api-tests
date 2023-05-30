@@ -3,6 +3,7 @@ package microservices.epoch.steps;
 import constants.Endpoints;
 import core.BaseApi;
 import io.qameta.allure.Step;
+import microservices.common.constants.RequestParams;
 import microservices.common.steps.BaseSteps;
 import microservices.epoch.models.epoch.Epoch;
 import microservices.epoch.models.EpochCurrent;
@@ -11,10 +12,13 @@ import microservices.epoch.models.epochByEpochNo.EpochByEpochNo;
 import microservices.epoch.models.epochByEpochNo.EpochDataByEpochNo;
 
 import org.testng.Assert;
+import util.SortListUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
 public class EpochSteps extends BaseSteps {
     private Epoch epoch = new Epoch();
@@ -151,81 +155,33 @@ public class EpochSteps extends BaseSteps {
         return this;
     }
 
-    @Step("verify response data by epochNo is sorted correctly")
-    public EpochSteps verifyResponseByEpochNoIsSorted(String sortType,List<EpochDataByEpochNo> epochDataByEpochNo ){
-        if(sortType!=null){
-            switch (sortType) {
-                case "id,DESC":
-                    boolean isDesc = true;
-                    for (int i = 0; i < epochDataByEpochNo.size() - 1; i++) {
-                        if (epochDataByEpochNo.get(i).getBlockNo() < epochDataByEpochNo.get(i + 1).getBlockNo()) {
-                            isDesc = false;
-                            break;
-                        }
-                    }
-                    Assert.assertTrue(isDesc);
-                    break;
-
-                case "id,ASC":
-                    boolean isAsc = true;
-                    for (int i = 0; i < epochDataByEpochNo.size() - 1; i++) {
-                        if (epochDataByEpochNo.get(i).getBlockNo() > epochDataByEpochNo.get(i + 1).getBlockNo()) {
-                            isAsc = false;
-                            break;
-                        }
-                    }
-                    Assert.assertTrue(isAsc);
-                    break;
-            }
+    @Step("Verify epoch response")
+    public EpochSteps then_verifyEpochResponse(Epoch epoch, Map<String, Object> params) {
+        RequestParams requestParams = new RequestParams(params, 0, 10);
+        assertThat(epoch.getCurrentPage())
+                .as("Value of field 'currentPage' is wrong")
+                .isEqualTo(requestParams.getPage());
+        assertThat(epoch.getData().size())
+                .as("The size of page is wrong")
+                .isEqualTo(requestParams.getSize());
+        if (requestParams.getSort()!=null) {
+            boolean sorted = SortListUtil.isSortedByField(new ArrayList<>(epoch.getData()), requestParams.getSort());
+            assertThat(sorted).as("epoch is not sorted by inputted params").isEqualTo(true);
         }
         return this;
     }
-    @Step("verify response data is sorted correctly")
-    public EpochSteps verifyResponseIsSorted(String sortType,List<EpochData> epochData ){
-        if(sortType!=null){
-            switch (sortType) {
-                case "id,desc":
-                    boolean isIDDesc = true;
-                    for (int i = 0; i < epochData.size() - 1; i++) {
-                        if (epochData.get(i).getNo() < epochData.get(i + 1).getNo()) {
-                            isIDDesc = false;
-                            break;
-                        }
-                    }
-                    Assert.assertTrue(isIDDesc);
-                    break;
-
-                case "id,ASC":
-                    boolean isIDAsc = true;
-                    for (int i = 0; i < epochData.size() - 1; i++) {
-                        if (epochData.get(i).getNo() > epochData.get(i + 1).getNo()) {
-                            isIDAsc = false;
-                            break;
-                        }
-                    }
-                    Assert.assertTrue(isIDAsc);
-                    break;
-                case "outSum,desc":
-                    boolean isOutSumDesc = true;
-                    for (int i = 0; i < epochData.size() - 1; i++) {
-                        if (epochData.get(i).getOutSum().compareTo(epochData.get(i + 1).getOutSum())<0) {
-                            isOutSumDesc = false;
-                            break;
-                        }
-                    }
-                    Assert.assertTrue(isOutSumDesc);
-                    break;
-                case "outSum,ASC":
-                    boolean isOutSumAsc = true;
-                    for (int i = 0; i < epochData.size() - 1; i++) {
-                        if (epochData.get(i).getOutSum().compareTo(epochData.get(i + 1).getOutSum())>0) {
-                            isOutSumAsc = false;
-                            break;
-                        }
-                    }
-                    Assert.assertTrue(isOutSumAsc);
-                    break;
-            }
+    @Step("Verify epoch by no block response")
+    public EpochSteps then_verifyEpochByNoBlockResponse(EpochByEpochNo epoch, Map<String, Object> params) {
+        RequestParams requestParams = new RequestParams(params, 0, 10);
+        assertThat(epoch.getCurrentPage())
+                .as("Value of field 'currentPage' is wrong")
+                .isEqualTo(requestParams.getPage());
+        assertThat(epoch.getData().size())
+                .as("The size of page is wrong")
+                .isEqualTo(requestParams.getSize());
+        if (requestParams.getSort()!=null) {
+            boolean sorted = SortListUtil.isSortedByField(new ArrayList<>(epoch.getData()), requestParams.getSort());
+            assertThat(sorted).as("epoch is not sorted by inputted params").isEqualTo(true);
         }
         return this;
     }
