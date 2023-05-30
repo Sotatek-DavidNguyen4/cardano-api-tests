@@ -29,7 +29,7 @@ public class StakeKeyInstantaneousRewards extends BaseTest {
     public Object[][] DatasetStakeKeyInstantaneousRewards(){
         return new Object[][]{
                 {stakeKey},
-//                {"@#$%"},
+                {"@#$"},
                 {"  "},
                 {"abcd"},
                 {"12345"}

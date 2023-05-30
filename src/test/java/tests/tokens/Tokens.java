@@ -16,8 +16,6 @@ import java.util.Map;
 
 public class Tokens extends BaseTest {
     private TokenSteps tokenSteps = new TokenSteps();
-    private TokensModel token = new TokensModel();
-    private ArrayList<TokenModel> dataTokens;
     @Test(description = "verify that get list token successfull no key", groups={"token", "tokens"})
     public void getListTokenSuccessNokey(){
         Map<String, Object> param = new CreateParameters()
@@ -47,7 +45,7 @@ public class Tokens extends BaseTest {
                 {"n"},
                 {"-10"},
                 {"  "},
-                {"@#$%"}
+                {"@#$"}
         };
     }
     @Test(description = "verify that get list token with size key", groups = {"token","tokens"}, dataProvider = "paramInvalidSize")
@@ -68,7 +66,7 @@ public class Tokens extends BaseTest {
                 {"v"},
                 {"-10"},
                 {"  "},
-                {"@#$%"}
+                {"@#$"}
         };
     }
     @Test(description = "verify that get list token with sort key", groups = {"token","tokens"}, dataProvider = "paramInvalidSort")

@@ -21,8 +21,8 @@ public class StakeKeySteps extends BaseSteps {
         return this;
     }
     @Step("verify response of get stake address")
-    public StakeKeySteps verifyResponseStakeAddress(StakeModel stakeModel, Map<String, Object> expected){
-        assertThat(stakeModel.getStakeAddress()).isEqualTo(expected.get("stakeAddress"));
+    public StakeKeySteps verifyResponseStakeAddress(StakeModel stakeModel, String stakeAddress){
+        assertThat(stakeModel.getStakeAddress()).isEqualTo(stakeAddress);
         return this;
     }
     @Step("get a stake instantaneous-rewards with stakeKey")
@@ -63,9 +63,9 @@ public class StakeKeySteps extends BaseSteps {
         return this;
     }
     @Step("verify response of get stake")
-    public StakeKeySteps verifyResponseStake(StakeModel stakeModel, Map<String, Object> expected){
-        assertThat(stakeModel.getStakeAddress()).isEqualTo(expected.get("stakeAddress"));
-        assertThat(stakeModel.getPool().getPoolId()).isEqualTo(expected.get("poolId"));
+    public StakeKeySteps verifyResponseStake(StakeModel stakeModel, String stakeKey, String poolId){
+        assertThat(stakeModel.getStakeAddress()).isEqualTo(stakeKey);
+        assertThat(stakeModel.getPool().getPoolId()).isEqualTo(poolId);
         return this;
     }
     @Step("get stake history")

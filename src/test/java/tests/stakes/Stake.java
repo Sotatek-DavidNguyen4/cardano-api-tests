@@ -8,8 +8,6 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.net.HttpURLConnection;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Stake extends BaseTest {
     private StakeKeySteps stakeKeySteps = new StakeKeySteps();
@@ -18,14 +16,11 @@ public class Stake extends BaseTest {
 
     @Test(description = "get stake with stake key", groups = {"stake", "stake_key"})
     public void getStake(){
-        Map<String, Object> expected = new HashMap<>();
-        expected.put("stakeAddress", stakeKey);
-        expected.put("poolId", poolId);
         StakeModel stakeModel = (StakeModel)
         stakeKeySteps.getStakeWithStakeKey(stakeKey)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(StakeModel.class);
-        stakeKeySteps.verifyResponseStake(stakeModel, expected);
+        stakeKeySteps.verifyResponseStake(stakeModel, stakeKey, poolId);
     }
     @Test(description = "get stake with stake key | unsuccess", groups = {"stake", "stake_key"}, dataProvider = "stakeKey")
     public void getStakeUnsuccess(Object stakeKey){
@@ -36,7 +31,7 @@ public class Stake extends BaseTest {
     public Object[][] DatasetStakeKey(){
         return new Object[][]{
                 {"stake_test1urf6y7ktcqwzxd2tc3x54437jl6vcqvazgrdka3v2njdjzgyn6hgy"},
-//                {"@#$%"},
+                {"@#$"},
                 {"  "},
                 {"abcd"},
                 {"12345"}

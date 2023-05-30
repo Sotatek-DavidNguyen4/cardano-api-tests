@@ -26,7 +26,7 @@ public class Token extends BaseTest {
         return new Object[][]{
                 {1},
 //                {null},
-//                {"@#$%"},
+                {"@#$"},
                 {"  "},
                 {"asset1c6t4elexwkpuzq08ssylhhmc78ahlz0sgw5a7y"},
                 {"asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr"}
