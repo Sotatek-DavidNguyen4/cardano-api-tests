@@ -4,6 +4,7 @@ import constants.Endpoints;
 import io.qameta.allure.Step;
 import microservices.common.constants.RequestParams;
 import microservices.common.steps.BaseSteps;
+import microservices.stakeKey.models.StakeModel;
 import microservices.stakeKey.models.deRegistration.StakeDeRegistration;
 import microservices.stakeKey.models.StakeHistory;
 import org.testng.Assert;
@@ -17,6 +18,11 @@ public class StakeKeySteps extends BaseSteps {
     @Step("get a stake detail by address")
     public StakeKeySteps getStakeByAddress(Object address){
         sendGet(Endpoints.StakeKeyApi.GET_STAKE_ADDRESS, "address", address);
+        return this;
+    }
+    @Step("verify response of get stake address")
+    public StakeKeySteps verifyResponseStakeAddress(StakeModel stakeModel, String stakeAddress){
+        assertThat(stakeModel.getStakeAddress()).isEqualTo(stakeAddress);
         return this;
     }
     @Step("get a stake instantaneous-rewards with stakeKey")
@@ -54,6 +60,12 @@ public class StakeKeySteps extends BaseSteps {
     @Step("get a stake with stakeKey")
     public StakeKeySteps getStakeWithStakeKey(Object stakeKey){
         sendGet(Endpoints.StakeKeyApi.GET_STAKE, Endpoints.StakeKeyApi.STAKE_KEY, stakeKey);
+        return this;
+    }
+    @Step("verify response of get stake")
+    public StakeKeySteps verifyResponseStake(StakeModel stakeModel, String stakeKey, String poolId){
+        assertThat(stakeModel.getStakeAddress()).isEqualTo(stakeKey);
+        assertThat(stakeModel.getPool().getPoolId()).isEqualTo(poolId);
         return this;
     }
     @Step("get stake history")
