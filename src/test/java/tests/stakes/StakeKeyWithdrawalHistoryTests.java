@@ -1,7 +1,7 @@
 package tests.stakes;
 
 import base.BaseTest;
-import microservices.stakeKey.models.withdrawalHistory.WithdrawalHistoryModel;
+import microservices.stakeKey.models.history.WithdrawalHistoryModel;
 import microservices.stakeKey.steps.StakeKeySteps;
 import org.apache.commons.collections.MultiMap;
 import org.testng.annotations.DataProvider;

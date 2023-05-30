@@ -78,5 +78,6 @@ public class Endpoints {
         public static final String GET_STAKE_ANALYTICS = "stakes/analytics";
         public static final String GET_STAKE_HISTORY = "stakes/{"+ STAKE_KEY +"}/stake-history";
         public static final String GET_STAKE_WITHDRAWAL_HISTORY = "stakes/{"+ STAKE_KEY +"}/withdrawal-history";
+        public static final String GET_STAKE_DELEGATION_HISTORY = "stakes/{"+ STAKE_KEY +"}/delegation-history";
     }
 }

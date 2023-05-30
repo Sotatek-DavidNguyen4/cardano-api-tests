@@ -1,7 +1,6 @@
-package microservices.stakeKey.models.withdrawalHistory;
+package microservices.stakeKey.models.history;
 
 import lombok.Data;
-import microservices.token.models.TokenModel;
 
 import java.util.ArrayList;
 
