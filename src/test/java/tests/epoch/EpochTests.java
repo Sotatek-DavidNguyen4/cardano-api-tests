@@ -47,9 +47,6 @@ public class EpochTests extends BaseTest {
     public Object[][] dataGetListEpoch(){
         return new Object[][]{
                 {"","",""},
-//                {"1","5","id,asc"},
-//                {"4","10","id,asc"},
-//                {"2","10","id,asc"},
                 {"6","",""},
                 {"a","",""},
                 {"-6","",""},
@@ -60,15 +57,10 @@ public class EpochTests extends BaseTest {
                 {"","-2",""},
                 {""," ",""},
                 {"","(jnfj#$%)",""},
-//                {"","","id,desc"},
-//                {"","","id,ASC"},
                 {"","","outSum,desc"},
                 {"","","outSum,ASC"},
                 
         };
-        /**
-         wait for update field sort
-         */
     }
 
 }

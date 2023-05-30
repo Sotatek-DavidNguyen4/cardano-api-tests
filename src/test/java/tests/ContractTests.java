@@ -47,12 +47,6 @@ public class ContractTests extends BaseTest {
                 {"2","2",""},
                 {"1","",""},
                 {"","2",""},
-//                {"","","id,DESC"},
-//                {"1","1","id,DESC"}
-
-                /**
-                wait for update field sort
-                 */
         };
     }
 

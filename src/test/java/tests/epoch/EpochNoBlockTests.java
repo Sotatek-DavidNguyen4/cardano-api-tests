@@ -95,11 +95,6 @@ public class EpochNoBlockTests extends BaseTest {
                 {60,"","-2",""},
                 {60,""," ",""},
                 {60,"","(jnfj#$%)",""},
-//                {60,"","","id,DESC"},
-//                {60,"","","id,ASC"},
         };
-        /**
-         wait for update field sort
-         */
     }
 }
