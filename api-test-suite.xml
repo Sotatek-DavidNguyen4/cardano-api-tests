@@ -48,6 +48,7 @@
             <class name="tests.tokens.Tokens"/>
             <class name="tests.tokens.TokenTxs"/>
             <class name="tests.tokens.TokenMints"/>
+            <class name="tests.tokens.TokenTopHolder"/>
             <class name="tests.stakes.StakeKeyAddress"/>
             <class name="tests.stakes.StakeKeyInstantaneousRewards"/>
             <class name="tests.stakes.Stake"/>
