@@ -105,13 +105,4 @@ public class StakeKeySteps extends BaseSteps {
                 .isEqualTo(requestParams.getSize());
         return this;
     }
-    @Step("verify that current page of stake withdrawal history has withdrawal")
-    public StakeKeySteps then_verifyFilterStakeWithdrawalHistoryResponseHasWithdrawal(WithdrawalHistoryModel withdrawalHistoryModel, Map<String,Object> param, int defaultSize){
-        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
-        assertThat(withdrawalHistoryModel.getCurrentPage())
-                .as("Value of field 'currentPage' is wrong")
-                .isEqualTo(requestParams.getPage());
-        assertThat(withdrawalHistoryModel.getData().size() > defaultSize).isTrue();
-        return this;
-    }
 }
