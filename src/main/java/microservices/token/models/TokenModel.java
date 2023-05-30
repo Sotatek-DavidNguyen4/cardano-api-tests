@@ -1,7 +1,7 @@
 package microservices.token.models;
 
 @lombok.Data
-public class DataToken {
+public class TokenModel {
     private String id;
     private String name;
     private String dislayname;

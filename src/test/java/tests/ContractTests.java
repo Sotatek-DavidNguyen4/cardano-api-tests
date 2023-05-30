@@ -6,11 +6,10 @@ import io.qameta.allure.Feature;
 import microservices.contract.models.Contract;
 import microservices.contract.models.DataContract;
 import microservices.contract.steps.ContractSteps;
-import microservices.token.models.DataToken;
-import microservices.token.models.Token;
-import microservices.token.steps.TokenSteps;
+
 import org.apache.commons.collections.MultiMap;
 import org.apache.commons.collections.map.MultiValueMap;
+
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import util.CreateParameters;

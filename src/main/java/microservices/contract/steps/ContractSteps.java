@@ -7,7 +7,6 @@ import microservices.common.constants.RequestParams;
 
 import microservices.contract.models.Contract;
 import microservices.contract.models.DataContract;
-
 import org.testng.Assert;
 import util.SortListUtil;
 
