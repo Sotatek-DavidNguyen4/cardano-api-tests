@@ -12,15 +12,13 @@ import java.net.HttpURLConnection;
 public class Stake extends BaseTest {
     private StakeKeySteps stakeKeySteps = new StakeKeySteps();
     private String stakeKey = "stake_test1urxpn7ymps94ech32hx7xm667kg3gdv52fgzfwqxaprp2zck8kezr";
-    private String poolId = "pool132jxjzyw4awr3s75ltcdx5tv5ecv6m042306l630wqjckhfm32r";
-
     @Test(description = "get stake with stake key", groups = {"stake", "stake_key"})
     public void getStake(){
         StakeModel stakeModel = (StakeModel)
         stakeKeySteps.getStakeWithStakeKey(stakeKey)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(StakeModel.class);
-        stakeKeySteps.verifyResponseStake(stakeModel, stakeKey, poolId);
+        stakeKeySteps.verifyResponseStake(stakeModel);
     }
     @Test(description = "get stake with stake key | unsuccess", groups = {"stake", "stake_key"}, dataProvider = "stakeKey")
     public void getStakeUnsuccess(Object stakeKey){

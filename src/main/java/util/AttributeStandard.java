@@ -9,7 +9,7 @@ public class AttributeStandard {
 
     public static boolean isValidStakeAddress(String stakeAddr){
         if(stakeAddr != null && !stakeAddr.isEmpty() && !stakeAddr.trim().isEmpty()){
-            return stakeAddr.length() == 59 && stakeAddr.startsWith("stake");
+            return stakeAddr.length() == 64 && stakeAddr.startsWith("stake");
         }else {
             return false;
         }

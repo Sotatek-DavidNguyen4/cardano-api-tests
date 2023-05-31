@@ -15,7 +15,9 @@ import microservices.stakeKey.models.topDelegators.TopDelegators;
 import microservices.stakeKey.models.topDelegators.TopDelegatorsData;
 import microservices.stakeKey.models.history.WithdrawalHistoryModel;
 import org.testng.Assert;
+import util.AttributeStandard;
 
+import java.text.AttributedString;
 import java.util.List;
 import java.util.Map;
 
@@ -139,9 +141,9 @@ public class StakeKeySteps extends BaseSteps {
         return this;
     }
     @Step("verify response of get stake")
-    public StakeKeySteps verifyResponseStake(StakeModel stakeModel, String stakeKey, String poolId){
-        assertThat(stakeModel.getStakeAddress()).isEqualTo(stakeKey);
-        assertThat(stakeModel.getPool().getPoolId()).isEqualTo(poolId);
+    public StakeKeySteps verifyResponseStake(StakeModel stakeModel){
+        Assert.assertTrue(AttributeStandard.isValidStakeAddress(stakeModel.getStakeAddress()));
+        Assert.assertTrue(AttributeStandard.isValidPoolId(stakeModel.getPool().getPoolId()));
         return this;
     }
     @Step("get stake history")

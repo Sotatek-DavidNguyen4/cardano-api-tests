@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class Tokens extends BaseTest {
     private TokenSteps tokenSteps = new TokenSteps();
-    @Test(description = "verify that get list token successfull no key", groups={"token", "tokens"})
+    @Test(description = "verify that get list token", groups={"token", "tokens"})
     public void getListTokenSuccessNokey(){
         Map<String, Object> param = new CreateParameters()
                 .getParamsMap();
@@ -22,7 +22,8 @@ public class Tokens extends BaseTest {
         tokenSteps.getListTokens(param)
                 .validateResponse(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(TokensModel.class);
-        tokenSteps.then_verifyFilterTokensResponse(tokensModel, param);
+        tokenSteps.then_verifyFilterTokensResponse(tokensModel, param)
+                .verifyResponseListToken(tokensModel.getData());
     }
 
     @Test(description = "verify that get list token with page key", groups = {"token","tokens"}, dataProvider = "paramInvalidPage")

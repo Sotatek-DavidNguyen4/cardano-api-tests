@@ -22,7 +22,8 @@ public class StakeKeyAddress extends BaseTest {
         stakeKeySteps.getStakeByAddress(address)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(StakeModel.class);
-        stakeKeySteps.verifyResponseStakeAddress(stakeModel, stakeAddress);
+        stakeKeySteps.verifyResponseStakeAddress(stakeModel, stakeAddress)
+                .verifyResponseStake(stakeModel);
     }
     @Test(description = "get stake detail by address wrong format", groups = {"stake", "stake_address"}, dataProvider = "listAddressWrongFormat")
     public void getStakeByAddresWrongFormat(Object address){

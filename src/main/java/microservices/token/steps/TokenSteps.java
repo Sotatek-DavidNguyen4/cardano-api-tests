@@ -4,16 +4,16 @@ import constants.Endpoints;
 import io.qameta.allure.Step;
 import microservices.common.constants.RequestParams;
 import microservices.common.steps.BaseSteps;
-import microservices.token.models.TokenMintsModel;
-import microservices.token.models.TokensMintsModel;
-import microservices.token.models.TokensModel;
-import microservices.token.models.TokensTxsModel;
-import microservices.token.models.TokensTopHolderModel;
+import microservices.token.models.*;
+import org.testng.Assert;
+import util.AttributeStandard;
 
 import java.util.ArrayList;
 import java.util.Map;
 
+import static constants.DateFormats.DATE_FORMAT;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.testng.Assert.assertTrue;
 
 public class TokenSteps extends BaseSteps {
     @Step("get list token")
@@ -32,6 +32,14 @@ public class TokenSteps extends BaseSteps {
                 .isEqualTo(requestParams.getSize());
         return this;
     }
+    @Step("verify response of get list token")
+    public TokenSteps verifyResponseListToken(ArrayList<TokenModel> data){
+        for(TokenModel a : data){
+            Assert.assertTrue(AttributeStandard.isValidDateFormat(a.getCreatedOn(), DATE_FORMAT[0]));
+            Assert.assertTrue(AttributeStandard.isValidTokenFingerprint(a.getFingerprint()));
+        }
+        return this;
+    }
     @Step("get list token with size invalid")
     public TokenSteps getListTokensWithSizeInvalid(Map<String, Object> paramsToken){
         sendGet(Endpoints.TokenApi.GET_LIST_TOKEN, paramsToken);
@@ -40,6 +48,15 @@ public class TokenSteps extends BaseSteps {
     @Step("get a token")
     public TokenSteps getAToken(Object tokenId){
         sendGet(Endpoints.TokenApi.GET_A_TOKEN, Endpoints.TokenApi.TOKEN_ID, tokenId);
+        return this;
+    }
+    @Step("verify response of get a token")
+    public TokenSteps verifyResponseOfGetToken(TokenModel tokenModel, Map<String, Object> expect){
+        Assert.assertEquals(expect.get("name"), tokenModel.getName());
+        Assert.assertEquals(expect.get("displayName"), tokenModel.getDisplayName());
+        Assert.assertEquals(expect.get("policy"), tokenModel.getPolicy());
+        Assert.assertTrue(AttributeStandard.isValidDateFormat(tokenModel.getCreatedOn(), DATE_FORMAT[0]));
+        Assert.assertTrue(AttributeStandard.isValidTokenFingerprint(tokenModel.getFingerprint()));
         return this;
     }
     @Step("get token txs")
@@ -59,6 +76,15 @@ public class TokenSteps extends BaseSteps {
                 .isEqualTo(requestParams.getSize());
         return this;
     }
+    @Step("verify response token txs")
+    public TokenSteps verifyTokenTxs(ArrayList<TokenTxsModel> data){
+        for(TokenTxsModel a : data){
+            Assert.assertTrue(AttributeStandard.isValidDateFormat(a.getTime(), DATE_FORMAT[0]));
+            Assert.assertTrue(AttributeStandard.isValidHash(a.getHash()));
+            Assert.assertTrue(AttributeStandard.isValidBlockHash(a.getBlockHash()));
+        }
+        return this;
+    }
     @Step("get token mints")
     public TokenSteps getTokenMint(String tokenId, Map<String, Object> param){
         sendGet(Endpoints.TokenApi.GET_MINTS, param, Endpoints.TokenApi.TOKEN_ID, tokenId);
@@ -73,6 +99,14 @@ public class TokenSteps extends BaseSteps {
         assertThat(tokensMintsModel.getData().size())
                 .as("Value of field 'size' is wrong")
                 .isEqualTo(requestParams.getSize());
+        return this;
+    }
+    @Step("verify response token mints")
+    public TokenSteps verifyTokenMints(ArrayList<TokenMintsModel> data){
+        for(TokenMintsModel a : data){
+            Assert.assertTrue(AttributeStandard.isValidDateFormat(a.getTime(), DATE_FORMAT[0]));
+            Assert.assertTrue(AttributeStandard.isValidHash(a.getTxHash()));
+        }
         return this;
     }
     @Step("verify that response of token mint should be sort")
