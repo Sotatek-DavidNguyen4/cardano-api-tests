@@ -197,12 +197,12 @@ public class StakeKeySteps extends BaseSteps {
     }
     @Step("get stake list address")
     public StakeKeySteps getListAddress(Map<String, Object> param, String stakeKey){
-        sendGet(Endpoints.StakeKeyApi.GET_STAKE_HISTORY, param,  Endpoints.StakeKeyApi.STAKE_KEY, stakeKey);
+        sendGet(Endpoints.StakeKeyApi.GET_STAKE_LIST_ADDRESS, param,  Endpoints.StakeKeyApi.STAKE_KEY, stakeKey);
         return this;
     }
     @Step("verify that current page of stake list address")
-    public StakeKeySteps then_verifyFilterStakeListAddressResponse(StakeListAddressModel stakeListAddressModel, Map<String,Object> param){
-        RequestParams requestParams = new RequestParams(param, 0, 20);
+    public StakeKeySteps then_verifyFilterStakeListAddressResponse(StakeListAddressModel stakeListAddressModel, Map<String,Object> param, int defaultSize){
+        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
         assertThat(stakeListAddressModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
