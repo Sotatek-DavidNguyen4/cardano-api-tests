@@ -1,4 +1,4 @@
-package tests;
+package tests.contract;
 
 import base.BaseTest;
 import io.qameta.allure.Epic;

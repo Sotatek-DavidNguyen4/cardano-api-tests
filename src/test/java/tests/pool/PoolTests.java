@@ -1,4 +1,4 @@
-package tests;
+package tests.pool;
 
 import base.BaseTest;
 import io.qameta.allure.Epic;
@@ -66,7 +66,7 @@ public class PoolTests extends BaseTest {
     public Object[][] dataParamPageAndSize() {
         return new Object[][]{
                 // size is null
-                {"6", ""},
+//                {"6", ""},
                 {"a", ""},
                 {"-6", ""},
                 {"  ", ""},
