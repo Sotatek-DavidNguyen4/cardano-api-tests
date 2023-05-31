@@ -1,4 +1,4 @@
-package tests;
+package tests.transaction;
 
 import base.BaseTest;
 import constants.enums.AnalyticsType;

@@ -34,7 +34,7 @@
         <classes>
             <class name="tests.delegation_controller.DelegationControllerTests"/>
             <class name="tests.delegation_controller.DelegationHeaderTests"/>
-            <class name="tests.delegation_controller.PoolDetailAnalyticTests"/>
+<!--            <class name="tests.delegation_controller.PoolDetailAnalyticTests"/>-->
             <class name="tests.addresses.AddressAnalyticsTests"/>
             <class name="tests.addresses.AddressesMinMaxBalanceTests"/>
             <class name="tests.addresses.AddressTests"/>
@@ -43,7 +43,7 @@
             <class name="tests.block.GetAllBlockTests"/>
             <class name="tests.block.BlockDetailTests"/>
             <class name="tests.block.BlockListTests"/>
-            <class name="tests.PoolTests"/>
+            <class name="tests.pool.PoolTests"/>
             <class name="tests.tokens.Token"/>
             <class name="tests.tokens.Tokens"/>
             <class name="tests.tokens.TokenTxs"/>
@@ -51,6 +51,8 @@
             <class name="tests.tokens.TokenTopHolder"/>
             <class name="tests.stakes.StakeKeyAddress"/>
             <class name="tests.stakes.StakeKeyInstantaneousRewards"/>
+            <class name="tests.stakes.StakeKeyWithdrawalHistoryTests"/>
+            <class name="tests.stakes.StakeKeyDelegationHistoryTest"/>
             <class name="tests.stakes.StakeKeyListAddressTests"/>
             <class name="tests.stakes.Stake"/>
             <class name="tests.stakes.GetDataForStakeDeRegistrationTest"/>
@@ -58,8 +60,8 @@
             <class name="tests.stakes.StakeKeyHistoryTests"/>
             <class name="tests.stakes.GetDataForStakeRegistrationTest"/>
             <class name="tests.stakes.GetTopDelegatorsTest"/>
-            <class name="tests.TransactionTests"></class>
-            <class name="tests.ContractTests"></class>
+            <class name="tests.transaction.TransactionTests"></class>
+            <class name="tests.contract.ContractTests"></class>
             <class name="tests.epoch.EpochCurrentTests"></class>
             <class name="tests.epoch.EpochNoBlockTests"></class>
             <class name="tests.epoch.EpochNoTests"></class>

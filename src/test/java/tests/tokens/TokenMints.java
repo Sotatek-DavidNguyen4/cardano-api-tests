@@ -39,7 +39,7 @@ public class TokenMints extends BaseTest {
         tokenSteps.then_verifyFilterTokensMintsResponse(tokensMintsModel, param, 20);
     }
     @Test(description = "get token mints invalid tokenId", groups = {"token", "token_mints"}, dataProvider = "tokenInvalid")
-    public void getTokenMintsInvalidParam(String token){
+    public void getTokenMintsInvalidTokenId(String token){
         Map<String, Object> param = new CreateParameters()
                 .getParamsMap();
         TokensMintsModel tokensMintsModel = (TokensMintsModel)
