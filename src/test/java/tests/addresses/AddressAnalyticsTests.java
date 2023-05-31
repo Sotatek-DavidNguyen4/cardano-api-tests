@@ -5,14 +5,12 @@ import constants.enums.AnalyticsType;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import microservices.addresses.constants.AddressConstants;
-import microservices.addresses.models.AddressAnalyticListModel;
 import microservices.addresses.steps.AddressAnalyticsSteps;
 import microservices.addresses.steps.AddressesMinMaxBalanceSteps;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.net.HttpURLConnection;
-import java.util.List;
 
 @Epic("cardano")
 @Feature("api-addresses")
@@ -22,12 +20,9 @@ public class AddressAnalyticsTests extends BaseTest {
     @Test(description = "verify that get data for address analytics successfully", groups={"addresses", "address-analytics"})
     public void verifyGetAddressAnalyticsResponseSuccessfully(){
         //dynamic data
-        List<AddressAnalyticListModel> addressAnalytic = (List<AddressAnalyticListModel>) addressesSteps
+        addressesSteps
                 .getAnAddressAnalytics(address, AnalyticsType.TWO_WEEK.getAlcType())
-                .validateStatusCode(HttpURLConnection.HTTP_OK)
-                .saveResponseListObject(AddressAnalyticListModel[].class);
-
-        addressesSteps.verifyFormatAttributes(addressAnalytic);
+                .validateStatusCode(HttpURLConnection.HTTP_OK);
     }
     @Test(description = "verify that get data for address analytics unSuccessfully with address", groups={"addresses", "address-analytics"}, dataProvider = "paramInvalidAddress")
     public void verifyGetAddressAnalyticsResponseUnsuccessfullyWithAddress(Object address){

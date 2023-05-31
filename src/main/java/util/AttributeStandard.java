@@ -4,7 +4,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.List;
 
 public class AttributeStandard {
 
@@ -47,14 +46,6 @@ public class AttributeStandard {
             return false;
         }
     }
-    public static boolean areValidHashes(List<String> txHashs) {
-        for (String txHash : txHashs) {
-            if (!isValidHash(txHash)) {
-                return false;
-            }
-        }
-        return true;
-    }
 
     public static boolean isValidDateFormat(String dateToValdate, String format) {
         DateFormat dateFormat = new SimpleDateFormat(format);
@@ -63,14 +54,6 @@ public class AttributeStandard {
             parsedDate = dateFormat.parse(dateToValdate);
         } catch (ParseException e) {
             return false;
-        }
-        return true;
-    }
-    public static boolean areValidDates(List<String> datesToValidate, String format) {
-        for (String dateToValidate : datesToValidate) {
-            if (!isValidDateFormat(dateToValidate, format)) {
-                return false;
-            }
         }
         return true;
     }

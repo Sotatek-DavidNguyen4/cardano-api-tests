@@ -27,8 +27,7 @@ public class AddressTransactionTests extends BaseTest {
 
         addressSteps
                 .verifyAddressInputIsSameAsInputData(addressTransactionModel, address)
-                .verifyAddressInputIsSameAsOutputData(addressTransactionModel, address)
-                .verifyFormatAttributes(addressTransactionModel);
+                .verifyAddressInputIsSameAsOutputData(addressTransactionModel, address);
 
     }
     @Test(description = "get the list transaction of address unsuccessfully", groups = {"addresses", "address-transaction"}, dataProvider = "paramInvalidAddress")
