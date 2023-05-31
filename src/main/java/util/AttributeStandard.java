@@ -10,10 +10,20 @@ public class AttributeStandard {
 
     public static boolean isValidStakeAddress(String stakeAddr){
         if(stakeAddr != null && !stakeAddr.isEmpty() && !stakeAddr.trim().isEmpty()){
-            return stakeAddr.length() == 59 && stakeAddr.startsWith("stake");
+            return stakeAddr.length() == 64 && stakeAddr.startsWith("stake");
         }else {
             return false;
         }
+    }
+
+    public static boolean areValidStakeAddress(List<String> stakeAddrs) {
+        for (String stakeAddr : stakeAddrs) {
+            System.out.println(stakeAddr);
+            if (!isValidStakeAddress(stakeAddr)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static boolean isValidPoolId(String pool){
@@ -22,6 +32,15 @@ public class AttributeStandard {
         }else {
             return false;
         }
+    }
+
+    public static boolean areValidPoolId(List<String> pools) {
+        for (String pool : pools) {
+            if (!isValidPoolId(pool)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public static boolean isValidTokenFingerprint(String token){
