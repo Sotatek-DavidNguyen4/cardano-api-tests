@@ -8,18 +8,18 @@ import java.util.List;
 
 public class AttributeStandard {
 
-    public static boolean isValidStakeAddress(String stakeAddr){
+    public static boolean isValidStakeAddress(String stakeAddr, int length){
         if(stakeAddr != null && !stakeAddr.isEmpty() && !stakeAddr.trim().isEmpty()){
-            return stakeAddr.length() == 64 && stakeAddr.startsWith("stake");
+            return stakeAddr.length() == length && stakeAddr.startsWith("stake");
         }else {
             return false;
         }
     }
 
-    public static boolean areValidStakeAddress(List<String> stakeAddrs) {
+    public static boolean areValidStakeAddress(List<String> stakeAddrs, int length) {
         for (String stakeAddr : stakeAddrs) {
             System.out.println(stakeAddr);
-            if (!isValidStakeAddress(stakeAddr)) {
+            if (!isValidStakeAddress(stakeAddr, length)) {
                 return false;
             }
         }
