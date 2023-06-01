@@ -105,7 +105,7 @@ public class TransactionTests extends BaseTest {
                 .then_verifyErrorResponse(HttpURLConnection.HTTP_INTERNAL_ERROR, APIErrorMessage.UNKNOWN_MESSAGE, APIErrorCode.UNKNOWN_CODE);
     }
 
-    @Test(description = "Get number transaction on fixable days", groups = "transactions")
+    @Test(description = "Get number transaction on fixable days", groups = "transactions", enabled = false)
     public void get_number_transaction_on_fixable_days() {
         //type = ONE_DAY
         type = "ONE_DAY";

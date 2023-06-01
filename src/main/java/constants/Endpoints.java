@@ -7,6 +7,7 @@ public class Endpoints {
         public static final String POOL_DETAIL_DELEGATORS_URI = "delegations/pool-detail-delegators";
         public static final String POOL_DETAIL_ANALYTICS_URI = "delegations/pool-detail-analytics";
         public static final String POOL_HEADER_URI = "delegations/header";
+        public static final String POOL_LIST_URI = "delegations/pool-list";
 
     }
     public static class AddressesApi {
@@ -79,5 +80,6 @@ public class Endpoints {
         public static final String GET_STAKE_HISTORY = "stakes/{"+ STAKE_KEY +"}/stake-history";
         public static final String GET_STAKE_WITHDRAWAL_HISTORY = "stakes/{"+ STAKE_KEY +"}/withdrawal-history";
         public static final String GET_STAKE_DELEGATION_HISTORY = "stakes/{"+ STAKE_KEY +"}/delegation-history";
+        public static final String GET_STAKE_LIST_ADDRESS = "stakes/{"+ STAKE_KEY +"}/list-address";
     }
 }

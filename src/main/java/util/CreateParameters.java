@@ -323,8 +323,8 @@ public class CreateParameters {
         return this;
     }
 
-    public CreateParameters withSearchValue(String searchValue) {
-        paramsMap.put("searchValue", searchValue);
+    public CreateParameters withSearch(Object search) {
+        paramsMap.put("search", search);
         return this;
     }
 
