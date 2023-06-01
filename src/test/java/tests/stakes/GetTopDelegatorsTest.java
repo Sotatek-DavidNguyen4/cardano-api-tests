@@ -31,6 +31,7 @@ public class GetTopDelegatorsTest extends BaseTest {
                                                 .saveResponseObject(TopDelegators.class);
 
         stakeKeySteps.then_verifyTopDelegatorsResponse(topDelegators,params)
+                     .then_verifyFormatOfDelegatorsResponse(topDelegators.getData())
                      .then_verifyGetTopDelegatorsResponseNotNull(topDelegators.getData());
     }
     @DataProvider(name = "getParamForTopDelegators")

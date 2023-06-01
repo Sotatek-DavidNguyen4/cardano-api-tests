@@ -11,6 +11,8 @@ import microservices.epoch.models.epoch.EpochData;
 import microservices.epoch.models.epochByEpochNo.EpochByEpochNo;
 import microservices.epoch.models.epochByEpochNo.EpochDataByEpochNo;
 
+import microservices.stakeKey.models.deRegistration.StakeDeRegistrationData;
+import microservices.stakeKey.steps.StakeKeySteps;
 import org.testng.Assert;
 import util.SortListUtil;
 
@@ -18,7 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static constants.DateFormats.DATE_FORMAT;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static util.AttributeStandard.*;
 
 public class EpochSteps extends BaseSteps {
     private Epoch epoch = new Epoch();
@@ -182,6 +186,28 @@ public class EpochSteps extends BaseSteps {
         if (requestParams.getSort()!=null) {
             boolean sorted = SortListUtil.isSortedByField(new ArrayList<>(epoch.getData()), requestParams.getSort());
             assertThat(sorted).as("epoch is not sorted by inputted params").isEqualTo(true);
+        }
+        return this;
+    }
+    @Step("Verify format of Epoch detail by its no")
+    public EpochSteps then_verifyFormatOfEpochDetailByNoResponse(EpochData epochData) {
+            Assert.assertTrue(isValidDateFormat(epochData.getStartTime(),DATE_FORMAT[0]));
+            Assert.assertTrue(isValidDateFormat(epochData.getEndTime(),DATE_FORMAT[0]));
+        return this;
+    }
+    @Step("Verify format of Epoch all list")
+    public EpochSteps then_verifyFormatOfEpochAllListResponse(List<EpochData> epochDataList) {
+        for(EpochData epochData:epochDataList){
+            Assert.assertTrue(isValidDateFormat(epochData.getStartTime(),DATE_FORMAT[0]));
+            Assert.assertTrue(isValidDateFormat(epochData.getEndTime(),DATE_FORMAT[0]));
+        }
+        return this;
+    }
+    @Step("Verify format of block list of epoch")
+    public EpochSteps then_verifyFormatOfBlockListResponse(List<EpochDataByEpochNo> epochDataByEpochNoList) {
+        for(EpochDataByEpochNo epochDataByEpochNo:epochDataByEpochNoList){
+            Assert.assertTrue(isValidDateFormat(epochDataByEpochNo.getTime(),DATE_FORMAT[0]));
+            Assert.assertTrue(isValidHash(epochDataByEpochNo.getHash()));
         }
         return this;
     }

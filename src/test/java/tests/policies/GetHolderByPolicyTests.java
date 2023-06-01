@@ -32,7 +32,8 @@ public class GetHolderByPolicyTests extends BaseTest {
                 .saveResponseObject(HolderByPolicy.class);
 
         holderByPolicyData = holderByPolicy.getData();
-        policySteps.verifyResponseDataOfListHolderNotNull(holderByPolicyData);
+        policySteps.verifyResponseDataOfListHolderNotNull(holderByPolicyData)
+                   .verifyFormatOfFingerprintGetHoldersByPolicy(holderByPolicyData);
     }
     @DataProvider(name="getListHolderByPolicies")
     public Object[][] getListHolderByPolicies(){

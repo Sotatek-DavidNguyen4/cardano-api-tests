@@ -12,6 +12,10 @@ import org.testng.Assert;
 
 import java.util.List;
 
+import static constants.DateFormats.DATE_FORMAT;
+import static util.AttributeStandard.isValidDateFormat;
+import static util.AttributeStandard.isValidTokenFingerprint;
+
 public class PolicySteps extends BaseSteps {
     @Step("Get tokens by policies")
     public PolicySteps getTokenByPolicies(Object policyId){
@@ -85,14 +89,28 @@ public class PolicySteps extends BaseSteps {
         return this;
     }
     @Step("Verify response data of list holder got by policy not null")
-    public PolicySteps verifyResponseDataOfListHolderNotNull(List<HolderByPolicyData> listTokenByPolicyData){
-        for (HolderByPolicyData holderByPolicyData : listTokenByPolicyData){
+    public PolicySteps verifyResponseDataOfListHolderNotNull(List<HolderByPolicyData> listHolderByPolicyData){
+        for (HolderByPolicyData holderByPolicyData : listHolderByPolicyData){
             Assert.assertNotNull(holderByPolicyData.getAddress());
             Assert.assertNotNull(holderByPolicyData.getName());
             Assert.assertNotNull(holderByPolicyData.getDisplayName());
             Assert.assertNotNull(holderByPolicyData.getFingerprint());
             Assert.assertNotNull(holderByPolicyData.getQuantity());
-
+        }
+        return this;
+    }
+    @Step("Verify format of fingerprint,createOn in response data of get tokens by policies")
+    public PolicySteps verifyFormatOfGetTokensByPolicies(List<TokenByPolicyData> listTokenByPolicyData){
+        for (TokenByPolicyData tokenByPolicyData : listTokenByPolicyData){
+            Assert.assertTrue(isValidTokenFingerprint(tokenByPolicyData.getFingerprint()));
+            Assert.assertTrue(isValidDateFormat(tokenByPolicyData.getCreatedOn(),DATE_FORMAT[0]));
+        }
+        return this;
+    }
+    @Step("Verify format of fingerprint in response data of get holders by policy")
+    public PolicySteps verifyFormatOfFingerprintGetHoldersByPolicy(List<HolderByPolicyData> listHolderByPolicyData){
+        for (HolderByPolicyData holderByPolicyData : listHolderByPolicyData){
+            Assert.assertTrue(isValidTokenFingerprint(holderByPolicyData.getFingerprint()));
         }
         return this;
     }

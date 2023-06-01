@@ -32,6 +32,7 @@ public class GetDataForStakeDeRegistrationTest extends BaseTest {
                                                 .saveResponseObject(StakeDeRegistration.class);
 
         stakeKeySteps.then_verifyStakeDeRegistrationResponse(stakeDeRegistration,params)
+                     .then_verifyFormatOfStakeDeRegistrationResponse(stakeDeRegistration.getData())
                      .then_verifyStakeDeRegistrationResponseNotNull(stakeDeRegistration.getData());
     }
     @DataProvider(name = "getParamForStakeDeRegistration")

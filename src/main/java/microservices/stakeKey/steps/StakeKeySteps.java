@@ -19,7 +19,9 @@ import org.testng.Assert;
 import java.util.List;
 import java.util.Map;
 
+import static constants.DateFormats.DATE_FORMAT;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static util.AttributeStandard.*;
 
 public class StakeKeySteps extends BaseSteps {
     @Step("get a stake detail by address")
@@ -104,6 +106,14 @@ public class StakeKeySteps extends BaseSteps {
         }
         return this;
     }
+    @Step("Verify format of top delegators response")
+    public StakeKeySteps then_verifyFormatOfDelegatorsResponse(List<TopDelegatorsData> topDelegatorsDataList) {
+        for (TopDelegatorsData topDelegatorsData:topDelegatorsDataList){
+            Assert.assertTrue(isValidStakeKey(topDelegatorsData.getStakeKey()));
+            Assert.assertTrue(isValidPoolId(topDelegatorsData.getPoolId()));
+        }
+        return this;
+    }
     @Step("Verify Data For Stake Registration response not null")
     public StakeKeySteps then_verifyStakeRegistrationResponseNotNull(List<StakeRegistrationData> stakeRegistrationDatas) {
         for (StakeRegistrationData stakeRegistrationData:stakeRegistrationDatas){
@@ -118,6 +128,15 @@ public class StakeKeySteps extends BaseSteps {
         }
         return this;
     }
+    @Step("Verify format of Stake Registration response")
+    public StakeKeySteps then_verifyFormatOfStakeRegistrationResponse(List<StakeRegistrationData> stakeRegistrationDatas) {
+        for (StakeRegistrationData stakeRegistrationData:stakeRegistrationDatas){
+            Assert.assertTrue(isValidHash(stakeRegistrationData.getTxHash()));
+            Assert.assertTrue(isValidDateFormat(stakeRegistrationData.getTxTime(),DATE_FORMAT[0]));
+            Assert.assertTrue(isValidStakeKey(stakeRegistrationData.getStakeKey()));
+        }
+        return this;
+    }
     @Step("Verify Data For Stake De Registration response not null")
     public StakeKeySteps then_verifyStakeDeRegistrationResponseNotNull(List<StakeDeRegistrationData> stakeDeRegistrationDatas) {
         for (StakeDeRegistrationData stakeDeRegistrationData:stakeDeRegistrationDatas){
@@ -129,6 +148,15 @@ public class StakeKeySteps extends BaseSteps {
             Assert.assertNotNull(stakeDeRegistrationData.getSlotNo());
             Assert.assertNotNull(stakeDeRegistrationData.getEpochSlotNo());
             Assert.assertNotNull(stakeDeRegistrationData.getStakeKey());
+        }
+        return this;
+    }
+    @Step("Verify format of Stake De Registration response")
+    public StakeKeySteps then_verifyFormatOfStakeDeRegistrationResponse(List<StakeDeRegistrationData> stakeDeRegistrationDatas) {
+        for (StakeDeRegistrationData stakeDeRegistrationData:stakeDeRegistrationDatas){
+            Assert.assertTrue(isValidHash(stakeDeRegistrationData.getTxHash()));
+            Assert.assertTrue(isValidDateFormat(stakeDeRegistrationData.getTxTime(),DATE_FORMAT[0]));
+            Assert.assertTrue(isValidStakeKey(stakeDeRegistrationData.getStakeKey()));
         }
         return this;
     }

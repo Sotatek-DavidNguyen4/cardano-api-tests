@@ -29,8 +29,9 @@ public class GetTokenByPolicyTests extends BaseTest {
 
         tokenByPolicyData = tokenByPolicy.getData();
         policySteps.verifyResponseDataOfToken(tokenByPolicyData,"4b555431","KUT1",109954)
-                .verifyPolicyInResponseDataOfToken(tokenByPolicyData,policyId);
-    }
+                   .verifyFormatOfGetTokensByPolicies(tokenByPolicyData)
+                   .verifyPolicyInResponseDataOfToken(tokenByPolicyData,policyId);
+        }
     @DataProvider(name="getTokenByPolicies")
     public Object[][] getTokenByPolicies(){
         return new Object[][]{
@@ -48,6 +49,7 @@ public class GetTokenByPolicyTests extends BaseTest {
         tokenByPolicyData = tokenByPolicy.getData();
         policySteps.verifySizeResponseDataOfToken(tokenByPolicyData,3)
                    .verifyResponseDataOfListTokenNotNull(tokenByPolicyData)
+                   .verifyFormatOfGetTokensByPolicies(tokenByPolicyData)
                    .verifyPolicyInResponseDataOfToken(tokenByPolicyData,policyId);
     }
 
