@@ -14,7 +14,7 @@ import java.util.Map;
 public class Token extends BaseTest {
     private TokenSteps tokenSteps = new TokenSteps();
     private String token = "asset1r0eaxq2lg8hx4r6ntexpxt2ezuduqyxlwxhrt2";
-    @Test(description = "verify that get a token with tokenId valid | success", groups = {"token", "token_tokenId"})
+    @Test(description = "verify that get a token", groups = {"token", "token_tokenId"})
     public void getATokenSuccess(){
         Map<String, Object> expect = new HashMap<>();
         expect.put("name", "4b555431");
@@ -27,7 +27,7 @@ public class Token extends BaseTest {
                 .saveResponseObject(TokenModel.class);
         tokenSteps.verifyResponseOfGetToken(tokenModel, expect);
     }
-    @Test(description = "verify that get a token with tokenId invalid | fail", groups = {"token", "token_tokenId"}, dataProvider = "tokenIdInvalid")
+    @Test(description = "verify that get a token with tokenId invalid", groups = {"token", "token_tokenId"}, dataProvider = "tokenIdInvalid")
     public void getATokenFail(Object tokenId){
         tokenSteps.getAToken(tokenId)
                 .then_verifyErrorResponse(HttpURLConnection.HTTP_BAD_REQUEST, TokenConstants.ERROR_MESSAGE, TokenConstants.ERROR_CODE);

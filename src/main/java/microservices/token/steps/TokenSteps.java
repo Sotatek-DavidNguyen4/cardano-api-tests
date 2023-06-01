@@ -7,6 +7,7 @@ import microservices.common.steps.BaseSteps;
 import microservices.token.models.*;
 import org.testng.Assert;
 import util.AttributeStandard;
+import util.SortListUtil;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -99,22 +100,27 @@ public class TokenSteps extends BaseSteps {
         assertThat(tokensMintsModel.getData().size())
                 .as("Value of field 'size' is wrong")
                 .isEqualTo(requestParams.getSize());
+        if (requestParams.getSort() != null) {
+            boolean sorted = SortListUtil.isSortedByField(new ArrayList<>(tokensMintsModel.getData()), requestParams.getSort());
+            assertThat(sorted).as("block is not sorted by inputted params").isEqualTo(true);
+        }
         return this;
     }
     @Step("verify response token mints")
     public TokenSteps verifyTokenMints(ArrayList<TokenMintsModel> data){
         for(TokenMintsModel a : data){
-            Assert.assertTrue(AttributeStandard.isValidDateFormat(a.getTime(), DATE_FORMAT[0]));
+            Assert.assertTrue(AttributeStandard.isValidDateFormat(a.getId(), DATE_FORMAT[0]));
             Assert.assertTrue(AttributeStandard.isValidHash(a.getTxHash()));
         }
         return this;
     }
     @Step("verify that response of token mint should be sort")
     public TokenSteps then_verifySortTokensMints(TokensMintsModel tokensMintsModel, Map<String, Object> param){
-        if(param.get("sort").equals("id,DESC")){
-            ArrayList<TokenMintsModel> data = tokensMintsModel.getData();
-            for(int i=0; i<data.size(); i++){
-            }
+        RequestParams requestParams = new RequestParams(param, 0, 20);
+        if (requestParams.getSort()!=null) {
+            System.out.println("111111111111111111: "+requestParams.getSort());
+            boolean sorted = SortListUtil.isSortedByField(new ArrayList<>(tokensMintsModel.getData()), requestParams.getSort());
+            assertThat(sorted).as("Transaction is not sorted by inputted params").isEqualTo(true);
         }
         return this;
     }
