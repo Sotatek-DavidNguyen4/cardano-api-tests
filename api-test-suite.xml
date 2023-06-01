@@ -53,6 +53,7 @@
             <class name="tests.stakes.StakeKeyInstantaneousRewards"/>
             <class name="tests.stakes.StakeKeyWithdrawalHistoryTests"/>
             <class name="tests.stakes.StakeKeyDelegationHistoryTest"/>
+            <class name="tests.stakes.StakeKeyListAddressTests"/>
             <class name="tests.stakes.Stake"/>
             <class name="tests.stakes.GetDataForStakeDeRegistrationTest"/>
             <class name="tests.stakes.StakeAnalyticsTest"/>

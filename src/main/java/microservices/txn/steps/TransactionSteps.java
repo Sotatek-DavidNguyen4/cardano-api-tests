@@ -12,6 +12,7 @@ import microservices.txn.models.*;
 import org.testng.Assert;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 import static constants.DateFormats.DATE_FORMAT;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -59,6 +60,8 @@ public class TransactionSteps extends BaseSteps {
         if (requestParams.getSort()!=null) {
             boolean sorted = SortListUtil.isSortedByField(new ArrayList<>(filterTxsRes.getData()), requestParams.getSort());
             assertThat(sorted).as("Transaction is not sorted by inputted params").isEqualTo(true);
+        assertTrue(AttributeStandard.areValidHashes(filterTxsRes.getData().stream().map(s -> s.getBlockHash()).collect(Collectors.toList())));
+        assertTrue(AttributeStandard.areValidDates(filterTxsRes.getData().stream().map(s -> s.getTime()).collect(Collectors.toList()), DATE_FORMAT[0]));
         }
 
         return this;
@@ -90,6 +93,7 @@ public class TransactionSteps extends BaseSteps {
             assertTrue(DateUtil.compareDurations(txnGraph.getDate(), startDate, endDate, DATE_FORMAT[1]),
                     txnGraph.getDate() + " not true");
         }
+        assertTrue(AttributeStandard.areValidDates(transactionGraphResponseList.stream().map(s -> s.getDate()).collect(Collectors.toList()), DATE_FORMAT[0]));
         return this;
     }
 }
