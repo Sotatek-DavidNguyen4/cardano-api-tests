@@ -33,6 +33,7 @@
         </method-selectors>
         <classes>
             <class name="tests.delegation_controller.DelegationControllerTests"/>
+            <class name="tests.delegation_controller.DelegationPoolListTests"/>
             <class name="tests.delegation_controller.DelegationHeaderTests"/>
 <!--            <class name="tests.delegation_controller.PoolDetailAnalyticTests"/>-->
             <class name="tests.addresses.AddressAnalyticsTests"/>
