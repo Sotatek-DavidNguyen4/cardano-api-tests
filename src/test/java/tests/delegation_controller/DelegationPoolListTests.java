@@ -34,12 +34,13 @@ public class DelegationPoolListTests extends BaseTest {
                 .saveResponseObject(PoolListModel.class);
         delegationPoolListSteps
                 .verifyAttributeValues(poolListModel)
-                .verifyThatDataResponseIsOnCorrectPage(page, poolListModel.getCurrentPage());
+                .verifyThatDataResponseIsOnCorrectPage(page, poolListModel.getCurrentPage())
+                .verifyDataAmountIsCorrect(size, poolListModel.getData().size());
 
         // page = 0 size = 10 search = "pool1rtseflldkqytw7lm3mpek9g5m04ennkv6ejysxqjj52zyaq46rf"
         param = new CreateParameters()
-                .withPage(0)
-                .withPageSize(10)
+                .withPage(page)
+                .withPageSize(size)
                 .withSearch(search)
                 .getParamsMap();
         poolListModel = (PoolListModel) delegationPoolListSteps
@@ -48,7 +49,7 @@ public class DelegationPoolListTests extends BaseTest {
                 .saveResponseObject(PoolListModel.class);
         delegationPoolListSteps
                 .verifyAttributeValues(poolListModel)
-                .verifyThatDataResponseIsOnCorrectPage(page, poolListModel.getCurrentPage());
+                .verifyThatDataResponseIsOnCorrectPage(1, poolListModel.getData().size());
 
         // page = 0 search = "pool1rtseflldkqytw7lm3mpek9g5m04ennkv6ejysxqjj52zyaq46rf"
         param = new CreateParameters()
@@ -61,7 +62,9 @@ public class DelegationPoolListTests extends BaseTest {
                 .saveResponseObject(PoolListModel.class);
         delegationPoolListSteps
                 .verifyAttributeValues(poolListModel)
-                .verifyThatDataResponseIsOnCorrectPage(page, poolListModel.getCurrentPage());
+                .verifyThatDataResponseIsOnCorrectPage(page, poolListModel.getCurrentPage())
+                .verifyThatDataResponseIsOnCorrectPage(1, poolListModel.getData().size());
+
         // page = 0 search = ""
         param = new CreateParameters()
                 .withPage(0)
