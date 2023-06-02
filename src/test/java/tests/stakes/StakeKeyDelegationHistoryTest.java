@@ -23,7 +23,8 @@ public class StakeKeyDelegationHistoryTest extends BaseTest {
                 stakeKeySteps.getDelegationHistory(stakeKey, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(DelegationHistoryModel.class);
-        stakeKeySteps.then_verifyFilterStakeDelegationHistoryResponse(delegationHistoryModel, param, 20);
+        stakeKeySteps.then_verifyFilterStakeDelegationHistoryResponse(delegationHistoryModel, param, 20)
+                .verifyStakeDelegationHistory(delegationHistoryModel.getData());
     }
     @Test(description = "get stake delegation history | all key", groups = {"stake", "stake_delegation_history"})
     public void getStakeDelegationHistoryAllKey(){
