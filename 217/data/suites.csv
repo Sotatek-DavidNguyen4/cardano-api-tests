@@ -1,0 +1,2 @@
+"Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
+"unknown","Fri Jun 02 02:42:27 GMT 2023","Fri Jun 02 02:42:27 GMT 2023","2","Setel Regression Suite","Setel Admin test on chrome","tests.transaction.TransactionTests","tests.transaction.TransactionTests","get_number_transaction_on_fixable_days","Get number transaction on fixable days",""
