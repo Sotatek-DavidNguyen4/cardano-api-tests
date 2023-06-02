@@ -35,8 +35,9 @@ public class EpochNoBlockTests extends BaseTest {
                                   .saveResponseObject(EpochByEpochNo.class);
 
         epochDataByEpochNo = epochByEpochNo.getData();
-        epochSteps.verifyValueEpochNoInBlock(epochDataByEpochNo,epochNo);
-        epochSteps.verifyResponseEpochNoInBlockNotNull(epochDataByEpochNo);
+        epochSteps.verifyValueEpochNoInBlock(epochDataByEpochNo,epochNo)
+                  .verifyResponseEpochNoInBlockNotNull(epochDataByEpochNo)
+                  .then_verifyFormatOfBlockListResponse(epochDataByEpochNo);
     }
     @DataProvider(name = "dataGetListEpochByEpochNo")
     public Object[][] dataGetListEpochByEpochNo(){
@@ -50,8 +51,8 @@ public class EpochNoBlockTests extends BaseTest {
         epochCurrent =(EpochCurrent) epochSteps.getCurrentEpoch().saveResponseObject(EpochCurrent.class);
 
         epochByEpochNo = (EpochByEpochNo) epochSteps.getBLockListEpochByEpochNo(epochCurrent.getNo()+1)
-                .validateResponse(HttpURLConnection.HTTP_OK)
-                .saveResponseObject(EpochByEpochNo.class);
+                                                    .validateResponse(HttpURLConnection.HTTP_OK)
+                                                    .saveResponseObject(EpochByEpochNo.class);
         epochSteps.verifyResponseEpochByNextEpoch(epochByEpochNo,true,0,0,0);
     }
     @Test(description = "Verify get block list of epoch by current epoch" ,groups = {"epoch"})
@@ -62,8 +63,9 @@ public class EpochNoBlockTests extends BaseTest {
                 .validateResponse(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(EpochByEpochNo.class);
         epochDataByEpochNo = epochByEpochNo.getData();
-        epochSteps.verifyValueEpochNoInBlock(epochDataByEpochNo,epochCurrent.getNo());
-        epochSteps.verifyResponseEpochNoInBlockNotNull(epochDataByEpochNo);
+        epochSteps.verifyValueEpochNoInBlock(epochDataByEpochNo,epochCurrent.getNo())
+                  .verifyResponseEpochNoInBlockNotNull(epochDataByEpochNo)
+                  .then_verifyFormatOfBlockListResponse(epochDataByEpochNo);
     }
 
     @Test(description = "Verify get block list of epoch by its no with param successfully" ,groups = {"epoch"},dataProvider = "dataGetListEpochByEpochNoWithParam")
@@ -75,12 +77,13 @@ public class EpochNoBlockTests extends BaseTest {
             param.put("sort", sort);
         }
         epochByEpochNo = (EpochByEpochNo) epochSteps.getBLockListEpochByEpochNoWithParam(param,no)
-                .validateResponse(HttpURLConnection.HTTP_OK)
-                .saveResponseObject(EpochByEpochNo.class);
+                                                    .validateResponse(HttpURLConnection.HTTP_OK)
+                                                    .saveResponseObject(EpochByEpochNo.class);
         epochDataByEpochNo = epochByEpochNo.getData();
         epochSteps.verifyValueEpochNoInBlock(epochDataByEpochNo,no)
                   .verifyResponseEpochNoInBlockNotNull(epochDataByEpochNo)
-                  .then_verifyEpochByNoBlockResponse(epochByEpochNo,param);
+                  .then_verifyEpochByNoBlockResponse(epochByEpochNo,param)
+                  .then_verifyFormatOfBlockListResponse(epochDataByEpochNo);
     }
     @DataProvider(name = "dataGetListEpochByEpochNoWithParam")
     public Object[][] dataGetListEpochByEpochNoWithParam(){

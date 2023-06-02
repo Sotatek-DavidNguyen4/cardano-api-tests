@@ -37,6 +37,7 @@ public class EpochNoTests extends BaseTest {
 
         epochSteps.verifyValueEpochNo(epochData,60)
                   .verifyValueMaxSlot(epochData,432000)
+                  .then_verifyFormatOfEpochDetailByNoResponse(epochData)
                   .verifyResponseEpochNoNotNull(epochData);
     }
 
@@ -50,6 +51,7 @@ public class EpochNoTests extends BaseTest {
 
         epochSteps.verifyValueEpochNo(epochData,epochCurrent.getNo())
                 .verifyValueMaxSlot(epochData,432000)
+                .then_verifyFormatOfEpochDetailByNoResponse(epochData)
                 .verifyResponseEpochNoNotNull(epochData);
     }
 

@@ -41,7 +41,8 @@ public class EpochTests extends BaseTest {
 
         epochData = epoch.getData();
         epochSteps.verifyResponseEpochNotNull(epochData)
-                .then_verifyEpochResponse(epoch,param);
+                  .then_verifyFormatOfEpochAllListResponse(epochData)
+                  .then_verifyEpochResponse(epoch,param);
     }
     @DataProvider(name = "dataGetListEpoch")
     public Object[][] dataGetListEpoch(){
