@@ -15,13 +15,6 @@ public class AttributeStandard {
             return false;
         }
     }
-    public static boolean isValidStakeKey(String stakeKey){
-        if(stakeKey != null && !stakeKey.isEmpty() && !stakeKey.trim().isEmpty()){
-            return stakeKey.length() == 64 && stakeKey.startsWith("stake");
-        }else {
-            return false;
-        }
-    }
 
     public static boolean areValidStakeAddress(List<String> stakeAddrs, int length) {
         for (String stakeAddr : stakeAddrs) {

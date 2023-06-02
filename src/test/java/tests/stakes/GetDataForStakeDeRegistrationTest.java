@@ -14,6 +14,8 @@ import org.testng.annotations.Test;
 
 import java.net.HttpURLConnection;
 
+import static constants.AttributeFormats.STATKE_ADDRESS_LENGTH;
+import static constants.Environment.isPreProd;
 
 
 @Epic("cardano")
@@ -24,6 +26,7 @@ public class GetDataForStakeDeRegistrationTest extends BaseTest {
     StakeDeRegistration stakeDeRegistration ;
     @Test(description = "Verify data for stake de registration",groups = "stake-key-controller",dataProvider = "getParamForStakeDeRegistration")
     public void getDataForStakeDeRegistration(Object page,Object size){
+        int length = isPreProd() ? STATKE_ADDRESS_LENGTH[0] : STATKE_ADDRESS_LENGTH[1];
         MultiMap params = new MultiValueMap();
         params.put("page", page);
         params.put("size", size);
@@ -32,7 +35,7 @@ public class GetDataForStakeDeRegistrationTest extends BaseTest {
                                                 .saveResponseObject(StakeDeRegistration.class);
 
         stakeKeySteps.then_verifyStakeDeRegistrationResponse(stakeDeRegistration,params)
-                     .then_verifyFormatOfStakeDeRegistrationResponse(stakeDeRegistration.getData())
+                     .then_verifyFormatOfStakeDeRegistrationResponse(stakeDeRegistration.getData(),length)
                      .then_verifyStakeDeRegistrationResponseNotNull(stakeDeRegistration.getData());
     }
     @DataProvider(name = "getParamForStakeDeRegistration")

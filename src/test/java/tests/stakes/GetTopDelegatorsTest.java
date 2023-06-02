@@ -14,6 +14,9 @@ import org.testng.annotations.Test;
 
 import java.net.HttpURLConnection;
 
+import static constants.AttributeFormats.STATKE_ADDRESS_LENGTH;
+import static constants.Environment.isPreProd;
+
 
 @Epic("cardano")
 @Feature("api-stake-key-controller")
@@ -23,6 +26,7 @@ public class GetTopDelegatorsTest extends BaseTest {
     TopDelegators topDelegators ;
     @Test(description = "Verify data for get top delegators",groups = "stake-key-controller",dataProvider = "getParamForTopDelegators")
     public void getDataForStakeDeRegistration(Object page,Object size){
+        int length = isPreProd() ? STATKE_ADDRESS_LENGTH[0] : STATKE_ADDRESS_LENGTH[1];
         MultiMap params = new MultiValueMap();
         params.put("page", page);
         params.put("size", size);
@@ -31,7 +35,7 @@ public class GetTopDelegatorsTest extends BaseTest {
                                                 .saveResponseObject(TopDelegators.class);
 
         stakeKeySteps.then_verifyTopDelegatorsResponse(topDelegators,params)
-                     .then_verifyFormatOfDelegatorsResponse(topDelegators.getData())
+                     .then_verifyFormatOfDelegatorsResponse(topDelegators.getData(),length)
                      .then_verifyGetTopDelegatorsResponseNotNull(topDelegators.getData());
     }
     @DataProvider(name = "getParamForTopDelegators")

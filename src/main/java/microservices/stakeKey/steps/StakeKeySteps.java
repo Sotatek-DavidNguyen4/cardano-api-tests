@@ -108,9 +108,9 @@ public class StakeKeySteps extends BaseSteps {
         return this;
     }
     @Step("Verify format of top delegators response")
-    public StakeKeySteps then_verifyFormatOfDelegatorsResponse(List<TopDelegatorsData> topDelegatorsDataList) {
+    public StakeKeySteps then_verifyFormatOfDelegatorsResponse(List<TopDelegatorsData> topDelegatorsDataList,int length) {
         for (TopDelegatorsData topDelegatorsData:topDelegatorsDataList){
-            Assert.assertTrue(isValidStakeKey(topDelegatorsData.getStakeKey()));
+            Assert.assertTrue(isValidStakeAddress(topDelegatorsData.getStakeKey(),length));
             Assert.assertTrue(isValidPoolId(topDelegatorsData.getPoolId()));
         }
         return this;
@@ -130,11 +130,11 @@ public class StakeKeySteps extends BaseSteps {
         return this;
     }
     @Step("Verify format of Stake Registration response")
-    public StakeKeySteps then_verifyFormatOfStakeRegistrationResponse(List<StakeRegistrationData> stakeRegistrationDatas) {
+    public StakeKeySteps then_verifyFormatOfStakeRegistrationResponse(List<StakeRegistrationData> stakeRegistrationDatas ,int length) {
         for (StakeRegistrationData stakeRegistrationData:stakeRegistrationDatas){
             Assert.assertTrue(isValidHash(stakeRegistrationData.getTxHash()));
             Assert.assertTrue(isValidDateFormat(stakeRegistrationData.getTxTime(),DATE_FORMAT[0]));
-            Assert.assertTrue(isValidStakeKey(stakeRegistrationData.getStakeKey()));
+            Assert.assertTrue(isValidStakeAddress(stakeRegistrationData.getStakeKey(),length));
         }
         return this;
     }
@@ -153,11 +153,11 @@ public class StakeKeySteps extends BaseSteps {
         return this;
     }
     @Step("Verify format of Stake De Registration response")
-    public StakeKeySteps then_verifyFormatOfStakeDeRegistrationResponse(List<StakeDeRegistrationData> stakeDeRegistrationDatas) {
+    public StakeKeySteps then_verifyFormatOfStakeDeRegistrationResponse(List<StakeDeRegistrationData> stakeDeRegistrationDatas,int length) {
         for (StakeDeRegistrationData stakeDeRegistrationData:stakeDeRegistrationDatas){
             Assert.assertTrue(isValidHash(stakeDeRegistrationData.getTxHash()));
             Assert.assertTrue(isValidDateFormat(stakeDeRegistrationData.getTxTime(),DATE_FORMAT[0]));
-            Assert.assertTrue(isValidStakeKey(stakeDeRegistrationData.getStakeKey()));
+            Assert.assertTrue(isValidStakeAddress(stakeDeRegistrationData.getStakeKey(),length));
         }
         return this;
     }
