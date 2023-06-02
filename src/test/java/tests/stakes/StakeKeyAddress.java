@@ -9,8 +9,9 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.net.HttpURLConnection;
-import java.util.HashMap;
-import java.util.Map;
+
+import static constants.AttributeFormats.STATKE_ADDRESS_LENGTH;
+import static constants.Environment.isPreProd;
 
 public class StakeKeyAddress extends BaseTest {
     private StakeKeySteps stakeKeySteps = new StakeKeySteps();
@@ -18,12 +19,13 @@ public class StakeKeyAddress extends BaseTest {
     private String stakeAddress = "stake_test1urtyeyl0qz20tsteu5uqzz0tamczyfzegn3ezn6mej360ycky7cg5";
     @Test(description = "get a stake detail by address", groups = {"stake", "stake_address"})
     public void getStakeByAddress(){
+        int length = isPreProd() ? STATKE_ADDRESS_LENGTH[0] : STATKE_ADDRESS_LENGTH[1];
         StakeModel stakeModel = (StakeModel)
         stakeKeySteps.getStakeByAddress(address)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(StakeModel.class);
         stakeKeySteps.verifyResponseStakeAddress(stakeModel, stakeAddress)
-                .verifyResponseStake(stakeModel);
+                .verifyResponseStake(stakeModel, length);
     }
     @Test(description = "get stake detail by address wrong format", groups = {"stake", "stake_address"}, dataProvider = "listAddressWrongFormat")
     public void getStakeByAddresWrongFormat(Object address){

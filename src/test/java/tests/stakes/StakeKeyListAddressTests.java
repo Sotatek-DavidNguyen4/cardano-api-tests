@@ -52,7 +52,7 @@ public class StakeKeyListAddressTests extends BaseTest {
         return new Object[][]{
                 {"@#$"},
                 {" "},
-                {"abc"},
+                {"abcd"},
                 {"12345"}
         };
     }
