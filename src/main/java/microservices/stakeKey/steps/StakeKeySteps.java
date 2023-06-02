@@ -4,19 +4,28 @@ import constants.Endpoints;
 import io.qameta.allure.Step;
 import microservices.common.constants.RequestParams;
 import microservices.common.steps.BaseSteps;
+import microservices.stakeKey.models.DataHistory;
 import microservices.stakeKey.models.StakeModel;
 import microservices.stakeKey.models.deRegistration.StakeDeRegistration;
 import microservices.stakeKey.models.StakeHistory;
 import microservices.stakeKey.models.deRegistration.StakeDeRegistrationData;
+import microservices.stakeKey.models.history.DelegationHistoryDataModel;
 import microservices.stakeKey.models.history.DelegationHistoryModel;
+import microservices.stakeKey.models.history.WithdrawalHistoryDataModel;
+import microservices.stakeKey.models.instantaneousReward.InstantaneousRewardDataModel;
+import microservices.stakeKey.models.instantaneousReward.InstantaneousRewardModel;
 import microservices.stakeKey.models.listAddress.StakeListAddressModel;
 import microservices.stakeKey.models.registration.StakeRegistration;
 import microservices.stakeKey.models.registration.StakeRegistrationData;
 import microservices.stakeKey.models.topDelegators.TopDelegators;
 import microservices.stakeKey.models.topDelegators.TopDelegatorsData;
 import microservices.stakeKey.models.history.WithdrawalHistoryModel;
+import microservices.token.models.TokenMintsModel;
+import microservices.token.steps.TokenSteps;
 import org.testng.Assert;
+import util.AttributeStandard;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -43,6 +52,22 @@ public class StakeKeySteps extends BaseSteps {
     @Step("get a stake instantaneous rewards with param")
     public StakeKeySteps getStakeInstantaneousRewardParam(Object stakeKey, Map<String, Object> param){
         sendGet(Endpoints.StakeKeyApi.GET_STAKE_INSTANTANEOUS_REWARDS, param, Endpoints.StakeKeyApi.STAKE_KEY, stakeKey);
+        return this;
+    }
+    @Step("verify that current page instantaneous reward")
+    public StakeKeySteps then_verifyFilterInstantaneousResponse(InstantaneousRewardModel instantaneousRewardModel, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0, 20);
+        assertThat(instantaneousRewardModel.getCurrentPage())
+                .as("Value of field 'currentPage' is wrong")
+                .isEqualTo(requestParams.getPage());
+        return this;
+    }
+    @Step("verify response stake instantaneous rewards")
+    public StakeKeySteps verifyStakeInstantaneousRewards(ArrayList<InstantaneousRewardDataModel> data){
+        for(InstantaneousRewardDataModel a : data){
+            Assert.assertTrue(AttributeStandard.isValidDateFormat(a.getTime(), DATE_FORMAT[0]));
+            Assert.assertTrue(AttributeStandard.isValidHash(a.getTxHash()));
+        }
         return this;
     }
     @Step("Get top delegators")
@@ -168,9 +193,9 @@ public class StakeKeySteps extends BaseSteps {
         return this;
     }
     @Step("verify response of get stake")
-    public StakeKeySteps verifyResponseStake(StakeModel stakeModel, String stakeKey, String poolId){
-        assertThat(stakeModel.getStakeAddress()).isEqualTo(stakeKey);
-        assertThat(stakeModel.getPool().getPoolId()).isEqualTo(poolId);
+    public StakeKeySteps verifyResponseStake(StakeModel stakeModel){
+        Assert.assertTrue(AttributeStandard.isValidStakeAddress(stakeModel.getStakeAddress()));
+        Assert.assertTrue(AttributeStandard.isValidPoolId(stakeModel.getPool().getPoolId()));
         return this;
     }
     @Step("get stake history")
@@ -191,6 +216,14 @@ public class StakeKeySteps extends BaseSteps {
                 .isEqualTo(requestParams.getPage());
         return this;
     }
+    @Step("verify response stake history")
+    public StakeKeySteps verifyStakeHistory(ArrayList<DataHistory> data){
+        for(DataHistory a : data){
+            Assert.assertTrue(AttributeStandard.isValidDateFormat(a.getTime(), DATE_FORMAT[0]));
+            Assert.assertTrue(AttributeStandard.isValidHash(a.getTxHash()));
+        }
+        return this;
+    }
     @Step("get stake key withdrawal history")
     public StakeKeySteps getStakeKeyWithdrawalHistory(Object stakeKey, Map<String, Object> param){
         sendGet(Endpoints.StakeKeyApi.GET_STAKE_WITHDRAWAL_HISTORY, param,  Endpoints.StakeKeyApi.STAKE_KEY, stakeKey);
@@ -207,6 +240,14 @@ public class StakeKeySteps extends BaseSteps {
                 .isEqualTo(requestParams.getSize());
         return this;
     }
+    @Step("verify response stake withdrawal history")
+    public StakeKeySteps verifyStakeWithdrawalHistory(ArrayList<WithdrawalHistoryDataModel> data){
+        for(WithdrawalHistoryDataModel a : data){
+            Assert.assertTrue(AttributeStandard.isValidDateFormat(a.getTime(), DATE_FORMAT[0]));
+            Assert.assertTrue(AttributeStandard.isValidHash(a.getTxHash()));
+        }
+        return this;
+    }
     @Step("get stake delegation history")
     public StakeKeySteps getDelegationHistory(String stakeKey, Map<String, Object> param){
         sendGet(Endpoints.StakeKeyApi.GET_STAKE_DELEGATION_HISTORY, param,  Endpoints.StakeKeyApi.STAKE_KEY, stakeKey);
@@ -221,6 +262,15 @@ public class StakeKeySteps extends BaseSteps {
         assertThat(delegationHistoryModel.getData().size())
                 .as("Value of field 'size' is wrong")
                 .isEqualTo(requestParams.getSize());
+        return this;
+    }
+    @Step("verify response stake delegation history")
+    public StakeKeySteps verifyStakeDelegationHistory(ArrayList<DelegationHistoryDataModel> data){
+        for(DelegationHistoryDataModel a : data){
+            Assert.assertTrue(AttributeStandard.isValidDateFormat(a.getTime(), DATE_FORMAT[0]));
+            Assert.assertTrue(AttributeStandard.isValidHash(a.getTxHash()));
+            Assert.assertTrue(AttributeStandard.isValidPoolId(a.getPoolId()));
+        }
         return this;
     }
     @Step("get stake list address")

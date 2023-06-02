@@ -23,7 +23,8 @@ public class TokenTxs extends BaseTest {
         tokenSteps.getTokenTxs(tokenId, param)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(TokensTxsModel.class);
-        tokenSteps.then_verifyFilterTokensTxsResponse(tokensTxsModel, param, 20);
+        tokenSteps.then_verifyFilterTokensTxsResponse(tokensTxsModel, param, 20)
+                .verifyTokenTxs(tokensTxsModel.getData());
     }
     @Test(description = "get token txs with page", groups = {"token", "token_txs"}, dataProvider = "tokenTxsPage")
     public void getTokenTxsPage(String page){

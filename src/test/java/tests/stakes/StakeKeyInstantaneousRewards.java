@@ -2,6 +2,7 @@ package tests.stakes;
 
 import base.BaseTest;
 import microservices.stakeKey.models.StakeHistory;
+import microservices.stakeKey.models.instantaneousReward.InstantaneousRewardModel;
 import microservices.stakeKey.steps.StakeKeySteps;
 import org.apache.commons.collections.MultiMap;
 import org.testng.annotations.DataProvider;
@@ -19,11 +20,12 @@ public class StakeKeyInstantaneousRewards extends BaseTest {
     public void getStakeInstantaneousReward(Object stakeKey){
         Map<String, Object> param = new CreateParameters()
                 .getParamsMap();
-        StakeHistory stakeHistory = (StakeHistory)
+        InstantaneousRewardModel instantaneousRewardModel = (InstantaneousRewardModel)
         stakeKeySteps.getStakeInstantaneousRewards(stakeKey)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
-                .saveResponseObject(StakeHistory.class);
-        stakeKeySteps.then_verifyFilterStakeHistoryResponse(stakeHistory, param);
+                .saveResponseObject(InstantaneousRewardModel.class);
+        stakeKeySteps.then_verifyFilterInstantaneousResponse(instantaneousRewardModel, param)
+                .verifyStakeInstantaneousRewards(instantaneousRewardModel.getData());
     }
     @DataProvider(name = "stakeKeyInstantaneousReward")
     public Object[][] DatasetStakeKeyInstantaneousRewards(){

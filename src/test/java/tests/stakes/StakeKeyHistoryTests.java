@@ -24,7 +24,8 @@ public class StakeKeyHistoryTests extends BaseTest {
                 .getStakeHistory(stake)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(StakeHistory.class);
-        stakeKeySteps.then_verifyFilterStakeHistoryResponse(stakeHistory, param);
+        stakeKeySteps.then_verifyFilterStakeHistoryResponse(stakeHistory, param)
+                .verifyStakeHistory(stakeHistory.getData());
     }
     @Test(description = "get stake history all key", groups = {"stake", "stake_history"})
     public void getStakeHistoryAllKey(){

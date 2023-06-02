@@ -23,7 +23,8 @@ public class TokenMints extends BaseTest {
         tokenSteps.getTokenMint(tokenId, param)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(TokensMintsModel.class);
-        tokenSteps.then_verifyFilterTokensMintsResponse(tokensMintsModel, param, 20);
+        tokenSteps.then_verifyFilterTokensMintsResponse(tokensMintsModel, param, 20)
+                .verifyTokenMints(tokensMintsModel.getData());
     }
     @Test(description = "get token mints all key", groups = {"token", "token_mints"})
     public void getTokenMintsAllKey(){

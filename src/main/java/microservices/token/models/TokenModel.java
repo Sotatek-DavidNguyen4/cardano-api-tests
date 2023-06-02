@@ -4,7 +4,7 @@ package microservices.token.models;
 public class TokenModel {
     private String id;
     private String name;
-    private String dislayname;
+    private String displayName;
     private String policy;
     private String fingerprint;
     private int txCount;

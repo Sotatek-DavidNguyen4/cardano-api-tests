@@ -34,7 +34,8 @@ public class StakeKeyWithdrawalHistoryTests extends BaseTest {
                 stakeKeySteps.getStakeKeyWithdrawalHistory(stakeKeyWithdrawal, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(WithdrawalHistoryModel.class);
-        stakeKeySteps.then_verifyFilterStakeWithdrawalHistoryResponse(withdrawalHistoryModel, param, 20);
+        stakeKeySteps.then_verifyFilterStakeWithdrawalHistoryResponse(withdrawalHistoryModel, param, 20)
+                .verifyStakeWithdrawalHistory(withdrawalHistoryModel.getData());
     }
     @Test(description = "get stake withdrawal history | stakeKey invalid", groups = {"stake", "stake_withdrawal_history"}, dataProvider = "stakeKey")
     public void getWithdrawalHistoryStakeKeyInvalid(String stakeKey){
