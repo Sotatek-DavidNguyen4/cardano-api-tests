@@ -193,8 +193,8 @@ public class StakeKeySteps extends BaseSteps {
         return this;
     }
     @Step("verify response of get stake")
-    public StakeKeySteps verifyResponseStake(StakeModel stakeModel){
-        Assert.assertTrue(AttributeStandard.isValidStakeAddress(stakeModel.getStakeAddress()));
+    public StakeKeySteps verifyResponseStake(StakeModel stakeModel, int length){
+        Assert.assertTrue(AttributeStandard.isValidStakeAddress(stakeModel.getStakeAddress(), length));
         Assert.assertTrue(AttributeStandard.isValidPoolId(stakeModel.getPool().getPoolId()));
         return this;
     }
