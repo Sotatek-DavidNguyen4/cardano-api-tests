@@ -3,15 +3,21 @@ package microservices.delegation.steps;
 import constants.Endpoints;
 import core.BaseApi;
 import io.qameta.allure.Step;
+import microservices.addresses.models.AddressTransactionModel;
+import microservices.addresses.steps.AddressTransactionSteps;
+import microservices.common.steps.BaseSteps;
 import microservices.delegation.models.PoolDetailDelegatorModel;
 import microservices.delegation.models.PoolDetailHeaderModel;
 import org.testng.Assert;
+import util.AttributeStandard;
 
 import java.util.Map;
+import java.util.stream.Collectors;
 
+import static constants.DateFormats.DATE_FORMAT;
 import static microservices.delegation.constants.DelegationConstant.PARAM_POOL_VIEW;
 
-public class DelegationControllerSteps extends BaseApi {
+public class DelegationControllerSteps extends BaseSteps {
 
     @Step("get data for pool detail")
     public DelegationControllerSteps getDataForPoolDetail(Object poolView){
@@ -33,6 +39,21 @@ public class DelegationControllerSteps extends BaseApi {
     public DelegationControllerSteps verifyDataNull(PoolDetailDelegatorModel poolDetailDelegatorModel){
         Assert.assertTrue(poolDetailDelegatorModel.getTotalPages() == 0);
         Assert.assertTrue(poolDetailDelegatorModel.getCurrentPage() == 0);
+        return this;
+    }
+    @Step("verify data response is on correct page")
+    public DelegationControllerSteps verifyThatDataResponseIsOnCorrectPage(int expectedPage, int actualPage){
+        Assert.assertEquals(expectedPage, actualPage);
+        return this;
+    }
+    @Step("verify data amount is correct")
+    public DelegationControllerSteps verifyDataAmountIsCorrect(int expectedSize, int ActualSize){
+        Assert.assertEquals(expectedSize, ActualSize);
+        return this;
+    }
+    @Step("verify format attributes")
+    public DelegationControllerSteps verifyFormatAttributes(PoolDetailDelegatorModel poolDetailDelegatorModel){
+        Assert.assertTrue(AttributeStandard.areValidDates(poolDetailDelegatorModel.getData().stream().map(s -> s.getTime()).collect(Collectors.toList()), DATE_FORMAT[0]));
         return this;
     }
 }
