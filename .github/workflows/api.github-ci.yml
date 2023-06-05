@@ -6,7 +6,7 @@
 # separate terms of service, privacy policy, and support
 # documentation.
 name: API Test
-run-name: Running on ${{ github.ref_name }} by @${{ github.actor }}
+run-name: Running on ${{ github.ref_name }} by ${{ github.actor }}
 
 on:
  schedule:
