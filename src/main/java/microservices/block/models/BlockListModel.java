@@ -6,7 +6,7 @@ import java.util.List;
 @Data
 public class BlockListModel {
 	private int totalItems;
-	private List<DataItem> data;
+	private List<BlockDetailModel> data;
 	private int totalPages;
 	private int currentPage;
 }

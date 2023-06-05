@@ -3,7 +3,7 @@ package tests.block;
 import base.BaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import microservices.block.models.BlockModels;
+import microservices.block.models.BlockListModel;
 import microservices.block.steps.BlockSteps;
 import org.apache.commons.collections.MultiMap;
 import org.testng.annotations.DataProvider;
@@ -19,13 +19,15 @@ public class GetAllBlockTests extends BaseTest {
     @Test(description = "Get all blocks successfully", groups = {"block", "get-all-blocks"}, dataProvider = "paramData")
     public void getAllBlockSuccessfully(Object page, Object size, Object sort){
 
-        BlockModels blockModels = (BlockModels) bockSteps
+        BlockListModel blockListModel = (BlockListModel) bockSteps
                 .getAllBlock()
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
-                .saveResponseObject(BlockModels.class);
+                .saveResponseObject(BlockListModel.class);
 
         //verify currentPage = 0;
-        bockSteps.verifyValueOfAttributeIsCorrectly(blockModels, 0);
+        bockSteps
+                .verifyValueOfAttributeIsCorrectly(blockListModel, 0)
+                .then_verifyValueFormatIsCorrectly(blockListModel);
 
 
         MultiMap param = new CreateMultiParameters()
@@ -34,12 +36,14 @@ public class GetAllBlockTests extends BaseTest {
                 .withSort(sort)
                 .getParamsMap();
 
-        blockModels = (BlockModels) bockSteps
+        blockListModel = (BlockListModel) bockSteps
                 .getAllBlock(param)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
-                .saveResponseObject(BlockModels.class);
+                .saveResponseObject(BlockListModel.class);
 
-        bockSteps.then_verifyFilterBlockResponse(blockModels, param);
+        bockSteps
+                .then_verifyFilterBlockResponse(blockListModel, param)
+                .then_verifyValueFormatIsCorrectly(blockListModel);
     }
     @DataProvider(name ="paramData")
     public Object[][] dataSetData(){
@@ -54,12 +58,12 @@ public class GetAllBlockTests extends BaseTest {
                 .withPageSize(page)
                 .getParamsMap();
 
-        BlockModels blockModels = (BlockModels) bockSteps
+        BlockListModel blockListModel = (BlockListModel) bockSteps
                 .getAllBlock(param)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
-                .saveResponseObject(BlockModels.class);
+                .saveResponseObject(BlockListModel.class);
 
-        bockSteps.verifyValueOfAttributeIsCorrectly(blockModels, page);
+        bockSteps.verifyValueOfAttributeIsCorrectly(blockListModel, page);
     }
     @DataProvider(name ="paramWithSize")
     public Object[][] dataSetWithSize(){
@@ -78,10 +82,10 @@ public class GetAllBlockTests extends BaseTest {
                 .withPageSize(size)
                 .getParamsMap();
 
-        BlockModels blockModels = (BlockModels) bockSteps
+        BlockListModel blockListModel = (BlockListModel) bockSteps
                 .getAllBlock(param)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
-                .saveResponseObject(BlockModels.class);
+                .saveResponseObject(BlockListModel.class);
     }
     @DataProvider(name ="paramWithPage")
     public Object[][] dataSetWithPage(){
@@ -100,12 +104,12 @@ public class GetAllBlockTests extends BaseTest {
                 .withSort(sort)
                 .getParamsMap();
 
-        BlockModels blockModels = (BlockModels) bockSteps
+        BlockListModel blockListModel = (BlockListModel) bockSteps
                 .getAllBlock(param)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
-                .saveResponseObject(BlockModels.class);
+                .saveResponseObject(BlockListModel.class);
 
-        bockSteps.then_verifyFilterBlockResponse(blockModels, param);
+        bockSteps.then_verifyFilterBlockResponse(blockListModel, param);
     }
     @DataProvider(name ="paramWithSort")
     public Object[][] dataSetWithSort(){

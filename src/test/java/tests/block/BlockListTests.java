@@ -4,7 +4,6 @@ import base.BaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import microservices.block.models.BlockListModel;
-import microservices.block.models.BlockModels;
 import microservices.block.steps.BlockSteps;
 import org.apache.commons.collections.MultiMap;
 import org.testng.annotations.DataProvider;
@@ -26,7 +25,9 @@ public class BlockListTests extends BaseTest {
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(BlockListModel.class);
 
-        blockSteps.then_verifyDataNotNull(blockListModel);
+        blockSteps
+                .then_verifyDataNotNull(blockListModel)
+                .then_verifyValueFormatIsCorrectly(blockListModel);
 
         String blockId = "950073";
         blockListModel = (BlockListModel) blockSteps
@@ -34,7 +35,9 @@ public class BlockListTests extends BaseTest {
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(BlockListModel.class);
 
-        blockSteps.then_verifyDataNull(blockListModel);
+        blockSteps
+                .then_verifyDataNull(blockListModel)
+                .then_verifyValueFormatIsCorrectly(blockListModel);
     }
     @Test(description = "get block list successfully with invalid page", groups = {"block","block-list"}, dataProvider = "paramInvalidPage")
     public void getBlockListSuccessfullyWithInvalidPage(Object page){
