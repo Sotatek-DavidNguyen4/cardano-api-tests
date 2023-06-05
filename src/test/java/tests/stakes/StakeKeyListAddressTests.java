@@ -10,6 +10,7 @@ import util.CreateMultiParameters;
 import util.CreateParameters;
 
 import java.net.HttpURLConnection;
+import java.util.HashMap;
 import java.util.Map;
 
 public class StakeKeyListAddressTests extends BaseTest {
@@ -20,10 +21,11 @@ public class StakeKeyListAddressTests extends BaseTest {
         Map<String, Object> param = new CreateParameters()
                 .getParamsMap();
         StakeListAddressModel stakeListAddressModel = (StakeListAddressModel)
-                stakeKeySteps.getListAddress(param, stakeKey)
+                stakeKeySteps.getStakeListAddress(param, stakeKey)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(StakeListAddressModel.class);
-        stakeKeySteps.then_verifyFilterStakeListAddressResponse(stakeListAddressModel, param, 20);
+        stakeKeySteps.then_verifyPageStakeListAddressResponse(stakeListAddressModel, param, 20)
+                .then_verifySizeStakeListAddressResponse(stakeListAddressModel, param, 20);
     }
     @Test(description = "get stake list address | all key", groups = {"stake", "stake_list_address"})
     public void getStakeListAddressAllKey(){
@@ -32,22 +34,24 @@ public class StakeKeyListAddressTests extends BaseTest {
                 .withPageSize("20")
                 .getParamsMap();
         StakeListAddressModel stakeListAddressModel = (StakeListAddressModel)
-                stakeKeySteps.getListAddress(param, stakeKey)
+                stakeKeySteps.getStakeListAddress(param, stakeKey)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(StakeListAddressModel.class);
-        stakeKeySteps.then_verifyFilterStakeListAddressResponse(stakeListAddressModel, param, 20);
+        stakeKeySteps.then_verifyPageStakeListAddressResponse(stakeListAddressModel, param, 20)
+                .then_verifySizeStakeListAddressResponse(stakeListAddressModel, param, 20);
     }
-    @Test(description = "get stake list addres | stakeKey invalid", groups = {"stake", "stake_list_address"}, dataProvider = "stakeKey")
+    @Test(description = "get stake list addres | stakeKey invalid", groups = {"stake", "stake_list_address"}, dataProvider = "stake")
     public void getStakeListAddressStakeKeyInvalid(String stakeKey){
         Map<String, Object> param = new CreateParameters()
                 .getParamsMap();
         StakeListAddressModel stakeListAddressModel = (StakeListAddressModel)
-                stakeKeySteps.getListAddress( param, stakeKey)
+                stakeKeySteps.getStakeListAddress( param, stakeKey)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(StakeListAddressModel.class);
-        stakeKeySteps.then_verifyFilterStakeListAddressResponse(stakeListAddressModel, param, 0);
+        stakeKeySteps.then_verifyPageStakeListAddressResponse(stakeListAddressModel, param, 0)
+                .then_verifySizeStakeListAddressResponse(stakeListAddressModel, param, 0);
     }
-    @DataProvider(name = "stakeKey")
+    @DataProvider(name = "stake")
     public Object[][] DatasetStakeyInvalid(){
         return new Object[][]{
                 {"@#$"},
@@ -62,15 +66,15 @@ public class StakeKeyListAddressTests extends BaseTest {
                 .withPage(page)
                 .getParamsMap();
         StakeListAddressModel stakeListAddressModel = (StakeListAddressModel)
-                stakeKeySteps.getListAddress(param, stakeKey)
+                stakeKeySteps.getStakeListAddress(param, stakeKey)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(StakeListAddressModel.class);
-        stakeKeySteps.then_verifyFilterStakeListAddressResponse(stakeListAddressModel, param, 20);
+        stakeKeySteps.then_verifyPageStakeListAddressResponse(stakeListAddressModel, param, 20);
     }
     @DataProvider(name = "page")
     public Object[][] DatasetPage(){
         return new Object[][]{
-//                {"100"},
+                {"100"},
                 {"abc"},
                 {"-10"},
                 {"@#$"},
@@ -83,10 +87,10 @@ public class StakeKeyListAddressTests extends BaseTest {
                 .withPageSize(size)
                 .getParamsMap();
         StakeListAddressModel stakeListAddressModel = (StakeListAddressModel)
-                stakeKeySteps.getListAddress(param, stakeKey)
+                stakeKeySteps.getStakeListAddress(param, stakeKey)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(StakeListAddressModel.class);
-        stakeKeySteps.then_verifyFilterStakeListAddressResponse(stakeListAddressModel, param, 20);
+        stakeKeySteps.then_verifySizeStakeListAddressResponse(stakeListAddressModel, param, 20);
     }
     @DataProvider(name = "size")
     public Object[][] DatasetSize(){
