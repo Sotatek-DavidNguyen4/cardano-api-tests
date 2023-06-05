@@ -58,6 +58,14 @@ public class AttributeStandard {
             return false;
         }
     }
+    public static boolean areValidBlockHashs(List<String> blockHashs) {
+        for (String blockHash : blockHashs) {
+            if (!isValidBlockHash(blockHash)) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     public static boolean isValidHash(String txHash) {
         if(txHash != null && !txHash.isEmpty() && !txHash.trim().isEmpty()){

@@ -5,7 +5,7 @@ import lombok.Data;
 
 import java.util.List;
 @Data
-public class DataItem{
+public class BlockDetailModel {
 	private int totalFees;
 	private String blockHash;
 	private long totalOutput;
