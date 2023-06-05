@@ -1,5 +1,7 @@
 package microservices.token.models;
 
+import com.google.gson.annotations.SerializedName;
+
 @lombok.Data
 public class TokenModel {
     private String id;
@@ -12,5 +14,6 @@ public class TokenModel {
     private String volumeIn24h;
     private String totalVolume;
     private int numberOfHolders;
-    private String createdOn;
+    @SerializedName("createdOn")
+    private String time;
 }

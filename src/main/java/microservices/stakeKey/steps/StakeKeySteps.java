@@ -20,8 +20,6 @@ import microservices.stakeKey.models.registration.StakeRegistrationData;
 import microservices.stakeKey.models.topDelegators.TopDelegators;
 import microservices.stakeKey.models.topDelegators.TopDelegatorsData;
 import microservices.stakeKey.models.history.WithdrawalHistoryModel;
-import microservices.token.models.TokenMintsModel;
-import microservices.token.steps.TokenSteps;
 import org.testng.Assert;
 import util.AttributeStandard;
 
@@ -253,15 +251,20 @@ public class StakeKeySteps extends BaseSteps {
         sendGet(Endpoints.StakeKeyApi.GET_STAKE_DELEGATION_HISTORY, param,  Endpoints.StakeKeyApi.STAKE_KEY, stakeKey);
         return this;
     }
+    @Step("verify that size of stake delegation history")
+    public StakeKeySteps then_verifySizeDelegationHistoryResponse(DelegationHistoryModel delegationHistoryModel, Map<String,Object> param, int defaultSize){
+        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
+        assertThat(delegationHistoryModel.getData().size())
+                .as("Value of field 'size' is wrong")
+                .isEqualTo(requestParams.getSize());
+        return this;
+    }
     @Step("verify that current page of stake delegation history")
-    public StakeKeySteps then_verifyFilterStakeDelegationHistoryResponse(DelegationHistoryModel delegationHistoryModel, Map<String,Object> param, int defaultSize){
+    public StakeKeySteps then_verifyCurrentPageDelegationHistoryResponse(DelegationHistoryModel delegationHistoryModel, Map<String,Object> param, int defaultSize){
         RequestParams requestParams = new RequestParams(param, 0, defaultSize);
         assertThat(delegationHistoryModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
-        assertThat(delegationHistoryModel.getData().size())
-                .as("Value of field 'size' is wrong")
-                .isEqualTo(requestParams.getSize());
         return this;
     }
     @Step("verify response stake delegation history")
@@ -274,16 +277,21 @@ public class StakeKeySteps extends BaseSteps {
         return this;
     }
     @Step("get stake list address")
-    public StakeKeySteps getListAddress(Map<String, Object> param, String stakeKey){
+    public StakeKeySteps getStakeListAddress(Map<String, Object> param, String stakeKey){
         sendGet(Endpoints.StakeKeyApi.GET_STAKE_LIST_ADDRESS, param,  Endpoints.StakeKeyApi.STAKE_KEY, stakeKey);
         return this;
     }
     @Step("verify that current page of stake list address")
-    public StakeKeySteps then_verifyFilterStakeListAddressResponse(StakeListAddressModel stakeListAddressModel, Map<String,Object> param, int defaultSize){
+    public StakeKeySteps then_verifyPageStakeListAddressResponse(StakeListAddressModel stakeListAddressModel, Map<String,Object> param, int defaultSize){
         RequestParams requestParams = new RequestParams(param, 0, defaultSize);
         assertThat(stakeListAddressModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
+        return this;
+    }
+    @Step("verify that size of stake list address")
+    public StakeKeySteps then_verifySizeStakeListAddressResponse(StakeListAddressModel stakeListAddressModel, Map<String,Object> param, int defaultSize){
+        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
         assertThat(stakeListAddressModel.getData().size())
                 .as("The size of page is wrong")
                 .isEqualTo(requestParams.getSize());

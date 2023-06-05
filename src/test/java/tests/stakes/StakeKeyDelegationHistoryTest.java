@@ -23,7 +23,8 @@ public class StakeKeyDelegationHistoryTest extends BaseTest {
                 stakeKeySteps.getDelegationHistory(stakeKey, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(DelegationHistoryModel.class);
-        stakeKeySteps.then_verifyFilterStakeDelegationHistoryResponse(delegationHistoryModel, param, 20)
+        stakeKeySteps.then_verifySizeDelegationHistoryResponse(delegationHistoryModel, param, 20)
+                .then_verifyCurrentPageDelegationHistoryResponse(delegationHistoryModel, param, 20)
                 .verifyStakeDelegationHistory(delegationHistoryModel.getData());
     }
     @Test(description = "get stake delegation history | all key", groups = {"stake", "stake_delegation_history"})
@@ -36,7 +37,8 @@ public class StakeKeyDelegationHistoryTest extends BaseTest {
                 stakeKeySteps.getDelegationHistory(stakeKey, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(DelegationHistoryModel.class);
-        stakeKeySteps.then_verifyFilterStakeDelegationHistoryResponse(delegationHistoryModel, param, 20);
+        stakeKeySteps.then_verifySizeDelegationHistoryResponse(delegationHistoryModel, param, 20)
+                .then_verifyCurrentPageDelegationHistoryResponse(delegationHistoryModel, param, 20);
     }
     @Test(description = "get stake delegation history | stakeKey invalid", groups = {"stake", "stake_delegation_history"}, dataProvider = "stakeKey")
     public void getDelegationHistoryStakeKeyInvalid(String stakeKey){
@@ -46,7 +48,8 @@ public class StakeKeyDelegationHistoryTest extends BaseTest {
                 stakeKeySteps.getDelegationHistory(stakeKey, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(DelegationHistoryModel.class);
-        stakeKeySteps.then_verifyFilterStakeDelegationHistoryResponse(delegationHistoryModel, param, 0);
+        stakeKeySteps.then_verifySizeDelegationHistoryResponse(delegationHistoryModel, param, 0)
+                .then_verifyCurrentPageDelegationHistoryResponse(delegationHistoryModel, param, 0);
     }
     @DataProvider(name = "stakeKey")
     public Object[][] DatasetStakeKeyInvalid() {
@@ -66,12 +69,12 @@ public class StakeKeyDelegationHistoryTest extends BaseTest {
                 stakeKeySteps.getDelegationHistory(stakeKey, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(DelegationHistoryModel.class);
-        stakeKeySteps.then_verifyFilterStakeDelegationHistoryResponse(delegationHistoryModel, param, 20);
+        stakeKeySteps.then_verifyCurrentPageDelegationHistoryResponse(delegationHistoryModel, param, 20);
     }
     @DataProvider (name = "page")
     public Object[][] DatasetPage() {
         return new Object[][]{
-//                {"9"},
+                {"9"},
                 {"abc"},
                 {"-10"},
                 {"  "},
@@ -87,7 +90,7 @@ public class StakeKeyDelegationHistoryTest extends BaseTest {
                 stakeKeySteps.getDelegationHistory(stakeKey, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(DelegationHistoryModel.class);
-        stakeKeySteps.then_verifyFilterStakeDelegationHistoryResponse(delegationHistoryModel, param, 20);
+        stakeKeySteps.then_verifySizeDelegationHistoryResponse(delegationHistoryModel, param, 20);
     }
     @DataProvider (name = "size")
     public Object[][] DatasetSize() {

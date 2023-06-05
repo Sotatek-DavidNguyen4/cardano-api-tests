@@ -82,8 +82,8 @@ public class Tokens extends BaseTest {
     @DataProvider(name = "paramInvalidSort")
     public Object[][] DataSetInvalidSort(){
         return new Object[][]{
-                {"txCount,DESC"},
-                {"txCount,ASC"},
+                {"time,DESC"},
+                {"time,ASC"},
                 {"supply,ASC"},
                 {"supply,DESC"}
         };

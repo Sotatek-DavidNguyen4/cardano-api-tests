@@ -36,7 +36,7 @@ public class TokenSteps extends BaseSteps {
     @Step("verify response of get list token")
     public TokenSteps verifyResponseListToken(ArrayList<TokenModel> data){
         for(TokenModel a : data){
-            Assert.assertTrue(AttributeStandard.isValidDateFormat(a.getCreatedOn(), DATE_FORMAT[0]));
+            Assert.assertTrue(AttributeStandard.isValidDateFormat(a.getTime(), DATE_FORMAT[0]));
             Assert.assertTrue(AttributeStandard.isValidTokenFingerprint(a.getFingerprint()));
         }
         return this;
@@ -56,7 +56,7 @@ public class TokenSteps extends BaseSteps {
         Assert.assertEquals(expect.get("name"), tokenModel.getName());
         Assert.assertEquals(expect.get("displayName"), tokenModel.getDisplayName());
         Assert.assertEquals(expect.get("policy"), tokenModel.getPolicy());
-        Assert.assertTrue(AttributeStandard.isValidDateFormat(tokenModel.getCreatedOn(), DATE_FORMAT[0]));
+        Assert.assertTrue(AttributeStandard.isValidDateFormat(tokenModel.getTime(), DATE_FORMAT[0]));
         Assert.assertTrue(AttributeStandard.isValidTokenFingerprint(tokenModel.getFingerprint()));
         return this;
     }
