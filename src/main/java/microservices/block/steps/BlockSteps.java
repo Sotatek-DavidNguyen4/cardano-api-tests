@@ -86,7 +86,7 @@ public class BlockSteps extends BaseSteps {
     public BlockSteps then_verifyValueFormatIsCorrectly(BlockListModel blockListModel) {
         Assert.assertTrue(AttributeStandard.areValidHashes(blockListModel.getData().stream().map(s->s.getHash()).collect(Collectors.toList())),"Hash format is wrong");
         Assert.assertTrue(AttributeStandard.areValidDates(blockListModel.getData().stream().map(s -> s.getId()).collect(Collectors.toList()),DATE_FORMAT[2]),"time format is wrong");
-        if(blockListModel.getData().stream().map(s -> s.getBlockHash()).collect(Collectors.toList()) != null){
+        if(blockListModel.getData().stream().filter(s -> s.getBlockHash() != null).count() != 0){
             Assert.assertTrue(AttributeStandard.areValidBlockHashs(blockListModel.getData().stream().map(s -> s.getBlockHash()).collect(Collectors.toList())),"block hash is wrong");
         }
         return this;
