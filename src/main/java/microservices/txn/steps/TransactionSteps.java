@@ -96,4 +96,33 @@ public class TransactionSteps extends BaseSteps {
         assertTrue(AttributeStandard.areValidDates(transactionGraphResponseList.stream().map(s -> s.getDate()).collect(Collectors.toList()), DATE_FORMAT[0]));
         return this;
     }
+
+    @Step("Verify transaction response")
+    public TransactionSteps then_verifyTransactionResponseWithDataTest(TransactionResponse txnResponse, TransactionResponse responseExpected) {
+        assertThat(txnResponse.getTx().getHash())
+                .as("Value of field 'tx.hash' is wrong")
+                .isEqualTo(responseExpected.getTx().getHash());
+        assertThat(txnResponse.getTx().getBlockNo())
+                .as("Value of field 'tx.blockNo' is wrong")
+                .isEqualTo(responseExpected.getTx().getBlockNo());
+        assertThat(txnResponse.getTx().getBlockHash())
+                .as("Value of field 'tx.blockHash' is wrong")
+                .isEqualTo(responseExpected.getTx().getBlockHash());
+        assertThat(txnResponse.getTx().getMaxEpochSlot())
+                .as("Value of field 'tx.maxEpochSlot' is wrong")
+                .isEqualTo(responseExpected.getTx().getMaxEpochSlot());
+        assertThat(txnResponse.getTx().getEpochNo())
+                .as("Value of field 'tx.epochNo' is wrong")
+                .isEqualTo(responseExpected.getTx().getEpochNo());
+        assertThat(txnResponse.getSummary())
+                .as("Value of field 'tx.summary' is wrong")
+                .isEqualTo(responseExpected.getSummary());
+        assertThat(txnResponse.getContracts())
+                .as("Value of field 'tx.contracts' is wrong")
+                .isEqualTo(responseExpected.getContracts());
+        assertThat(txnResponse.getCollaterals())
+                .as("Value of field 'tx.collaterals' is wrong")
+                .isEqualTo(responseExpected.getCollaterals());
+        return this;
+    }
 }
