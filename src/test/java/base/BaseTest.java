@@ -2,6 +2,7 @@ package base;
 
 import constants.Url;
 import core.BaseApi;
+import data.ApiResponseData;
 import httprequest.HttpRequest;
 import io.restassured.RestAssured;
 import org.testng.annotations.*;
@@ -16,6 +17,7 @@ public class BaseTest {
             System.setProperty("cardanoAPI.baseEnv", env);
         }
         new Url(System.getProperty("cardanoAPI.baseEnv"));
+        new ApiResponseData();
         BaseApi.initReqSpec();
         BaseApi.setBaseUrl(Url.API);
     }

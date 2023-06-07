@@ -139,28 +139,27 @@ public class TransactionTests extends BaseTest {
         txnSteps.then_verifyCurrentTransactionResponse(currentTransactionsList);
     }
 
-    @Test(description = "Get the transaction by valid hash", groups = "transactions")
-    public void get_transaction_by_hash() {
-        JsonObject map = null;
-        map = JsonUtils.readJsonFile("preProd/pre_prod_api_data.json");
-        FIRST_TRANSACTION = (TransactionInfo) ObjectMappingUtils.parseJsonToModel(map.getAsJsonObject("first_transaction").toString(), TransactionInfo.class);
-        System.out.println(FIRST_TRANSACTION.getBlockHash());
+    @Test(description = "Get the transaction by valid hash", groups = "transactions", dataProvider = "responseWithDataHash")
+    public void get_transaction_by_hash(TransactionResponse expectedResponse) {
+        txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(expectedResponse.getTx().getHash())
+                .validateStatusCode(HttpURLConnection.HTTP_OK)
+                .saveResponseObject(TransactionResponse.class);
+        txnSteps.then_verifyTransactionResponseWithDataTest(txnResponse, expectedResponse);
     }
 
     @DataProvider(name ="responseWithDataHash")
     public Object[][] dataHash() {
         return new Object[][]{
                 {FIRST_TRANSACTION},
-                new TransactionInfo[]{FIRST_TRANSACTION},
-//                new TransactionInfo[]{RANDOM_TRANSACTION},
-//                new TransactionInfo[]{TRANSACTION_HAVE_30000000000_ADA},
-//                new TransactionInfo[]{TRANSACTION_HAVE_29999998493561943_ADA},
-//                new TransactionInfo[]{TRANSACTION_BYRON_ERA},
-//                new TransactionInfo[]{TRANSACTION_SHELLY_ERA},
-//                new TransactionInfo[]{TRANSACTION_ALLEGRA_ERA},
-//                new TransactionInfo[]{TRANSACTION_MARY_ERA},
-//                new TransactionInfo[]{TRANSACTION_ALOZO_ERA},
-//                new TransactionInfo[]{TRANSACTION_BABBAGE_ERA}
+                {RANDOM_TRANSACTION},
+                {TRANSACTION_HAVE_30000000000_ADA},
+                {TRANSACTION_HAVE_29999998493561943_ADA},
+                {TRANSACTION_BYRON_ERA},
+                {TRANSACTION_SHELLY_ERA},
+                {TRANSACTION_BABBAGE_ERA},
+                {TRANSACTION_ALOZO_ERA},
+                {TRANSACTION_MARY_ERA},
+                {TRANSACTION_ALLEGRA_ERA}
         };
     }
 
