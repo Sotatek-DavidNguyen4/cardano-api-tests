@@ -1,6 +1,7 @@
 package tests.transaction;
 
 import base.BaseTest;
+import com.google.gson.JsonObject;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import microservices.common.constants.APIErrorCode;
@@ -11,6 +12,9 @@ import org.apache.commons.collections.MultiMap;
 import org.apache.commons.collections.map.MultiValueMap;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import util.JsonUtils;
+import util.ObjectMappingUtils;
+
 import java.net.HttpURLConnection;
 import java.util.List;
 import static data.ApiResponseData.*;
@@ -135,14 +139,12 @@ public class TransactionTests extends BaseTest {
         txnSteps.then_verifyCurrentTransactionResponse(currentTransactionsList);
     }
 
-    @Test(description = "Get the transaction by valid hash", groups = "transactions", dataProvider = "responseWithDataHash")
-    public void get_transaction_by_hash(TransactionResponse responseExpected) {
-/*        System.out.println(responseExpected);
-        txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(responseExpected.getTx().getHash())
-                .validateStatusCode(HttpURLConnection.HTTP_OK)
-                .saveResponseObject(TransactionResponse.class);
-        txnSteps.then_verifyTransactionResponseWithDataTest(txnResponse, responseExpected);*/
-        System.out.println(FIRST_TRANSACTION.getHash());
+    @Test(description = "Get the transaction by valid hash", groups = "transactions")
+    public void get_transaction_by_hash() {
+        JsonObject map = null;
+        map = JsonUtils.readJsonFile("preProd/pre_prod_api_data.json");
+        FIRST_TRANSACTION = (TransactionInfo) ObjectMappingUtils.parseJsonToModel(map.getAsJsonObject("first_transaction").toString(), TransactionInfo.class);
+        System.out.println(FIRST_TRANSACTION.getBlockHash());
     }
 
     @DataProvider(name ="responseWithDataHash")
