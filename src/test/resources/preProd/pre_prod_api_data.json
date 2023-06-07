@@ -1,0 +1,90 @@
+{
+  "first_transaction": {
+    "hash": "8e0280beebc3d12626e87b182f4205d75e49981042f54081cd35f3a4a85630b0",
+    "blockNo": "null",
+    "blockHash": "d4b8de7a11d929a323373cbab6c1a9bdc931beffff11db111cf9d57356ee1937",
+    "maxEpochSlot": "null",
+    "epochNo": "null",
+    "summary": {
+      "stakeAddress": [
+        {
+          "address": "FHnt4NL7yPXhCzCHVywZLqVsvwuG3HvwmjKXQJBrXh3h2aigv6uxkePbpzRNV8q",
+          "value": 0,
+          "tokens": []
+        }
+      ]
+    },
+    "contracts": "null",
+    "collaterals": "null"
+  },
+
+  "random_trasaction": {
+    "hash": "8e0280beebc3d12626e87b182f4205d75e49981042f54081cd35f3a4a85630b0",
+    "blockNo": "null",
+    "blockHash": "d4b8de7a11d929a323373cbab6c1a9bdc931beffff11db111cf9d57356ee1937",
+    "maxEpochSlot": "null",
+    "epochNo": "null",
+    "summary": {
+      "stakeAddress": [
+        {
+          "address": "FHnt4NL7yPXhCzCHVywZLqVsvwuG3HvwmjKXQJBrXh3h2aigv6uxkePbpzRNV8q",
+          "value": 0,
+          "tokens": []
+        }
+      ]
+    },
+    "contracts": [
+      {
+        "contract": "addr_test1wqree2k788nclw4ufm9sj9znka62e3j7chl640ksms5y3gc5zy36r"
+      }
+    ],
+    "collaterals": {
+      "collateralInputResponses": [
+        {
+          "address": "addr_test1vpdcxfkxj8glc8yqnw76q3zdgtw8kg86lchtv60r7zrrxyqk3yrd0",
+          "index": "2",
+          "txHash": "000a4e97526c211d18b6a93c89ab1f24990a2e04b0d6b6819022f599e3708ff4",
+          "value": 4808410,
+          "tokens": []
+        },
+        {
+          "address": "addr_test1vpdcxfkxj8glc8yqnw76q3zdgtw8kg86lchtv60r7zrrxyqk3yrd0",
+          "index": "2",
+          "txHash": "004649e95bab6abd01306e0e1efa1b6897870228ff5f6e29ba55be1f353d8682",
+          "value": 4808410,
+          "tokens": []
+        },
+        {
+          "address": "addr_test1vpdcxfkxj8glc8yqnw76q3zdgtw8kg86lchtv60r7zrrxyqk3yrd0",
+          "index": "2",
+          "txHash": "00307f981f0d145467cc2a89f139cb3578178a2b1f7c59dbdc2c0fa5fdadb546",
+          "value": 4805533,
+          "tokens": []
+        }
+      ],
+      "collateralOutputResponses": [
+        {
+          "address": "addr_test1vpdcxfkxj8glc8yqnw76q3zdgtw8kg86lchtv60r7zrrxyqk3yrd0",
+          "index": "3",
+          "txHash": "1b82c66a192068f3ab6bab8676ae3001931aa4e9346c274ade08cb98523f52f6",
+          "value": 14130046,
+          "tokens": []
+        }
+      ]
+    }
+  },
+
+  "transaction_have_30000000000_ada": {
+    "status": "SUCCESS",
+    "confirmation": "971333",
+    "fee": "0",
+    "totalOutput": "30000000000000000"
+  },
+
+  "transaction_have_29999998493561943_ada": {
+    "status": "SUCCESS",
+    "confirmation": "971319",
+    "fee": "238057",
+    "totalOutput": "29999998493561943"
+  }
+}
