@@ -1,6 +1,7 @@
 package tests.transaction;
 
 import base.BaseTest;
+import com.google.gson.JsonObject;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import microservices.common.constants.APIErrorCode;
@@ -11,6 +12,9 @@ import org.apache.commons.collections.MultiMap;
 import org.apache.commons.collections.map.MultiValueMap;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import util.JsonUtils;
+import util.ObjectMappingUtils;
+
 import java.net.HttpURLConnection;
 import java.util.List;
 import static data.ApiResponseData.*;
@@ -136,29 +140,26 @@ public class TransactionTests extends BaseTest {
     }
 
     @Test(description = "Get the transaction by valid hash", groups = "transactions", dataProvider = "responseWithDataHash")
-    public void get_transaction_by_hash(TransactionResponse responseExpected) {
-/*        System.out.println(responseExpected);
-        txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(responseExpected.getTx().getHash())
+    public void get_transaction_by_hash(TransactionResponse expectedResponse) {
+        txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(expectedResponse.getTx().getHash())
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(TransactionResponse.class);
-        txnSteps.then_verifyTransactionResponseWithDataTest(txnResponse, responseExpected);*/
-        System.out.println(FIRST_TRANSACTION.getHash());
+        txnSteps.then_verifyTransactionResponseWithDataTest(txnResponse, expectedResponse);
     }
 
     @DataProvider(name ="responseWithDataHash")
     public Object[][] dataHash() {
         return new Object[][]{
                 {FIRST_TRANSACTION},
-                new TransactionInfo[]{FIRST_TRANSACTION},
-//                new TransactionInfo[]{RANDOM_TRANSACTION},
-//                new TransactionInfo[]{TRANSACTION_HAVE_30000000000_ADA},
-//                new TransactionInfo[]{TRANSACTION_HAVE_29999998493561943_ADA},
-//                new TransactionInfo[]{TRANSACTION_BYRON_ERA},
-//                new TransactionInfo[]{TRANSACTION_SHELLY_ERA},
-//                new TransactionInfo[]{TRANSACTION_ALLEGRA_ERA},
-//                new TransactionInfo[]{TRANSACTION_MARY_ERA},
-//                new TransactionInfo[]{TRANSACTION_ALOZO_ERA},
-//                new TransactionInfo[]{TRANSACTION_BABBAGE_ERA}
+                {RANDOM_TRANSACTION},
+                {TRANSACTION_HAVE_30000000000_ADA},
+                {TRANSACTION_HAVE_29999998493561943_ADA},
+                {TRANSACTION_BYRON_ERA},
+                {TRANSACTION_SHELLY_ERA},
+                {TRANSACTION_BABBAGE_ERA},
+                {TRANSACTION_ALOZO_ERA},
+                {TRANSACTION_MARY_ERA},
+                {TRANSACTION_ALLEGRA_ERA}
         };
     }
 

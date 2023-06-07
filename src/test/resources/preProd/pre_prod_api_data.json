@@ -1,10 +1,12 @@
 {
   "first_transaction": {
-    "hash": "8e0280beebc3d12626e87b182f4205d75e49981042f54081cd35f3a4a85630b0",
-    "blockNo": "null",
-    "blockHash": "d4b8de7a11d929a323373cbab6c1a9bdc931beffff11db111cf9d57356ee1937",
-    "maxEpochSlot": "null",
-    "epochNo": "null",
+    "tx": {
+      "hash": "8e0280beebc3d12626e87b182f4205d75e49981042f54081cd35f3a4a85630b0",
+      "blockNo": null,
+      "blockHash": "d4b8de7a11d929a323373cbab6c1a9bdc931beffff11db111cf9d57356ee1937",
+      "maxEpochSlot": null,
+      "epochNo": null
+    },
     "summary": {
       "stakeAddress": [
         {
@@ -14,16 +16,18 @@
         }
       ]
     },
-    "contracts": "null",
-    "collaterals": "null"
+    "contracts": null,
+    "collaterals": null
   },
 
-  "random_trasaction": {
-    "hash": "8e0280beebc3d12626e87b182f4205d75e49981042f54081cd35f3a4a85630b0",
-    "blockNo": "null",
-    "blockHash": "d4b8de7a11d929a323373cbab6c1a9bdc931beffff11db111cf9d57356ee1937",
-    "maxEpochSlot": "null",
-    "epochNo": "null",
+  "random_transaction": {
+    "tx": {
+      "hash": "8e0280beebc3d12626e87b182f4205d75e49981042f54081cd35f3a4a85630b0",
+      "blockNo": null,
+      "blockHash": "d4b8de7a11d929a323373cbab6c1a9bdc931beffff11db111cf9d57356ee1937",
+      "maxEpochSlot": null,
+      "epochNo": null
+    },
     "summary": {
       "stakeAddress": [
         {
@@ -75,16 +79,31 @@
   },
 
   "transaction_have_30000000000_ada": {
-    "status": "SUCCESS",
-    "confirmation": "971333",
-    "fee": "0",
-    "totalOutput": "30000000000000000"
+    "tx": {
+      "status": "SUCCESS",
+      "confirmation": "971333",
+      "fee": "0",
+      "totalOutput": "30000000000000000"
+    }
   },
 
   "transaction_have_29999998493561943_ada": {
-    "status": "SUCCESS",
-    "confirmation": "971319",
-    "fee": "238057",
-    "totalOutput": "29999998493561943"
-  }
+    "tx": {
+      "status": "SUCCESS",
+      "confirmation": "971319",
+      "fee": "238057",
+      "totalOutput": "29999998493561943"
+    }
+  },
+  "transaction_byron_era": {},
+
+  "transaction_shelly_era": {},
+
+  "transaction_allegra_era": {},
+
+  "transaction_mary_era": {},
+
+  "transaction_alozo_era": {},
+
+  "transaction_babbage_era": {}
 }
