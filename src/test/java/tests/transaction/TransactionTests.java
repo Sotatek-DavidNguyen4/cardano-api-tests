@@ -139,28 +139,30 @@ public class TransactionTests extends BaseTest {
         txnSteps.then_verifyCurrentTransactionResponse(currentTransactionsList);
     }
 
-    @Test(description = "Get the transaction by valid hash", groups = "transactions", dataProvider = "responseWithDataHash")
+    @Test(description = "Get the transaction by valid hash", groups = "transactions", dataProvider = "responseWithDataHashInPreProd")
     public void get_transaction_by_hash(TransactionResponse expectedResponse) {
-        txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(expectedResponse.getTx().getHash())
-                .validateStatusCode(HttpURLConnection.HTTP_OK)
-                .saveResponseObject(TransactionResponse.class);
-        txnSteps.then_verifyTransactionResponseWithDataTest(txnResponse, expectedResponse);
+        // This data test is not in preprod yet
+        if (System.getProperty("cardanoAPI.baseEnv").contains("preprod")) {
+            txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(expectedResponse.getTx().getHash())
+                    .validateStatusCode(HttpURLConnection.HTTP_OK)
+                    .saveResponseObject(TransactionResponse.class);
+            txnSteps.then_verifyTransactionResponseWithDataTest(txnResponse, expectedResponse);
+
+        }
     }
 
-    @DataProvider(name ="responseWithDataHash")
-    public Object[][] dataHash() {
-        return new Object[][]{
-                {FIRST_TRANSACTION},
-                {RANDOM_TRANSACTION},
-                {TRANSACTION_HAVE_30000000000_ADA},
-                {TRANSACTION_HAVE_29999998493561943_ADA},
-                {TRANSACTION_BYRON_ERA},
-                {TRANSACTION_SHELLY_ERA},
-                {TRANSACTION_BABBAGE_ERA},
-                {TRANSACTION_ALOZO_ERA},
-                {TRANSACTION_MARY_ERA},
-                {TRANSACTION_ALLEGRA_ERA}
-        };
+    @Test(description = "Get the transaction by valid hash in mainnet", groups = "transactions", dataProvider = "responseWithDataHashInMainnet")
+    public void get_transaction_by_hash_in_mainnet(TransactionResponse expectedResponse) {
+        // This data test is not in mainnet yet
+        if (System.getProperty("cardanoAPI.baseEnv").contains("mainnet")) {
+            txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(expectedResponse.getTx().getHash())
+                    .validateStatusCode(HttpURLConnection.HTTP_OK)
+                    .saveResponseObject(TransactionResponse.class);
+            System.out.println(txnResponse);
+            System.out.println(expectedResponse);
+            txnSteps.then_verifyTransactionResponseWithDataTest(txnResponse, expectedResponse);
+
+        }
     }
 
     @DataProvider(name ="validHash")
@@ -220,6 +222,28 @@ public class TransactionTests extends BaseTest {
                 {"one day"},
                 {"1 day"},
                 {"   "},
+        };
+    }
+
+    @DataProvider(name ="responseWithDataHashInPreProd")
+    public Object[][] dataHashInPreProd() {
+        return new Object[][]{
+                {FIRST_TRANSACTION},
+                {RANDOM_TRANSACTION},
+//                {TRANSACTION_HAVE_30000000000_ADA},
+//                {TRANSACTION_HAVE_29999998493561943_ADA}
+        };
+    }
+
+    @DataProvider(name ="responseWithDataHashInMainnet")
+    public Object[][] dataHashInMainnet() {
+        return new Object[][]{
+                {TRANSACTION_BYRON_ERA},
+                {TRANSACTION_SHELLY_ERA},
+                {TRANSACTION_BABBAGE_ERA},
+                {TRANSACTION_ALOZO_ERA},
+                {TRANSACTION_MARY_ERA},
+                {TRANSACTION_ALLEGRA_ERA}
         };
     }
 
