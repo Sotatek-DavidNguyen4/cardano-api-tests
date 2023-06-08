@@ -1,22 +1,23 @@
 package tests.transaction;
 
 import base.BaseTest;
-import constants.enums.AnalyticsType;
+import com.google.gson.JsonObject;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import microservices.common.constants.APIErrorCode;
 import microservices.common.constants.APIErrorMessage;
-import microservices.txn.models.FilterTransactionResponse;
-import microservices.txn.models.Transaction;
-import microservices.txn.models.TransactionGraphResponse;
-import microservices.txn.models.TransactionResponse;
+import microservices.txn.models.*;
 import microservices.txn.steps.TransactionSteps;
 import org.apache.commons.collections.MultiMap;
 import org.apache.commons.collections.map.MultiValueMap;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import util.JsonUtils;
+import util.ObjectMappingUtils;
+
 import java.net.HttpURLConnection;
 import java.util.List;
+import static data.ApiResponseData.*;
 
 @Epic("cardano")
 @Feature("api-transactions")
@@ -138,6 +139,31 @@ public class TransactionTests extends BaseTest {
         txnSteps.then_verifyCurrentTransactionResponse(currentTransactionsList);
     }
 
+    @Test(description = "Get the transaction by valid hash", groups = "transactions", dataProvider = "responseWithDataHashInPreProd")
+    public void get_transaction_by_hash(TransactionResponse expectedResponse) {
+        // This data test is not in preprod yet
+        if (System.getProperty("cardanoAPI.baseEnv").contains("preprod")) {
+            txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(expectedResponse.getTx().getHash())
+                    .validateStatusCode(HttpURLConnection.HTTP_OK)
+                    .saveResponseObject(TransactionResponse.class);
+            txnSteps.then_verifyTransactionResponseWithDataTest(txnResponse, expectedResponse);
+
+        }
+    }
+
+    @Test(description = "Get the transaction by valid hash in mainnet", groups = "transactions", dataProvider = "responseWithDataHashInMainnet")
+    public void get_transaction_by_hash_in_mainnet(TransactionResponse expectedResponse) {
+        // This data test is not in mainnet yet
+        if (System.getProperty("cardanoAPI.baseEnv").contains("mainnet")) {
+            txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(expectedResponse.getTx().getHash())
+                    .validateStatusCode(HttpURLConnection.HTTP_OK)
+                    .saveResponseObject(TransactionResponse.class);
+            System.out.println(txnResponse);
+            System.out.println(expectedResponse);
+            txnSteps.then_verifyTransactionResponseWithDataTest(txnResponse, expectedResponse);
+
+        }
+    }
 
     @DataProvider(name ="validHash")
     public Object[][] dataValidHash() {
@@ -198,5 +224,28 @@ public class TransactionTests extends BaseTest {
                 {"   "},
         };
     }
+
+    @DataProvider(name ="responseWithDataHashInPreProd")
+    public Object[][] dataHashInPreProd() {
+        return new Object[][]{
+                {FIRST_TRANSACTION},
+                {RANDOM_TRANSACTION},
+//                {TRANSACTION_HAVE_30000000000_ADA},
+//                {TRANSACTION_HAVE_29999998493561943_ADA}
+        };
+    }
+
+    @DataProvider(name ="responseWithDataHashInMainnet")
+    public Object[][] dataHashInMainnet() {
+        return new Object[][]{
+                {TRANSACTION_BYRON_ERA},
+                {TRANSACTION_SHELLY_ERA},
+                {TRANSACTION_BABBAGE_ERA},
+                {TRANSACTION_ALOZO_ERA},
+                {TRANSACTION_MARY_ERA},
+                {TRANSACTION_ALLEGRA_ERA}
+        };
+    }
+
 
 }
