@@ -12,7 +12,7 @@ import java.io.File;
 public class BaseTest {
     @BeforeSuite(alwaysRun = true)
     @Parameters({"env"})
-    public void preconditions(@Optional("preprod") String env) {
+    public void preconditions(@Optional("mainnet") String env) {
         if (System.getProperty("cardanoAPI.baseEnv") == null) {
             System.setProperty("cardanoAPI.baseEnv", env);
         }
