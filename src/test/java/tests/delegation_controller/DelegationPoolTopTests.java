@@ -11,7 +11,7 @@ import java.util.Map;
 
 public class DelegationPoolTopTests extends BaseTest {
     DelegationTopSteps delegationSteps = new DelegationTopSteps();
-    @Test(description = "verify that get data from header successfully", groups={"delegation", "delegation-header"})
+    @Test(description = "verify that get data from header successfully", groups={"delegation", "delegation-top"})
     public void verifyGetDataFromPoolDetailAnalyticsSuccessfully(){
         // page = 0 size = 10 search = ""
         int page = 0;

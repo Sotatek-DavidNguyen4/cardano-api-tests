@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
 <suite name="Cardano Regression Suite" configfailurepolicy="continue" verbose="1" parallel="classes" thread-count="3">
-    <parameter name="env" value="preprod"/>
+    <parameter name="env" value="mainnet"/>
     <test name="Cardano API test ">
         <method-selectors>
             <method-selector>
