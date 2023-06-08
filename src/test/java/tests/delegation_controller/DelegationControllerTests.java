@@ -18,7 +18,7 @@ import java.util.Map;
 @Feature("api-delegation")
 public class DelegationControllerTests extends BaseTest {
     DelegationControllerSteps delegationControllerSteps = new DelegationControllerSteps();
-    Object poolView = "pool1njr03m7t9k808fcav8phxnskacr4v59w5cnqgqsgnug2j2lvn85";
+    Object poolView = "pool1rtseflldkqytw7lm3mpek9g5m04ennkv6ejysxqjj52zyaq46rf";
     @Test(description = "verify that get data for pool detail", groups={"delegation", "delegation-detail"})
     public void getPoolDetailHeader(){
 
