@@ -1,6 +1,7 @@
 package data;
 
 import com.google.gson.JsonObject;
+import microservices.block.models.BlockDetailModel;
 import microservices.txn.models.TransactionResponse;
 import util.JsonUtils;
 import util.ObjectMappingUtils;
@@ -16,7 +17,15 @@ public class ApiResponseData {
     public static TransactionResponse TRANSACTION_MARY_ERA;
     public static TransactionResponse TRANSACTION_ALOZO_ERA;
     public static TransactionResponse TRANSACTION_BABBAGE_ERA;
-
+    public static BlockDetailModel FIRST_BLOCK;
+    public static BlockDetailModel BLOCK_MANY_TXNS;
+    public static BlockDetailModel BLOCK_A_TXN;
+    public static BlockDetailModel BLOCK_BYRON_ERA;
+    public static BlockDetailModel BLOCK_SHELLY_ERA;
+    public static BlockDetailModel BLOCK_ALLEGRA_ERA;
+    public static BlockDetailModel BLOCK_MARY_ERA;
+    public static BlockDetailModel BLOCK_ALOZO_ERA;
+    public static BlockDetailModel BLOCK_BABBAGE_ERA;
 
     public ApiResponseData() {
         JsonObject map = null;
@@ -41,6 +50,20 @@ public class ApiResponseData {
         TRANSACTION_MARY_ERA = (TransactionResponse) ObjectMappingUtils.parseJsonToModel(map.getAsJsonObject("transaction_mary_era").toString(), TransactionResponse.class);
         TRANSACTION_ALOZO_ERA = (TransactionResponse) ObjectMappingUtils.parseJsonToModel(map.getAsJsonObject("transaction_alozo_era").toString(), TransactionResponse.class);
         TRANSACTION_BABBAGE_ERA = (TransactionResponse) ObjectMappingUtils.parseJsonToModel(map.getAsJsonObject("transaction_babbage_era").toString(), TransactionResponse.class);
+
+        /*--------------------*/
+        /* BLOCK API */
+        /*--------------------*/
+        FIRST_BLOCK = (BlockDetailModel) ObjectMappingUtils.parseJsonToModel(map.getAsJsonObject("first_block").toString(), BlockDetailModel.class);
+        BLOCK_MANY_TXNS = (BlockDetailModel) ObjectMappingUtils.parseJsonToModel(map.getAsJsonObject("block_many_txns").toString(), BlockDetailModel.class);
+        BLOCK_A_TXN = (BlockDetailModel) ObjectMappingUtils.parseJsonToModel(map.getAsJsonObject("block_a_txn").toString(), BlockDetailModel.class);
+        BLOCK_BYRON_ERA = (BlockDetailModel) ObjectMappingUtils.parseJsonToModel(map.getAsJsonObject("block_byron_era").toString(), BlockDetailModel.class);
+        BLOCK_SHELLY_ERA = (BlockDetailModel) ObjectMappingUtils.parseJsonToModel(map.getAsJsonObject("block_shelly_era").toString(), BlockDetailModel.class);
+        BLOCK_ALLEGRA_ERA = (BlockDetailModel) ObjectMappingUtils.parseJsonToModel(map.getAsJsonObject("block_allegra_era").toString(), BlockDetailModel.class);
+        BLOCK_MARY_ERA = (BlockDetailModel) ObjectMappingUtils.parseJsonToModel(map.getAsJsonObject("block_mary_era").toString(), BlockDetailModel.class);
+        BLOCK_ALOZO_ERA = (BlockDetailModel) ObjectMappingUtils.parseJsonToModel(map.getAsJsonObject("block_alozo_era").toString(), BlockDetailModel.class);
+        BLOCK_BABBAGE_ERA = (BlockDetailModel) ObjectMappingUtils.parseJsonToModel(map.getAsJsonObject("block_babbage_era").toString(), BlockDetailModel.class);
+
 
     }
 }

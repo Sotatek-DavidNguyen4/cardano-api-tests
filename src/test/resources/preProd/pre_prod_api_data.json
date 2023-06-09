@@ -124,5 +124,41 @@
 
   "transaction_alozo_era": {},
 
-  "transaction_babbage_era": {}
+  "transaction_babbage_era": {},
+
+  "first_block": {
+    "hash": "1d031daf47281f69cd95ab929c269fd26b1434a56a5bbbd65b7afe85ef96b233",
+    "time": "2022/06/01 00:00:40",
+    "blockNo": 1,
+    "txCount": 0,
+    "totalFees": 0
+  },
+
+  "block_many_txns": {
+    "hash": "e83e6f326fd6db2b7570f3d7ed562ada96d808c774272d80e344e4bbde4518fb",
+    "time": "2022/11/16 12:36:17",
+    "blockNo": 283412,
+    "txCount": 456,
+    "totalFees": 87306216
+  },
+
+  "block_a_txn": {
+    "hash": "affaf81ee993f657212d094c345ba86eed383a1ba19b5510e419390b85aa77a2",
+    "time": "2022/06/26 00:03:20",
+    "blockNo": 21655,
+    "txCount": 1,
+    "totalFees": 207829
+  },
+
+  "block_byron_era": {},
+
+  "block_shelly_era": {},
+
+  "block_allegra_era": {},
+
+  "block_mary_era": {},
+
+  "block_alozo_era": {},
+
+  "block_babbage_era": {}
 }
