@@ -8,6 +8,9 @@ import microservices.common.constants.APIErrorCode;
 import microservices.common.constants.APIErrorMessage;
 import microservices.policy.models.detail.PolicyDetail;
 import microservices.policy.steps.PolicySteps;
+import org.testng.SkipException;
+import org.testng.annotations.BeforeClass;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -21,6 +24,13 @@ import static data.ApiResponseData.POLICY_DETAIL;
 public class GetPolicyDetailsTests extends BaseTest {
     private PolicySteps policySteps = new PolicySteps();
     private PolicyDetail policyDetail = new PolicyDetail();
+
+    public void checkSystemProperty() {
+        String propertyValue = System.getProperty("cardanoAPI.baseEnv");
+        if (!"preprod".equals(propertyValue)) {
+            throw new SkipException("Skipping the test as the system property value is not 'preprod'");
+        }
+    }
 
     @Test(description = "verify get policy detail successfully", groups={"policy"},dataProvider = "getTokenByPoliciesSuccess")
     public void getTokenByPoliciesSuccess(Object policyId){
@@ -55,7 +65,7 @@ public class GetPolicyDetailsTests extends BaseTest {
 
     @Test(description = "verify get policy detail by policyId data test successfully", groups={"policy"},dataProvider = "getTokenByPoliciesDataSuccess")
     public void getTokenByPoliciesDataTestSuccess(PolicyDetail policyDetailExpected){
-
+        this.checkSystemProperty();
         policyDetail = (PolicyDetail) policySteps.getPolicyDetail(policyDetailExpected.getPolicyId())
                 .validateResponse(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(PolicyDetail.class);
