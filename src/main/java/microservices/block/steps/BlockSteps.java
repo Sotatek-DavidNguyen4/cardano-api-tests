@@ -112,4 +112,10 @@ public class BlockSteps extends BaseSteps {
         assertThat(blockListTxsModel.getData().size()).isEqualTo(blockDetailModel.getTxCount());
         return this;
     }
+//    @Step("take block in listblock")
+//    public BlockDetailModel takeBlockDetail(){
+//        BlockDetailModel blockDetailModel = new BlockDetailModel();
+//        apiaksdjfkajsklfklajskljalsjdfkljasdlkdjfkjasđjflkálkdfkjálkdfjlálkdfjlkádflkfjalksjdfkljákldfjl
+//        return blockDetailModel;
+//    }
 }
