@@ -73,7 +73,7 @@ public class EpochNoTests extends BaseTest {
         };
     }
 
-    @Test(description = "Verify get epoch by data no successfully" ,groups = {"epoch"},dataProvider = "responseWithDataEpochNo")
+    @Test(description = "Verify get epoch by data no successfully" ,groups = {"epoch","data test"},dataProvider = "responseWithDataEpochNo")
     public void getEpochByNoData(EpochData epochDataExpected){
 
             epochData = (EpochData) epochSteps.getEpochByEpochNo(epochDataExpected.getNo())
