@@ -1,5 +1,9 @@
 package util;
 
+import io.qameta.allure.Step;
+import microservices.addresses.steps.TopAddressSteps;
+import org.testng.Assert;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -101,5 +105,16 @@ public class AttributeStandard {
         }
         return true;
     }
-
+    public static boolean dataResponseIsOnCorrectPage(int expectedPage, int actualPage){
+        Assert.assertEquals(expectedPage, actualPage,"wrong page number");
+        return true;
+    }
+    public static boolean dataAmountIsCorrect(int expectedSize, int ActualSize){
+        Assert.assertEquals(expectedSize, ActualSize,"wrong data amount");
+        return true;
+    }
+    public static boolean dataValueIsEmpty(List attribute) {
+        Assert.assertTrue(attribute.isEmpty(),"attribute is empty");
+        return true;
+    }
 }

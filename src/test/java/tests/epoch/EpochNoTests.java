@@ -38,7 +38,7 @@ public class EpochNoTests extends BaseTest {
                                   .saveResponseObject(EpochData.class);
 
         epochSteps.verifyValueEpochNo(epochData,60)
-                  .verifyValueMaxSlot(epochData,432000)
+                  .verifyValueMaxSlot(epochData,21600)
                   .then_verifyFormatOfEpochDetailByNoResponse(epochData)
                   .verifyResponseEpochNoNotNull(epochData);
     }
@@ -73,7 +73,7 @@ public class EpochNoTests extends BaseTest {
         };
     }
 
-    @Test(description = "Verify get epoch by data no successfully" ,groups = {"epoch","data test"},dataProvider = "responseWithDataEpochNo")
+    @Test(description = "Verify get epoch by data no successfully" ,groups = {"epoch", "dataTest"},dataProvider = "responseWithDataEpochNo")
     public void getEpochByNoData(EpochData epochDataExpected){
 
             epochData = (EpochData) epochSteps.getEpochByEpochNo(epochDataExpected.getNo())
