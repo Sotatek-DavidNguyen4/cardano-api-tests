@@ -3,6 +3,8 @@ package microservices.policy.steps;
 import constants.Endpoints;
 import io.qameta.allure.Step;
 import microservices.common.steps.BaseSteps;
+import microservices.epoch.models.epoch.EpochData;
+import microservices.epoch.steps.EpochSteps;
 import microservices.policy.models.detail.PolicyDetail;
 import microservices.policy.models.holder.HolderByPolicy;
 import microservices.policy.models.holder.HolderByPolicyData;
@@ -13,6 +15,7 @@ import org.testng.Assert;
 import java.util.List;
 
 import static constants.DateFormats.DATE_FORMAT;
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static util.AttributeStandard.isValidDateFormat;
 import static util.AttributeStandard.isValidTokenFingerprint;
 
@@ -112,6 +115,20 @@ public class PolicySteps extends BaseSteps {
         for (HolderByPolicyData holderByPolicyData : listHolderByPolicyData){
             Assert.assertTrue(isValidTokenFingerprint(holderByPolicyData.getFingerprint()));
         }
+        return this;
+    }
+
+    @Step("Verify epoch response")
+    public PolicySteps then_verifyPolicyResponseWithDataTest(PolicyDetail policyDetail, PolicyDetail policyDetailExpected) {
+        assertThat(policyDetail.getPolicyId())
+                .as("Value of field 'policyId' is wrong")
+                .isEqualTo(policyDetailExpected.getPolicyId());
+        assertThat(policyDetail.getTotalToken())
+                .as("Value of field 'totalToken' is wrong")
+                .isEqualTo(policyDetailExpected.getTotalToken());
+        assertThat(policyDetail.getPolicyScript())
+                .as("Value of field 'policyScript' is wrong")
+                .isEqualTo(policyDetailExpected.getPolicyScript());
         return this;
     }
 }

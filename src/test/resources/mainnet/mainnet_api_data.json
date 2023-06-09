@@ -53,5 +53,80 @@
     "blockHash": "ab7dbf41a20786262fda01f19e37319c3e5af29099fd7a82a64e101b5e8da120",
     "maxEpochSlot": "432000",
     "epochNo": "369"
-  }
+  },
+
+  "first_epoch": {},
+
+  "epoch_byron_era": {
+    "no": 0,
+    "status": "FINISHED",
+    "blkCount": 21587,
+    "outSum": 10378568796482912,
+    "txCount": 33,
+    "startTime": "2017/09/24 16:09:11",
+    "endTime": "2017/09/28 21:26:11",
+    "maxSlot": 21600,
+    "rewardsDistributed": 0},
+
+  "epoch_shelly_era": {
+    "no": 213,
+    "status": "FINISHED",
+    "blkCount": 21442,
+    "outSum": 28704281756588121,
+    "txCount": 29348,
+    "startTime": "2020/08/23 21:44:51",
+    "endTime": "2020/08/28 21:44:25",
+    "maxSlot": 432000,
+    "rewardsDistributed": 7235489131814
+  },
+
+  "epoch_allegra_era": {
+    "no": 236,
+    "status": "FINISHED",
+    "blkCount": 20915,
+    "outSum": 17576846558243105,
+    "txCount": 32737,
+    "startTime": "2020/12/16 21:44:51",
+    "endTime": "2020/12/21 21:44:06",
+    "maxSlot": 432000,
+    "rewardsDistributed": 11702878395016
+  },
+
+  "epoch_mary_era": {
+    "no": 251,
+    "status": "FINISHED",
+    "blkCount": 21324,
+    "outSum": 26435938740910931,
+    "txCount": 157658,
+    "startTime": "2021/03/01 21:44:51",
+    "endTime": "2021/03/06 21:44:46",
+    "maxSlot": 432000,
+    "rewardsDistributed": 16439766158316
+  },
+
+  "epoch_alozo_era": {
+    "no": 290,
+    "status": "FINISHED",
+    "blkCount": 21320,
+    "outSum": 28653067841498377,
+    "txCount": 423156,
+    "startTime": "2021/09/12 21:47:46",
+    "endTime": "2021/09/17 21:44:49",
+    "maxSlot": 432000,
+    "rewardsDistributed": 15158500376475
+  },
+
+  "epoch_babbage_era": {
+    "no": 369,
+    "status": "FINISHED",
+    "blkCount": 21048,
+    "outSum": 53997777806675189,
+    "txCount": 385470,
+    "startTime": "2022/10/12 21:45:08",
+    "endTime": "2022/10/17 21:44:34",
+    "maxSlot": 432000,
+    "rewardsDistributed": 13020545368953
+  },
+
+  "policy_detail": {}
 }

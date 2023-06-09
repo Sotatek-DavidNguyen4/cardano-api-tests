@@ -13,6 +13,8 @@ import microservices.epoch.models.epochByEpochNo.EpochDataByEpochNo;
 
 import microservices.stakeKey.models.deRegistration.StakeDeRegistrationData;
 import microservices.stakeKey.steps.StakeKeySteps;
+import microservices.txn.models.TransactionResponse;
+import microservices.txn.steps.TransactionSteps;
 import org.testng.Assert;
 import util.SortListUtil;
 
@@ -209,6 +211,35 @@ public class EpochSteps extends BaseSteps {
             Assert.assertTrue(isValidDateFormat(epochDataByEpochNo.getTime(),DATE_FORMAT[0]));
             Assert.assertTrue(isValidHash(epochDataByEpochNo.getHash()));
         }
+        return this;
+    }
+
+    @Step("Verify epoch response")
+    public EpochSteps then_verifyEpochResponseWithDataTest(EpochData epochData, EpochData epochExpected) {
+        assertThat(epochData.getNo())
+                .as("Value of field 'no' is wrong")
+                .isEqualTo(epochExpected.getNo());
+        assertThat(epochData.getStatus())
+                .as("Value of field 'status' is wrong")
+                .isEqualTo(epochExpected.getStatus());
+        assertThat(epochData.getBlkCount())
+                .as("Value of field 'blkCount' is wrong")
+                .isEqualTo(epochExpected.getBlkCount());
+        assertThat(epochData.getOutSum())
+                .as("Value of field 'outSum' is wrong")
+                .isEqualTo(epochExpected.getOutSum());
+        assertThat(epochData.getTxCount())
+                .as("Value of field 'txCount' is wrong")
+                .isEqualTo(epochExpected.getTxCount());
+        assertThat(epochData.getStartTime())
+                .as("Value of field 'starttime' is wrong")
+                .isEqualTo(epochExpected.getStartTime());
+        assertThat(epochData.getEndTime())
+                .as("Value of field 'endTime' is wrong")
+                .isEqualTo(epochExpected.getEndTime());
+        assertThat(epochData.getMaxSlot())
+                .as("Value of field 'maxSlot' is wrong")
+                .isEqualTo(epochExpected.getMaxSlot());
         return this;
     }
 }
