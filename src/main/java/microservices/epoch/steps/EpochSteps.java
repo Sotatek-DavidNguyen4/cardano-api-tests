@@ -37,6 +37,11 @@ public class EpochSteps extends BaseSteps {
         sendGet(Endpoints.EpochApi.GET_EPOCH,paramsMap);
         return this;
     }
+    @Step("Get list epoch with no param")
+    public EpochSteps getListEpoch(){
+        sendGet(Endpoints.EpochApi.GET_EPOCH);
+        return this;
+    }
     @Step("Get list of epoch by no")
         public EpochSteps getEpochByEpochNo(Object epochNo){
         sendGet(Endpoints.EpochApi.GET_EPOCH_BY_EPOCH_NO,Endpoints.EpochApi.EPOCH_NO,epochNo);
@@ -209,6 +214,18 @@ public class EpochSteps extends BaseSteps {
             Assert.assertTrue(isValidDateFormat(epochDataByEpochNo.getTime(),DATE_FORMAT[0]));
             Assert.assertTrue(isValidHash(epochDataByEpochNo.getHash()));
         }
+        return this;
+    }
+    @Step("compare api get all epoch with api get epoch detail")
+    public EpochSteps compareAllEpochWithDetailEpoch(EpochData epochDetailInListEpoch, EpochData epochDetail){
+        assertThat(epochDetailInListEpoch.getNo()).isEqualTo(epochDetail.getNo());
+        assertThat(epochDetailInListEpoch.getStatus()).isEqualTo(epochDetail.getStatus());
+        assertThat(epochDetailInListEpoch.getBlkCount()).isEqualTo(epochDetail.getBlkCount());
+        assertThat(epochDetailInListEpoch.getOutSum()).isEqualTo(epochDetail.getOutSum());
+        assertThat(epochDetailInListEpoch.getTxCount()).isEqualTo(epochDetail.getTxCount());
+        assertThat(epochDetailInListEpoch.getStartTime()).isEqualTo(epochDetail.getStartTime());
+        assertThat(epochDetailInListEpoch.getEndTime()).isEqualTo(epochDetail.getEndTime());
+        assertThat(epochDetailInListEpoch.getMaxSlot()).isEqualTo(epochDetail.getMaxSlot());
         return this;
     }
 }
