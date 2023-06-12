@@ -60,6 +60,8 @@ public class EpochTests extends BaseTest {
                 {"","(jnfj#$%)",""},
                 {"","","outSum,desc"},
                 {"","","outSum,ASC"},
+                {"","","blkCount,desc"},
+                {"","","blkCount,ASC"},
                 
         };
     }

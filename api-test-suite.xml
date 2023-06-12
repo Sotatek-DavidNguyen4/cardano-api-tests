@@ -63,15 +63,15 @@
             <class name="tests.stakes.StakeKeyHistoryTests"/>
             <class name="tests.stakes.GetDataForStakeRegistrationTest"/>
             <class name="tests.stakes.GetTopDelegatorsTest"/>
-            <class name="tests.transaction.TransactionTests"></class>
-            <class name="tests.contract.ContractTests"></class>
-            <class name="tests.epoch.EpochCurrentTests"></class>
-            <class name="tests.epoch.EpochNoBlockTests"></class>
-            <class name="tests.epoch.EpochNoTests"></class>
-            <class name="tests.epoch.EpochTests"></class>
-            <class name="tests.policies.GetPolicyDetailsTests"></class>
-            <class name="tests.policies.GetTokenByPolicyTests"></class>
-            <class name="tests.policies.GetHolderByPolicyTests"></class>
+            <class name="tests.transaction.TransactionTests"/>
+            <class name="tests.contract.ContractTests"/>
+            <class name="tests.epoch.EpochCurrentTests"/>
+            <class name="tests.epoch.EpochNoBlockTests"/>
+            <class name="tests.epoch.EpochNoTests"/>
+            <class name="tests.epoch.EpochTests"/>
+            <class name="tests.policies.GetPolicyDetailsTests"/>
+            <class name="tests.policies.GetTokenByPolicyTests"/>
+            <class name="tests.policies.GetHolderByPolicyTests"/>
         </classes>
     </test>
 </suite>

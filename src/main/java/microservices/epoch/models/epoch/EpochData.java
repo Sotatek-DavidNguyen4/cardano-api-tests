@@ -14,5 +14,5 @@ public class EpochData {
     private String startTime;
     private String endTime;
     private Integer maxSlot;
-    private boolean rewardsDistributed;
+    private Object rewardsDistributed;
 }
