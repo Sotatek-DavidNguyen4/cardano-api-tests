@@ -228,6 +228,17 @@ public class EpochSteps extends BaseSteps {
         assertThat(epochDetailInListEpoch.getStartTime()).isEqualTo(epochDetail.getStartTime());
         assertThat(epochDetailInListEpoch.getEndTime()).isEqualTo(epochDetail.getEndTime());
         assertThat(epochDetailInListEpoch.getMaxSlot()).isEqualTo(epochDetail.getMaxSlot());
+        assertThat(epochDetailInListEpoch.getRewardsDistributed()).isEqualTo(epochDetail.getRewardsDistributed());
+        return this;
+    }
+    @Step("compare api get all epoch with api get epoch current")
+    public EpochSteps compareAllEpochWithCurrentEpoch(Epoch epoch, EpochCurrent epochCurrent){
+        assertThat(epoch.getData().get(0).getNo()).isEqualTo(epochCurrent.getNo());
+        return this;
+    }
+    @Step("compare api get list epoch block with api get detail epoch")
+    public EpochSteps compareEpochBlockWithDetailEpoch(EpochByEpochNo epochByEpochNo, EpochData epochData){
+        assertThat(epochByEpochNo.getTotalItems()).isEqualTo(epochData.getBlkCount());
         return this;
     }
 
