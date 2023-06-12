@@ -5,6 +5,7 @@ import io.qameta.allure.Step;
 import microservices.block.constants.BlockConstants;
 import microservices.block.models.BlockDetailModel;
 import microservices.block.models.BlockListModel;
+import microservices.block.models.BlockListTxsModel;
 import microservices.common.constants.RequestParams;
 import microservices.common.steps.BaseSteps;
 //import microservices.common.util.SortListUtil;
@@ -95,6 +96,20 @@ public class BlockSteps extends BaseSteps {
     public BlockSteps then_verifyValueFormatIsCorrectly(BlockDetailModel blockDetailModel) {
         Assert.assertTrue(AttributeStandard.isValidHash(blockDetailModel.getHash()),"Hash format is wrong");
         Assert.assertTrue(AttributeStandard.isValidDateFormat(blockDetailModel.getId(),DATE_FORMAT[0]),"time format is wrong");
+        return this;
+    }
+    @Step("compare api get all block with api get a block detail")
+    public BlockSteps compareResponseGetAllBlockAndGetDetailBlock(BlockDetailModel blockDetailInListBlock, BlockDetailModel blockDetail){
+        assertThat(blockDetailInListBlock.getHash()).isEqualTo(blockDetail.getHash());
+        assertThat(blockDetailInListBlock.getId()).isEqualTo(blockDetail.getId());
+        assertThat(blockDetailInListBlock.getTxCount()).isEqualTo(blockDetail.getTxCount());
+        assertThat(blockDetailInListBlock.getTotalFees()).isEqualTo(blockDetail.getTotalFees());
+        assertThat(blockDetailInListBlock.getTotalOutput()).isEqualTo(blockDetail.getTotalOutput());
+        return this;
+    }
+    @Step("compare api get tx list block with api get a block detail")
+    public BlockSteps compareResponseGetTxListBlockAndGetDetailBlock(BlockListTxsModel blockListTxsModel, BlockDetailModel blockDetailModel){
+        assertThat(blockListTxsModel.getData().size()).isEqualTo(blockDetailModel.getTxCount());
         return this;
     }
     @Step("verify block response")

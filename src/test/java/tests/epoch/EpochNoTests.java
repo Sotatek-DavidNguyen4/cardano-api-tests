@@ -15,11 +15,13 @@ import microservices.epoch.models.epochByEpochNo.EpochDataByEpochNo;
 import microservices.epoch.steps.EpochSteps;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import util.CreateParameters;
+
 
 import java.net.HttpURLConnection;
 import java.util.List;
 import java.util.Map;
+
+import static data.ApiResponseData.*;
 
 @Epic("cardano")
 @Feature("api-epoch")
@@ -36,7 +38,7 @@ public class EpochNoTests extends BaseTest {
                                   .saveResponseObject(EpochData.class);
 
         epochSteps.verifyValueEpochNo(epochData,60)
-                  .verifyValueMaxSlot(epochData,432000)
+                  .verifyValueMaxSlot(epochData,21600)
                   .then_verifyFormatOfEpochDetailByNoResponse(epochData)
                   .verifyResponseEpochNoNotNull(epochData);
     }
@@ -69,5 +71,37 @@ public class EpochNoTests extends BaseTest {
                 {-1},
                 {"@$"},
         };
+    }
+
+    @Test(description = "Verify get epoch by data no successfully" ,groups = {"epoch", "dataTest"},dataProvider = "responseWithDataEpochNo")
+    public void getEpochByNoData(EpochData epochDataExpected){
+
+            epochData = (EpochData) epochSteps.getEpochByEpochNo(epochDataExpected.getNo())
+                    .validateResponse(HttpURLConnection.HTTP_OK)
+                    .saveResponseObject(EpochData.class);
+
+            epochSteps.verifyValueEpochNo(epochData,epochData.getNo())
+                    .then_verifyFormatOfEpochDetailByNoResponse(epochData)
+                    .then_verifyEpochResponseWithDataTest(epochData,epochDataExpected);
+    }
+    @DataProvider(name = "responseWithDataEpochNo")
+    public Object[][] dataGetEpochByEpochNo(){
+        String env = System.getProperty("cardanoAPI.baseEnv");
+        Object[][] data ;
+        if(env.equals("preprod")){
+            data = new Object[][]{
+                    {FIRST_EPOCH}
+            };
+        } else {
+            data= new Object[][]{
+                    {EPOCH_BYRON_ERA},
+                    {EPOCH_SHELLY_ERA},
+                    {EPOCH_BABBAGE_ERA},
+                    {EPOCH_ALOZO_ERA},
+                    {EPOCH_MARY_ERA},
+                    {EPOCH_ALLEGRA_ERA}
+            };
+        }
+        return data;
     }
 }
