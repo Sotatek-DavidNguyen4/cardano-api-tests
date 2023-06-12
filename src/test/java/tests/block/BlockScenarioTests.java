@@ -2,7 +2,6 @@ package tests.block;
 
 import base.BaseTest;
 
-import jdk.nashorn.internal.ir.Block;
 import microservices.block.models.BlockDetailModel;
 import microservices.block.models.BlockListModel;
 import microservices.block.models.BlockListTxsModel;
