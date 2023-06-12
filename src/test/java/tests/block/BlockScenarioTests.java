@@ -16,7 +16,7 @@ public class BlockScenarioTests extends BaseTest {
     private BlockDetailModel blockInListBlock = new BlockDetailModel();
     private Random random = new Random();
     private int randomNumber = random.nextInt(20);
-    @Test(description = "take block detail", priority = 0)
+    @Test(description = "take block detail",groups = {"block", "block_scenario"}, priority = 0)
     public void takeBlockDetail(){
         BlockListModel blockListModel = (BlockListModel)
         blockSteps.getAllBlock()
