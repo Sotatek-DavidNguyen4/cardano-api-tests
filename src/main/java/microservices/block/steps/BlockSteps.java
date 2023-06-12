@@ -112,4 +112,24 @@ public class BlockSteps extends BaseSteps {
         assertThat(blockListTxsModel.getData().size()).isEqualTo(blockDetailModel.getTxCount());
         return this;
     }
+    @Step("verify block response")
+    public BlockSteps then_verifyBlockResponseWithDataTest(BlockDetailModel blockResponse, BlockDetailModel responseExpected){
+        assertThat(blockResponse.getHash())
+                .as("Value of field hash is wrong")
+                .isEqualTo(responseExpected.getHash());
+        assertThat(blockResponse.getId())
+                .as("Value of field time is wrong")
+                .isEqualTo(responseExpected.getId());
+        assertThat(blockResponse.getBlockNo())
+                .as("Value of field blockNo is wrong")
+                .isEqualTo(responseExpected.getBlockNo());
+        assertThat(blockResponse.getTxCount())
+                .as("Value of field txCount is wrong")
+                .isEqualTo(responseExpected.getTxCount());
+        assertThat(blockResponse.getTotalFees())
+                .as("Value of field totalFees is wrong")
+                .isEqualTo(responseExpected.getTotalFees());
+        return this;
+    }
+
 }

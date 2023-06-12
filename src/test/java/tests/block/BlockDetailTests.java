@@ -11,6 +11,8 @@ import org.testng.annotations.Test;
 
 import java.net.HttpURLConnection;
 
+import static data.ApiResponseData.*;
+
 @Epic("cardano")
 @Feature("api-block")
 public class BlockDetailTests extends BaseTest {
@@ -39,6 +41,46 @@ public class BlockDetailTests extends BaseTest {
                 {"@#$"},
                 {" "},
                 {"123ab"},
+        };
+    }
+    @Test(description = "get block detail by valid blockId", groups = {"block","block-detail"}, dataProvider = "responseWithDataBlockIdInPreprod")
+    public void get_block_detail_by_valid_blockId(BlockDetailModel expectedResponse){
+        if(System.getProperty("cardanoAPI.baseEnv").contains("preprod")){
+            BlockDetailModel blockDetailModel = (BlockDetailModel)
+                    blockSteps.getABlockDetail(expectedResponse.getBlockNo())
+                            .validateStatusCode(HttpURLConnection.HTTP_OK)
+                            .saveResponseObject(BlockDetailModel.class);
+            blockSteps.then_verifyBlockResponseWithDataTest(blockDetailModel, expectedResponse);
+        }
+    }
+    @Test(description = "get block detail by valid blockId in mainnet", groups = {"block","block-detail"}, dataProvider = "responseWithDataBlockIdMainnet")
+    public void get_block_detail_by_valid_blockId_mainnet(BlockDetailModel expectedResponse){
+        if(System.getProperty("cardanoAPI.baseEnv").contains("mainnet")){
+            BlockDetailModel blockDetailModel = (BlockDetailModel)
+                    blockSteps.getABlockDetail(expectedResponse.getBlockNo())
+                            .validateStatusCode(HttpURLConnection.HTTP_OK)
+                            .saveResponseObject(BlockDetailModel.class);
+            blockSteps.then_verifyBlockResponseWithDataTest(blockDetailModel, expectedResponse);
+        }
+    }
+    @DataProvider(name ="responseWithDataBlockIdInPreprod")
+    public Object[][] dataBlockIdInPreProd() {
+        return new Object[][]{
+                {FIRST_BLOCK},
+                {BLOCK_MANY_TXNS},
+                {BLOCK_A_TXN},
+        };
+    }
+    @DataProvider(name ="responseWithDataBlockIdMainnet")
+    public Object[][] dataBlockIdMainnet() {
+        return new Object[][]{
+                {BLOCK_BYRON_ERA},
+                {BLOCK_SHELLY_ERA},
+                {BLOCK_ALLEGRA_ERA},
+                {BLOCK_MARY_ERA},
+                {BLOCK_ALOZO_ERA},
+                {BLOCK_BABBAGE_ERA},
+
         };
     }
 }

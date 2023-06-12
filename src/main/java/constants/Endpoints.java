@@ -8,6 +8,8 @@ public class Endpoints {
         public static final String POOL_DETAIL_ANALYTICS_URI = "delegations/pool-detail-analytics";
         public static final String POOL_HEADER_URI = "delegations/header";
         public static final String POOL_LIST_URI = "delegations/pool-list";
+        public static final String POOL_TOP = "delegations/top";
+        public static final String POOL_DETAIL_EPOCHS = "delegations/pool-detail-epochs ";
 
     }
     public static class AddressesApi {
