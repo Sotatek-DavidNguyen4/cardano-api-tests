@@ -10,6 +10,7 @@ import microservices.contract.steps.ContractSteps;
 import org.apache.commons.collections.MultiMap;
 import org.apache.commons.collections.map.MultiValueMap;
 
+import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import util.CreateParameters;
@@ -47,6 +48,7 @@ public class ContractTests extends BaseTest {
                 {"2","2",""},
                 {"1","",""},
                 {"","2",""},
+                {"","",""},
         };
     }
 
@@ -66,6 +68,8 @@ public class ContractTests extends BaseTest {
                 {"12222222","",""},
                 {"12222222222222222222","",""},
                 {"@#$","",""},
+                {"","123",""},
+                {"","abc",""},
         };
     }
 }

@@ -6,21 +6,12 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import microservices.common.constants.APIErrorCode;
 import microservices.common.constants.APIErrorMessage;
-import microservices.common.models.ErrorResponse;
 import microservices.epoch.models.EpochCurrent;
-import microservices.epoch.models.epoch.Epoch;
 import microservices.epoch.models.epoch.EpochData;
-import microservices.epoch.models.epochByEpochNo.EpochByEpochNo;
-import microservices.epoch.models.epochByEpochNo.EpochDataByEpochNo;
 import microservices.epoch.steps.EpochSteps;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-
-
 import java.net.HttpURLConnection;
-import java.util.List;
-import java.util.Map;
-
 import static data.ApiResponseData.*;
 
 @Epic("cardano")

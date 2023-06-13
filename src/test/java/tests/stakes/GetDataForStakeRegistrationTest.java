@@ -25,7 +25,7 @@ public class GetDataForStakeRegistrationTest extends BaseTest {
     StakeKeySteps stakeKeySteps = new StakeKeySteps();
     StakeRegistration stakeRegistration ;
     @Test(description = "Verify data for stake registration",groups = "stake-key-controller",dataProvider = "getParamForStakeRegistration")
-    public void getDataForStakeDeRegistration(Object page,Object size){
+    public void getDataForStakeRegistration(Object page,Object size){
         int length = isPreProd() ? STATKE_ADDRESS_LENGTH[0] : STATKE_ADDRESS_LENGTH[1];
         MultiMap params = new MultiValueMap();
         params.put("page", page);
@@ -42,17 +42,35 @@ public class GetDataForStakeRegistrationTest extends BaseTest {
     public Object[][] getParamForStakeRegistration(){
         return new Object[][]{
                 {"",""},
-                {"0","20"},
                 {"10",""},
                 {"abc",""},
                 {"-10",""},
                 {" ",""},
-                {"@#$%%",""},
-                {"","1"},
+                {"@#$",""},
+                {"","10"},
                 {"","abc"},
                 {"","-10"},
                 {""," "},
-                {"","@#$%%"},
+                {"","!@@$$"},
         };
+    }
+
+    @Test(description = "Verify data for stake registration with total page",groups = "stake-key-controller")
+    public void getDataForStakeRegistrationWithTotalPage(){
+        MultiMap params1 = new MultiValueMap();
+        params1.put("page", null);
+        params1.put("size", null);
+        stakeRegistration = (StakeRegistration) stakeKeySteps.getDataForStakeRegistration(params1)
+                .saveResponseObject(StakeRegistration.class);
+
+        MultiMap params = new MultiValueMap();
+        params.put("page", String.valueOf(stakeRegistration.getTotalPages()+1));
+
+        stakeRegistration = (StakeRegistration) stakeKeySteps.getDataForStakeRegistration(params)
+                .validateResponse(HttpURLConnection.HTTP_OK)
+                .saveResponseObject(StakeRegistration.class);
+
+        stakeKeySteps.then_verifyStakeRegistrationResponseWithTotalPage(stakeRegistration,params);
+
     }
 }

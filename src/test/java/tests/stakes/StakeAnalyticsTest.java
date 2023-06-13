@@ -29,8 +29,7 @@ public class StakeAnalyticsTest extends BaseTest {
                                                 .validateResponse(HttpURLConnection.HTTP_OK)
                                                 .saveResponseObject(StakeAnalytics.class);
 
+        stakeKeySteps.then_verifyStakeAnalyticsResponseNotNull(stakeAnalytics);
+
     }
-    /**
-     * missing data in db
-     */
 }
