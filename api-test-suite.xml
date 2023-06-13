@@ -37,7 +37,7 @@
             <class name="tests.delegation_controller.DelegationHeaderTests"/>
             <class name="tests.delegation_controller.DelegationPoolTopTests"/>
             <class name="tests.delegation_controller.DelegationEpochListTests"/>
-<!--            <class name="tests.delegation_controller.PoolDetailAnalyticTests"/>-->
+            <class name="tests.delegation_controller.PoolDetailAnalyticTests"/>
             <class name="tests.addresses.AddressAnalyticsTests"/>
             <class name="tests.addresses.AddressesMinMaxBalanceTests"/>
             <class name="tests.addresses.AddressTests"/>
