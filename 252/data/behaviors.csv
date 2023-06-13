@@ -1,6 +1,0 @@
-"Epic","Feature","Story","FAILED","BROKEN","PASSED","SKIPPED","UNKNOWN"
-"cardano","api-epoch","GET: Get a epoch detail by its no","1","0","11","0","0"
-"cardano","api-epoch","GET: Get block list of epoch by its no","0","0","14","0","0"
-"cardano","api-epoch","GET: Epoch All List","0","0","15","0","0"
-"cardano","api-epoch","GET: Get current epoch","0","0","1","0","0"
-"cardano","api-transactions","","0","0","0","0","1"
