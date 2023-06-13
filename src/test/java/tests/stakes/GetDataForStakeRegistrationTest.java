@@ -40,11 +40,6 @@ public class GetDataForStakeRegistrationTest extends BaseTest {
     }
     @DataProvider(name = "getParamForStakeRegistration")
     public Object[][] getParamForStakeRegistration(){
-        MultiMap params = new MultiValueMap();
-        params.put("page", null);
-        params.put("size", null);
-        stakeRegistration = (StakeRegistration) stakeKeySteps.getDataForStakeRegistration(params)
-                .saveResponseObject(StakeRegistration.class);
         return new Object[][]{
                 {"",""},
                 {"10",""},
