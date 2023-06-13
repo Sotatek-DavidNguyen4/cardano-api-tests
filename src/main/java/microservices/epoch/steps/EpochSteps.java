@@ -19,6 +19,7 @@ import java.util.Map;
 
 import static constants.DateFormats.DATE_FORMAT;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.setRemoveAssertJRelatedElementsFromStackTrace;
 import static util.AttributeStandard.*;
 
 public class EpochSteps extends BaseSteps {
@@ -229,6 +230,7 @@ public class EpochSteps extends BaseSteps {
     @Step("compare api get list epoch with api get epoch current")
     public EpochSteps compareListEpochWithCurrentEpoch(Epoch epoch, EpochCurrent epochCurrent){
         assertThat(epoch.getData().get(0).getNo()).isEqualTo(epochCurrent.getNo());
+        assertThat(epoch.getData().get(0).getStatus()).isNotEqualTo("FINISHED");
         return this;
     }
     @Step("compare api get list epoch block with api get detail epoch")
