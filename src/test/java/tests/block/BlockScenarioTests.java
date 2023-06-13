@@ -10,7 +10,6 @@ import org.testng.annotations.Test;
 import util.RamdomNumber;
 
 import java.net.HttpURLConnection;
-import java.util.Random;
 
 public class BlockScenarioTests extends BaseTest {
     private BlockSteps blockSteps = new BlockSteps();
@@ -22,7 +21,7 @@ public class BlockScenarioTests extends BaseTest {
         blockSteps.getAllBlock()
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(BlockListModel.class);
-        blockInListBlock = blockListModel.getData().get(ramdomNumber.ramdomInger(blockListModel.getData().size()));
+        blockInListBlock = blockListModel.getData().get(ramdomNumber.ramdomInteger(blockListModel.getData().size()));
     }
     @Test(description = "compare api get all block with api get block detail", groups = {"block", "block_scenario"}, priority = 1)
     public void compareGetAllBlockWithGetDetailBlock(){

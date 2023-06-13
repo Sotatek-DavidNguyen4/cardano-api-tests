@@ -25,7 +25,7 @@ public class EpochScenarioTests extends BaseTest {
             .validateStatusCode(HttpURLConnection.HTTP_OK)
             .saveResponseObject(Epoch.class);
         listEpoch = epoch;
-        epochData = epoch.getData().get(ramdomNumber.ramdomInger(epoch.getData().size()));
+        epochData = epoch.getData().get(ramdomNumber.ramdomInteger(epoch.getData().size()));
     }
     @Test(description = "compare api get list epoch with api get detail epoch", groups = {"epoch", "epoch_scenario"}, priority = 1)
     public void compareGetAllEpochWithGetDetailEpoch(){
