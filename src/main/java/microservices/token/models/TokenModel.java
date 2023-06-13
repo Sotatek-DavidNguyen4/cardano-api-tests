@@ -10,7 +10,7 @@ public class TokenModel {
     private String policy;
     private String fingerprint;
     private int txCount;
-    private String supplyl;
+    private String supply;
     private String volumeIn24h;
     private String totalVolume;
     private int numberOfHolders;
