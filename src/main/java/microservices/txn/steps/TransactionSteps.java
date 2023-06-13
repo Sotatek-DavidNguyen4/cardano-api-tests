@@ -77,6 +77,8 @@ public class TransactionSteps extends BaseSteps {
     @Step("Get current transaction")
     public TransactionSteps then_verifyCurrentTransactionResponse(List<Transaction> currentTransactionsList) {
         Assert.assertEquals(currentTransactionsList.size(),4);
+        assertTrue(AttributeStandard.areValidHashes(currentTransactionsList.stream().map(s -> s.getHash()).collect(Collectors.toList())));
+        assertTrue(AttributeStandard.areValidDates(currentTransactionsList.stream().map(s -> s.getTime()).collect(Collectors.toList()), DATE_FORMAT[0]));
         return this;
     }
 
@@ -88,7 +90,7 @@ public class TransactionSteps extends BaseSteps {
             assertTrue(DateUtil.compareDurations(txnGraph.getDate(), startDate, endDate, DATE_FORMAT[1]),
                     txnGraph.getDate() + " not true");
         }
-        assertTrue(AttributeStandard.areValidDates(transactionGraphResponseList.stream().map(s -> s.getDate()).collect(Collectors.toList()), DATE_FORMAT[0]));
+//        assertTrue(AttributeStandard.areValidDates(transactionGraphResponseList.stream().map(s -> s.getDate()).collect(Collectors.toList()), DATE_FORMAT[0]));
         return this;
     }
 

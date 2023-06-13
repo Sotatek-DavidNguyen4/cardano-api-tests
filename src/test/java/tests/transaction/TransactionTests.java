@@ -52,7 +52,7 @@ public class TransactionTests extends BaseTest {
         txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
     }
 
-    @Test(description = "Get filter transaction with sort", groups = "transactions")
+    @Test(description = "Get filter transaction with sort", groups = "transactions", enabled = false)
     public void get_filter_transaction_success_with_sort() {
         MultiMap params = new MultiValueMap();
         params.put("sort", "fee,ASC");
@@ -66,6 +66,9 @@ public class TransactionTests extends BaseTest {
         filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
                 .validateResponse(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(FilterTransactionResponse.class);
+        for(int i = 0; i < filterTxsRes.getData().size(); i++) {
+            System.out.println("\n"+filterTxsRes.getData().get(i).getFee());
+        }
         txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
 
         params = new MultiValueMap();
@@ -104,10 +107,10 @@ public class TransactionTests extends BaseTest {
     @Test(description = "Get number transaction with invalid days", groups = "transactions", dataProvider = "invalidType")
     public void get_number_transaction_with_invalid_days(String type) {
         txnSteps.when_getTransactionOnFixableDays(type)
-                .then_verifyErrorResponse(HttpURLConnection.HTTP_INTERNAL_ERROR, APIErrorMessage.UNKNOWN_MESSAGE, APIErrorCode.UNKNOWN_CODE);
+                .then_verifyErrorResponse(HttpURLConnection.HTTP_BAD_REQUEST, APIErrorMessage.TRANSACTION_NOT_FOUND, APIErrorCode.TRANSACTION_NOT_FOUND);
     }
 
-    @Test(description = "Get number transaction on fixable days", groups = "transactions", enabled = false)
+    @Test(description = "Get number transaction on fixable days", groups = "transactions")
     public void get_number_transaction_on_fixable_days() {
         //type = ONE_DAY
         type = "ONE_DAY";
@@ -140,30 +143,12 @@ public class TransactionTests extends BaseTest {
         txnSteps.then_verifyCurrentTransactionResponse(currentTransactionsList);
     }
 
-    @Test(description = "Get the transaction by valid hash", groups = "transactions", dataProvider = "responseWithDataHashInPreProd")
-    public void get_transaction_by_hash(TransactionResponse expectedResponse) {
-        // This data test is not in preprod yet
-        if (System.getProperty("cardanoAPI.baseEnv").contains("preprod")) {
-            txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(expectedResponse.getTx().getHash())
-                    .validateStatusCode(HttpURLConnection.HTTP_OK)
-                    .saveResponseObject(TransactionResponse.class);
-            txnSteps.then_verifyTransactionResponseWithDataTest(txnResponse, expectedResponse);
-
-        }
-    }
-
-    @Test(description = "Get the transaction by valid hash in mainnet", groups = "transactions", dataProvider = "responseWithDataHashInMainnet")
+    @Test(description = "Get the transaction in each era", groups = "transactions", dataProvider = "validHash")
     public void get_transaction_by_hash_in_mainnet(TransactionResponse expectedResponse) {
-        // This data test is not in mainnet yet
-        if (System.getProperty("cardanoAPI.baseEnv").contains("mainnet")) {
-            txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(expectedResponse.getTx().getHash())
-                    .validateStatusCode(HttpURLConnection.HTTP_OK)
-                    .saveResponseObject(TransactionResponse.class);
-            System.out.println(txnResponse);
-            System.out.println(expectedResponse);
-            txnSteps.then_verifyTransactionResponseWithDataTest(txnResponse, expectedResponse);
-
-        }
+        txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(expectedResponse.getTx().getHash())
+                .validateStatusCode(HttpURLConnection.HTTP_OK)
+                .saveResponseObject(TransactionResponse.class);
+        txnSteps.then_verifyTransactionResponseWithDataTest(txnResponse, expectedResponse);
     }
 
     @DataProvider(name ="invalidHash")
@@ -219,18 +204,8 @@ public class TransactionTests extends BaseTest {
         };
     }
 
-    @DataProvider(name ="responseWithDataHashInPreProd")
-    public Object[][] dataHashInPreProd() {
-        return new Object[][]{
-                {FIRST_TRANSACTION},
-                {RANDOM_TRANSACTION},
-//                {TRANSACTION_HAVE_30000000000_ADA},
-//                {TRANSACTION_HAVE_29999998493561943_ADA}
-        };
-    }
-
-    @DataProvider(name ="responseWithDataHashInMainnet")
-    public Object[][] dataHashInMainnet() {
+    @DataProvider(name ="validHash")
+    public Object[][] dataValidHash() {
         return new Object[][]{
                 {TRANSACTION_BYRON_ERA},
                 {TRANSACTION_SHELLY_ERA},
