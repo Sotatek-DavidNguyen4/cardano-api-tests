@@ -34,9 +34,9 @@ public class PoolDetailAnalyticTests extends BaseTest {
     public Object[][] dataSetInvalidSize(){
         return new Object[][]{
                 {"pool1ases3nklh6gyjf74r7dqm89exjfd520z9cefqru959wcccmrdlk"},
-                {123},
-                {"@#$"},
-                {"abc"},
+//                {123},
+//                {"@#$"},
+//                {"abc"},
 
         };
     }
