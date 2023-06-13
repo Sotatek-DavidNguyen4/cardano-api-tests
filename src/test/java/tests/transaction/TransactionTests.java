@@ -24,10 +24,11 @@ import static data.ApiResponseData.*;
 public class TransactionTests extends BaseTest {
     TransactionSteps txnSteps = new TransactionSteps();
     private TransactionResponse txnResponse;
-    private String type;
+    private String type, hash;
 
-    @Test(description = "Get the transaction by valid hash", groups = "transactions", dataProvider = "validHash")
-    public void get_transaction_by_valid_hash(String hash) {
+    @Test(description = "Get the transaction by valid hash", groups = "transactions")
+    public void get_transaction_by_valid_hash() {
+         hash = "d5d9dfcb3e4237cd89274bef99b6cbbfd7e635fd2b11958b9a531f85d5551532";
          txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(hash)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(TransactionResponse.class);
@@ -84,8 +85,8 @@ public class TransactionTests extends BaseTest {
         params = new MultiValueMap();
         params.put("sort", "fee,DESC");
         params.put("sort", "outSum,DESC");
-        params.put("page", "1");
-        params.put("size", "4");
+        params.put("page", "0");
+        params.put("size", "20");
         filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
                 .validateResponse(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(FilterTransactionResponse.class);
@@ -165,19 +166,11 @@ public class TransactionTests extends BaseTest {
         }
     }
 
-    @DataProvider(name ="validHash")
-    public Object[][] dataValidHash() {
-        return new Object[][]{
-                {"1b82c66a192068f3ab6bab8676ae3001931aa4e9346c274ade08cb98523f52f6"},
-                {"b731574b44de062ade1e70d0040abde47a6626c7d8e98816a9d87e6bd6228b45"},
-                {"5526b1373acfc774794a62122f95583ff17febb2ca8a0fe948d097e29cf99099"}
-        };
-    }
     @DataProvider(name ="invalidHash")
     public Object[][] dataInvalidHash() {
         return new Object[][]{
-                {"ab008b3844d8ef2dc63451491a35a247ede5669fcf0a0559adc712f74bfebe29"},
-                {"f8374de85bc4777f7dee56dea498e87f4151f6a8e534ddac83b29b8199a1b67f"},
+                {"0bd8c4931f4f2fbe89ba5d6f9bfe429c39176133bfbfcfef87a098c1b3abcvfl"},
+                {"dc84784e750e7395d31ee51f3e640692203356d31205ed1122da9a655bdd972c"},
                 {"@#$"},
                 {"   "},
                 {"asset1c6t4elexwkpuzq08ssylhhmc78ahlz0sgw5a7y"},
@@ -188,9 +181,10 @@ public class TransactionTests extends BaseTest {
     public Object[][] dataParamPageAndSize() {
         return new Object[][]{
                 // size is null
-                {"1", ""},
+                {"",""},
+                {"10", ""},
                 {"a", ""},
-                {"-2", ""},
+                {"-10", ""},
                 {"  ", ""},
                 {"@#$", ""},
                 // page is null
@@ -246,6 +240,5 @@ public class TransactionTests extends BaseTest {
                 {TRANSACTION_ALLEGRA_ERA}
         };
     }
-
 
 }
