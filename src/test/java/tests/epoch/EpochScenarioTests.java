@@ -41,7 +41,7 @@ public class EpochScenarioTests extends BaseTest {
         epochSteps.getCurrentEpoch()
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(EpochCurrent.class);
-        epochSteps.compareAllEpochWithCurrentEpoch(listEpoch, epochCurrent);
+        epochSteps.compareListEpochWithCurrentEpoch(listEpoch, epochCurrent);
     }
     @Test(description = "compare api get list epoch block with api get detail epoch", groups = {"epoch", "epoch_scenario"}, priority = 1)
     public void compareGetAllEpochBlockWithGetDetailEpoch(){

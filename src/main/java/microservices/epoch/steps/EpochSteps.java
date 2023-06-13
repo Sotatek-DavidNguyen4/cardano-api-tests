@@ -1,7 +1,6 @@
 package microservices.epoch.steps;
 
 import constants.Endpoints;
-import core.BaseApi;
 import io.qameta.allure.Step;
 import microservices.common.constants.RequestParams;
 import microservices.common.steps.BaseSteps;
@@ -11,10 +10,6 @@ import microservices.epoch.models.epoch.EpochData;
 import microservices.epoch.models.epochByEpochNo.EpochByEpochNo;
 import microservices.epoch.models.epochByEpochNo.EpochDataByEpochNo;
 
-import microservices.stakeKey.models.deRegistration.StakeDeRegistrationData;
-import microservices.stakeKey.steps.StakeKeySteps;
-import microservices.txn.models.TransactionResponse;
-import microservices.txn.steps.TransactionSteps;
 import org.testng.Assert;
 import util.SortListUtil;
 
@@ -231,8 +226,8 @@ public class EpochSteps extends BaseSteps {
         assertThat(epochDetailInListEpoch.getRewardsDistributed()).isEqualTo(epochDetail.getRewardsDistributed());
         return this;
     }
-    @Step("compare api get all epoch with api get epoch current")
-    public EpochSteps compareAllEpochWithCurrentEpoch(Epoch epoch, EpochCurrent epochCurrent){
+    @Step("compare api get list epoch with api get epoch current")
+    public EpochSteps compareListEpochWithCurrentEpoch(Epoch epoch, EpochCurrent epochCurrent){
         assertThat(epoch.getData().get(0).getNo()).isEqualTo(epochCurrent.getNo());
         return this;
     }
