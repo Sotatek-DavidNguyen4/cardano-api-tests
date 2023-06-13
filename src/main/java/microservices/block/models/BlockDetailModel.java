@@ -10,6 +10,7 @@ public class BlockDetailModel {
 	private int totalFees;
 	private String blockHash;
 	private long totalOutput;
+	private int epochNo;
 	private List<String> addressesInput;
 	private int epochSlotNo;
 	private int blockNo;
@@ -22,5 +23,4 @@ public class BlockDetailModel {
 	private int fee;
 	private int slot;
 	private List<String> addressesOutput;
-	private String abc;
 }
