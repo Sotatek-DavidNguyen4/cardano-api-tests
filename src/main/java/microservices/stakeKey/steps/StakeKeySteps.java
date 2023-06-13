@@ -4,6 +4,7 @@ import constants.Endpoints;
 import io.qameta.allure.Step;
 import microservices.common.constants.RequestParams;
 import microservices.common.steps.BaseSteps;
+import microservices.stakeKey.models.Analytics.StakeAnalytics;
 import microservices.stakeKey.models.DataHistory;
 import microservices.stakeKey.models.StakeModel;
 import microservices.stakeKey.models.deRegistration.StakeDeRegistration;
@@ -105,9 +106,30 @@ public class StakeKeySteps extends BaseSteps {
         assertThat(stakeRegistration.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
+
         assertThat(stakeRegistration.getData().size())
                 .as("The size of page is wrong")
                 .isEqualTo(requestParams.getSize());
+
+        return this;
+    }
+
+    @Step("Verify size of get Data For Stake Registration response with totalPage")
+    public StakeKeySteps then_verifyStakeRegistrationResponseWithTotalPage(StakeRegistration stakeRegistration, Map<String, Object> params) {
+        RequestParams requestParams = new RequestParams(params, 0, 0);
+        assertThat(stakeRegistration.getData().size())
+                .as("The size of page is wrong")
+                .isEqualTo(requestParams.getSize());
+
+        return this;
+    }
+    @Step("Verify size of get Data For Stake De Registration response with totalPage")
+    public StakeKeySteps then_verifyStakeDeRegistrationResponseWithTotalPage(StakeDeRegistration stakeDeRegistration, Map<String, Object> params) {
+        RequestParams requestParams = new RequestParams(params, 0, 0);
+        assertThat(stakeDeRegistration.getData().size())
+                .as("The size of page is wrong")
+                .isEqualTo(requestParams.getSize());
+
         return this;
     }
     @Step("Verify currentPage and size of get Data For Stake De Registration response")
@@ -150,6 +172,12 @@ public class StakeKeySteps extends BaseSteps {
             Assert.assertNotNull(stakeRegistrationData.getEpochSlotNo());
             Assert.assertNotNull(stakeRegistrationData.getStakeKey());
         }
+        return this;
+    }
+    @Step("Verify Data For Stake Analytics response not null")
+    public StakeKeySteps then_verifyStakeAnalyticsResponseNotNull(StakeAnalytics stakeAnalytics) {
+            Assert.assertNotNull(stakeAnalytics.getActiveStake());
+            Assert.assertNotNull(stakeAnalytics.getLiveStake());
         return this;
     }
     @Step("Verify format of Stake Registration response")

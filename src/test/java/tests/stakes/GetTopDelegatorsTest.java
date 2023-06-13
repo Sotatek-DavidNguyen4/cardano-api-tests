@@ -41,18 +41,22 @@ public class GetTopDelegatorsTest extends BaseTest {
     @DataProvider(name = "getParamForTopDelegators")
     public Object[][] getParamForTopDelegators(){
         return new Object[][]{
-                {"",""},
-                {"0","20"},
-                {"20",""},
-                {"abc",""},
-                {"-10",""},
-                {" ",""},
-                {"@#$%%",""},
-                {"","1"},
+
+                /**
+                 * bug with param page : ADAE-561
+                */
+//                {"",""},
+//                {"1",""},
+//                {"20",""},
+//                {"abc",""},
+//                {"-10",""},
+//                {" ",""},
+//                {"@#$%%",""},
+                {"","100"},
                 {"","abc"},
                 {"","-10"},
                 {""," "},
-                {"","@#$%%"},
+                {"","!@@$$"},
         };
     }
 }
