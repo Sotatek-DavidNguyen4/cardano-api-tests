@@ -37,7 +37,7 @@
             <class name="tests.delegation_controller.DelegationHeaderTests"/>
             <class name="tests.delegation_controller.DelegationPoolTopTests"/>
             <class name="tests.delegation_controller.DelegationEpochListTests"/>
-<!--            <class name="tests.delegation_controller.PoolDetailAnalyticTests"/>-->
+            <class name="tests.delegation_controller.PoolDetailAnalyticTests"/>
             <class name="tests.addresses.AddressAnalyticsTests"/>
             <class name="tests.addresses.AddressesMinMaxBalanceTests"/>
             <class name="tests.addresses.AddressTests"/>
@@ -70,6 +70,7 @@
             <class name="tests.epoch.EpochNoBlockTests"/>
             <class name="tests.epoch.EpochNoTests"/>
             <class name="tests.epoch.EpochTests"/>
+            <class name="tests.epoch.EpochScenarioTests"/>
             <class name="tests.policies.GetPolicyDetailsTests"/>
             <class name="tests.policies.GetTokenByPolicyTests"/>
             <class name="tests.policies.GetHolderByPolicyTests"/>
