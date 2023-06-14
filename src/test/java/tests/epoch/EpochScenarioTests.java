@@ -7,7 +7,7 @@ import microservices.epoch.models.epoch.EpochData;
 import microservices.epoch.models.epochByEpochNo.EpochByEpochNo;
 import microservices.epoch.steps.EpochSteps;
 import org.testng.annotations.Test;
-import util.RamdomNumber;
+import util.RandomNumber;
 
 import java.net.HttpURLConnection;
 
@@ -16,7 +16,7 @@ public class EpochScenarioTests extends BaseTest {
     private EpochSteps epochSteps = new EpochSteps();
     private EpochData epochData = new EpochData();
     private Epoch listEpoch = new Epoch();
-    private RamdomNumber ramdomNumber = new RamdomNumber();
+    private RandomNumber randomNumber = new RandomNumber();
 
     @Test(description = "take epoch detail", groups = {"epoch", "epoch_scenario"}, priority = 0)
     public void takeEpochDetail(){
@@ -25,7 +25,7 @@ public class EpochScenarioTests extends BaseTest {
             .validateStatusCode(HttpURLConnection.HTTP_OK)
             .saveResponseObject(Epoch.class);
         listEpoch = epoch;
-        epochData = epoch.getData().get(ramdomNumber.ramdomInteger(epoch.getData().size()));
+        epochData = epoch.getData().get(randomNumber.randomInteger(epoch.getData().size()));
     }
     @Test(description = "compare api get list epoch with api get detail epoch", groups = {"epoch", "epoch_scenario"}, priority = 1)
     public void compareGetAllEpochWithGetDetailEpoch(){
