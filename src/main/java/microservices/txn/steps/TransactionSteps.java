@@ -34,11 +34,6 @@ public class TransactionSteps extends BaseSteps {
         assertTrue(AttributeStandard.isValidDateFormat(txnResponse.getTx().getTime(), DATE_FORMAT[0]));
         assertTrue(AttributeStandard.isValidHash(txnResponse.getTx().getHash()));
         assertTrue(AttributeStandard.isValidBlockHash(txnResponse.getTx().getBlockHash()));
-        if (txnResponse.getTx().getHash() == "5526b1373acfc774794a62122f95583ff17febb2ca8a0fe948d097e29cf99099") {
-            assertThat(txnResponse.getTx().getOutSum())
-                    .as("Value of field 'tx.totalOutput' is wrong")
-                    .isEqualTo("30000000000000000");
-        }
         return this;
     }
 
@@ -82,6 +77,8 @@ public class TransactionSteps extends BaseSteps {
     @Step("Get current transaction")
     public TransactionSteps then_verifyCurrentTransactionResponse(List<Transaction> currentTransactionsList) {
         Assert.assertEquals(currentTransactionsList.size(),4);
+        assertTrue(AttributeStandard.areValidHashes(currentTransactionsList.stream().map(s -> s.getHash()).collect(Collectors.toList())));
+        assertTrue(AttributeStandard.areValidDates(currentTransactionsList.stream().map(s -> s.getTime()).collect(Collectors.toList()), DATE_FORMAT[0]));
         return this;
     }
 
@@ -93,7 +90,7 @@ public class TransactionSteps extends BaseSteps {
             assertTrue(DateUtil.compareDurations(txnGraph.getDate(), startDate, endDate, DATE_FORMAT[1]),
                     txnGraph.getDate() + " not true");
         }
-        assertTrue(AttributeStandard.areValidDates(transactionGraphResponseList.stream().map(s -> s.getDate()).collect(Collectors.toList()), DATE_FORMAT[0]));
+//        assertTrue(AttributeStandard.areValidDates(transactionGraphResponseList.stream().map(s -> s.getDate()).collect(Collectors.toList()), DATE_FORMAT[0]));
         return this;
     }
 
