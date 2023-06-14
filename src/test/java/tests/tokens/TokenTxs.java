@@ -1,6 +1,7 @@
 package tests.tokens;
 
 import base.BaseTest;
+import microservices.token.models.TokensModel;
 import microservices.token.models.TokensTxsModel;
 import microservices.token.steps.TokenSteps;
 import org.apache.commons.collections.MultiMap;
@@ -15,7 +16,8 @@ import java.util.Map;
 public class TokenTxs extends BaseTest {
     private TokenSteps tokenSteps = new TokenSteps();
     private String tokenId = "asset17q7r59zlc3dgw0venc80pdv566q6yguw03f0d9";
-    @Test(description = "get token txs", groups = {"token", "token_txs"})
+    private int pageNumber;
+    @Test(description = "get token txs", groups = {"token", "token_txs"}, priority = 0)
     public void getTokenTxs(){
         Map<String, Object> param = new CreateParameters()
                 .getParamsMap();
@@ -48,6 +50,18 @@ public class TokenTxs extends BaseTest {
                 {" "},
                 {"@#$!#&"}
         };
+    }
+    @Test(description = "verify that get token txs with page = totalPage + 1", groups = {"token","token_txs"}, priority = 1)
+    public void getListTokenTxsWithPageLargerThanTotalPage(){
+        MultiMap param = new CreateMultiParameters()
+                .withPage(""+pageNumber+"")
+                .getParamsMap();
+        TokensTxsModel tokensTxsModel = (TokensTxsModel)
+                tokenSteps.getTokenTxs(tokenId, param)
+                        .validateStatusCode(HttpURLConnection.HTTP_OK)
+                        .saveResponseObject(TokensTxsModel.class);
+        tokenSteps.then_verifyPageTokensTxsResponse(tokensTxsModel, param, 20)
+                .then_verifySizeTokensTxsResponse(tokensTxsModel, param, 20);
     }
     @Test(description = "get token txs with size", groups = {"token", "token_txs"}, dataProvider = "tokenTxsSize")
     public void getTokenTxsSize(String size){
