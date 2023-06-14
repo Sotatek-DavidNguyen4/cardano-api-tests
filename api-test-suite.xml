@@ -70,6 +70,7 @@
             <class name="tests.epoch.EpochNoBlockTests"/>
             <class name="tests.epoch.EpochNoTests"/>
             <class name="tests.epoch.EpochTests"/>
+            <class name="tests.epoch.EpochScenarioTests"/>
             <class name="tests.policies.GetPolicyDetailsTests"/>
             <class name="tests.policies.GetTokenByPolicyTests"/>
             <class name="tests.policies.GetHolderByPolicyTests"/>

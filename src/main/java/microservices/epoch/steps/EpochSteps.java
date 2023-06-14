@@ -1,7 +1,6 @@
 package microservices.epoch.steps;
 
 import constants.Endpoints;
-import core.BaseApi;
 import io.qameta.allure.Step;
 import microservices.common.constants.RequestParams;
 import microservices.common.steps.BaseSteps;
@@ -11,10 +10,6 @@ import microservices.epoch.models.epoch.EpochData;
 import microservices.epoch.models.epochByEpochNo.EpochByEpochNo;
 import microservices.epoch.models.epochByEpochNo.EpochDataByEpochNo;
 
-import microservices.stakeKey.models.deRegistration.StakeDeRegistrationData;
-import microservices.stakeKey.steps.StakeKeySteps;
-import microservices.txn.models.TransactionResponse;
-import microservices.txn.steps.TransactionSteps;
 import org.testng.Assert;
 import util.SortListUtil;
 
@@ -24,6 +19,7 @@ import java.util.Map;
 
 import static constants.DateFormats.DATE_FORMAT;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.setRemoveAssertJRelatedElementsFromStackTrace;
 import static util.AttributeStandard.*;
 
 public class EpochSteps extends BaseSteps {
@@ -37,6 +33,11 @@ public class EpochSteps extends BaseSteps {
     @Step("Get list epoch")
     public EpochSteps getListEpoch(Map<String,Object> paramsMap){
         sendGet(Endpoints.EpochApi.GET_EPOCH,paramsMap);
+        return this;
+    }
+    @Step("Get list epoch with no param")
+    public EpochSteps getListEpoch(){
+        sendGet(Endpoints.EpochApi.GET_EPOCH);
         return this;
     }
     @Step("Get list of epoch by no")
@@ -211,6 +212,30 @@ public class EpochSteps extends BaseSteps {
             Assert.assertTrue(isValidDateFormat(epochDataByEpochNo.getTime(),DATE_FORMAT[0]));
             Assert.assertTrue(isValidHash(epochDataByEpochNo.getHash()));
         }
+        return this;
+    }
+    @Step("compare api get all epoch with api get epoch detail")
+    public EpochSteps compareAllEpochWithDetailEpoch(EpochData epochDetailInListEpoch, EpochData epochDetail){
+        assertThat(epochDetailInListEpoch.getNo()).isEqualTo(epochDetail.getNo());
+        assertThat(epochDetailInListEpoch.getStatus()).isEqualTo(epochDetail.getStatus());
+        assertThat(epochDetailInListEpoch.getBlkCount()).isEqualTo(epochDetail.getBlkCount());
+        assertThat(epochDetailInListEpoch.getOutSum()).isEqualTo(epochDetail.getOutSum());
+        assertThat(epochDetailInListEpoch.getTxCount()).isEqualTo(epochDetail.getTxCount());
+        assertThat(epochDetailInListEpoch.getStartTime()).isEqualTo(epochDetail.getStartTime());
+        assertThat(epochDetailInListEpoch.getEndTime()).isEqualTo(epochDetail.getEndTime());
+        assertThat(epochDetailInListEpoch.getMaxSlot()).isEqualTo(epochDetail.getMaxSlot());
+        assertThat(epochDetailInListEpoch.getRewardsDistributed()).isEqualTo(epochDetail.getRewardsDistributed());
+        return this;
+    }
+    @Step("compare api get list epoch with api get epoch current")
+    public EpochSteps compareListEpochWithCurrentEpoch(Epoch epoch, EpochCurrent epochCurrent){
+        assertThat(epoch.getData().get(0).getNo()).isEqualTo(epochCurrent.getNo());
+        assertThat(epoch.getData().get(0).getStatus()).isNotEqualTo("FINISHED");
+        return this;
+    }
+    @Step("compare api get list epoch block with api get detail epoch")
+    public EpochSteps compareEpochBlockWithDetailEpoch(EpochByEpochNo epochByEpochNo, EpochData epochData){
+        assertThat(epochByEpochNo.getTotalItems()).isEqualTo(epochData.getBlkCount());
         return this;
     }
 
