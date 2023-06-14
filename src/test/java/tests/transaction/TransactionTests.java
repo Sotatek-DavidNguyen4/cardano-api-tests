@@ -66,9 +66,6 @@ public class TransactionTests extends BaseTest {
         filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
                 .validateResponse(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(FilterTransactionResponse.class);
-        for(int i = 0; i < filterTxsRes.getData().size(); i++) {
-            System.out.println("\n"+filterTxsRes.getData().get(i).getFee());
-        }
         txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
 
         params = new MultiValueMap();
