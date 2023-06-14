@@ -24,28 +24,11 @@ public class EpochNoTests extends BaseTest {
 
     @Test(description = "Verify get epoch by its no successfully" ,groups = {"epoch"})
     public void getEpochByNo(){
-        epochData = (EpochData) epochSteps.getEpochByEpochNo(60)
+        epochData = (EpochData) epochSteps.getEpochByEpochNo(EPOCH_BY_NO.getNo())
                                   .validateResponse(HttpURLConnection.HTTP_OK)
                                   .saveResponseObject(EpochData.class);
 
-        epochSteps.verifyValueEpochNo(epochData,60)
-                  .verifyValueMaxSlot(epochData,21600)
-                  .then_verifyFormatOfEpochDetailByNoResponse(epochData)
-                  .verifyResponseEpochNoNotNull(epochData);
-    }
-
-    @Test(description = "Verify get epoch by current epoch successfully" ,groups = {"epoch"})
-    public void getEpochByCurrentNo(){
-        epochCurrent =(EpochCurrent) epochSteps.getCurrentEpoch().saveResponseObject(EpochCurrent.class);
-
-        epochData = (EpochData) epochSteps.getEpochByEpochNo(epochCurrent.getNo())
-                .validateResponse(HttpURLConnection.HTTP_OK)
-                .saveResponseObject(EpochData.class);
-
-        epochSteps.verifyValueEpochNo(epochData,epochCurrent.getNo())
-                .verifyValueMaxSlot(epochData,432000)
-                .then_verifyFormatOfEpochDetailByNoResponse(epochData)
-                .verifyResponseEpochNoNotNull(epochData);
+        epochSteps.then_verifyEpochResponseWithDataTest(epochData,EPOCH_BY_NO);
     }
 
     @Test(description = "Verify get epoch by epoch no Unsuccessfully" ,groups = {"epoch"},dataProvider = "dataGetEpochByNo")

@@ -152,6 +152,13 @@ public class StakeKeySteps extends BaseSteps {
         }
         return this;
     }
+    @Step("Verify balance for get top delegators response is not decimal")
+    public StakeKeySteps then_verifyBalanceTopDelegatorsResponseIsNotDecimal(List<TopDelegatorsData> topDelegatorsDataList) {
+        for (TopDelegatorsData topDelegatorsData:topDelegatorsDataList){
+            Assert.assertTrue(AttributeStandard.isNotDouble(topDelegatorsData.getBalance()));
+        }
+        return this;
+    }
     @Step("Verify format of top delegators response")
     public StakeKeySteps then_verifyFormatOfDelegatorsResponse(List<TopDelegatorsData> topDelegatorsDataList,int length) {
         for (TopDelegatorsData topDelegatorsData:topDelegatorsDataList){

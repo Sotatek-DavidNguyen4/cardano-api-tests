@@ -126,6 +126,8 @@
 
   "transaction_babbage_era": {},
 
+  "epoch_by_no": {},
+
   "first_epoch": {
     "no": 0,
     "status": "FINISHED",

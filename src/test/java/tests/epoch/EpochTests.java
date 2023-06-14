@@ -47,17 +47,23 @@ public class EpochTests extends BaseTest {
     @DataProvider(name = "dataGetListEpoch")
     public Object[][] dataGetListEpoch(){
         return new Object[][]{
+                //default
                 {"","",""},
-                {"6","",""},
+                //Check valid page,size,sort
+                {"1","",""},
+                {"","5",""},
+//                {"","","id,asc"},
+                //Check invalid page,size,sort
                 {"a","",""},
                 {"-6","",""},
                 {" ","",""},
-                {"(jnfj#$%)","",""},
-                {"","1",""},
+                {"jnfj#$%","",""},
+
                 {"","a",""},
                 {"","-2",""},
                 {""," ",""},
-                {"","(jnfj#$%)",""},
+                {"","jnfj#$%",""},
+
                 {"","","outSum,desc"},
                 {"","","outSum,ASC"},
                 {"","","blkCount,desc"},

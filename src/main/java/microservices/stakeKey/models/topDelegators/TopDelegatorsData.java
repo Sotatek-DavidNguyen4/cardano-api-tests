@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class TopDelegatorsData {
     private String stakeKey;
-    private Object balance;
+    private long balance;
     private String poolId;
     private String tickerName;
     private String poolName;

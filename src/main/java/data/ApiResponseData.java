@@ -24,6 +24,7 @@ public class ApiResponseData {
 /**
  *    Epoch
  */
+    public static EpochData EPOCH_BY_NO;
     public static EpochData FIRST_EPOCH;
     public static EpochData EPOCH_BYRON_ERA;
     public static EpochData EPOCH_SHELLY_ERA;
@@ -71,6 +72,7 @@ public class ApiResponseData {
         /* EPOCH API */
         /*--------------------*/
 
+        EPOCH_BY_NO = (EpochData) ObjectMappingUtils.parseJsonToModel(map.getAsJsonObject("epoch_by_no").toString(), EpochData.class);
         FIRST_EPOCH = (EpochData) ObjectMappingUtils.parseJsonToModel(map.getAsJsonObject("first_epoch").toString(), EpochData.class);
         EPOCH_BYRON_ERA = (EpochData) ObjectMappingUtils.parseJsonToModel(map.getAsJsonObject("epoch_byron_era").toString(), EpochData.class);
         EPOCH_SHELLY_ERA = (EpochData) ObjectMappingUtils.parseJsonToModel(map.getAsJsonObject("epoch_shelly_era").toString(), EpochData.class);

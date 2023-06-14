@@ -24,7 +24,7 @@ import static constants.Environment.isPreProd;
 public class GetTopDelegatorsTest extends BaseTest {
     StakeKeySteps stakeKeySteps = new StakeKeySteps();
     TopDelegators topDelegators ;
-    @Test(description = "Verify data for get top delegators",groups = "stake-key-controller",dataProvider = "getParamForTopDelegators")
+    @Test(description = "Verify data for get top delegators",groups = {"stake","top_delegators"},dataProvider = "getParamForTopDelegators")
     public void getDataForStakeDeRegistration(Object page,Object size){
         int length = isPreProd() ? STATKE_ADDRESS_LENGTH[0] : STATKE_ADDRESS_LENGTH[1];
         MultiMap params = new MultiValueMap();
@@ -36,16 +36,16 @@ public class GetTopDelegatorsTest extends BaseTest {
 
         stakeKeySteps.then_verifyTopDelegatorsResponse(topDelegators,params)
                      .then_verifyFormatOfDelegatorsResponse(topDelegators.getData(),length)
-                     .then_verifyGetTopDelegatorsResponseNotNull(topDelegators.getData());
+                     .then_verifyGetTopDelegatorsResponseNotNull(topDelegators.getData())
+                     .then_verifyBalanceTopDelegatorsResponseIsNotDecimal(topDelegators.getData());
     }
     @DataProvider(name = "getParamForTopDelegators")
     public Object[][] getParamForTopDelegators(){
         return new Object[][]{
-
+                {"",""},
                 /**
                  * bug with param page : ADAE-561
                 */
-//                {"",""},
 //                {"1",""},
 //                {"20",""},
 //                {"abc",""},
