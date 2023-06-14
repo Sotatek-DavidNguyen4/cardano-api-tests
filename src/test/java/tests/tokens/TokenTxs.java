@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class TokenTxs extends BaseTest {
     private TokenSteps tokenSteps = new TokenSteps();
-    private String tokenId = "asset1546zv6l65l26nwnf2vs4s4nyyr5x65uhpu9hud";
+    private String tokenId = "asset17q7r59zlc3dgw0venc80pdv566q6yguw03f0d9";
     @Test(description = "get token txs", groups = {"token", "token_txs"})
     public void getTokenTxs(){
         Map<String, Object> param = new CreateParameters()
@@ -23,7 +23,8 @@ public class TokenTxs extends BaseTest {
         tokenSteps.getTokenTxs(tokenId, param)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(TokensTxsModel.class);
-        tokenSteps.then_verifyFilterTokensTxsResponse(tokensTxsModel, param, 20)
+        tokenSteps.then_verifyPageTokensTxsResponse(tokensTxsModel, param, 20)
+                .then_verifySizeTokensTxsResponse(tokensTxsModel, param, 20)
                 .verifyTokenTxs(tokensTxsModel.getData());
     }
     @Test(description = "get token txs with page", groups = {"token", "token_txs"}, dataProvider = "tokenTxsPage")
@@ -35,16 +36,17 @@ public class TokenTxs extends BaseTest {
                 tokenSteps.getTokenTxs(tokenId, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(TokensTxsModel.class);
-        tokenSteps.then_verifyFilterTokensTxsResponse(tokensTxsModel, param, 20);
+        tokenSteps.then_verifyPageTokensTxsResponse(tokensTxsModel, param, 20)
+                .then_verifySizeTokensTxsResponse(tokensTxsModel, param, 20);
     }
     @DataProvider(name = "tokenTxsPage")
     public Object[][] DataSetTokenTxsPage(){
         return new Object[][]{
-                {"10"},
-                {"n"},
+                {"1"},
+                {"abc"},
                 {"-1"},
                 {" "},
-                {"@#$"}
+                {"@#$!#&"}
         };
     }
     @Test(description = "get token txs with size", groups = {"token", "token_txs"}, dataProvider = "tokenTxsSize")
@@ -56,7 +58,8 @@ public class TokenTxs extends BaseTest {
                 tokenSteps.getTokenTxs(tokenId, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(TokensTxsModel.class);
-        tokenSteps.then_verifyFilterTokensTxsResponse(tokensTxsModel, param, 20);
+        tokenSteps.then_verifyPageTokensTxsResponse(tokensTxsModel, param, 20)
+                .then_verifySizeTokensTxsResponse(tokensTxsModel, param, 20);
     }
     @DataProvider(name = "tokenTxsSize")
     public Object[][] DataSetTokenTxsSize(){
@@ -65,7 +68,7 @@ public class TokenTxs extends BaseTest {
                 {"v"},
                 {"-3"},
                 {" "},
-                {"@#$"}
+                {"!@@$$"}
         };
     }
     @Test(description = "get token txs with tokenId invalid", groups = {"token", "token_txs"}, dataProvider = "tokenIdInvalid")
@@ -76,7 +79,7 @@ public class TokenTxs extends BaseTest {
                 tokenSteps.getTokenTxs(token, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(TokensTxsModel.class);
-//        tokenSteps.then_verifyFilterTokensTxsResponse(tokensTxsModel, param, 0);
+        tokenSteps.then_verifyPageTokensTxsResponse(tokensTxsModel, param, 0);
     }
     @DataProvider(name = "tokenIdInvalid")
     public Object[][] DataSetTokenIdInvalid(){

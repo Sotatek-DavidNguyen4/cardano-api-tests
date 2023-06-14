@@ -66,12 +66,16 @@ public class TokenSteps extends BaseSteps {
         return this;
     }
     @Step("verify that current page of token txs")
-    public TokenSteps then_verifyFilterTokensTxsResponse(TokensTxsModel tokensTxsModel, Map<String,Object> param, int defaultSize){
+    public TokenSteps then_verifyPageTokensTxsResponse(TokensTxsModel tokensTxsModel, Map<String,Object> param, int defaultSize){
         RequestParams requestParams = new RequestParams(param, 0, defaultSize);
         assertThat(tokensTxsModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
-
+        return this;
+    }
+    @Step("verify that size of token txs")
+    public TokenSteps then_verifySizeTokensTxsResponse(TokensTxsModel tokensTxsModel, Map<String,Object> param, int defaultSize){
+        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
         assertThat(tokensTxsModel.getData().size())
                 .as("Value of field 'size' is wrong")
                 .isEqualTo(requestParams.getSize());
@@ -83,6 +87,7 @@ public class TokenSteps extends BaseSteps {
             Assert.assertTrue(AttributeStandard.isValidDateFormat(a.getTime(), DATE_FORMAT[0]));
             Assert.assertTrue(AttributeStandard.isValidHash(a.getHash()));
             Assert.assertTrue(AttributeStandard.isValidBlockHash(a.getBlockHash()));
+            Assert.assertTrue(a.getTotalOutput() instanceof Double || a.getTotalOutput() instanceof Float);
         }
         return this;
     }

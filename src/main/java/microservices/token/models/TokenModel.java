@@ -16,4 +16,5 @@ public class TokenModel {
     private int numberOfHolders;
     @SerializedName("createdOn")
     private String time;
+    private MetadataModel metadata;
 }
