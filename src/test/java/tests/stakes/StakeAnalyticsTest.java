@@ -23,7 +23,7 @@ import java.util.List;
 public class StakeAnalyticsTest extends BaseTest {
     StakeKeySteps stakeKeySteps = new StakeKeySteps();
     StakeAnalytics stakeAnalytics ;
-    @Test(description = "Verify active stake, live stake and total stake",groups = "stake-key-controller")
+    @Test(description = "Verify active stake, live stake and total stake",groups = {"stake","active_live_stake"})
     public void getDataForStakeDeRegistration(){
         stakeAnalytics = (StakeAnalytics) stakeKeySteps.getStakeAnalytics()
                                                 .validateResponse(HttpURLConnection.HTTP_OK)

@@ -117,4 +117,7 @@ public class AttributeStandard {
         Assert.assertTrue(attribute.isEmpty(),"attribute is empty");
         return true;
     }
+    public static boolean isNotDouble(Object value) {
+        return !(value instanceof Double);
+    }
 }

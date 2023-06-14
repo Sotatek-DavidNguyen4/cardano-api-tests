@@ -68,12 +68,15 @@ public class EpochSteps extends BaseSteps {
         Assert.assertNotNull(epochCurrent.getNo());
         Assert.assertNotNull(epochCurrent.getSlot());
         Assert.assertNotNull(epochCurrent.getAccount());
+        Assert.assertNotNull(epochCurrent.getStartTime());
+        Assert.assertNotNull(epochCurrent.getEndTime());
         return this;
     }
 
     @Step("Verify response static data of current epoch")
     public EpochSteps verifyEpochCurrentResponse(EpochCurrent epochCurrent,Integer totalSlotExpected){
         Assert.assertEquals(epochCurrent.getTotalSlot(),totalSlotExpected);
+        Assert.assertTrue(epochCurrent.getSlot()<totalSlotExpected);
         return this;
     }
     @Step("Verify value of epoch no")

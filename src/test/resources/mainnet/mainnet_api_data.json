@@ -65,6 +65,20 @@
     "epochNo": "369"
   },
 
+  "epoch_by_no": {
+    "no": 390,
+    "status": "FINISHED",
+    "blkCount": 20916,
+    "outSum": 70899247389824611,
+    "txCount": 351917,
+    "startTime": "2023/01/25 21:46:08",
+    "endTime": "2023/01/30 21:44:37",
+    "maxSlot": 432000,
+    "rewardsDistributed": 12742169255313
+  },
+
+  "current_epoch": {},
+
   "first_epoch": {},
 
   "epoch_byron_era": {

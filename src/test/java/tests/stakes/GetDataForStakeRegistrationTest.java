@@ -24,7 +24,7 @@ import static constants.Environment.isPreProd;
 public class GetDataForStakeRegistrationTest extends BaseTest {
     StakeKeySteps stakeKeySteps = new StakeKeySteps();
     StakeRegistration stakeRegistration ;
-    @Test(description = "Verify data for stake registration",groups = "stake-key-controller",dataProvider = "getParamForStakeRegistration")
+    @Test(description = "Verify data for stake registration",groups = {"stake","registration"},dataProvider = "getParamForStakeRegistration")
     public void getDataForStakeRegistration(Object page,Object size){
         int length = isPreProd() ? STATKE_ADDRESS_LENGTH[0] : STATKE_ADDRESS_LENGTH[1];
         MultiMap params = new MultiValueMap();

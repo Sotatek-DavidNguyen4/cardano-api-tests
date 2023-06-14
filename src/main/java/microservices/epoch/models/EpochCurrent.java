@@ -8,4 +8,6 @@ public class EpochCurrent {
     private Integer slot;
     private Integer totalSlot;
     private Integer account;
+    private String startTime;
+    private String endTime;
 }
