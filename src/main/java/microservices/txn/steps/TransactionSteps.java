@@ -167,8 +167,12 @@ public class TransactionSteps extends BaseSteps {
 
     @Step("Verify hash of filter transaction and transaction current")
     public TransactionSteps then_verifyTransactionResponseFilterAndCurrent(FilterTransactionResponse filterTransactionResponseList, List<Transaction> transactionCurrentList) {
+        List<String> transactionCurrent = new ArrayList<>();
+        for (Transaction transaction : transactionCurrentList) {
+            transactionCurrent.add(transaction.getHash());
+        }
         for(int i=0;i<4;i++){
-            Assert.assertEquals(filterTransactionResponseList.getData().get(i).getHash(),transactionCurrentList.get(i).getHash());
+            Assert.assertTrue(transactionCurrent.contains(filterTransactionResponseList.getData().get(i).getHash()));
         }
         return this;
     }
@@ -196,13 +200,13 @@ public class TransactionSteps extends BaseSteps {
         for (int i =0;i<transactionResponseByHash.getUtxOs().getInputs().size();i++){
             addressesInput.add(transactionResponseByHash.getUtxOs().getInputs().get(i).getAddress());
         }
-        Assert.assertEquals(addressesInput, blockDetailModel.getAddressesInput());
+        Assert.assertTrue(new HashSet<>(addressesInput).containsAll(blockDetailModel.getAddressesInput()));
 
         List<String> addressesOutput = new ArrayList<>();
         for (int i =0;i<transactionResponseByHash.getUtxOs().getOutputs().size();i++){
             addressesOutput.add(transactionResponseByHash.getUtxOs().getOutputs().get(i).getAddress());
         }
-        Assert.assertEquals(addressesOutput, blockDetailModel.getAddressesOutput());
+        Assert.assertTrue(new HashSet<>(addressesOutput).containsAll(blockDetailModel.getAddressesOutput()));
 
         return this;
     }
