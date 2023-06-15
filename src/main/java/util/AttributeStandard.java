@@ -117,7 +117,13 @@ public class AttributeStandard {
         Assert.assertTrue(attribute.isEmpty(),"attribute is empty");
         return true;
     }
-    public static boolean isNotDouble(Object value) {
-        return !(value instanceof Double);
+    public static boolean isNotDecimal(Object value) {
+        boolean isDecimal = true;
+        String regexDot = ".*\\..*";
+        String regexComma = ".*,.*";
+        if(String.valueOf(value).matches(regexDot) || String.valueOf(value).matches(regexComma)){
+            isDecimal = false;
+        }
+        return isDecimal;
     }
 }
