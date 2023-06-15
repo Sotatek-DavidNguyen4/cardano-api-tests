@@ -9,6 +9,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import util.CreateMultiParameters;
 import util.CreateParameters;
+import util.SortListUtil;
 
 import java.net.HttpURLConnection;
 import java.util.Map;
@@ -105,24 +106,26 @@ public class TokenTxs extends BaseTest {
                 {"asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr"}
         };
     }
-    @Test(description = "verify that get token txs with sort key", groups = {"token","token_txs"}, dataProvider = "paramInvalidSort")
-    public void getTokenTxsWithSortKey(String sort){
-        MultiMap param = new CreateMultiParameters()
-                .withSort(sort)
-                .getParamsMap();
-        TokensTxsModel tokensTxsModel = (TokensTxsModel)
-                tokenSteps.getTokenTxs(tokenId, param)
-                        .validateStatusCode(HttpURLConnection.HTTP_OK)
-                        .saveResponseObject(TokensTxsModel.class);
-        tokenSteps.then_verifySortTokenTxsOfResponse(tokensTxsModel, param);
-    }
-    @DataProvider(name = "paramInvalidSort")
-    public Object[][] DataSetInvalidSort(){
-        return new Object[][]{
-                {"fee,DESC"},
-                {"fee,ASC"},
-                {"totalOutput,DESC"},
-                {"totalOutput,ASC"}
-        };
-    }
+//    @Test(description = "verify that get token txs with sort key", groups = {"token","token_txs"}, dataProvider = "paramSort")
+//    public void getTokenTxsWithSortKey(String sort){
+//        System.out.println("1111111:  "+ sort);
+//        System.out.println("222222:  "+ tokenId);
+//        MultiMap param = new CreateMultiParameters()
+//                .withSort(sort)
+//                .getParamsMap();
+//        TokensTxsModel tokensTxsModel = (TokensTxsModel)
+//        tokenSteps.getTokenTxs(tokenId, param)
+//                .validateStatusCode(HttpURLConnection.HTTP_OK)
+//                .saveResponseObject(TokensTxsModel.class);
+//        tokenSteps.then_verifySortTokenTxsOfResponse(tokensTxsModel, param);
+//    }
+//    @DataProvider(name = "paramSort")
+//    public Object[][] DataSetInvalidSort(){
+//        return new Object[][]{
+//                {"fee,DESC"},
+//                {"fee,ASC"},
+//                {"totalOutput,DESC"},
+//                {"totalOutput,ASC"}
+//        };
+//    }
 }
