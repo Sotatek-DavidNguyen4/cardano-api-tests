@@ -3,6 +3,7 @@ package tests.transaction;
 import base.BaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import microservices.block.models.BlockListModel;
 import microservices.block.steps.BlockSteps;
 import microservices.common.constants.APIErrorCode;
@@ -24,6 +25,7 @@ import static data.ApiResponseData.*;
 
 @Epic("cardano")
 @Feature("api-transactions")
+@Story("Transactions Scenario test")
 public class TransactionScenarioTests extends BaseTest {
     TransactionSteps txnSteps = new TransactionSteps();
     BlockSteps blockSteps = new BlockSteps();
