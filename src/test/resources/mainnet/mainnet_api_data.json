@@ -1,12 +1,4 @@
 {
-  "first_transaction": {},
-
-  "random_transaction": {},
-
-  "transaction_have_30000000000_ada": {},
-
-  "transaction_have_29999998493561943_ada": {},
-
   "transaction_byron_era": {
     "tx": {
       "hash": "dbc87d198fc9f6067c8e65f89da60a944e1ef52f0c539d980ebbc95f3dc71b65",
@@ -58,12 +50,28 @@
   },
 
   "transaction_babbage_era": {
-    "hash": "a396d095c18ca09f96db55eceaf92e823bea8197ffdd1d0d936ff58fd1c33ac1",
-    "blockNo": "7891699",
-    "blockHash": "ab7dbf41a20786262fda01f19e37319c3e5af29099fd7a82a64e101b5e8da120",
-    "maxEpochSlot": "432000",
-    "epochNo": "369"
+    "tx": {
+      "hash": "a396d095c18ca09f96db55eceaf92e823bea8197ffdd1d0d936ff58fd1c33ac1",
+      "blockNo": "7891699",
+      "blockHash": "ab7dbf41a20786262fda01f19e37319c3e5af29099fd7a82a64e101b5e8da120",
+      "maxEpochSlot": "432000",
+      "epochNo": "369"
+    }
   },
+
+  "epoch_by_no": {
+    "no": 390,
+    "status": "FINISHED",
+    "blkCount": 20916,
+    "outSum": 70899247389824611,
+    "txCount": 351917,
+    "startTime": "2023/01/25 21:46:08",
+    "endTime": "2023/01/30 21:44:37",
+    "maxSlot": 432000,
+    "rewardsDistributed": 12742169255313
+  },
+
+  "current_epoch": {},
 
   "first_epoch": {},
 

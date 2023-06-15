@@ -76,7 +76,8 @@ public class TopAddressTests extends BaseTest {
 
         topAddressSteps.verifyAttributeIsSortedCorrectly(topAddressModel)
                         .verifyDataAmountIsCorrect(pageSize, topAddressModel.getData().size());
-    }    @Test(description = "verify get top-address unsuccessfully", groups={"addresses", "top-address"}, dataProvider = "paramInvalidData")
+    }
+    @Test(description = "verify get top-address unsuccessfully", groups={"addresses", "top-address"}, dataProvider = "paramInvalidData")
     public void verifyGetAddressResponseUnsuccessfully(Object pageSize){
         int page = 12222222;
 

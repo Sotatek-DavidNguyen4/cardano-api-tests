@@ -14,7 +14,6 @@ import java.util.Map;
 
 import static constants.DateFormats.DATE_FORMAT;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.testng.Assert.assertTrue;
 
 public class TokenSteps extends BaseSteps {
     @Step("get list token")
@@ -23,14 +22,28 @@ public class TokenSteps extends BaseSteps {
         return this;
     }
     @Step("verify that current page of token")
-    public TokenSteps then_verifyFilterTokensResponse(TokensModel tokensModel, Map<String,Object> param){
+    public TokenSteps then_verifyCurrentPageResponse(TokensModel tokensModel, Map<String,Object> param){
         RequestParams requestParams = new RequestParams(param, 0, 20);
         assertThat(tokensModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
+        return this;
+    }
+    @Step("verify size of token")
+    public TokenSteps then_verifySizeOfResponse(TokensModel tokensModel, Map<String,Object> param, int defaultSize){
+        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
         assertThat(tokensModel.getData().size())
                 .as("Value of field 'size' is wrong")
                 .isEqualTo(requestParams.getSize());
+        return this;
+    }
+    @Step("verify sort of token")
+    public TokenSteps then_verifySortOfResponse(TokensModel tokensModel, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0, 20);
+        if (requestParams.getSort()!=null) {
+            boolean sorted = SortListUtil.isSortedByField(new ArrayList<>(tokensModel.getData()), requestParams.getSort());
+            assertThat(sorted).as("Tokens is not sorted by inputted params").isEqualTo(true);
+        }
         return this;
     }
     @Step("verify response of get list token")

@@ -17,7 +17,7 @@ import java.util.Map;
 @Feature("api-addresses")
 public class AddressesMinMaxBalanceTests extends BaseTest {
     AddressesMinMaxBalanceSteps addressesMinMaxBalanceSteps = new AddressesMinMaxBalanceSteps();
-    Object address = "addr_test1vz09v9yfxguvlp0zsnrpa3tdtm7el8xufp3m5lsm7qxzclgmzkket";
+    Object address = "addr1vy6p2t2lspjhf2nr2g7hfygkxdeulw3vvr8yhrkyv9qvzncmulqgh";
     @Test(description = "verify that get data for address mix-max-balance successfully", groups={"addresses", "min-max-balance"})
     public void verifyGetAddressMinMaxBalanceResponseSuccessfully(){
         addressesMinMaxBalanceSteps

@@ -18,7 +18,7 @@ import java.util.List;
 @Feature("api-addresses")
 public class AddressAnalyticsTests extends BaseTest {
     AddressAnalyticsSteps addressesSteps = new AddressAnalyticsSteps();
-    String address = "addr_test1vz09v9yfxguvlp0zsnrpa3tdtm7el8xufp3m5lsm7qxzclgmzkket";
+    String address = "addr1vy6p2t2lspjhf2nr2g7hfygkxdeulw3vvr8yhrkyv9qvzncmulqgh";
     @Test(description = "verify that get data for address analytics successfully", groups={"addresses", "address-analytics"})
     public void verifyGetAddressAnalyticsResponseSuccessfully(){
         //dynamic data

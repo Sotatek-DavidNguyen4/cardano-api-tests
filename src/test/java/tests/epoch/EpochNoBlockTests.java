@@ -42,8 +42,8 @@ public class EpochNoBlockTests extends BaseTest {
     @DataProvider(name = "dataGetListEpochByEpochNo")
     public Object[][] dataGetListEpochByEpochNo(){
         return new Object[][]{
-                {30},
-                {68}
+                {73},
+                {79}
         };
     }
     @Test(description = "Verify get block list of epoch by next epoch" ,groups = {"epoch"})
@@ -88,16 +88,16 @@ public class EpochNoBlockTests extends BaseTest {
     @DataProvider(name = "dataGetListEpochByEpochNoWithParam")
     public Object[][] dataGetListEpochByEpochNoWithParam(){
         return new Object[][]{
-                {60,"6","",""},
-                {60,"a","",""},
-                {60,"-6","",""},
-                {60," ","",""},
-                {60,"(jnfj#$%)","",""},
-                {60,"","1",""},
-                {60,"","a",""},
-                {60,"","-2",""},
-                {60,""," ",""},
-                {60,"","(jnfj#$%)",""},
+                {79,"6","",""},
+                {79,"a","",""},
+                {79,"-6","",""},
+                {79," ","",""},
+                {79,"jnfj#$%","",""},
+                {79,"","1",""},
+                {79,"","a",""},
+                {79,"","-2",""},
+                {79,""," ",""},
+                {79,"","jnfj#$%",""},
         };
     }
 }

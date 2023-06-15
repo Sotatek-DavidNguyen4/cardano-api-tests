@@ -32,7 +32,7 @@ public class TopAddressSteps extends BaseSteps {
     }
     @Step("verify data value is empty")
     public TopAddressSteps verifyDataValueIsEmpty(List attribute) {
-        Assert.assertTrue(attribute.isEmpty(),"attribute is empty");
+        Assert.assertTrue(attribute.isEmpty(),"attribute is not empty");
         return this;
     }
     @Step("verify attribute is sorted correctly")
