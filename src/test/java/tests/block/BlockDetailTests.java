@@ -80,7 +80,6 @@ public class BlockDetailTests extends BaseTest {
                 {BLOCK_MARY_ERA},
                 {BLOCK_ALOZO_ERA},
                 {BLOCK_BABBAGE_ERA},
-
         };
     }
 }

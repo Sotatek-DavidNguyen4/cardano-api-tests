@@ -81,6 +81,15 @@ public class TokenSteps extends BaseSteps {
                 .isEqualTo(requestParams.getSize());
         return this;
     }
+    @Step("verify sort of token txs")
+    public TokenSteps then_verifySortTokenTxsOfResponse(TokensTxsModel tokensTxsModel, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0, 20);
+        if (requestParams.getSort()!=null) {
+            boolean sorted = SortListUtil.isSortedByField(new ArrayList<>(tokensTxsModel.getData()), requestParams.getSort());
+            assertThat(sorted).as("Token txs is not sorted by inputted params").isEqualTo(true);
+        }
+        return this;
+    }
     @Step("verify response token txs")
     public TokenSteps verifyTokenTxs(ArrayList<TokenTxsModel> data){
         for(TokenTxsModel a : data){
