@@ -65,6 +65,7 @@
             <class name="tests.stakes.GetDataForStakeRegistrationTest"/>
             <class name="tests.stakes.GetTopDelegatorsTest"/>
             <class name="tests.transaction.TransactionTests"/>
+            <class name="tests.transaction.TransactionScenarioTests"/>
             <class name="tests.contract.ContractTests"/>
             <class name="tests.epoch.EpochCurrentTests"/>
             <class name="tests.epoch.EpochNoBlockTests"/>
