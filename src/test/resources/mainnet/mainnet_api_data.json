@@ -164,6 +164,7 @@
   "block_byron_era": {
     "hash": "81e389d83e437012789f6410669a404f1e4ebfa7a46a979f094335e2e78dfd8d",
     "time": "2017/09/25 08:49:51",
+    "blockNo": 6316,
     "txCount": 1,
     "totalFees": 0,
     "totalOutput": 1000000
@@ -172,6 +173,7 @@
   "block_shelly_era": {
     "hash": "4815c7f4897be0422f54de108c1fe4c2a7b4c8c3b3411b8195c71b1fea5eafb4",
     "time": "2020/08/27 05:44:25",
+    "blockNo": 4612067,
     "txCount": 3,
     "totalFees": 549262,
     "totalOutput": 14427940402
@@ -180,6 +182,7 @@
   "block_allegra_era": {
     "hash": "31a34a3e35f7e05322676c07f6962d1fe0993039bb2635e026660e947f14b414",
     "time": "2020/12/19 07:47:34",
+    "blockNo": 5096526,
     "txCount": 2,
     "totalFees": 509289,
     "totalOutput": 5482904176698
@@ -188,6 +191,7 @@
   "block_mary_era": {
     "hash": "8d04e6b85da5d03f31d1b84a7d6697f207543bf58fe0faa36f6c39590fe084ca",
     "time": "2021/03/02 09:11:21",
+    "blockNo": 5408747,
     "txCount": 5,
     "totalFees": 1307005,
     "totalOutput": 34546577012
@@ -196,6 +200,7 @@
   "block_alozo_era": {
     "hash": "2374b501869a846a8ec394a3bfc7a6336d453764cd1864c4ccd80bfc8daae01c",
     "time": "2021/09/12 21:50:07",
+    "blockNo": 6236061,
     "txCount": 91,
     "totalFees": 17095928,
     "totalOutput": 410328535245
@@ -204,6 +209,7 @@
   "block_babbage_era": {
     "hash": "ab7dbf41a20786262fda01f19e37319c3e5af29099fd7a82a64e101b5e8da120",
     "time": "2022/10/16 16:31:47",
+    "blockNo": 7891699,
     "txCount": 35,
     "totalFees": 10300759,
     "totalOutput": 15145621401279
