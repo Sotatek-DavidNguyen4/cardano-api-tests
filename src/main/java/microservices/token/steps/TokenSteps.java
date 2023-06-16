@@ -183,4 +183,14 @@ public class TokenSteps extends BaseSteps {
                 .isEqualTo(requestParams.getSize());
         return this;
     }
+    @Step("get data random of list tokens")
+    public TokenModel getTokenDataRandom(TokensModel tokensModel, int random){
+        TokenModel data = tokensModel.getData().get(random);
+        return data;
+    }
+    @Step("compare get list token and get token txs")
+    public TokenSteps compareGetListTokenAndGetTokenTxs(TokenModel data, TokensTxsModel tokensTxsModel){
+        Assert.assertEquals(data.getTxCount(), tokensTxsModel.getTotalItems());
+        return this;
+    }
 }
