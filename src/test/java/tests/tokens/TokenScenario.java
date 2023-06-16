@@ -16,7 +16,7 @@ public class TokenScenario extends BaseTest {
     private TokenSteps tokenSteps = new TokenSteps();
     private RandomNumber randomNumber = new RandomNumber();
     private TokenModel data = new TokenModel();
-    @Test(description = "compare get list token and get token txs", groups={"token", "token_scenario"})
+    @Test(description = "compare get list token and get token txs", groups={"token", "token_scenario"}, priority = 0)
     public void compareGetListTokenAndGetTokenTxs(){
         Map<String, Object> param = new CreateParameters()
                 .getParamsMap();
@@ -34,5 +34,13 @@ public class TokenScenario extends BaseTest {
                 .saveResponseObject(TokensTxsModel.class);
 
         tokenSteps.compareGetListTokenAndGetTokenTxs(data, tokensTxsModel);
+    }
+    @Test(description = "compare get list token and get detail token", groups={"token", "token_scenario"}, priority = 1)
+    public void compareGetListTokenAndGetDetailToken(){
+        TokenModel tokenModel = (TokenModel)
+        tokenSteps.getAToken(data.getFingerprint())
+                .validateStatusCode(HttpURLConnection.HTTP_OK)
+                .saveResponseObject(TokenModel.class);
+        tokenSteps.compareGetListTokenAndGetDetailToken(data, tokenModel);
     }
 }
