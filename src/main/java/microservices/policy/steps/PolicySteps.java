@@ -2,6 +2,7 @@ package microservices.policy.steps;
 
 import constants.Endpoints;
 import io.qameta.allure.Step;
+import microservices.common.constants.RequestParams;
 import microservices.common.steps.BaseSteps;
 import microservices.epoch.models.epoch.EpochData;
 import microservices.epoch.steps.EpochSteps;
@@ -10,9 +11,12 @@ import microservices.policy.models.holder.HolderByPolicy;
 import microservices.policy.models.holder.HolderByPolicyData;
 import microservices.policy.models.token.TokenByPolicy;
 import microservices.policy.models.token.TokenByPolicyData;
+import microservices.stakeKey.models.registration.StakeRegistration;
+import microservices.stakeKey.steps.StakeKeySteps;
 import org.testng.Assert;
 
 import java.util.List;
+import java.util.Map;
 
 import static constants.DateFormats.DATE_FORMAT;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -25,9 +29,18 @@ public class PolicySteps extends BaseSteps {
         sendGet(Endpoints.PoliciesApi.GET_TOKEN_BY_POLICIES,Endpoints.PoliciesApi.POLICY_ID,policyId);
         return this;
     }
+    @Step("Get tokens by policies with params")
+    public PolicySteps getTokenByPoliciesWithParams(String policyId,Map<String, Object> param){
+        sendGet(Endpoints.PoliciesApi.GET_TOKEN_BY_POLICIES,param,Endpoints.PoliciesApi.POLICY_ID,policyId);
+        return this;
+    }
     @Step("Get list holder by policies")
     public PolicySteps getListHolderByPolicies(Object policyId){
         sendGet(Endpoints.PoliciesApi.GET_HOLDER_BY_POLICIES,Endpoints.PoliciesApi.POLICY_ID,policyId);
+        return this;
+    }
+    public PolicySteps getListHolderByPoliciesWithParam(Object policyId,Map<String, Object> param){
+        sendGet(Endpoints.PoliciesApi.GET_HOLDER_BY_POLICIES,param,Endpoints.PoliciesApi.POLICY_ID,policyId);
         return this;
     }
     @Step("Get a policy detail")
@@ -40,6 +53,20 @@ public class PolicySteps extends BaseSteps {
         Assert.assertEquals(policyDetail.getPolicyId(),policyId);
         Assert.assertEquals(policyDetail.getTotalToken(),totalTokenExpected);
         Assert.assertNotNull(policyDetail.getPolicyScript());
+        return this;
+    }
+
+    @Step("Verify page and size of get Token by policy response")
+    public PolicySteps then_verifyTokenByPolicyResponse(TokenByPolicy tokenByPolicy, Map<String, Object> params) {
+        RequestParams requestParams = new RequestParams(params, 0, 20);
+        assertThat(tokenByPolicy.getCurrentPage())
+                .as("Value of field 'currentPage' is wrong")
+                .isEqualTo(requestParams.getPage());
+
+        assertThat(tokenByPolicy.getData().size())
+                .as("The size of page is wrong")
+                .isEqualTo(requestParams.getSize());
+
         return this;
     }
     @Step("Verify response data of token got by invalid policy")
@@ -58,6 +85,20 @@ public class PolicySteps extends BaseSteps {
         Assert.assertEquals(holderByPolicy.getCurrentPage(),currentPageExpected);
         return this;
     }
+
+    @Step("Verify page and size of get Holder by policy response")
+    public PolicySteps then_verifyHolderByPolicyResponse(HolderByPolicy holderByPolicy, Map<String, Object> params) {
+        RequestParams requestParams = new RequestParams(params, 0, 20);
+        assertThat(holderByPolicy.getCurrentPage())
+                .as("Value of field 'currentPage' is wrong")
+                .isEqualTo(requestParams.getPage());
+        assertThat(holderByPolicy.getData().size())
+                .as("The size of page is wrong")
+                .isEqualTo(requestParams.getSize());
+
+        return this;
+    }
+
     @Step("Verify policy in response data of token got by policy")
     public PolicySteps verifyPolicyInResponseDataOfToken(List<TokenByPolicyData> listTokenByPolicyData, String policy){
         for (TokenByPolicyData tokenByPolicyData : listTokenByPolicyData){
@@ -75,6 +116,11 @@ public class PolicySteps extends BaseSteps {
     @Step("Verify size of response data token got by policy")
     public PolicySteps verifySizeResponseDataOfToken(List<TokenByPolicyData> tokenByPolicyData, int size){
         Assert.assertEquals(tokenByPolicyData.size(),size);
+        return this;
+    }
+    @Step("Verify size of response data holders got by policy")
+    public PolicySteps verifySizeResponseDataOfHolders(List<HolderByPolicyData> holderByPolicyData, int size){
+        Assert.assertEquals(holderByPolicyData.size(),size);
         return this;
     }
     @Step("Verify response data of list token got by policy not null")
