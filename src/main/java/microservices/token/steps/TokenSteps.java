@@ -23,7 +23,7 @@ public class TokenSteps extends BaseSteps {
     }
     @Step("verify that current page of token")
     public TokenSteps then_verifyCurrentPageResponse(TokensModel tokensModel, Map<String,Object> param){
-        RequestParams requestParams = new RequestParams(param, 0, 20);
+        RequestParams requestParams = new RequestParams(param, 0);
         assertThat(tokensModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
@@ -79,8 +79,8 @@ public class TokenSteps extends BaseSteps {
         return this;
     }
     @Step("verify that current page of token txs")
-    public TokenSteps then_verifyPageTokensTxsResponse(TokensTxsModel tokensTxsModel, Map<String,Object> param, int defaultSize){
-        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
+    public TokenSteps then_verifyPageTokensTxsResponse(TokensTxsModel tokensTxsModel, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0);
         assertThat(tokensTxsModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
@@ -120,7 +120,7 @@ public class TokenSteps extends BaseSteps {
     }
     @Step("verify that current page of token mints")
     public TokenSteps then_verifyPageTokensMintsResponse(TokensMintsModel tokensMintsModel, Map<String,Object> param){
-        RequestParams requestParams = new RequestParams(param, 0, 6);
+        RequestParams requestParams = new RequestParams(param, 0);
         assertThat(tokensMintsModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
@@ -173,7 +173,7 @@ public class TokenSteps extends BaseSteps {
     }
     @Step("verify that current page of token top holders")
     public TokenSteps then_verifyPageTokensTopHoldersResponse(TokensTopHolderModel tokensTopHolderModel, Map<String,Object> param){
-        RequestParams requestParams = new RequestParams(param, 0, 20);
+        RequestParams requestParams = new RequestParams(param, 0);
         assertThat(tokensTopHolderModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());

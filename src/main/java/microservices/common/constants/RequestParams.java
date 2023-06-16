@@ -40,6 +40,22 @@ public class RequestParams {
         if (params.containsKey("sort")) {
             this.sort = (List<String>) params.get("sort");
         }
-
+    }
+    public RequestParams(Map<String, Object> params, int defaultPage){
+        if (params.containsKey("page")) {
+            try {
+                page = Integer.parseInt(((List<String>) params.get("page")).get(0));
+                if (page < 0) {
+                    page = defaultPage;
+                }
+            } catch (NumberFormatException e) {
+                page = defaultPage;
+            }
+        } else {
+            page = defaultPage;
+        }
+        if (params.containsKey("sort")) {
+            this.sort = (List<String>) params.get("sort");
+        }
     }
 }
