@@ -11,6 +11,8 @@ import microservices.policy.models.holder.HolderByPolicyData;
 import microservices.policy.models.token.TokenByPolicy;
 import microservices.policy.models.token.TokenByPolicyData;
 import microservices.policy.steps.PolicySteps;
+import org.apache.commons.collections.MultiMap;
+import org.apache.commons.collections.map.MultiValueMap;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
@@ -38,7 +40,7 @@ public class GetHolderByPolicyTests extends BaseTest {
     @DataProvider(name="getListHolderByPolicies")
     public Object[][] getListHolderByPolicies(){
         return new Object[][]{
-                {"fa1ab2cbdca59874005d9186b85245ed2503acaa63ab4121ab7c3879"},
+                {"4429f7b432125357388b1d676c2d503b6d6fc78c414934bef9882e26"},
         };
     }
     @Test(description = "verify get list holders by invalid policies ", groups={"policy"},dataProvider = "getListHolderByInPolicies")
@@ -51,11 +53,60 @@ public class GetHolderByPolicyTests extends BaseTest {
     @DataProvider(name="getListHolderByInPolicies")
     public Object[][] getListHolderByInPolicies(){
         return new Object[][]{
-                {123},
+                {"123"},
                 {"@#$"},
                 {" "},
                 {"asset1c6t4elexwkpuzq08ssylhhmc78ahlz0sgw5a7y"},
                 {"asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr"},
         };
+    }
+
+    @Test(description = "verify get list holders by policies with param", groups={"policy"},dataProvider = "getListHolderByPoliciesWithParams")
+    public void getHolderByPoliciesWithParam(String page,String size){
+        String policyId ="4429f7b432125357388b1d676c2d503b6d6fc78c414934bef9882e26";
+
+        MultiMap params = new MultiValueMap();
+        params.put("page", page);
+        params.put("size", size);
+        holderByPolicy =(HolderByPolicy) policySteps.getListHolderByPoliciesWithParam(policyId,params)
+                                                    .validateResponse(HttpURLConnection.HTTP_OK)
+                                                    .saveResponseObject(HolderByPolicy.class);
+        policySteps.then_verifyHolderByPolicyResponse(holderByPolicy,params)
+                   .verifyResponseDataOfListHolderNotNull(holderByPolicy.getData())
+                    .verifyFormatOfFingerprintGetHoldersByPolicy(holderByPolicy.getData());;
+    }
+    @DataProvider(name="getListHolderByPoliciesWithParams")
+    public Object[][] getListHolderByPoliciesWithParams(){
+        return new Object[][]{
+                {"10",""},
+                {"abc",""},
+                {"-10",""},
+                {" ",""},
+                {"@#$",""},
+                {"","10"},
+                {"","abc"},
+                {"","-10"},
+                {""," "},
+                {"","!@@$$"},
+
+        };
+    }
+
+    @Test(description = "verify get list holders by policy with totalPage", groups={"policy"})
+    public void getListTokenByPoliciesWithParamTotalPage(){
+        String policyId ="4429f7b432125357388b1d676c2d503b6d6fc78c414934bef9882e26";
+        holderByPolicy = (HolderByPolicy) policySteps.getTokenByPolicies(policyId)
+                .validateResponse(HttpURLConnection.HTTP_OK)
+                .saveResponseObject(HolderByPolicy.class);
+        MultiMap params = new MultiValueMap();
+        params.put("page", holderByPolicy.getTotalPages()+1);
+        params.put("size", null);
+
+        holderByPolicy = (HolderByPolicy) policySteps.getTokenByPoliciesWithParams(policyId,params)
+                .validateResponse(HttpURLConnection.HTTP_OK)
+                .saveResponseObject(HolderByPolicy.class);
+
+        holderByPolicyData = holderByPolicy.getData();
+        policySteps.verifySizeResponseDataOfHolders(holderByPolicyData,0);
     }
 }
