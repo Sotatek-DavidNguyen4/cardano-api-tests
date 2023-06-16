@@ -14,8 +14,9 @@ import java.util.Map;
 
 public class TokenMints extends BaseTest {
     private TokenSteps tokenSteps = new TokenSteps();
-    private String tokenId = "asset1dcspl93vqst7k7fcz2vx4mu6jvq7hsrse7zlpv";
-    @Test(description = "get token mints", groups = {"token", "token_mints"})
+    private String tokenId = "asset17q7r59zlc3dgw0venc80pdv566q6yguw03f0d9";
+    private int numberPage;
+    @Test(description = "get token mints", groups = {"token", "token_mints"}, priority = 0)
     public void getTokenMints(){
         Map<String, Object> param = new CreateParameters()
                 .getParamsMap();
@@ -23,21 +24,10 @@ public class TokenMints extends BaseTest {
         tokenSteps.getTokenMint(tokenId, param)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(TokensMintsModel.class);
-        tokenSteps.then_verifyFilterTokensMintsResponse(tokensMintsModel, param, 20)
+        numberPage = tokensMintsModel.getTotalItems()/20 + 1;
+        tokenSteps.then_verifyPageTokensMintsResponse(tokensMintsModel, param)
+                .then_verifySizeTokensMintsResponse(tokensMintsModel, param, 6)
                 .verifyTokenMints(tokensMintsModel.getData());
-    }
-    @Test(description = "get token mints all key", groups = {"token", "token_mints"})
-    public void getTokenMintsAllKey(){
-        MultiMap param = new CreateMultiParameters()
-                .withPage("0")
-                .withPageSize("20")
-                .withPageSize("id,DESC")
-                .getParamsMap();
-        TokensMintsModel tokensMintsModel = (TokensMintsModel)
-                tokenSteps.getTokenMint(tokenId, param)
-                        .validateStatusCode(HttpURLConnection.HTTP_OK)
-                        .saveResponseObject(TokensMintsModel.class);
-        tokenSteps.then_verifyFilterTokensMintsResponse(tokensMintsModel, param, 20);
     }
     @Test(description = "get token mints invalid tokenId", groups = {"token", "token_mints"}, dataProvider = "tokenInvalid")
     public void getTokenMintsInvalidTokenId(String token){
@@ -47,7 +37,8 @@ public class TokenMints extends BaseTest {
                 tokenSteps.getTokenMint(token, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(TokensMintsModel.class);
-        tokenSteps.then_verifyFilterTokensMintsResponse(tokensMintsModel, param, 0);
+        tokenSteps.then_verifyPageTokensMintsResponse(tokensMintsModel, param)
+                .then_verifySizeTokensMintsResponse(tokensMintsModel, param, 0);
     }
     @DataProvider (name = "tokenInvalid")
     public Object[][] DatasetTokenIdInvalid() {
@@ -67,17 +58,41 @@ public class TokenMints extends BaseTest {
                 tokenSteps.getTokenMint(tokenId, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(TokensMintsModel.class);
-        tokenSteps.then_verifyFilterTokensMintsResponse(tokensMintsModel, param, 20);
+        tokenSteps.then_verifyPageTokensMintsResponse(tokensMintsModel, param)
+                .then_verifySizeTokensMintsResponse(tokensMintsModel, param, 6);
     }
     @DataProvider(name = "tokenMintPage")
     public Object[][] DataSetTokenMintPage(){
         return new Object[][]{
-                {"10"},
                 {"abc"},
-                {"-10"},
+                {"-1"},
                 {" "},
                 {"@#$"}
         };
+    }
+    @Test(description = "get token mints with page = 2", groups = {"token", "token_mints"})
+    public void getTokenMintPage2(){
+        MultiMap param = new CreateMultiParameters()
+                .withPage("2")
+                .getParamsMap();
+        TokensMintsModel tokensMintsModel = (TokensMintsModel)
+                tokenSteps.getTokenMint(tokenId, param)
+                        .validateStatusCode(HttpURLConnection.HTTP_OK)
+                        .saveResponseObject(TokensMintsModel.class);
+        tokenSteps.then_verifyPageTokensMintsResponse(tokensMintsModel, param)
+                .then_verifySizeTokensMintsResponse(tokensMintsModel, param, 0);
+    }
+    @Test(description = "get token mints with page = totalPage + 1", groups = {"token", "token_mints"}, priority = 1)
+    public void getTokenMintPage(){
+        MultiMap param = new CreateMultiParameters()
+                .withPage(""+numberPage+"")
+                .getParamsMap();
+        TokensMintsModel tokensMintsModel = (TokensMintsModel)
+                tokenSteps.getTokenMint(tokenId, param)
+                        .validateStatusCode(HttpURLConnection.HTTP_OK)
+                        .saveResponseObject(TokensMintsModel.class);
+        tokenSteps.then_verifyPageTokensMintsResponse(tokensMintsModel, param)
+                .then_verifySizeTokensMintsResponse(tokensMintsModel, param, 0);
     }
     @Test(description = "get token mint with size", groups = {"token", "token_mints"}, dataProvider = "tokenMintSize")
     public void getTokenMintSize(String size){
@@ -88,16 +103,17 @@ public class TokenMints extends BaseTest {
                 tokenSteps.getTokenMint(tokenId, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(TokensMintsModel.class);
-        tokenSteps.then_verifyFilterTokensMintsResponse(tokensMintsModel, param, 20);
+        tokenSteps.then_verifyPageTokensMintsResponse(tokensMintsModel, param)
+                .then_verifySizeTokensMintsResponse(tokensMintsModel, param, 6);
     }
     @DataProvider(name = "tokenMintSize")
     public Object[][] DataSetTokenMintSize(){
         return new Object[][]{
-                {"1"},
+                {"2"},
                 {"abc"},
-                {"-10"},
+                {"-2"},
                 {" "},
-                {"@#$$"}
+                {"!@@$$"}
         };
     }
     @Test(description = "get token mint with sort", groups = {"token", "token_mints"}, dataProvider = "tokenMintSort")
@@ -109,7 +125,9 @@ public class TokenMints extends BaseTest {
                 tokenSteps.getTokenMint(tokenId, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(TokensMintsModel.class);
-        tokenSteps.then_verifyFilterTokensMintsResponse(tokensMintsModel, param, 20);
+        tokenSteps.then_verifySortTokensMintsResponse(tokensMintsModel, param)
+                .then_verifySizeTokensMintsResponse(tokensMintsModel, param, 6)
+                .then_verifyPageTokensMintsResponse(tokensMintsModel, param);
     }
     @DataProvider(name = "tokenMintSort")
     public Object[][] DataSetTokenMintSort(){
