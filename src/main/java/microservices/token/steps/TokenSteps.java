@@ -162,12 +162,16 @@ public class TokenSteps extends BaseSteps {
         return this;
     }
     @Step("verify that current page of token top holders")
-    public TokenSteps then_verifyFilterTokensTopHoldersResponse(TokensTopHolderModel tokensTopHolderModel, Map<String,Object> param, int defaultSize){
-        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
+    public TokenSteps then_verifyPageTokensTopHoldersResponse(TokensTopHolderModel tokensTopHolderModel, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0, 20);
         assertThat(tokensTopHolderModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
-
+        return this;
+    }
+    @Step("verify that size of token top holders")
+    public TokenSteps then_verifySizeTokensTopHoldersResponse(TokensTopHolderModel tokensTopHolderModel, Map<String,Object> param, int defaultSize){
+        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
         assertThat(tokensTopHolderModel.getData().size())
                 .as("Value of field 'size' is wrong")
                 .isEqualTo(requestParams.getSize());

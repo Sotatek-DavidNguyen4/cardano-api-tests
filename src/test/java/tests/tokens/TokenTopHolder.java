@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class TokenTopHolder extends BaseTest {
     private TokenSteps tokenSteps = new TokenSteps();
-    private String tokenId = "asset1546zv6l65l26nwnf2vs4s4nyyr5x65uhpu9hud";
+    private String tokenId = "asset17q7r59zlc3dgw0venc80pdv566q6yguw03f0d9";
     @Test(description = "get token top holder", groups = {"token", "top_holder"})
     public void getTokenTopHolder(){
         Map<String, Object> param = new CreateParameters()
@@ -23,27 +23,48 @@ public class TokenTopHolder extends BaseTest {
         tokenSteps.getTokenTopHolder(tokenId)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(TokensTopHolderModel.class);
-        tokenSteps.then_verifyFilterTokensTopHoldersResponse(tokensTopHolderModel, param, 10);
+        tokenSteps.then_verifyPageTokensTopHoldersResponse(tokensTopHolderModel, param)
+                .then_verifySizeTokensTopHoldersResponse(tokensTopHolderModel, param, 20);
     }
-    @Test(description = "get token top holders with page", groups = {"token", "top_holder"}, dataProvider = "page")
-    public void getTokenTopHolderWithPage(Object page){
+//    @Test(description = "get token top holders with page", groups = {"token", "top_holder"}, dataProvider = "page")
+//    public void getTokenTopHolderWithPage(Object page){
+//        MultiMap param = new CreateMultiParameters()
+//                .withPage(page)
+//                .getParamsMap();
+//        TokensTopHolderModel tokensTopHolderModel = (TokensTopHolderModel)
+//                tokenSteps.getTokenTopHoldersParamValid(param, tokenId)
+//                        .validateStatusCode(HttpURLConnection.HTTP_OK)
+//                        .saveResponseObject(TokensTopHolderModel.class);
+//        tokenSteps.then_verifyPageTokensTopHoldersResponse(tokensTopHolderModel, param);
+//    }
+//    @DataProvider(name="page")
+//    public Object[][] dataSetPage(){
+//        return new Object[][]{
+//                {"0"},
+//                {"n"},
+//                {"-1"},
+//                {"@#$"},
+//                {"  "},
+//        };
+//    }
+    @Test(description = "get token top holders with invalid tokenId", groups = {"token", "top_holder"}, dataProvider = "invalidTokenId")
+    public void getTokenTopHolderWithInvalidTokenId(String tokenId){
         MultiMap param = new CreateMultiParameters()
-                .withPage(page)
                 .getParamsMap();
         TokensTopHolderModel tokensTopHolderModel = (TokensTopHolderModel)
                 tokenSteps.getTokenTopHoldersParamValid(param, tokenId)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(TokensTopHolderModel.class);
-        tokenSteps.then_verifyFilterTokensTopHoldersResponse(tokensTopHolderModel, param, 10);
+        tokenSteps.then_verifyPageTokensTopHoldersResponse(tokensTopHolderModel, param);
     }
-    @DataProvider(name="page")
-    public Object[][] dataSetPage(){
+    @DataProvider(name="invalidTokenId")
+    public Object[][] dataSetTokenId(){
         return new Object[][]{
-                {"0"},
-                {"n"},
-                {"-1"},
+                {"123"},
                 {"@#$"},
-                {"  "},
+                {"   "},
+                {"asset1c6t4elexwkpuzq08ssylhhmc78ahlz0sgw5a7y"},
+                {"asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr"},
         };
     }
     @Test(description = "get token top holders with size", groups = {"token", "top_holder"}, dataProvider = "size")
@@ -55,7 +76,8 @@ public class TokenTopHolder extends BaseTest {
                 tokenSteps.getTokenTopHoldersParamValid(param, tokenId)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(TokensTopHolderModel.class);
-        tokenSteps.then_verifyFilterTokensTopHoldersResponse(tokensTopHolderModel, param, 10);
+        tokenSteps.then_verifyPageTokensTopHoldersResponse(tokensTopHolderModel, param)
+                .then_verifySizeTokensTopHoldersResponse(tokensTopHolderModel, param, 20);
     }
     @DataProvider(name="size")
     public Object[][] dataSetSize(){
@@ -63,7 +85,7 @@ public class TokenTopHolder extends BaseTest {
                 {"2"},
                 {"v"},
                 {"-2"},
-                {"@#$"},
+                {"!@@$$"},
                 {"  "},
         };
     }
