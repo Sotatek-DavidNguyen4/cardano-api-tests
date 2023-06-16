@@ -119,17 +119,27 @@ public class TokenSteps extends BaseSteps {
         return this;
     }
     @Step("verify that current page of token mints")
-    public TokenSteps then_verifyFilterTokensMintsResponse(TokensMintsModel tokensMintsModel, Map<String,Object> param, int defaultSize){
-        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
+    public TokenSteps then_verifyPageTokensMintsResponse(TokensMintsModel tokensMintsModel, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0, 6);
         assertThat(tokensMintsModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
+        return this;
+    }
+    @Step("verify that size of token mints")
+    public TokenSteps then_verifySizeTokensMintsResponse(TokensMintsModel tokensMintsModel, Map<String,Object> param, int defaultSize){
+        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
         assertThat(tokensMintsModel.getData().size())
                 .as("Value of field 'size' is wrong")
                 .isEqualTo(requestParams.getSize());
+        return this;
+    }
+    @Step("verify that sort of token mints")
+    public TokenSteps then_verifySortTokensMintsResponse(TokensMintsModel tokensMintsModel, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0, 6);
         if (requestParams.getSort() != null) {
             boolean sorted = SortListUtil.isSortedByField(new ArrayList<>(tokensMintsModel.getData()), requestParams.getSort());
-            assertThat(sorted).as("block is not sorted by inputted params").isEqualTo(true);
+            assertThat(sorted).as("token mints is not sorted by inputted params").isEqualTo(true);
         }
         return this;
     }
