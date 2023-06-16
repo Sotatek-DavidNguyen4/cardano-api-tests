@@ -2,6 +2,9 @@ package microservices.stakeKey.steps;
 
 import constants.Endpoints;
 import io.qameta.allure.Step;
+import microservices.addresses.models.AddressModel;
+import microservices.addresses.models.TopAddressModel;
+import microservices.addresses.steps.TopAddressSteps;
 import microservices.common.constants.RequestParams;
 import microservices.common.steps.BaseSteps;
 import microservices.stakeKey.models.Analytics.StakeAnalytics;
@@ -330,6 +333,21 @@ public class StakeKeySteps extends BaseSteps {
         assertThat(stakeListAddressModel.getData().size())
                 .as("The size of page is wrong")
                 .isEqualTo(requestParams.getSize());
+        return this;
+    }
+
+    @Step("Verify response of top delegator and stake detail")
+    public StakeKeySteps then_verifyStakeResponseTopAndDetail(TopDelegators topDelegators, StakeModel stakeModel) {
+        assertThat(topDelegators.getData().get(0).getPoolId())
+                .as("Value of field 'poolId' is wrong")
+                .isEqualTo(stakeModel.getPool().getPoolId());
+        return this;
+    }
+    @Step("Verify response of top delegator and delegator history")
+    public StakeKeySteps then_verifyStakeResponseTopAndDelegatorHistory(TopDelegators topDelegators, StakeHistory stakeHistory) {
+        assertThat(topDelegators.getData().get(0).getTickerName())
+                .as("Value of field 'poolId' is wrong")
+                .isEqualTo(stakeHistory.getData().get(0).get);
         return this;
     }
 }

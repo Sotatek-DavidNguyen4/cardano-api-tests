@@ -25,7 +25,7 @@ public class GetTopDelegatorsTest extends BaseTest {
     StakeKeySteps stakeKeySteps = new StakeKeySteps();
     TopDelegators topDelegators ;
     @Test(description = "Verify data for get top delegators",groups = {"stake","top_delegators"},dataProvider = "getParamForTopDelegators")
-    public void getDataForStakeDeRegistration(Object page,Object size){
+    public void getDataForTopDelegator(Object page,Object size){
         int length = isPreProd() ? STATKE_ADDRESS_LENGTH[0] : STATKE_ADDRESS_LENGTH[1];
         MultiMap params = new MultiValueMap();
         params.put("page", page);
