@@ -26,7 +26,7 @@ public class TokenTxs extends BaseTest {
         tokenSteps.getTokenTxs(tokenId, param)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(TokensTxsModel.class);
-        tokenSteps.then_verifyPageTokensTxsResponse(tokensTxsModel, param, 20)
+        tokenSteps.then_verifyPageTokensTxsResponse(tokensTxsModel, param)
                 .then_verifySizeTokensTxsResponse(tokensTxsModel, param, 20)
                 .verifyTokenTxs(tokensTxsModel.getData());
     }
@@ -39,7 +39,7 @@ public class TokenTxs extends BaseTest {
                 tokenSteps.getTokenTxs(tokenId, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(TokensTxsModel.class);
-        tokenSteps.then_verifyPageTokensTxsResponse(tokensTxsModel, param, 20)
+        tokenSteps.then_verifyPageTokensTxsResponse(tokensTxsModel, param)
                 .then_verifySizeTokensTxsResponse(tokensTxsModel, param, 20);
     }
     @DataProvider(name = "tokenTxsPage")
@@ -61,7 +61,7 @@ public class TokenTxs extends BaseTest {
                 tokenSteps.getTokenTxs(tokenId, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(TokensTxsModel.class);
-        tokenSteps.then_verifyPageTokensTxsResponse(tokensTxsModel, param, 20)
+        tokenSteps.then_verifyPageTokensTxsResponse(tokensTxsModel, param)
                 .then_verifySizeTokensTxsResponse(tokensTxsModel, param, 20);
     }
     @Test(description = "get token txs with size", groups = {"token", "token_txs"}, dataProvider = "tokenTxsSize")
@@ -73,7 +73,7 @@ public class TokenTxs extends BaseTest {
                 tokenSteps.getTokenTxs(tokenId, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(TokensTxsModel.class);
-        tokenSteps.then_verifyPageTokensTxsResponse(tokensTxsModel, param, 20)
+        tokenSteps.then_verifyPageTokensTxsResponse(tokensTxsModel, param)
                 .then_verifySizeTokensTxsResponse(tokensTxsModel, param, 20);
     }
     @DataProvider(name = "tokenTxsSize")
@@ -94,7 +94,7 @@ public class TokenTxs extends BaseTest {
                 tokenSteps.getTokenTxs(token, param)
                         .validateStatusCode(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(TokensTxsModel.class);
-        tokenSteps.then_verifyPageTokensTxsResponse(tokensTxsModel, param, 0);
+        tokenSteps.then_verifyPageTokensTxsResponse(tokensTxsModel, param);
     }
     @DataProvider(name = "tokenIdInvalid")
     public Object[][] DataSetTokenIdInvalid(){
