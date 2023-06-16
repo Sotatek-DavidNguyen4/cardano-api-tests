@@ -134,7 +134,6 @@ public class GetTokenByPolicyTests extends BaseTest {
                 .saveResponseObject(TokenByPolicy.class);
 
         tokenByPolicyData = tokenByPolicy.getData();
-        System.out.println(tokenByPolicyData);
         policySteps.verifySizeResponseDataOfToken(tokenByPolicyData,0);
 
     }
