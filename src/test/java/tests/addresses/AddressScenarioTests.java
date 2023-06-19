@@ -19,7 +19,7 @@ import java.util.Map;
 public class AddressScenarioTests extends BaseTest {
     TopAddressSteps topAddressSteps = new TopAddressSteps();
     AddressSteps addressSteps = new AddressSteps();
-    @Test(description = "Compare api Get: Get top address with api Get: Get a address detail", groups={"addresses", "top-address"})
+    @Test(description = "Compare api Get: Get top address with api Get: Get a address detail", groups={"addresses", "address-scenario"})
     public void verifyGetAddressResponseSuccessfully(){
         TopAddressModel topAddressModel = (TopAddressModel) topAddressSteps
                 .getDataForTopAddressNoParam()
