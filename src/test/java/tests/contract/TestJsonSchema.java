@@ -3,7 +3,6 @@ package tests.contract;
 import base.BaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import io.restassured.response.Response;
 import microservices.contract.models.Contract;
 import microservices.contract.models.DataContract;
 import microservices.contract.steps.ContractSteps;
@@ -11,11 +10,9 @@ import org.apache.commons.collections.MultiMap;
 import org.apache.commons.collections.map.MultiValueMap;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
-import util.CreateParameters;
 
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
-import java.util.Map;
 
 @Epic("cardano")
 @Feature("api-contract")
@@ -33,7 +30,7 @@ public class TestJsonSchema extends BaseTest {
             params.put("sort", sort);
         }
 
-        String schemaPath ="schema/contractSchema/listContractSchema.json";
+        String schemaPath = "schema/contractSchema/listContractSchema.json";
         contract = (Contract) contractSteps.getListContracts(params)
                 .validateResponse(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(Contract.class);
