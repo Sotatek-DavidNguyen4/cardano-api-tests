@@ -1,4 +1,4 @@
-package tests.tokens;
+package tests.policies.tokens;
 
 import base.BaseTest;
 import microservices.token.models.TokensTopHolderModel;

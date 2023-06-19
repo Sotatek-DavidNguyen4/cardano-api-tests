@@ -8,6 +8,9 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static constants.AttributeFormats.STATKE_ADDRESS_LENGTH;
 import static constants.Environment.isPreProd;
@@ -18,11 +21,24 @@ public class Stake extends BaseTest {
     @Test(description = "get stake with stake key", groups = {"stake", "stake_key"})
     public void getStake(){
         int length = isPreProd() ? STATKE_ADDRESS_LENGTH[0] : STATKE_ADDRESS_LENGTH[1];
+        Map<String, Object> expect = new HashMap<>();
+        expect.put("stakeAddress", "stake1u9pwlay8fvev5yfvnpx8c057n3m0aa5g493qw44zqdycz6sm0cph9");
+        expect.put("tickerName", "SPIRE");
+        expect.put("poolName", "Spire Staking | \uD83C\uDFC6 Top 10 Operator");
+        expect.put("poolId", "pool16agnvfan65ypnswgg6rml52lqtcqe5guxltexkn82sqgj2crqtx");
+
         StakeModel stakeModel = (StakeModel)
         stakeKeySteps.getStakeWithStakeKey(stakeKey)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(StakeModel.class);
-        stakeKeySteps.verifyResponseStake(stakeModel, length);
+
+        ArrayList<Object> elements = new ArrayList<>();
+        elements.add(stakeModel.getTotalStake());
+        elements.add(stakeModel.getRewardAvailable());
+        elements.add(stakeModel.getRewardWithdrawn());
+
+        stakeKeySteps.verifyGetStakeResponse(stakeModel, length, expect)
+                .verifyElementsIsNotDecimal(elements);
     }
     @Test(description = "get stake with stake key | unsuccess", groups = {"stake", "stake_key"}, dataProvider = "stakeKey")
     public void getStakeUnsuccess(Object stakeKey){
@@ -32,7 +48,7 @@ public class Stake extends BaseTest {
     @DataProvider(name = "stakeKey")
     public Object[][] DatasetStakeKey(){
         return new Object[][]{
-                {"stake_test1urf6y7ktcqwzxd2tc3x54437jl6vcqvazgrdka3v2njdjzgyn6hgy"},
+                {"stake1uzrrkmef4v2x9xfrlycckjhgpgdrnwj45t0rdmjxn5gv66swg0ay9"},
                 {"@#$"},
                 {"  "},
                 {"abcd"},

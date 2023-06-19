@@ -30,6 +30,7 @@ import java.util.Map;
 
 import static constants.DateFormats.DATE_FORMAT;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.assertj.core.api.AssertionsForClassTypes.setLenientDateParsing;
 import static util.AttributeStandard.*;
 
 public class StakeKeySteps extends BaseSteps {
@@ -225,8 +226,27 @@ public class StakeKeySteps extends BaseSteps {
         sendGet(Endpoints.StakeKeyApi.GET_STAKE, Endpoints.StakeKeyApi.STAKE_KEY, stakeKey);
         return this;
     }
-    @Step("verify response of get stake")
-    public StakeKeySteps verifyResponseStake(StakeModel stakeModel, int length){
+    @Step("verify get detail stake of response")
+    public StakeKeySteps verifyGetStakeResponse(StakeModel stakeModel, int length, Map<String, Object> expect){
+        Assert.assertEquals(stakeModel.getStakeAddress(), expect.get("stakeAddress"));
+        Assert.assertEquals(stakeModel.getPool().getTickerName(), expect.get("tickerName"));
+        Assert.assertEquals(stakeModel.getPool().getPoolName(), expect.get("poolName"));
+        Assert.assertEquals(stakeModel.getPool().getPoolId(), expect.get("poolId"));
+        Assert.assertTrue(AttributeStandard.isValidStakeAddress(stakeModel.getStakeAddress(), length));
+        Assert.assertTrue(AttributeStandard.isValidPoolId(stakeModel.getPool().getPoolId()));
+        return this;
+    }
+    @Step("check elements is not decimal")
+    public StakeKeySteps verifyElementsIsNotDecimal(ArrayList<Object> elements){
+        for (Object element : elements){
+            String temp = String.valueOf(element);
+            Assert.assertFalse(temp.contains(".") || temp.contains(","));
+        }
+        return this;
+    }
+    @Step("verify get stake address of response")
+    public StakeKeySteps verifyGetStakeAddressResponse(StakeModel stakeModel, int length, String stakeAddress){
+        Assert.assertEquals(stakeModel.getStakeAddress(), stakeAddress);
         Assert.assertTrue(AttributeStandard.isValidStakeAddress(stakeModel.getStakeAddress(), length));
         Assert.assertTrue(AttributeStandard.isValidPoolId(stakeModel.getPool().getPoolId()));
         return this;

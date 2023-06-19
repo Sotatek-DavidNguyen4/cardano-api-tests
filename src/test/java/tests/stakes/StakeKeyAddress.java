@@ -9,14 +9,17 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.net.HttpURLConnection;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static constants.AttributeFormats.STATKE_ADDRESS_LENGTH;
 import static constants.Environment.isPreProd;
 
 public class StakeKeyAddress extends BaseTest {
     private StakeKeySteps stakeKeySteps = new StakeKeySteps();
-    private String address = "addr_test1qr53akzyd4949txn5hu583yu0xatcvp2efec9tm56jpeg6xkfjf77qy57hqhnefcqyy7hmhsygj9j38rj984hn9r57fsq48dyr";
-    private String stakeAddress = "stake_test1urtyeyl0qz20tsteu5uqzz0tamczyfzegn3ezn6mej360ycky7cg5";
+    private String address = "addr1q8pusk379txj05qkqefk6yh5ah757qqt0cshserew99fks2kps3gp6k8clda0tgch7m9a9r3z9ws84x637sac045q37q6tdtvz";
+    private String stakeAddress = "stake1u9tqcg5qatru0k7h45vtldj7j3c3zhgr6ndglgwu866qglqkzv6c2";
     @Test(description = "get a stake detail by address", groups = {"stake", "stake_address"})
     public void getStakeByAddress(){
         int length = isPreProd() ? STATKE_ADDRESS_LENGTH[0] : STATKE_ADDRESS_LENGTH[1];
@@ -24,8 +27,14 @@ public class StakeKeyAddress extends BaseTest {
         stakeKeySteps.getStakeByAddress(address)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(StakeModel.class);
-        stakeKeySteps.verifyResponseStakeAddress(stakeModel, stakeAddress)
-                .verifyResponseStake(stakeModel, length);
+
+        ArrayList<Object> elements = new ArrayList<>();
+        elements.add(stakeModel.getTotalStake());
+        elements.add(stakeModel.getRewardAvailable());
+        elements.add(stakeModel.getRewardWithdrawn());
+
+        stakeKeySteps.verifyGetStakeAddressResponse(stakeModel, length, stakeAddress)
+                 .verifyElementsIsNotDecimal(elements);
     }
     @Test(description = "get stake detail by address wrong format", groups = {"stake", "stake_address"}, dataProvider = "listAddressWrongFormat")
     public void getStakeByAddresWrongFormat(Object address){
@@ -35,11 +44,10 @@ public class StakeKeyAddress extends BaseTest {
     @DataProvider(name = "listAddressWrongFormat")
     public Object[][] DatasetListAddress(){
         return new Object[][]{
-                {"FHnt4NL7yPYH2vP2FLEfH2pt3K6meM7fgtjRiLBidaqpP5ogPzxLNsZy68e1KdW"},
                 {"@#$"},
                 {"  "},
                 {"abc"},
-                {1234}
+                {"12345"}
         };
     }
 }
