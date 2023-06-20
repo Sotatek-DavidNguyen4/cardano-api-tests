@@ -5,7 +5,7 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 import lombok.Setter;
 import org.apache.commons.io.FilenameUtils;
-
+import io.restassured.module.jsv.JsonSchemaValidator;
 import java.io.File;
 import java.util.Map;
 
@@ -595,4 +595,5 @@ public class HttpRequest extends HttpRequestClientFactory {
         setResponse(res);
         return res;
     }
+
 }
