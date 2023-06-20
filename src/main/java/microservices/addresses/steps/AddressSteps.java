@@ -17,7 +17,6 @@ public class AddressSteps extends BaseSteps {
     @Step("get data for address")
     public AddressSteps getDataForAddress(Object address){
         sendGet(Endpoints.AddressesApi.ADDRESS_URI, AddressConstants.ADDRESS, address);
-        System.out.println(getResponse().getBody().print());
         return this;
     }
     @Step("verify values for address ")

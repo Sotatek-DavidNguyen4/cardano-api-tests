@@ -25,7 +25,6 @@ public class AddressTransactionSteps extends BaseSteps {
     @Step("get the transaction of address")
     public AddressTransactionSteps getTheTransactionOfAddress(Object address){
         sendGet(Endpoints.AddressesApi.ADDRESS_TRANSACTION_URI, AddressConstants.ADDRESS, address);
-        System.out.println(getResponse().getBody().print());
         return this;
     }
     @Step("get the transaction of address")
@@ -78,10 +77,8 @@ public class AddressTransactionSteps extends BaseSteps {
     }
     @Step("verify attribute exist")
     public AddressTransactionSteps verifyAttributeExist(){
-        System.out.println(getResponse().getBody().asString());
         JsonParser parser = new JsonParser();
         JsonElement jsonObject = parser.parse(getResponse().getBody().asString()).getAsJsonObject();
-        //System.out.println(isKeyPresent(getResponse().getBody().asString(), "hash"));
         Assert.assertTrue(getResponse().path("data") != null);
         Assert.assertTrue(getResponse().path("totalItems") != null);
         Assert.assertTrue(getResponse().path("totalPages") != null);
