@@ -8,6 +8,7 @@ import io.restassured.http.ContentType;
 import io.restassured.http.Cookies;
 import io.restassured.http.Headers;
 import io.restassured.mapper.ObjectMapperType;
+import io.restassured.module.jsv.JsonSchemaValidator;
 import io.restassured.path.json.JsonPath;
 import io.restassured.path.xml.XmlPath;
 import io.restassured.response.Response;
@@ -54,6 +55,19 @@ public class BaseApi extends HttpRequest {
                 body("", allOf(notNullValue(), not(""))).
                 extract().
                 response();
+        return this;
+    }
+
+    /**
+     * Validate that response body schema matches to expected Json schema
+     *
+     * @param pathJsonSchema - path of expected json schema file
+     */
+    public BaseApi validateResponseSchema(String pathJsonSchema) {
+        getResponse()
+                .then()
+                .assertThat()
+                .body(JsonSchemaValidator.matchesJsonSchemaInClasspath(pathJsonSchema));
         return this;
     }
 

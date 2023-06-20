@@ -43,6 +43,7 @@
             <class name="tests.addresses.AddressTests"/>
             <class name="tests.addresses.AddressTransactionTests"/>
             <class name="tests.addresses.TopAddressTests"/>
+            <class name="tests.addresses.AddressScenarioTests"/>
             <class name="tests.block.GetAllBlockTests"/>
             <class name="tests.block.BlockDetailTests"/>
             <class name="tests.block.BlockListTests"/>
@@ -53,6 +54,7 @@
             <class name="tests.tokens.TokenTxs"/>
             <class name="tests.tokens.TokenMints"/>
             <class name="tests.tokens.TokenTopHolder"/>
+            <class name="tests.tokens.TokenScenario"/>
             <class name="tests.stakes.StakeKeyAddress"/>
             <class name="tests.stakes.StakeKeyInstantaneousRewards"/>
             <class name="tests.stakes.StakeKeyWithdrawalHistoryTests"/>
@@ -64,6 +66,7 @@
             <class name="tests.stakes.StakeKeyHistoryTests"/>
             <class name="tests.stakes.GetDataForStakeRegistrationTest"/>
             <class name="tests.stakes.GetTopDelegatorsTest"/>
+            <class name="tests.stakes.StakeKeyScenarioTest"/>
             <class name="tests.transaction.TransactionTests"/>
             <class name="tests.transaction.TransactionScenarioTests"/>
             <class name="tests.contract.ContractTests"/>

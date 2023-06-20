@@ -1,0 +1,69 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "integer"
+            },
+            "name": {
+              "type": "string"
+            },
+            "displayName": {
+              "type": "string"
+            },
+            "policy": {
+              "type": "string"
+            },
+            "fingerprint": {
+              "type": "string"
+            },
+            "txCount": {
+              "type": "integer"
+            },
+            "supply": {
+              "type": "string"
+            },
+            "totalVolume": {
+              "type": "string"
+            },
+            "createdOn": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "displayName",
+            "policy",
+            "fingerprint",
+            "txCount",
+            "supply",
+            "totalVolume",
+            "createdOn"
+          ]
+        }
+      ]
+    },
+    "totalItems": {
+      "type": "integer"
+    },
+    "totalPages": {
+      "type": "integer"
+    },
+    "currentPage": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "data",
+    "totalItems",
+    "totalPages",
+    "currentPage"
+  ]
+}
