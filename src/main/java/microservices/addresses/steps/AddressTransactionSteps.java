@@ -1,5 +1,7 @@
 package microservices.addresses.steps;
 
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import constants.Endpoints;
 import io.qameta.allure.Step;
 import microservices.addresses.constants.AddressConstants;
@@ -16,11 +18,14 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 import static constants.DateFormats.DATE_FORMAT;
+import com.google.gson.JsonElement;
+
 
 public class AddressTransactionSteps extends BaseSteps {
     @Step("get the transaction of address")
     public AddressTransactionSteps getTheTransactionOfAddress(Object address){
         sendGet(Endpoints.AddressesApi.ADDRESS_TRANSACTION_URI, AddressConstants.ADDRESS, address);
+        System.out.println(getResponse().getBody().print());
         return this;
     }
     @Step("get the transaction of address")
@@ -73,6 +78,10 @@ public class AddressTransactionSteps extends BaseSteps {
     }
     @Step("verify attribute exist")
     public AddressTransactionSteps verifyAttributeExist(){
+        System.out.println(getResponse().getBody().asString());
+        JsonParser parser = new JsonParser();
+        JsonElement jsonObject = parser.parse(getResponse().getBody().asString()).getAsJsonObject();
+        //System.out.println(isKeyPresent(getResponse().getBody().asString(), "hash"));
         Assert.assertTrue(getResponse().path("data") != null);
         Assert.assertTrue(getResponse().path("totalItems") != null);
         Assert.assertTrue(getResponse().path("totalPages") != null);
