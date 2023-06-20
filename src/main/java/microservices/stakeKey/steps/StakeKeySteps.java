@@ -2,9 +2,6 @@ package microservices.stakeKey.steps;
 
 import constants.Endpoints;
 import io.qameta.allure.Step;
-import microservices.addresses.models.AddressModel;
-import microservices.addresses.models.TopAddressModel;
-import microservices.addresses.steps.TopAddressSteps;
 import microservices.common.constants.RequestParams;
 import microservices.common.steps.BaseSteps;
 import microservices.stakeKey.models.Analytics.StakeAnalytics;
@@ -293,11 +290,16 @@ public class StakeKeySteps extends BaseSteps {
         return this;
     }
     @Step("verify that current page of stake withdrawal history")
-    public StakeKeySteps then_verifyFilterStakeWithdrawalHistoryResponse(WithdrawalHistoryModel withdrawalHistoryModel, Map<String,Object> param, int defaultSize){
-        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
+    public StakeKeySteps then_verifyPageStakeWithdrawalHistoryResponse(WithdrawalHistoryModel withdrawalHistoryModel, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0);
         assertThat(withdrawalHistoryModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
+        return this;
+    }
+    @Step("verify that size of stake withdrawal history")
+    public StakeKeySteps then_verifySizeStakeWithdrawalHistoryResponse(WithdrawalHistoryModel withdrawalHistoryModel, Map<String,Object> param, int defaultSize){
+        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
         assertThat(withdrawalHistoryModel.getData().size())
                 .as("Value of field 'size' is wrong")
                 .isEqualTo(requestParams.getSize());
