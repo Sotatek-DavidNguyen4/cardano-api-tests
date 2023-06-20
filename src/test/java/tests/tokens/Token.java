@@ -1,4 +1,4 @@
-package tests.policies.tokens;
+package tests.tokens;
 
 import base.BaseTest;
 import microservices.token.constants.TokenConstants;

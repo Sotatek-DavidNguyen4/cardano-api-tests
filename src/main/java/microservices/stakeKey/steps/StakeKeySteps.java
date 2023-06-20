@@ -30,7 +30,6 @@ import java.util.Map;
 
 import static constants.DateFormats.DATE_FORMAT;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.assertj.core.api.AssertionsForClassTypes.setLenientDateParsing;
 import static util.AttributeStandard.*;
 
 public class StakeKeySteps extends BaseSteps {
@@ -262,11 +261,19 @@ public class StakeKeySteps extends BaseSteps {
         return this;
     }
     @Step("verify that current page")
-    public StakeKeySteps then_verifyFilterStakeHistoryResponse(StakeHistory stakeHistory, Map<String,Object> param){
-        RequestParams requestParams = new RequestParams(param, 0, 20);
+    public StakeKeySteps then_verifyPageStakeHistoryResponse(StakeHistory stakeHistory, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0);
         assertThat(stakeHistory.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
+        return this;
+    }
+    @Step("verify that size of response")
+    public StakeKeySteps then_verifySizeStakeHistoryResponse(StakeHistory stakeHistory, Map<String,Object> param, int sizeDefalt){
+        RequestParams requestParams = new RequestParams(param, 0, sizeDefalt);
+        assertThat(stakeHistory.getData().size())
+                .as("Value of field 'size' is wrong")
+                .isEqualTo(requestParams.getSize());
         return this;
     }
     @Step("verify response stake history")

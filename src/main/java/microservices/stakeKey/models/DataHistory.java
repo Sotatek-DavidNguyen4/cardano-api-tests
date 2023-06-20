@@ -12,4 +12,5 @@ public class DataHistory {
     private int epochSlotNo;
     private String txHash;
     private int deposit;
+    private int epochNo;
 }
