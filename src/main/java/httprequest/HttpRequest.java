@@ -596,8 +596,4 @@ public class HttpRequest extends HttpRequestClientFactory {
         return res;
     }
 
-    public void verifyJsonSchema(Response response,String jsonSchemaPath){
-        response.then().assertThat().body(JsonSchemaValidator.matchesJsonSchemaInClasspath(jsonSchemaPath));
-    }
-
 }

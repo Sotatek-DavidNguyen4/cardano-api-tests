@@ -23,16 +23,6 @@ public class ContractSteps extends BaseApi {
         sendGet(Endpoints.ContractApi.GET_LIST_CONTRACT, paramsContract);
         return this;
     }
-    @Step("get list contract Response")
-    public Response getListContractsResponse(Map<String, Object> paramsContract){
-        return sendGet(Endpoints.ContractApi.GET_LIST_CONTRACT, paramsContract);
-    }
-
-    @Step("verify Json Schema")
-    public ContractSteps verifyJsonSchemaContract(Response response,String schemaJsonPath){
-        verifyJsonSchema(response,schemaJsonPath);
-        return this;
-    }
 
     @Step("verify response data not null")
     public ContractSteps verifyResponseDataNotNull(ArrayList<DataContract> dataContracts){

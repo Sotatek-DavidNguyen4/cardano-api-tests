@@ -26,8 +26,10 @@ public class GetTokenByPolicyTests extends BaseTest {
 
     @Test(description = "verify get tokens by policies successfully", groups={"policy"},dataProvider = "getTokenByPolicies")
     public void getTokenByPoliciesSuccess(String policyId){
+        String pathTokenByPolicy ="schemaJson/policy/tokenByPolicy.json";
         tokenByPolicy = (TokenByPolicy) policySteps.getTokenByPolicies(policyId)
                 .validateResponse(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(pathTokenByPolicy)
                 .saveResponseObject(TokenByPolicy.class);
 
         tokenByPolicyData = tokenByPolicy.getData();

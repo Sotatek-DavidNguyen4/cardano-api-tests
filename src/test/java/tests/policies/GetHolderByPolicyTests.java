@@ -29,8 +29,11 @@ public class GetHolderByPolicyTests extends BaseTest {
 
     @Test(description = "verify get list holders by policies successfully", groups={"policy"},dataProvider = "getListHolderByPolicies")
     public void getHolderByPoliciesSuccess(String policyId){
+
+        String pathHolderByPolicySchema = "schemaJson/policy/holdersByPolicy.json";
         holderByPolicy = (HolderByPolicy) policySteps.getListHolderByPolicies(policyId)
                 .validateResponse(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(pathHolderByPolicySchema)
                 .saveResponseObject(HolderByPolicy.class);
 
         holderByPolicyData = holderByPolicy.getData();
