@@ -187,4 +187,28 @@ public class TokenSteps extends BaseSteps {
                 .isEqualTo(requestParams.getSize());
         return this;
     }
+    @Step("get data random of list tokens")
+    public TokenModel getTokenDataRandom(TokensModel tokensModel, int random){
+        TokenModel data = tokensModel.getData().get(random);
+        return data;
+    }
+    @Step("compare get list token and get token txs")
+    public TokenSteps compareGetListTokenAndGetTokenTxs(TokenModel data, TokensTxsModel tokensTxsModel){
+        Assert.assertEquals(data.getTxCount(), tokensTxsModel.getTotalItems());
+        return this;
+    }
+    @Step("compare get list token and get detail txs")
+    public TokenSteps compareGetListTokenAndGetDetailToken(TokenModel data, TokenModel detailToken){
+        Assert.assertEquals(data.getName(), detailToken.getName());
+        Assert.assertEquals(data.getDisplayName(), detailToken.getDisplayName());
+        Assert.assertEquals(data.getPolicy(), detailToken.getPolicy());
+        Assert.assertEquals(data.getFingerprint(), detailToken.getFingerprint());
+        Assert.assertEquals(data.getTxCount(), detailToken.getTxCount());
+        Assert.assertEquals(data.getSupply(), detailToken.getSupply());
+        Assert.assertEquals(data.getVolumeIn24h(), detailToken.getVolumeIn24h());
+        Assert.assertEquals(data.getTotalVolume(), detailToken.getTotalVolume());
+        Assert.assertEquals(data.getNumberOfHolders(), detailToken.getNumberOfHolders());
+        Assert.assertEquals(data.getId(), detailToken.getId());
+        return this;
+    }
 }
