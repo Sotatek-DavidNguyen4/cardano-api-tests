@@ -7,6 +7,7 @@ import microservices.delegation.models.HeaderModel;
 import microservices.delegation.models.PoolListModel;
 import microservices.delegation.steps.DelegationHeaderSteps;
 import microservices.delegation.steps.DelegationPoolListSteps;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import util.CreateParameters;
 
@@ -87,41 +88,28 @@ public class DelegationPoolListTests extends BaseTest {
                 .saveResponseObject(PoolListModel.class);
         delegationPoolListSteps.verifyAttributeValues(poolListModel);
     }
-    @Test(description = "verify that get data from pool list unsuccessfully", groups={"delegation", "delegation-pool-list"})
-    public void verifyGetDataFromPoolListUnsuccessfully(){
-/*        // page = 0 size = 10
-THIS IS BUG NEED TO FIX FISRT
+    @Test(description = "verify that get data from pool list unsuccessfully", groups={"delegation", "delegation-pool-list"}, dataProvider = "paramSort")
+    public void verifyGetDataFromPoolListUnsuccessfully(String sort){
+        int size = 20;
         Map<String, Object> param = new CreateParameters()
-                .withPage(0)
-                .withPageSize(10)
-                .getParamsMap();
-        PoolListModel poolListModel = (PoolListModel) delegationPoolListSteps
-                .getDataForPoolList(param)
-                .validateStatusCode(HttpURLConnection.HTTP_OK)
-                .saveResponseObject(PoolListModel.class);*/
-
-        Map<String, Object> param = new CreateParameters()
-                .withPage(0)
-                .withPageSize(10)
-                .withSearch(123)
+                .withSort(sort)
+                .withSearch("")
                 .getParamsMap();
 
         PoolListModel poolListModel = (PoolListModel) delegationPoolListSteps
                 .getDataForPoolList(param)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(PoolListModel.class);
-        delegationPoolListSteps.verifyDatAttributeIsNull(poolListModel);
+        delegationPoolListSteps.verifyDataAmountIsCorrect(size, poolListModel.getData().size());
 
-        param = new CreateParameters()
-
-                .withSearch(123)
-                .getParamsMap();
-
-        poolListModel = (PoolListModel) delegationPoolListSteps
-                .getDataForPoolList(param)
-                .validateStatusCode(HttpURLConnection.HTTP_OK)
-                .saveResponseObject(PoolListModel.class);
-        delegationPoolListSteps.verifyDatAttributeIsNull(poolListModel);
-
+    }
+    @DataProvider(name ="paramSort")
+    public Object[][] dataSetSort(){
+        return new Object[][]{
+                {"pu.fixedCost,desc"},
+                {"pu.fixedCost,asc"},
+                {"pu.pledge,desc"},
+                {"pu.pledge,asc"},
+        };
     }
 }

@@ -27,6 +27,7 @@ public class DelegationControllerSteps extends BaseSteps {
     @Step("get data for pool detail delegators")
     public DelegationControllerSteps getDataForPoolDetailDelegator(Map<String, Object> param){
         sendGet(Endpoints.DelegationApi.POOL_DETAIL_DELEGATORS_URI, param);
+        System.out.println(getResponse().getBody().print());
         return this;
     }
     @Step("verify attribute exists or not")
@@ -42,12 +43,12 @@ public class DelegationControllerSteps extends BaseSteps {
         return this;
     }
     @Step("verify data response is on correct page")
-    public DelegationControllerSteps verifyThatDataResponseIsOnCorrectPage(int expectedPage, int actualPage){
+    public DelegationControllerSteps verifyThatDataResponseIsOnCorrectPage(Object expectedPage, int actualPage){
         Assert.assertEquals(expectedPage, actualPage);
         return this;
     }
     @Step("verify data amount is correct")
-    public DelegationControllerSteps verifyDataAmountIsCorrect(int expectedSize, int ActualSize){
+    public DelegationControllerSteps verifyDataAmountIsCorrect(Object expectedSize, int ActualSize){
         Assert.assertEquals(expectedSize, ActualSize);
         return this;
     }

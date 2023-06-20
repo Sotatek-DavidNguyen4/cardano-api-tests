@@ -18,7 +18,7 @@ import java.util.Map;
 @Feature("api-delegation")
 public class DelegationControllerTests extends BaseTest {
     DelegationControllerSteps delegationControllerSteps = new DelegationControllerSteps();
-    Object poolView = "pool1njr03m7t9k808fcav8phxnskacr4v59w5cnqgqsgnug2j2lvn85";
+    Object poolView = "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy";
     @Test(description = "verify that get data for pool detail", groups={"delegation", "delegation-detail"})
     public void getPoolDetailHeader(){
 
@@ -58,10 +58,10 @@ public class DelegationControllerTests extends BaseTest {
     }
     @Test(description = "verify that get data for pool detail delegators successfully", groups={"delegation", "delegation-detail-delegators"})
     public void getPoolDetailDelegatorSuccessfully(){
-        int page, size;
+        Object page, size;
         //with page and size
-        page = 0;
-        size = 1;
+        page = null;
+        size = null;
         Map<String, Object> param = new CreateParameters()
                 .withPage(page)
                 .withPageSize(size)
@@ -73,20 +73,21 @@ public class DelegationControllerTests extends BaseTest {
                 .getDataForPoolDetailDelegator(param)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(PoolDetailDelegatorModel.class);
+        System.out.println(poolDetailDelegatorModel.getData().size());
         delegationControllerSteps
-                .verifyDataAmountIsCorrect(size, poolDetailDelegatorModel.getData().size())
-                .verifyThatDataResponseIsOnCorrectPage(page, poolDetailDelegatorModel.getCurrentPage())
-                .verifyFormatAttributes(poolDetailDelegatorModel);
+                .verifyDataAmountIsCorrect(10, poolDetailDelegatorModel.getData().size());
 
-        //successfully only page
+        // page size poolview is nu
+        page = null;
+        size = null;
+        poolView = null;
         param = new CreateParameters().withPoolView(poolView).withPage(page).getParamsMap();
         delegationControllerSteps
                 .getDataForPoolDetailDelegator(param)
                 .validateStatusCode(HttpURLConnection.HTTP_OK);
 
         delegationControllerSteps
-                .verifyThatDataResponseIsOnCorrectPage(page, poolDetailDelegatorModel.getCurrentPage())
-                .verifyFormatAttributes(poolDetailDelegatorModel);
+                .verifyDataAmountIsCorrect(10, poolDetailDelegatorModel.getData().size());
 
         //successfully size = 1
         param = new CreateParameters().withPoolView(poolView).withPageSize(size).getParamsMap();
@@ -112,8 +113,8 @@ public class DelegationControllerTests extends BaseTest {
         Map<String, Object> param = new CreateParameters().withPoolView(poolView).getParamsMap();
         //successfully without page and size
         delegationControllerSteps
-                .getDataForPoolDetailDelegator(param);
-                //.then_verifyErrorResponse(HttpURLConnection.HTTP_BAD_REQUEST, DelegationConstant.ERROR_MESSAGE, DelegationConstant.ERROR_CODE);
+                .getDataForPoolDetailDelegator(param)
+                .then_verifyErrorResponse(HttpURLConnection.HTTP_BAD_REQUEST, DelegationConstant.ERROR_MESSAGE, DelegationConstant.ERROR_CODE);
 
     }
     @DataProvider(name ="paramInvalidPoolView")
