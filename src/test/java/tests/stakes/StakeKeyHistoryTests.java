@@ -88,7 +88,7 @@ public class StakeKeyHistoryTests extends BaseTest {
                 {"@#$"},
         };
     }
-    @Test(description = "get stake history with invalid page = totalPage + 1", groups = {"stake", "stake_history"})
+    @Test(description = "get stake history with invalid page = totalPage + 1", groups = {"stake", "stake_history"}, priority = 1)
     public void getStakeHistoryPage(){
         MultiMap params = new CreateMultiParameters()
                 .withPage(""+numberPage+"")
