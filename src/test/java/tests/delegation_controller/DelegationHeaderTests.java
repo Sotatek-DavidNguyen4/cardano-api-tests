@@ -14,10 +14,12 @@ public class DelegationHeaderTests extends BaseTest {
     DelegationHeaderSteps delegationHeaderSteps = new DelegationHeaderSteps();
     @Test(description = "verify that get data from header successfully", groups={"delegation", "delegation-header"})
     public void verifyGetDataFromPoolDetailAnalyticsSuccessfully(){
+        String jsonSchema = "schemaJson/delegations/delegation-header.json";
         //successfully
         HeaderModel headerModel = (HeaderModel) delegationHeaderSteps
                 .getDataForDelegationHeader()
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(jsonSchema)
                 .saveResponseObject(HeaderModel.class);
         delegationHeaderSteps.verifyAttributeNotNull(headerModel);
     }

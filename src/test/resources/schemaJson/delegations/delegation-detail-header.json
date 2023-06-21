@@ -1,0 +1,83 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "poolName": {
+      "type": "string"
+    },
+    "tickerName": {
+      "type": "string"
+    },
+    "hashView": {
+      "type": "string"
+    },
+    "createDate": {
+      "type": "string"
+    },
+    "rewardAccounts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "ownerAccounts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "poolSize": {
+      "type": "number"
+    },
+    "stakeLimit": {
+      "type": "number"
+    },
+    "delegators": {
+      "type": "number"
+    },
+    "saturation": {
+      "type": "number"
+    },
+    "reward": {
+      "type": "number"
+    },
+    "ros": {
+      "type": "number"
+    },
+    "pledge": {
+      "type": "number"
+    },
+    "cost": {
+      "type": "number"
+    },
+    "margin": {
+      "type": "number"
+    },
+    "epochBlock": {
+      "type": "number"
+    },
+    "lifetimeBlock": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "poolName",
+    "tickerName",
+    "hashView",
+    "createDate",
+    "rewardAccounts",
+    "ownerAccounts",
+    "poolSize",
+    "stakeLimit",
+    "delegators",
+    "saturation",
+    "reward",
+    "ros",
+    "pledge",
+    "cost",
+    "margin",
+    "epochBlock",
+    "lifetimeBlock"
+  ]
+}
