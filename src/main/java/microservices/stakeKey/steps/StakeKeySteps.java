@@ -357,8 +357,8 @@ public class StakeKeySteps extends BaseSteps {
         return this;
     }
     @Step("verify that current page of stake list address")
-    public StakeKeySteps then_verifyPageStakeListAddressResponse(StakeListAddressModel stakeListAddressModel, Map<String,Object> param, int defaultSize){
-        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
+    public StakeKeySteps then_verifyPageStakeListAddressResponse(StakeListAddressModel stakeListAddressModel, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0);
         assertThat(stakeListAddressModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
