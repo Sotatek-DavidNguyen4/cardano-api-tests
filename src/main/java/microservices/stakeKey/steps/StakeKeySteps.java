@@ -247,7 +247,7 @@ public class StakeKeySteps extends BaseSteps {
     @Step("check elements is not decimal")
     public StakeKeySteps verifyElementsIsNotDecimal(ArrayList<Object> elements){
         for (Object element : elements){
-            Assert.assertFalse(AttributeStandard.isNotDecimal(element));
+            Assert.assertTrue(AttributeStandard.isNotDecimal(element));
         }
         return this;
     }
