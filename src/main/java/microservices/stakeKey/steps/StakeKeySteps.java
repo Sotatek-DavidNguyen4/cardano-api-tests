@@ -21,6 +21,7 @@ import microservices.stakeKey.models.registration.StakeRegistrationData;
 import microservices.stakeKey.models.topDelegators.TopDelegators;
 import microservices.stakeKey.models.topDelegators.TopDelegatorsData;
 import microservices.stakeKey.models.history.WithdrawalHistoryModel;
+import org.assertj.core.api.AssertFactory;
 import org.testng.Assert;
 import util.AttributeStandard;
 
@@ -246,8 +247,7 @@ public class StakeKeySteps extends BaseSteps {
     @Step("check elements is not decimal")
     public StakeKeySteps verifyElementsIsNotDecimal(ArrayList<Object> elements){
         for (Object element : elements){
-            String temp = String.valueOf(element);
-            Assert.assertFalse(temp.contains(".") || temp.contains(","));
+            Assert.assertFalse(AttributeStandard.isNotDecimal(element));
         }
         return this;
     }
