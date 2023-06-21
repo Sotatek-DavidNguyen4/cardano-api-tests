@@ -25,8 +25,8 @@ public class FilterTransactionResponse {
         public String time;
         public ArrayList<String> addressesInput;
         public ArrayList<String> addressesOutput;
-        public int fee;
-        public int totalOutput;
+        public long fee;
+        public long totalOutput;
         public Object balance;
         public ArrayList<Object> tokens;
     }
