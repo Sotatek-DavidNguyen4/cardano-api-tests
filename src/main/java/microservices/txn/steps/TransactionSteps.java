@@ -61,7 +61,10 @@ public class TransactionSteps extends BaseSteps {
             assertThat(sorted).as("Transaction is not sorted by inputted params").isEqualTo(true);
         assertTrue(AttributeStandard.areValidHashes(filterTxsRes.getData().stream().map(s -> s.getBlockHash()).collect(Collectors.toList())));
         assertTrue(AttributeStandard.areValidDates(filterTxsRes.getData().stream().map(s -> s.getTime()).collect(Collectors.toList()), DATE_FORMAT[0]));
-        assertTrue(AttributeStandard.isNotDecimal(filterTxsRes.getData().stream().map(s->s.getFee()).collect(Collectors.toList())));
+//        assertTrue(AttributeStandard.isNotDecimal(filterTxsRes.getData().stream().map(s->s.getFee()).collect(Collectors.toList())));
+        for (int i = 0; i < filterTxsRes.getData().size(); i++) {
+            assertTrue(AttributeStandard.isNotDecimal(filterTxsRes.getData().get(i).getFee()));
+        }
         assertTrue(AttributeStandard.isNotDecimal(filterTxsRes.getData().stream().map(s->s.getOutSum()).collect(Collectors.toList())));
         assertTrue(AttributeStandard.isNotDecimal(filterTxsRes.getData().stream().map(s->s.getBalance()).collect(Collectors.toList())));
         }
