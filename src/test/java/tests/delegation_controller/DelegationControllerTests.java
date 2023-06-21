@@ -21,15 +21,18 @@ public class DelegationControllerTests extends BaseTest {
     Object poolView = "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy";
     @Test(description = "verify that get data for pool detail", groups={"delegation", "delegation-detail"})
     public void getPoolDetailHeader(){
-
+        String schemaJson = "schemaJson/delegations/delegation-detail-header.json";
         //successfully
         PoolDetailHeaderModel actualPoolDetailHeader = (PoolDetailHeaderModel) delegationControllerSteps
                 .getDataForPoolDetail(poolView)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(schemaJson)
                 .saveResponseObject(PoolDetailHeaderModel.class);
 
         delegationControllerSteps
-                .verifyAllAttributeExistsOrNot(actualPoolDetailHeader);
+                .verifyAllAttributeExistsOrNot(actualPoolDetailHeader)
+                .verifyFormatAttributes(actualPoolDetailHeader);
+                //.verifyHashViewFormat(actualPoolDetailHeader);
 
         // wait for confirming that status code is 400 or 500
 /*        //poolView = "%^&&&"

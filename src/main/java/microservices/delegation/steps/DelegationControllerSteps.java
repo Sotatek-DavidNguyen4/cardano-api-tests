@@ -56,5 +56,16 @@ public class DelegationControllerSteps extends BaseSteps {
         Assert.assertTrue(AttributeStandard.areValidDates(poolDetailDelegatorModel.getData().stream().map(s -> s.getTime()).collect(Collectors.toList()), DATE_FORMAT[0]));
         return this;
     }
+    @Step("verify format attributes")
+    public DelegationControllerSteps verifyFormatAttributes(PoolDetailHeaderModel actualPoolDetailHeader){
+        Assert.assertTrue(AttributeStandard.isValidDateFormat(actualPoolDetailHeader.getCreateDate(), DATE_FORMAT[0]));
+        return this;
+    }
+    @Step("verify format attributes")
+    public DelegationControllerSteps verifyHashViewFormat(PoolDetailHeaderModel actualPoolDetailHeader){
+        System.out.println(actualPoolDetailHeader.getHashView());
+        Assert.assertTrue(AttributeStandard.isValidHash(actualPoolDetailHeader.getHashView()));
+        return this;
+    }
 
 }
