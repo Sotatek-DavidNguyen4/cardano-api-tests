@@ -73,7 +73,6 @@ public class StakeKeyDelegationHistoryTest extends BaseTest {
     }
     @Test(description = "get stake delegation history with page = totalPage + 1", groups = {"stake", "stake_delegation_history"}, priority = 1)
     public void getDelegationHistoryWithPage2(){
-        System.out.println("11111111:  "+numberPage);
         MultiMap param = new CreateMultiParameters()
                 .withPage(""+numberPage+"")
                 .getParamsMap();

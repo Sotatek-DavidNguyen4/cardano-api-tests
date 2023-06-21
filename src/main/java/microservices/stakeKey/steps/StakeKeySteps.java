@@ -54,11 +54,19 @@ public class StakeKeySteps extends BaseSteps {
         return this;
     }
     @Step("verify that current page instantaneous reward")
-    public StakeKeySteps then_verifyFilterInstantaneousResponse(InstantaneousRewardModel instantaneousRewardModel, Map<String,Object> param){
-        RequestParams requestParams = new RequestParams(param, 0, 20);
+    public StakeKeySteps then_verifyPageInstantaneousResponse(InstantaneousRewardModel instantaneousRewardModel, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0);
         assertThat(instantaneousRewardModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
+        return this;
+    }
+    @Step("verify that size instantaneous reward")
+    public StakeKeySteps then_verifySizeInstantaneousResponse(InstantaneousRewardModel instantaneousRewardModel, Map<String,Object> param, int defaultSize){
+        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
+        assertThat(instantaneousRewardModel.getData().size())
+                .as("Value of field 'size' is wrong")
+                .isEqualTo(requestParams.getSize());
         return this;
     }
     @Step("verify response stake instantaneous rewards")
