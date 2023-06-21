@@ -17,6 +17,7 @@ public class TokenTopHolder extends BaseTest {
     private String tokenId = "asset17q7r59zlc3dgw0venc80pdv566q6yguw03f0d9";
     @Test(description = "get token top holder", groups = {"token", "top_holder"})
     public void getTokenTopHolder(){
+        String pathTokenTopHoldersSchema = "schemaJson/tokens/tokenTopHolders.json";
         Map<String, Object> param = new CreateParameters()
                 .getParamsMap();
         TokensTopHolderModel tokensTopHolderModel = (TokensTopHolderModel)
@@ -24,7 +25,8 @@ public class TokenTopHolder extends BaseTest {
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(TokensTopHolderModel.class);
         tokenSteps.then_verifyPageTokensTopHoldersResponse(tokensTopHolderModel, param)
-                .then_verifySizeTokensTopHoldersResponse(tokensTopHolderModel, param, 20);
+                .then_verifySizeTokensTopHoldersResponse(tokensTopHolderModel, param, 20)
+                .validateResponseSchema(pathTokenTopHoldersSchema);
     }
     @Test(description = "get token top holders with size", groups = {"token", "top_holder"}, dataProvider = "size")
     public void getTokenTopHolderWithSize(Object size){
