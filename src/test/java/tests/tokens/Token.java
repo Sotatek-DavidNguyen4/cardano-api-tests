@@ -16,6 +16,7 @@ public class Token extends BaseTest {
     private String token = "asset17q7r59zlc3dgw0venc80pdv566q6yguw03f0d9";
     @Test(description = "verify that get a token", groups = {"token", "token_tokenId"})
     public void getATokenSuccess(){
+        String pathTokenDetailSchema = "schemaJson/tokens/tokenDetail.json";
         Map<String, Object> expect = new HashMap<>();
         expect.put("name", "484f534b59");
         expect.put("displayName", "HOSKY");
@@ -25,7 +26,8 @@ public class Token extends BaseTest {
         tokenSteps.getAToken(token)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(TokenModel.class);
-        tokenSteps.verifyResponseOfGetToken(tokenModel, expect);
+        tokenSteps.verifyResponseOfGetToken(tokenModel, expect)
+                .validateResponseSchema(pathTokenDetailSchema);
     }
     @Test(description = "verify that get a token with tokenId invalid", groups = {"token", "token_tokenId"}, dataProvider = "tokenIdInvalid")
     public void getATokenFail(Object tokenId){

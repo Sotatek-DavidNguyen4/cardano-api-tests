@@ -1,0 +1,80 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "displayName": {
+      "type": "string"
+    },
+    "policy": {
+      "type": "string"
+    },
+    "fingerprint": {
+      "type": "string"
+    },
+    "txCount": {
+      "type": "integer"
+    },
+    "supply": {
+      "type": "string"
+    },
+    "volumeIn24h": {
+      "type": "string"
+    },
+    "totalVolume": {
+      "type": "string"
+    },
+    "numberOfHolders": {
+      "type": "integer"
+    },
+    "createdOn": {
+      "type": "string"
+    },
+    "metadata": {
+      "type": "object",
+      "properties": {
+        "url": {
+          "type": "string",
+          "format": "uri",
+          "qt-uri-protocols": [
+            "https"
+          ]
+        },
+        "ticker": {
+          "type": "string"
+        },
+        "decimals": {
+          "type": "integer"
+        },
+        "logo": {
+          "type": "string"
+        },
+        "description": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "decimals",
+        "description",
+        "logo",
+        "ticker",
+        "url"
+      ]
+    }
+  },
+  "required": [
+    "createdOn",
+    "displayName",
+    "fingerprint",
+    "metadata",
+    "name",
+    "numberOfHolders",
+    "policy",
+    "supply",
+    "totalVolume",
+    "txCount",
+    "volumeIn24h"
+  ]
+}
