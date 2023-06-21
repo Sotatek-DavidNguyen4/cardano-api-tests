@@ -1,5 +1,6 @@
 package microservices.txn.models;
 
+import com.google.gson.annotations.SerializedName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
@@ -26,7 +27,8 @@ public class FilterTransactionResponse {
         public ArrayList<String> addressesInput;
         public ArrayList<String> addressesOutput;
         public long fee;
-        public long totalOutput;
+        @SerializedName("totalOutput")
+        public long outSum;
         public Object balance;
         public ArrayList<Object> tokens;
     }

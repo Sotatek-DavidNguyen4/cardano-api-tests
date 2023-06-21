@@ -15,6 +15,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import util.JsonUtils;
 import util.ObjectMappingUtils;
+import util.SortListUtil;
 
 import java.net.HttpURLConnection;
 import java.util.List;
@@ -54,13 +55,18 @@ public class TransactionTests extends BaseTest {
         txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
     }
 
-    @Test(description = "Get filter transaction with sort", groups = "transactions", enabled = false)
+    @Test(description = "Get filter transaction with sort", groups = "transactions")
     public void get_filter_transaction_success_with_sort() {
         MultiMap params = new MultiValueMap();
         params.put("sort", "fee,ASC");
         FilterTransactionResponse filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
                 .validateResponse(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(FilterTransactionResponse.class);
+        for(int i = 0; i < filterTxsRes.getData().size(); i++) {
+            System.out.println(filterTxsRes.getData().get(i).getHash());
+            System.out.println(filterTxsRes.getData().get(i).getFee());
+
+        }
         txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
 
         params = new MultiValueMap();
@@ -106,7 +112,7 @@ public class TransactionTests extends BaseTest {
     @Test(description = "Get number transaction with invalid days", groups = "transactions", dataProvider = "invalidType")
     public void get_number_transaction_with_invalid_days(String type) {
         txnSteps.when_getTransactionOnFixableDays(type)
-                .then_verifyErrorResponse(HttpURLConnection.HTTP_BAD_REQUEST, APIErrorMessage.TRANSACTION_NOT_FOUND, APIErrorCode.TRANSACTION_NOT_FOUND);
+                .then_verifyErrorResponse(HttpURLConnection.HTTP_BAD_REQUEST, APIErrorMessage.RANGE_NOT_VALID, APIErrorCode.RANGE_NOT_VALID);
     }
 
     @Test(description = "Get number transaction on fixable days", groups = "transactions")

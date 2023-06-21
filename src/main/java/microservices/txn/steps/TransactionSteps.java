@@ -36,6 +36,8 @@ public class TransactionSteps extends BaseSteps {
         assertTrue(AttributeStandard.isValidDateFormat(txnResponse.getTx().getTime(), DATE_FORMAT[0]));
         assertTrue(AttributeStandard.isValidHash(txnResponse.getTx().getHash()));
         assertTrue(AttributeStandard.isValidBlockHash(txnResponse.getTx().getBlockHash()));
+        assertTrue(AttributeStandard.isNotDecimal(txnResponse.getTx().getFee()));
+        assertTrue(AttributeStandard.isNotDecimal(txnResponse.getTx().getOutSum()));
         return this;
     }
 
@@ -59,6 +61,9 @@ public class TransactionSteps extends BaseSteps {
             assertThat(sorted).as("Transaction is not sorted by inputted params").isEqualTo(true);
         assertTrue(AttributeStandard.areValidHashes(filterTxsRes.getData().stream().map(s -> s.getBlockHash()).collect(Collectors.toList())));
         assertTrue(AttributeStandard.areValidDates(filterTxsRes.getData().stream().map(s -> s.getTime()).collect(Collectors.toList()), DATE_FORMAT[0]));
+        assertTrue(AttributeStandard.isNotDecimal(filterTxsRes.getData().stream().map(s->s.getFee()).collect(Collectors.toList())));
+        assertTrue(AttributeStandard.isNotDecimal(filterTxsRes.getData().stream().map(s->s.getOutSum()).collect(Collectors.toList())));
+        assertTrue(AttributeStandard.isNotDecimal(filterTxsRes.getData().stream().map(s->s.getBalance()).collect(Collectors.toList())));
         }
 
         return this;
@@ -81,6 +86,7 @@ public class TransactionSteps extends BaseSteps {
         Assert.assertEquals(currentTransactionsList.size(),4);
         assertTrue(AttributeStandard.areValidHashes(currentTransactionsList.stream().map(s -> s.getHash()).collect(Collectors.toList())));
         assertTrue(AttributeStandard.areValidDates(currentTransactionsList.stream().map(s -> s.getTime()).collect(Collectors.toList()), DATE_FORMAT[0]));
+        assertTrue(AttributeStandard.isNotDecimal(currentTransactionsList.stream().map(s->s.getAmount()).collect(Collectors.toList())));
         return this;
     }
 
@@ -142,7 +148,7 @@ public class TransactionSteps extends BaseSteps {
 
         assertThat(transactionResponseByHash.getTx().getOutSum())
                 .as("Value of field 'totalOutput' is wrong")
-                .isEqualTo(filterTransactionDetail.getTotalOutput());
+                .isEqualTo(filterTransactionDetail.getOutSum());
         assertThat(filterTransactionDetail.getHash())
                 .as("Value of field 'hash' is wrong")
                 .isEqualTo(transactionResponseByHash.getTx().getHash());
