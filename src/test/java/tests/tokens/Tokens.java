@@ -17,6 +17,7 @@ public class Tokens extends BaseTest {
     private int pageNumber;
     @Test(description = "verify that get list token", groups={"token", "tokens"}, priority = 0)
     public void getListTokenSuccessNokey(){
+        String pathTokensSchema = "schemaJson/tokens/tokens.json";
         Map<String, Object> param = new CreateParameters()
                 .getParamsMap();
         TokensModel tokensModel = (TokensModel)
@@ -26,7 +27,8 @@ public class Tokens extends BaseTest {
         pageNumber = tokensModel.getTotalItems()/20 + 1;
         tokenSteps.then_verifyCurrentPageResponse(tokensModel, param)
                 .then_verifySizeOfResponse(tokensModel,param, 20)
-                .verifyResponseListToken(tokensModel.getData());
+                .verifyResponseListToken(tokensModel.getData())
+                .validateResponseSchema(pathTokensSchema);
     }
 
     @Test(description = "verify that get list token with page key", groups = {"token","tokens"}, dataProvider = "paramInvalidPage")
