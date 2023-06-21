@@ -54,7 +54,7 @@ public class Tokens extends BaseTest {
         };
     }
     @Test(description = "verify that get list token with page = totalPage + 1", groups = {"token","tokens"}, priority = 1)
-    public void getListTokenWithPageLargerThanTotalPage(){
+    public void getListTokenWithPage2(){
         MultiMap param = new CreateMultiParameters()
                 .withPage(""+pageNumber+"")
                 .getParamsMap();
