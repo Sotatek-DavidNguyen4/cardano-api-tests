@@ -29,12 +29,12 @@ public class DelegationPoolListSteps extends BaseApi {
         return this;
     }
     @Step("verify data response is on correct page")
-    public DelegationPoolListSteps verifyThatDataResponseIsOnCorrectPage(int expectedPage, int actualPage){
+    public DelegationPoolListSteps verifyThatDataResponseIsOnCorrectPage(Object expectedPage, int actualPage){
         Assert.assertEquals(expectedPage, actualPage);
         return this;
     }
     @Step("verify data amount is correct")
-    public DelegationPoolListSteps verifyDataAmountIsCorrect(int expectedSize, int ActualSize){
+    public DelegationPoolListSteps verifyDataAmountIsCorrect(Object expectedSize, int ActualSize){
         Assert.assertEquals(expectedSize, ActualSize);
         return this;
     }
