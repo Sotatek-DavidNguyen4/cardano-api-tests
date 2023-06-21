@@ -1,0 +1,327 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "tx": {
+      "type": "object",
+      "properties": {
+        "hash": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "blockNo": {
+          "type": "number"
+        },
+        "blockHash": {
+          "type": "string"
+        },
+        "epochSlot": {
+          "type": "number"
+        },
+        "maxEpochSlot": {
+          "type": "number"
+        },
+        "epochNo": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string"
+        },
+        "confirmation": {
+          "type": "number"
+        },
+        "fee": {
+          "type": "number"
+        },
+        "totalOutput": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "hash",
+        "time",
+        "blockNo",
+        "blockHash",
+        "epochSlot",
+        "maxEpochSlot",
+        "epochNo",
+        "status",
+        "confirmation",
+        "fee",
+        "totalOutput"
+      ]
+    },
+    "summary": {
+      "type": "object",
+      "properties": {
+        "stakeAddress": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "address": {
+                "type": "string"
+              },
+              "value": {
+                "type": "number"
+              },
+              "tokens": {
+                "type": "array",
+                "items": {}
+              }
+            },
+            "required": [
+              "address",
+              "value",
+              "tokens"
+            ]
+          }
+        }
+      },
+      "required": [
+        "stakeAddress"
+      ]
+    },
+    "contracts": {},
+    "collaterals": {},
+    "notes": {},
+    "withdrawals": {},
+    "delegations": {},
+    "mints": {},
+    "stakeCertificates": {},
+    "poolCertificates": {},
+    "protocols": {
+      "type": "object",
+      "properties": {
+        "minFeeA": {},
+        "minFeeB": {},
+        "maxBlockSize": {},
+        "maxTxSize": {},
+        "maxBhSize": {},
+        "keyDeposit": {},
+        "poolDeposit": {},
+        "maxEpoch": {},
+        "optimalPoolCount": {},
+        "minUtxoValue": {},
+        "minPoolCost": {},
+        "maxTxExMem": {},
+        "maxTxExSteps": {},
+        "maxBlockExMem": {},
+        "maxBlockExSteps": {
+          "type": "number"
+        },
+        "maxValSize": {},
+        "coinsPerUtxoSize": {},
+        "influence": {},
+        "monetaryExpandRate": {},
+        "treasuryGrowthRate": {},
+        "decentralisation": {},
+        "priceMem": {},
+        "priceStep": {},
+        "protocolMajor": {
+          "type": "number"
+        },
+        "protocolMinor": {
+          "type": "number"
+        },
+        "collateralPercent": {},
+        "maxCollateralInputs": {},
+        "entropy": {},
+        "costModel": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "minFeeA",
+        "minFeeB",
+        "maxBlockSize",
+        "maxTxSize",
+        "maxBhSize",
+        "keyDeposit",
+        "poolDeposit",
+        "maxEpoch",
+        "optimalPoolCount",
+        "minUtxoValue",
+        "minPoolCost",
+        "maxTxExMem",
+        "maxTxExSteps",
+        "maxBlockExMem",
+        "maxBlockExSteps",
+        "maxValSize",
+        "coinsPerUtxoSize",
+        "influence",
+        "monetaryExpandRate",
+        "treasuryGrowthRate",
+        "decentralisation",
+        "priceMem",
+        "priceStep",
+        "protocolMajor",
+        "protocolMinor",
+        "collateralPercent",
+        "maxCollateralInputs",
+        "entropy",
+        "costModel"
+      ]
+    },
+    "previousProtocols": {
+      "type": "object",
+      "properties": {
+        "minFeeA": {},
+        "minFeeB": {},
+        "maxBlockSize": {},
+        "maxTxSize": {},
+        "maxBhSize": {},
+        "keyDeposit": {},
+        "poolDeposit": {},
+        "maxEpoch": {},
+        "optimalPoolCount": {},
+        "minUtxoValue": {},
+        "minPoolCost": {},
+        "maxTxExMem": {},
+        "maxTxExSteps": {},
+        "maxBlockExMem": {},
+        "maxBlockExSteps": {
+          "type": "number"
+        },
+        "maxValSize": {},
+        "coinsPerUtxoSize": {},
+        "influence": {},
+        "monetaryExpandRate": {},
+        "treasuryGrowthRate": {},
+        "decentralisation": {},
+        "priceMem": {},
+        "priceStep": {},
+        "protocolMajor": {
+          "type": "number"
+        },
+        "protocolMinor": {
+          "type": "number"
+        },
+        "collateralPercent": {},
+        "maxCollateralInputs": {},
+        "entropy": {},
+        "costModel": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "minFeeA",
+        "minFeeB",
+        "maxBlockSize",
+        "maxTxSize",
+        "maxBhSize",
+        "keyDeposit",
+        "poolDeposit",
+        "maxEpoch",
+        "optimalPoolCount",
+        "minUtxoValue",
+        "minPoolCost",
+        "maxTxExMem",
+        "maxTxExSteps",
+        "maxBlockExMem",
+        "maxBlockExSteps",
+        "maxValSize",
+        "coinsPerUtxoSize",
+        "influence",
+        "monetaryExpandRate",
+        "treasuryGrowthRate",
+        "decentralisation",
+        "priceMem",
+        "priceStep",
+        "protocolMajor",
+        "protocolMinor",
+        "collateralPercent",
+        "maxCollateralInputs",
+        "entropy",
+        "costModel"
+      ]
+    },
+    "instantaneousRewards": {},
+    "utxOs": {
+      "type": "object",
+      "properties": {
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "address": {
+                "type": "string"
+              },
+              "index": {
+                "type": "string"
+              },
+              "txHash": {
+                "type": "string"
+              },
+              "value": {
+                "type": "number"
+              },
+              "tokens": {
+                "type": "array",
+                "items": {}
+              }
+            },
+            "required": [
+              "address",
+              "index",
+              "txHash",
+              "value",
+              "tokens"
+            ]
+          }
+        },
+        "outputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "address": {
+                "type": "string"
+              },
+              "index": {
+                "type": "string"
+              },
+              "value": {
+                "type": "number"
+              },
+              "tokens": {
+                "type": "array",
+                "items": {}
+              }
+            },
+            "required": [
+              "address",
+              "index",
+              "value",
+              "tokens"
+            ]
+          }
+        }
+      },
+      "required": [
+        "inputs",
+        "outputs"
+      ]
+    }
+  },
+  "required": [
+    "tx",
+    "summary",
+    "contracts",
+    "collaterals",
+    "notes",
+    "withdrawals",
+    "delegations",
+    "mints",
+    "stakeCertificates",
+    "poolCertificates",
+    "protocols",
+    "previousProtocols",
+    "instantaneousRewards",
+    "utxOs"
+  ]
+}
