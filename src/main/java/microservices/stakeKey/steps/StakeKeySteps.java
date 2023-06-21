@@ -327,8 +327,8 @@ public class StakeKeySteps extends BaseSteps {
         return this;
     }
     @Step("verify that current page of stake delegation history")
-    public StakeKeySteps then_verifyCurrentPageDelegationHistoryResponse(DelegationHistoryModel delegationHistoryModel, Map<String,Object> param, int defaultSize){
-        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
+    public StakeKeySteps then_verifyCurrentPageDelegationHistoryResponse(DelegationHistoryModel delegationHistoryModel, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0);
         assertThat(delegationHistoryModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
