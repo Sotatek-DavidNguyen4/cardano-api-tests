@@ -18,9 +18,10 @@ import java.util.Map;
 @Feature("api-delegation")
 public class DelegationControllerTests extends BaseTest {
     DelegationControllerSteps delegationControllerSteps = new DelegationControllerSteps();
-    Object poolView = "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy";
+    Object poolView;
     @Test(description = "verify that get data for pool detail", groups={"delegation", "delegation-detail"})
     public void getPoolDetailHeader(){
+        poolView = "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy";
         String schemaJson = "schemaJson/delegations/delegation-detail-header.json";
         //successfully
         PoolDetailHeaderModel actualPoolDetailHeader = (PoolDetailHeaderModel) delegationControllerSteps
@@ -61,6 +62,7 @@ public class DelegationControllerTests extends BaseTest {
     }
     @Test(description = "verify that get data for pool detail delegators successfully", groups={"delegation", "delegation-detail-delegators"})
     public void getPoolDetailDelegatorSuccessfully(){
+        poolView = "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy";
         String schemaJson = "schemaJson/delegations/pool-detail-delegators.json";
         Object page, size;
         //with page and size
