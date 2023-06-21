@@ -1,0 +1,45 @@
+{
+  "$schema": "http://json-schema.org/draft-06/schema#",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "txHash": {
+              "type": "string"
+            },
+            "amount": {
+              "type": "string",
+              "format": "integer"
+            },
+            "time": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "amount",
+            "time",
+            "txHash"
+          ]
+        }
+      ]
+    },
+    "totalItems": {
+      "type": "integer"
+    },
+    "totalPages": {
+      "type": "integer"
+    },
+    "currentPage": {
+    }
+  },
+  "required": [
+    "currentPage",
+    "data",
+    "totalItems",
+    "totalPages"
+  ]
+}
