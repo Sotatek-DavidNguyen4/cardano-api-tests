@@ -109,9 +109,6 @@ public class DelegationPoolListTests extends BaseTest {
     @Test(description = "verify that get data from pool list successfully with size", groups={"delegation", "delegation-pool-list"},dataProvider = "paramInvalidSize")
     public void verifyGetDataFromPoolListSuccessfullyWithSize(Object size){
         search = "";
-    @Test(description = "verify that get data from pool list unsuccessfully", groups={"delegation", "delegation-pool-list"}, dataProvider = "paramSort")
-    public void verifyGetDataFromPoolListUnsuccessfully(String sort){
-        int size = 20;
         Map<String, Object> param = new CreateParameters()
                 .withPageSize(size)
                 .withSearch(search)
@@ -131,26 +128,22 @@ public class DelegationPoolListTests extends BaseTest {
                 {"jnfj#$%"},
         };
     }
-/*    @Test(description = "verify that get data from pool list successfully with sort", groups={"delegation", "delegation-pool-list"},dataProvider = "paramInvalidSort")
-    public void verifyGetDataFromPoolListSuccessfullyWithSort(){
+    @Test(description = "verify that get data from pool list successfully with sort", groups={"delegation", "delegation-pool-list"},dataProvider = "paramSort")
+    public void verifyGetDataFromPoolListSuccessfullyWithSort(String sort){
         search = "";
-        String sort = "pu.fixedCost, desc";
         Map<String, Object> param = new CreateParameters()
                 .withSearch(search)
                 .withSort(sort)
-                .withSort(sort)
-                .withSearch("")
                 .getParamsMap();
 
-        delegationPoolListSteps
+        PoolListModel poolListModel = (PoolListModel) delegationPoolListSteps
                 .getDataForPoolList(param)
-                .validateStatusCode(HttpURLConnection.HTTP_OK);
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(PoolListModel.class);
-        delegationPoolListSteps.verifyDataAmountIsCorrect(size, poolListModel.getData().size());
+        delegationPoolListSteps.verifyDataAmountIsCorrect(10, poolListModel.getData().size());
 
-    }*/
     }
+
     @DataProvider(name ="paramSort")
     public Object[][] dataSetSort(){
         return new Object[][]{

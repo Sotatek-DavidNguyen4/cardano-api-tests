@@ -105,11 +105,11 @@ public class AttributeStandard {
         }
         return true;
     }
-    public static boolean dataResponseIsOnCorrectPage(int expectedPage, int actualPage){
+    public static boolean dataResponseIsOnCorrectPage(Object expectedPage, int actualPage){
         Assert.assertEquals(expectedPage, actualPage,"wrong page number");
         return true;
     }
-    public static boolean dataAmountIsCorrect(int expectedSize, int ActualSize){
+    public static boolean dataAmountIsCorrect(Object expectedSize, int ActualSize){
         Assert.assertEquals(expectedSize, ActualSize,"wrong data amount");
         return true;
     }
