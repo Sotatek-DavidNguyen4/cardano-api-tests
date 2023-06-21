@@ -14,7 +14,6 @@ import java.util.Map;
 
 import static constants.DateFormats.DATE_FORMAT;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.testng.Assert.assertTrue;
 
 public class TokenSteps extends BaseSteps {
     @Step("get list token")
@@ -23,14 +22,28 @@ public class TokenSteps extends BaseSteps {
         return this;
     }
     @Step("verify that current page of token")
-    public TokenSteps then_verifyFilterTokensResponse(TokensModel tokensModel, Map<String,Object> param){
-        RequestParams requestParams = new RequestParams(param, 0, 20);
+    public TokenSteps then_verifyCurrentPageResponse(TokensModel tokensModel, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0);
         assertThat(tokensModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
+        return this;
+    }
+    @Step("verify size of token")
+    public TokenSteps then_verifySizeOfResponse(TokensModel tokensModel, Map<String,Object> param, int defaultSize){
+        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
         assertThat(tokensModel.getData().size())
                 .as("Value of field 'size' is wrong")
                 .isEqualTo(requestParams.getSize());
+        return this;
+    }
+    @Step("verify sort of token")
+    public TokenSteps then_verifySortOfResponse(TokensModel tokensModel, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0, 20);
+        if (requestParams.getSort()!=null) {
+            boolean sorted = SortListUtil.isSortedByField(new ArrayList<>(tokensModel.getData()), requestParams.getSort());
+            assertThat(sorted).as("Tokens is not sorted by inputted params").isEqualTo(true);
+        }
         return this;
     }
     @Step("verify response of get list token")
@@ -66,15 +79,28 @@ public class TokenSteps extends BaseSteps {
         return this;
     }
     @Step("verify that current page of token txs")
-    public TokenSteps then_verifyFilterTokensTxsResponse(TokensTxsModel tokensTxsModel, Map<String,Object> param, int defaultSize){
-        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
+    public TokenSteps then_verifyPageTokensTxsResponse(TokensTxsModel tokensTxsModel, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0);
         assertThat(tokensTxsModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
-
+        return this;
+    }
+    @Step("verify that size of token txs")
+    public TokenSteps then_verifySizeTokensTxsResponse(TokensTxsModel tokensTxsModel, Map<String,Object> param, int defaultSize){
+        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
         assertThat(tokensTxsModel.getData().size())
                 .as("Value of field 'size' is wrong")
                 .isEqualTo(requestParams.getSize());
+        return this;
+    }
+    @Step("verify sort of token txs")
+    public TokenSteps then_verifySortTokenTxsOfResponse(TokensTxsModel tokensTxsModel, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0, 20);
+        if (requestParams.getSort()!=null) {
+            boolean sorted = SortListUtil.isSortedByField(new ArrayList<>(tokensTxsModel.getData()), requestParams.getSort());
+            assertThat(sorted).as("Token txs is not sorted by inputted params").isEqualTo(true);
+        }
         return this;
     }
     @Step("verify response token txs")
@@ -83,6 +109,7 @@ public class TokenSteps extends BaseSteps {
             Assert.assertTrue(AttributeStandard.isValidDateFormat(a.getTime(), DATE_FORMAT[0]));
             Assert.assertTrue(AttributeStandard.isValidHash(a.getHash()));
             Assert.assertTrue(AttributeStandard.isValidBlockHash(a.getBlockHash()));
+            Assert.assertTrue(a.getTotalOutput() instanceof Double || a.getTotalOutput() instanceof Float);
         }
         return this;
     }
@@ -92,17 +119,27 @@ public class TokenSteps extends BaseSteps {
         return this;
     }
     @Step("verify that current page of token mints")
-    public TokenSteps then_verifyFilterTokensMintsResponse(TokensMintsModel tokensMintsModel, Map<String,Object> param, int defaultSize){
-        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
+    public TokenSteps then_verifyPageTokensMintsResponse(TokensMintsModel tokensMintsModel, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0);
         assertThat(tokensMintsModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
+        return this;
+    }
+    @Step("verify that size of token mints")
+    public TokenSteps then_verifySizeTokensMintsResponse(TokensMintsModel tokensMintsModel, Map<String,Object> param, int defaultSize){
+        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
         assertThat(tokensMintsModel.getData().size())
                 .as("Value of field 'size' is wrong")
                 .isEqualTo(requestParams.getSize());
+        return this;
+    }
+    @Step("verify that sort of token mints")
+    public TokenSteps then_verifySortTokensMintsResponse(TokensMintsModel tokensMintsModel, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0, 6);
         if (requestParams.getSort() != null) {
             boolean sorted = SortListUtil.isSortedByField(new ArrayList<>(tokensMintsModel.getData()), requestParams.getSort());
-            assertThat(sorted).as("block is not sorted by inputted params").isEqualTo(true);
+            assertThat(sorted).as("token mints is not sorted by inputted params").isEqualTo(true);
         }
         return this;
     }
@@ -135,15 +172,43 @@ public class TokenSteps extends BaseSteps {
         return this;
     }
     @Step("verify that current page of token top holders")
-    public TokenSteps then_verifyFilterTokensTopHoldersResponse(TokensTopHolderModel tokensTopHolderModel, Map<String,Object> param, int defaultSize){
-        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
+    public TokenSteps then_verifyPageTokensTopHoldersResponse(TokensTopHolderModel tokensTopHolderModel, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0);
         assertThat(tokensTopHolderModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
-
+        return this;
+    }
+    @Step("verify that size of token top holders")
+    public TokenSteps then_verifySizeTokensTopHoldersResponse(TokensTopHolderModel tokensTopHolderModel, Map<String,Object> param, int defaultSize){
+        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
         assertThat(tokensTopHolderModel.getData().size())
                 .as("Value of field 'size' is wrong")
                 .isEqualTo(requestParams.getSize());
+        return this;
+    }
+    @Step("get data random of list tokens")
+    public TokenModel getTokenDataRandom(TokensModel tokensModel, int random){
+        TokenModel data = tokensModel.getData().get(random);
+        return data;
+    }
+    @Step("compare get list token and get token txs")
+    public TokenSteps compareGetListTokenAndGetTokenTxs(TokenModel data, TokensTxsModel tokensTxsModel){
+        Assert.assertEquals(data.getTxCount(), tokensTxsModel.getTotalItems());
+        return this;
+    }
+    @Step("compare get list token and get detail txs")
+    public TokenSteps compareGetListTokenAndGetDetailToken(TokenModel data, TokenModel detailToken){
+        Assert.assertEquals(data.getName(), detailToken.getName());
+        Assert.assertEquals(data.getDisplayName(), detailToken.getDisplayName());
+        Assert.assertEquals(data.getPolicy(), detailToken.getPolicy());
+        Assert.assertEquals(data.getFingerprint(), detailToken.getFingerprint());
+        Assert.assertEquals(data.getTxCount(), detailToken.getTxCount());
+        Assert.assertEquals(data.getSupply(), detailToken.getSupply());
+        Assert.assertEquals(data.getVolumeIn24h(), detailToken.getVolumeIn24h());
+        Assert.assertEquals(data.getTotalVolume(), detailToken.getTotalVolume());
+        Assert.assertEquals(data.getNumberOfHolders(), detailToken.getNumberOfHolders());
+        Assert.assertEquals(data.getId(), detailToken.getId());
         return this;
     }
 }

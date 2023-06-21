@@ -13,14 +13,14 @@ import java.util.Map;
 
 public class Token extends BaseTest {
     private TokenSteps tokenSteps = new TokenSteps();
-    private String token = "asset1r0eaxq2lg8hx4r6ntexpxt2ezuduqyxlwxhrt2";
+    private String token = "asset17q7r59zlc3dgw0venc80pdv566q6yguw03f0d9";
     @Test(description = "verify that get a token", groups = {"token", "token_tokenId"})
     public void getATokenSuccess(){
         Map<String, Object> expect = new HashMap<>();
-        expect.put("name", "4b555431");
-        expect.put("displayName", "KUT1");
-        expect.put("policy", "e38748c08c510a4a5d712922a0f91269b8446ac565068f653c517475");
-        expect.put("fingerprint", "asset1r0eaxq2lg8hx4r6ntexpxt2ezuduqyxlwxhrt2");
+        expect.put("name", "484f534b59");
+        expect.put("displayName", "HOSKY");
+        expect.put("policy", "a0028f350aaabe0545fdcb56b039bfb08e4bb4d8c4d7c3c7d481c235");
+        expect.put("fingerprint", "asset17q7r59zlc3dgw0venc80pdv566q6yguw03f0d9");
         TokenModel tokenModel = (TokenModel)
         tokenSteps.getAToken(token)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
@@ -36,7 +36,6 @@ public class Token extends BaseTest {
     public Object[][] DatasetWithTokenIdInvalid(){
         return new Object[][]{
                 {1},
-//                {null},
                 {"@#$"},
                 {"  "},
                 {"asset1c6t4elexwkpuzq08ssylhhmc78ahlz0sgw5a7y"},

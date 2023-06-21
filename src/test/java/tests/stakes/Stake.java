@@ -14,7 +14,7 @@ import static constants.Environment.isPreProd;
 
 public class Stake extends BaseTest {
     private StakeKeySteps stakeKeySteps = new StakeKeySteps();
-    private String stakeKey = "stake_test1urxpn7ymps94ech32hx7xm667kg3gdv52fgzfwqxaprp2zck8kezr";
+    private String stakeKey = "stake1u9pwlay8fvev5yfvnpx8c057n3m0aa5g493qw44zqdycz6sm0cph9";
     @Test(description = "get stake with stake key", groups = {"stake", "stake_key"})
     public void getStake(){
         int length = isPreProd() ? STATKE_ADDRESS_LENGTH[0] : STATKE_ADDRESS_LENGTH[1];

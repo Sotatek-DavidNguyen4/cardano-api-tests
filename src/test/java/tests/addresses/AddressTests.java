@@ -16,7 +16,7 @@ import java.util.Map;
 @Feature("api-addresses")
 public class AddressTests extends BaseTest {
     AddressSteps addressSteps = new AddressSteps();
-    Object address = "addr_test1vz09v9yfxguvlp0zsnrpa3tdtm7el8xufp3m5lsm7qxzclgmzkket";
+    Object address = "addr1vy3nr0v58deczue90heuf2g7cg8jvt0kpu8ecm3h3cy69hgyatdp6";
     @Test(description = "verify that get data for address successfully", groups={"addresses", "address"})
     public void verifyGetAddressResponseSuccessfully(){
 

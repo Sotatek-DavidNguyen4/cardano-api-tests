@@ -15,6 +15,6 @@ public class TokenTxsModel {
     private String time;
     private ArrayList<Object> addressesInput;
     private ArrayList<Object> addressesOutput;
-    private int fee;
-    private int totalOutput;
+    private Object fee;
+    private Object totalOutput;
 }

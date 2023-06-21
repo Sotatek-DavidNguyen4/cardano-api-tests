@@ -9,6 +9,8 @@ import microservices.addresses.models.AddressModel;
 import microservices.addresses.models.TopAddressModel;
 import microservices.addresses.steps.AddressSteps;
 import microservices.addresses.steps.TopAddressSteps;
+import org.apache.commons.collections.MultiMap;
+import org.apache.commons.collections.map.MultiValueMap;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import util.CreateParameters;
@@ -23,76 +25,30 @@ import java.util.stream.Collectors;
 @Feature("api-addresses")
 public class TopAddressTests extends BaseTest {
     TopAddressSteps topAddressSteps = new TopAddressSteps();
-    @Test(description = "verify get top-address successfully", groups={"addresses", "top-address"})
-    public void verifyGetAddressResponseSuccessfully(){
 
-        int page = 2;
-        int pageSize = 3;
-        String sort= "balance";
-        //with page = 2
-        Map<String, Object> param = new CreateParameters().withPage(page).getParamsMap();
+    @Test(description = "verify get top-address unsuccessfully", groups={"addresses", "top-address"}, dataProvider = "paramInvalidData")
+    public void verifyGetAddressResponseUnsuccessfully(String page,String size){
+        MultiMap params = new MultiValueMap();
+        params.put("page", page);
+        params.put("size", size);
+
         TopAddressModel topAddressModel = (TopAddressModel) topAddressSteps
-                .getDataForTopAddress(param)
+                .getDataForTopAddress(params)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(TopAddressModel.class);
 
-        topAddressSteps
-                .verifyThatDataResponseIsOnCorrectPage(page, topAddressModel.getCurrentPage());
-
-        //with size = 3
-        param = new CreateParameters().withPageSize(pageSize).getParamsMap();
-        topAddressModel = (TopAddressModel) topAddressSteps
-                .getDataForTopAddress(param)
-                .validateStatusCode(HttpURLConnection.HTTP_OK)
-                .saveResponseObject(TopAddressModel.class);
-
-        topAddressSteps.verifyDataAmountIsCorrect(pageSize, topAddressModel.getData().size());
-
-        //with sort = "balance"
-        param = new CreateParameters().withSort(sort).getParamsMap();
-        topAddressModel = (TopAddressModel) topAddressSteps
-                .getDataForTopAddress(param)
-                .validateStatusCode(HttpURLConnection.HTTP_OK)
-                .saveResponseObject(TopAddressModel.class);
-
-        topAddressSteps.verifyAttributeIsSortedCorrectly(topAddressModel);
-
-        //with page = 2 and size = 3 sort = "balance"
-        param = new CreateParameters().withPage(page).withPageSize(pageSize).withSort(sort).getParamsMap();
-        topAddressModel = (TopAddressModel)topAddressSteps
-                .getDataForTopAddress(param)
-                .validateStatusCode(HttpURLConnection.HTTP_OK)
-                .saveResponseObject(TopAddressModel.class);
-
-        topAddressSteps.verifyAttributeIsSortedCorrectly(topAddressModel)
-                        .verifyDataAmountIsCorrect(pageSize, topAddressModel.getData().size());
-
-        //size = 3 sort = balance
-        param = new CreateParameters().withPageSize(pageSize).withSort(sort).getParamsMap();
-        topAddressModel = (TopAddressModel)topAddressSteps
-                .getDataForTopAddress(param)
-                .validateStatusCode(HttpURLConnection.HTTP_OK)
-                .saveResponseObject(TopAddressModel.class);
-
-        topAddressSteps.verifyAttributeIsSortedCorrectly(topAddressModel)
-                        .verifyDataAmountIsCorrect(pageSize, topAddressModel.getData().size());
-    }    @Test(description = "verify get top-address unsuccessfully", groups={"addresses", "top-address"}, dataProvider = "paramInvalidData")
-    public void verifyGetAddressResponseUnsuccessfully(Object pageSize){
-        int page = 12222222;
-
-        Map<String, Object> param = new CreateParameters().withPage(page).withPageSize(pageSize).getParamsMap();
-        TopAddressModel topAddressModel = (TopAddressModel) topAddressSteps
-                .getDataForTopAddress(param)
-                .validateStatusCode(HttpURLConnection.HTTP_OK)
-                .saveResponseObject(TopAddressModel.class);
-
-        topAddressSteps.verifyDataValueIsEmpty(topAddressModel.getData());
+        topAddressSteps.verifyDataValueIsEmpty(topAddressModel.getData())
+                       .then_verifyTopDelegatorsResponse(topAddressModel,params);
     }
     @DataProvider(name ="paramInvalidData")
     public Object[][] dataSetInvalidData(){
         return new Object[][]{
-                {null},
-                {2},
+                {"",""},
+                {"","3"},
+                {"","a"},
+                {"","-2"},
+                {""," "},
+                {"","jnfj#$%"},
         };
     }
 }

@@ -35,46 +35,34 @@ public class GetPolicyDetailsTests extends BaseTest {
     @Test(description = "verify get policy detail successfully", groups={"policy"},dataProvider = "getTokenByPoliciesSuccess")
     public void getTokenByPoliciesSuccess(Object policyId){
 
+        String pathPolicyDetailSchema = "schemaJson/policy/policyDetail.json";
+
         policyDetail = (PolicyDetail) policySteps.getPolicyDetail(policyId)
                 .validateResponse(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(pathPolicyDetailSchema)
                 .saveResponseObject(PolicyDetail.class);
-        policySteps.verifyResponsePolicyDetail(policyDetail,policyId,3);
+        policySteps.verifyResponsePolicyDetail(policyDetail,policyId,1);
     }
     @DataProvider(name="getTokenByPoliciesSuccess")
     public Object[][] getTokenByPoliciesSuccess(){
         return new Object[][]{
-                {"fa1ab2cbdca59874005d9186b85245ed2503acaa63ab4121ab7c3879"},
+                {"3d67069772c7ff1a14ea648c2de179fb3517759ac48c8f29ed1624ac"},
         };
     }
 
-    @Test(description = "verify get policy detail Unsuccessfully", groups={"policy"},dataProvider = "getTokenByPoliciesUnSuccess")
-    public void getTokenByPoliciesUnSuccess(Object policyId){
+    @Test(description = "verify get policy detail Unsuccessfully", groups={"policy"},dataProvider = "getTokenByPoliciesInvalidData")
+    public void getTokenByPoliciesInvalidData(Object policyId){
         policySteps.getPolicyDetail(policyId)
                 .then_verifyErrorResponse(400, APIErrorMessage.POLICY_NOT_FOUND, APIErrorCode.POLICY_NOT_FOUND);
     }
-    @DataProvider(name="getTokenByPoliciesUnSuccess")
-    public Object[][] getTokenByPoliciesUnSuccess(){
+    @DataProvider(name="getTokenByPoliciesInvalidData")
+    public Object[][] getTokenByPoliciesInvalid(){
         return new Object[][]{
-                {123},
+                {"123"},
                 {"@#$"},
                 {" "},
                 {"asset1c6t4elexwkpuzq08ssylhhmc78ahlz0sgw5a7y"},
                 {"asset1c0vymmx0nysjaa8q5vah78jmuqyew3kjm48azr"},
-        };
-    }
-
-    @Test(description = "verify get policy detail by policyId data test successfully", groups={"policy"},dataProvider = "getTokenByPoliciesDataSuccess")
-    public void getTokenByPoliciesDataTestSuccess(PolicyDetail policyDetailExpected){
-        this.checkSystemProperty();
-        policyDetail = (PolicyDetail) policySteps.getPolicyDetail(policyDetailExpected.getPolicyId())
-                .validateResponse(HttpURLConnection.HTTP_OK)
-                .saveResponseObject(PolicyDetail.class);
-        policySteps.then_verifyPolicyResponseWithDataTest(policyDetail,policyDetailExpected);
-    }
-    @DataProvider(name="getTokenByPoliciesDataSuccess")
-    public Object[][] getTokenByPoliciesDataSuccess(){
-        return new Object[][]{
-                {POLICY_DETAIL},
         };
     }
 }

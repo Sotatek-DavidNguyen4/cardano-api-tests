@@ -17,7 +17,7 @@ public class BaseTest {
             System.setProperty("cardanoAPI.baseEnv", env);
         }
         new Url(System.getProperty("cardanoAPI.baseEnv"));
-         new ApiResponseData();
+        new ApiResponseData();
         BaseApi.initReqSpec();
         BaseApi.setBaseUrl(Url.API);
     }

@@ -4,6 +4,7 @@ import base.BaseTest;
 import com.google.gson.JsonObject;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import microservices.common.constants.APIErrorCode;
 import microservices.common.constants.APIErrorMessage;
 import microservices.txn.models.*;
@@ -21,6 +22,7 @@ import static data.ApiResponseData.*;
 
 @Epic("cardano")
 @Feature("api-transactions")
+@Story("Transactions test")
 public class TransactionTests extends BaseTest {
     TransactionSteps txnSteps = new TransactionSteps();
     private TransactionResponse txnResponse;

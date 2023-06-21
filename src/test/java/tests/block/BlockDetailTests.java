@@ -17,7 +17,7 @@ import static data.ApiResponseData.*;
 @Feature("api-block")
 public class BlockDetailTests extends BaseTest {
     BlockSteps blockSteps = new BlockSteps();
-    String blockId = "950010";
+    String blockId = "7249923";
 
     @Test(description = "get a block detail successfully", groups = {"block","block-detail"})
     public void getABlockDetailSuccessfully(){
@@ -25,7 +25,7 @@ public class BlockDetailTests extends BaseTest {
                 .getABlockDetail(blockId)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(BlockDetailModel.class);
-        // wait for setting up environment first
+
         blockSteps.then_verifyValueFormatIsCorrectly(blockDetailModel);
     }
     @Test(description = "get a block detail unsuccessfully", groups = {"block","block-detail"}, dataProvider = "paramUnsuccessful")
@@ -80,7 +80,6 @@ public class BlockDetailTests extends BaseTest {
                 {BLOCK_MARY_ERA},
                 {BLOCK_ALOZO_ERA},
                 {BLOCK_BABBAGE_ERA},
-
         };
     }
 }

@@ -7,22 +7,21 @@ import microservices.block.models.BlockListModel;
 import microservices.block.models.BlockListTxsModel;
 import microservices.block.steps.BlockSteps;
 import org.testng.annotations.Test;
+import util.RandomNumber;
 
 import java.net.HttpURLConnection;
-import java.util.Random;
 
 public class BlockScenarioTests extends BaseTest {
     private BlockSteps blockSteps = new BlockSteps();
     private BlockDetailModel blockInListBlock = new BlockDetailModel();
-    private Random random = new Random();
-    private int randomNumber = random.nextInt(20);
+    private RandomNumber ramdomNumber = new RandomNumber();
     @Test(description = "take block detail",groups = {"block", "block_scenario"}, priority = 0)
     public void takeBlockDetail(){
         BlockListModel blockListModel = (BlockListModel)
         blockSteps.getAllBlock()
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(BlockListModel.class);
-        blockInListBlock = blockListModel.getData().get(randomNumber);
+        blockInListBlock = blockListModel.getData().get(ramdomNumber.randomInteger(blockListModel.getData().size()));
     }
     @Test(description = "compare api get all block with api get block detail", groups = {"block", "block_scenario"}, priority = 1)
     public void compareGetAllBlockWithGetDetailBlock(){
@@ -44,7 +43,6 @@ public class BlockScenarioTests extends BaseTest {
                 blockSteps.getABlockDetail(blockInListBlock.getBlockNo())
                         .validateResponse(HttpURLConnection.HTTP_OK)
                         .saveResponseObject(BlockDetailModel.class);
-
         blockSteps.compareResponseGetTxListBlockAndGetDetailBlock(blockListTxsModel, blockDetailModel);
     }
 }

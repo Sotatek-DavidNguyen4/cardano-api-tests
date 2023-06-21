@@ -2,6 +2,8 @@ package microservices.txn.steps;
 
 import constants.Endpoints;
 import io.qameta.allure.Step;
+import microservices.block.models.BlockDetailModel;
+import microservices.block.models.BlockListModel;
 import microservices.common.constants.RequestParams;
 import microservices.common.steps.BaseSteps;
 //import microservices.txn.constants.Transaction;
@@ -120,6 +122,92 @@ public class TransactionSteps extends BaseSteps {
         assertThat(txnResponse.getCollaterals())
                 .as("Value of field 'tx.collaterals' is wrong")
                 .isEqualTo(responseExpected.getCollaterals());
+        return this;
+    }
+    @Step("Verify response of filter transaction and transaction by hash")
+    public TransactionSteps then_verifyTransactionResponseFilterANdHash(FilterTransactionResponse filterTransactionResponseList, TransactionResponse transactionResponseByHash) {
+        FilterTransactionResponse.FilterTransactionDetail filterTransactionDetail = filterTransactionResponseList.getData().get(0);
+
+        List<String> addressesInput = new ArrayList<>();
+        for (int i =0;i<transactionResponseByHash.getUtxOs().getInputs().size();i++){
+            addressesInput.add(transactionResponseByHash.getUtxOs().getInputs().get(i).getAddress());
+        }
+        Assert.assertTrue(filterTransactionDetail.getAddressesInput().containsAll(addressesInput));
+
+        List<String> addressesOutput = new ArrayList<>();
+        for (int i =0;i<transactionResponseByHash.getUtxOs().getOutputs().size();i++){
+            addressesOutput.add(transactionResponseByHash.getUtxOs().getOutputs().get(i).getAddress());
+        }
+        Assert.assertTrue(filterTransactionDetail.getAddressesOutput().containsAll(addressesOutput));
+
+        assertThat(transactionResponseByHash.getTx().getOutSum())
+                .as("Value of field 'totalOutput' is wrong")
+                .isEqualTo(filterTransactionDetail.getTotalOutput());
+        assertThat(filterTransactionDetail.getHash())
+                .as("Value of field 'hash' is wrong")
+                .isEqualTo(transactionResponseByHash.getTx().getHash());
+        assertThat(filterTransactionDetail.getBlockNo())
+                .as("Value of field 'blockNo' is wrong")
+                .isEqualTo(transactionResponseByHash.getTx().getBlockNo());
+        assertThat(filterTransactionDetail.getBlockHash())
+                .as("Value of field 'blockHash' is wrong")
+                .isEqualTo(transactionResponseByHash.getTx().getBlockHash());
+        assertThat(filterTransactionDetail.getEpochNo())
+                .as("Value of field 'epochNo' is wrong")
+                .isEqualTo(transactionResponseByHash.getTx().getEpochNo());
+        assertThat(filterTransactionDetail.getTime())
+                .as("Value of field 'time' is wrong")
+                .isEqualTo(transactionResponseByHash.getTx().getTime());
+        assertThat(filterTransactionDetail.getFee())
+                .as("Value of field 'fee' is wrong")
+                .isEqualTo(transactionResponseByHash.getTx().getFee());
+
+        return this;
+    }
+
+    @Step("Verify hash of filter transaction and transaction current")
+    public TransactionSteps then_verifyTransactionResponseFilterAndCurrent(FilterTransactionResponse filterTransactionResponseList, List<Transaction> transactionCurrentList) {
+        List<String> transactionCurrent = new ArrayList<>();
+        for (Transaction transaction : transactionCurrentList) {
+            transactionCurrent.add(transaction.getHash());
+        }
+        for(int i=0;i<4;i++){
+            Assert.assertTrue(transactionCurrent.contains(filterTransactionResponseList.getData().get(i).getHash()));
+        }
+        return this;
+    }
+
+    @Step("Verify response of block by blockId and transaction by hash")
+    public TransactionSteps then_verifyTransactionResponseByHashWithBlock(TransactionResponse transactionResponseByHash, BlockDetailModel blockDetailModel) {
+
+        assertThat(transactionResponseByHash.getTx().getHash())
+                .as("Value of field 'hash' is wrong")
+                .isEqualTo(blockDetailModel.getHash());
+        assertThat(transactionResponseByHash.getTx().getBlockNo())
+                .as("Value of field 'blockNo' is wrong")
+                .isEqualTo(blockDetailModel.getBlockNo());
+        assertThat(transactionResponseByHash.getTx().getBlockHash())
+                .as("Value of field 'blockHash' is wrong")
+                .isEqualTo(blockDetailModel.getBlockHash());
+        assertThat(transactionResponseByHash.getTx().getEpochNo())
+                .as("Value of field 'epochNo' is wrong")
+                .isEqualTo(blockDetailModel.getEpochNo());
+        assertThat(transactionResponseByHash.getTx().getTime())
+                .as("Value of field 'time' is wrong")
+                .isEqualTo(blockDetailModel.getId());
+
+        List<String> addressesInput = new ArrayList<>();
+        for (int i =0;i<transactionResponseByHash.getUtxOs().getInputs().size();i++){
+            addressesInput.add(transactionResponseByHash.getUtxOs().getInputs().get(i).getAddress());
+        }
+        Assert.assertTrue(new HashSet<>(addressesInput).containsAll(blockDetailModel.getAddressesInput()));
+
+        List<String> addressesOutput = new ArrayList<>();
+        for (int i =0;i<transactionResponseByHash.getUtxOs().getOutputs().size();i++){
+            addressesOutput.add(transactionResponseByHash.getUtxOs().getOutputs().get(i).getAddress());
+        }
+        Assert.assertTrue(new HashSet<>(addressesOutput).containsAll(blockDetailModel.getAddressesOutput()));
+
         return this;
     }
 }

@@ -116,6 +116,8 @@ public class GetAllBlockTests extends BaseTest {
         return new Object[][]{
                 {"id,DESC"},
                 {"id,ASC"},
+                {"txCount,desc"},
+                {"txCount,ASC"},
         };
     }
 }
