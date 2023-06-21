@@ -11,7 +11,6 @@ public class DelegationHeaderSteps extends BaseApi {
     @Step("get data for delegation headers")
     public DelegationHeaderSteps getDataForDelegationHeader(){
         sendGet(Endpoints.DelegationApi.POOL_HEADER_URI);
-        System.out.println(getResponse().getBody().print());
         return this;
     }
     @Step("verify attribute not null")

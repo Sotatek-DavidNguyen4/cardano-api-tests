@@ -63,7 +63,6 @@ public class DelegationControllerSteps extends BaseSteps {
     }
     @Step("verify format attributes")
     public DelegationControllerSteps verifyHashViewFormat(PoolDetailHeaderModel actualPoolDetailHeader){
-        System.out.println(actualPoolDetailHeader.getHashView());
         Assert.assertTrue(AttributeStandard.isValidHash(actualPoolDetailHeader.getHashView()));
         return this;
     }
