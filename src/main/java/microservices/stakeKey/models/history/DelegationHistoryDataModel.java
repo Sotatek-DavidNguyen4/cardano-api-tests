@@ -10,4 +10,6 @@ public class DelegationHistoryDataModel {
     private int epochNo;
     private String txHash;
     private int epochSlotNo;
+    private String poolData;
+    private String tickerName;
 }

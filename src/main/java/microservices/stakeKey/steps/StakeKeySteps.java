@@ -2,9 +2,6 @@ package microservices.stakeKey.steps;
 
 import constants.Endpoints;
 import io.qameta.allure.Step;
-import microservices.addresses.models.AddressModel;
-import microservices.addresses.models.TopAddressModel;
-import microservices.addresses.steps.TopAddressSteps;
 import microservices.common.constants.RequestParams;
 import microservices.common.steps.BaseSteps;
 import microservices.stakeKey.models.Analytics.StakeAnalytics;
@@ -24,6 +21,7 @@ import microservices.stakeKey.models.registration.StakeRegistrationData;
 import microservices.stakeKey.models.topDelegators.TopDelegators;
 import microservices.stakeKey.models.topDelegators.TopDelegatorsData;
 import microservices.stakeKey.models.history.WithdrawalHistoryModel;
+import org.assertj.core.api.AssertFactory;
 import org.testng.Assert;
 import util.AttributeStandard;
 
@@ -57,11 +55,19 @@ public class StakeKeySteps extends BaseSteps {
         return this;
     }
     @Step("verify that current page instantaneous reward")
-    public StakeKeySteps then_verifyFilterInstantaneousResponse(InstantaneousRewardModel instantaneousRewardModel, Map<String,Object> param){
-        RequestParams requestParams = new RequestParams(param, 0, 20);
+    public StakeKeySteps then_verifyPageInstantaneousResponse(InstantaneousRewardModel instantaneousRewardModel, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0);
         assertThat(instantaneousRewardModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
+        return this;
+    }
+    @Step("verify that size instantaneous reward")
+    public StakeKeySteps then_verifySizeInstantaneousResponse(InstantaneousRewardModel instantaneousRewardModel, Map<String,Object> param, int defaultSize){
+        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
+        assertThat(instantaneousRewardModel.getData().size())
+                .as("Value of field 'size' is wrong")
+                .isEqualTo(requestParams.getSize());
         return this;
     }
     @Step("verify response stake instantaneous rewards")
@@ -228,8 +234,26 @@ public class StakeKeySteps extends BaseSteps {
         sendGet(Endpoints.StakeKeyApi.GET_STAKE, Endpoints.StakeKeyApi.STAKE_KEY, stakeKey);
         return this;
     }
-    @Step("verify response of get stake")
-    public StakeKeySteps verifyResponseStake(StakeModel stakeModel, int length){
+    @Step("verify get detail stake of response")
+    public StakeKeySteps verifyGetStakeResponse(StakeModel stakeModel, int length, Map<String, Object> expect){
+        Assert.assertEquals(stakeModel.getStakeAddress(), expect.get("stakeAddress"));
+        Assert.assertEquals(stakeModel.getPool().getTickerName(), expect.get("tickerName"));
+        Assert.assertEquals(stakeModel.getPool().getPoolName(), expect.get("poolName"));
+        Assert.assertEquals(stakeModel.getPool().getPoolId(), expect.get("poolId"));
+        Assert.assertTrue(AttributeStandard.isValidStakeAddress(stakeModel.getStakeAddress(), length));
+        Assert.assertTrue(AttributeStandard.isValidPoolId(stakeModel.getPool().getPoolId()));
+        return this;
+    }
+    @Step("check elements is not decimal")
+    public StakeKeySteps verifyElementsIsNotDecimal(ArrayList<Object> elements){
+        for (Object element : elements){
+            Assert.assertTrue(AttributeStandard.isNotDecimal(element));
+        }
+        return this;
+    }
+    @Step("verify get stake address of response")
+    public StakeKeySteps verifyGetStakeAddressResponse(StakeModel stakeModel, int length, String stakeAddress){
+        Assert.assertEquals(stakeModel.getStakeAddress(), stakeAddress);
         Assert.assertTrue(AttributeStandard.isValidStakeAddress(stakeModel.getStakeAddress(), length));
         Assert.assertTrue(AttributeStandard.isValidPoolId(stakeModel.getPool().getPoolId()));
         return this;
@@ -245,11 +269,19 @@ public class StakeKeySteps extends BaseSteps {
         return this;
     }
     @Step("verify that current page")
-    public StakeKeySteps then_verifyFilterStakeHistoryResponse(StakeHistory stakeHistory, Map<String,Object> param){
-        RequestParams requestParams = new RequestParams(param, 0, 20);
+    public StakeKeySteps then_verifyPageStakeHistoryResponse(StakeHistory stakeHistory, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0);
         assertThat(stakeHistory.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
+        return this;
+    }
+    @Step("verify that size of response")
+    public StakeKeySteps then_verifySizeStakeHistoryResponse(StakeHistory stakeHistory, Map<String,Object> param, int sizeDefalt){
+        RequestParams requestParams = new RequestParams(param, 0, sizeDefalt);
+        assertThat(stakeHistory.getData().size())
+                .as("Value of field 'size' is wrong")
+                .isEqualTo(requestParams.getSize());
         return this;
     }
     @Step("verify response stake history")
@@ -266,11 +298,16 @@ public class StakeKeySteps extends BaseSteps {
         return this;
     }
     @Step("verify that current page of stake withdrawal history")
-    public StakeKeySteps then_verifyFilterStakeWithdrawalHistoryResponse(WithdrawalHistoryModel withdrawalHistoryModel, Map<String,Object> param, int defaultSize){
-        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
+    public StakeKeySteps then_verifyPageStakeWithdrawalHistoryResponse(WithdrawalHistoryModel withdrawalHistoryModel, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0);
         assertThat(withdrawalHistoryModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
+        return this;
+    }
+    @Step("verify that size of stake withdrawal history")
+    public StakeKeySteps then_verifySizeStakeWithdrawalHistoryResponse(WithdrawalHistoryModel withdrawalHistoryModel, Map<String,Object> param, int defaultSize){
+        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
         assertThat(withdrawalHistoryModel.getData().size())
                 .as("Value of field 'size' is wrong")
                 .isEqualTo(requestParams.getSize());
@@ -298,8 +335,8 @@ public class StakeKeySteps extends BaseSteps {
         return this;
     }
     @Step("verify that current page of stake delegation history")
-    public StakeKeySteps then_verifyCurrentPageDelegationHistoryResponse(DelegationHistoryModel delegationHistoryModel, Map<String,Object> param, int defaultSize){
-        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
+    public StakeKeySteps then_verifyCurrentPageDelegationHistoryResponse(DelegationHistoryModel delegationHistoryModel, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0);
         assertThat(delegationHistoryModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
@@ -320,8 +357,8 @@ public class StakeKeySteps extends BaseSteps {
         return this;
     }
     @Step("verify that current page of stake list address")
-    public StakeKeySteps then_verifyPageStakeListAddressResponse(StakeListAddressModel stakeListAddressModel, Map<String,Object> param, int defaultSize){
-        RequestParams requestParams = new RequestParams(param, 0, defaultSize);
+    public StakeKeySteps then_verifyPageStakeListAddressResponse(StakeListAddressModel stakeListAddressModel, Map<String,Object> param){
+        RequestParams requestParams = new RequestParams(param, 0);
         assertThat(stakeListAddressModel.getCurrentPage())
                 .as("Value of field 'currentPage' is wrong")
                 .isEqualTo(requestParams.getPage());
