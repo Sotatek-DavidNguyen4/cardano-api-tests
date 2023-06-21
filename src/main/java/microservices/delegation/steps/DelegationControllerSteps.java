@@ -42,12 +42,12 @@ public class DelegationControllerSteps extends BaseSteps {
         return this;
     }
     @Step("verify data response is on correct page")
-    public DelegationControllerSteps verifyThatDataResponseIsOnCorrectPage(int expectedPage, int actualPage){
+    public DelegationControllerSteps verifyThatDataResponseIsOnCorrectPage(Object expectedPage, int actualPage){
         Assert.assertEquals(expectedPage, actualPage);
         return this;
     }
     @Step("verify data amount is correct")
-    public DelegationControllerSteps verifyDataAmountIsCorrect(int expectedSize, int ActualSize){
+    public DelegationControllerSteps verifyDataAmountIsCorrect(Object expectedSize, int ActualSize){
         Assert.assertEquals(expectedSize, ActualSize);
         return this;
     }
@@ -56,4 +56,15 @@ public class DelegationControllerSteps extends BaseSteps {
         Assert.assertTrue(AttributeStandard.areValidDates(poolDetailDelegatorModel.getData().stream().map(s -> s.getTime()).collect(Collectors.toList()), DATE_FORMAT[0]));
         return this;
     }
+    @Step("verify format attributes")
+    public DelegationControllerSteps verifyFormatAttributes(PoolDetailHeaderModel actualPoolDetailHeader){
+        Assert.assertTrue(AttributeStandard.isValidDateFormat(actualPoolDetailHeader.getCreateDate(), DATE_FORMAT[0]));
+        return this;
+    }
+    @Step("verify format attributes")
+    public DelegationControllerSteps verifyHashViewFormat(PoolDetailHeaderModel actualPoolDetailHeader){
+        Assert.assertTrue(AttributeStandard.isValidHash(actualPoolDetailHeader.getHashView()));
+        return this;
+    }
+
 }

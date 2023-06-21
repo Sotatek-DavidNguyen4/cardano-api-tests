@@ -1,0 +1,56 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "number"
+      },
+      "poolId": {
+        "type": "string"
+      },
+      "poolName": {},
+      "poolSize": {
+        "type": "number"
+      },
+      "reward": {
+        "type": "number"
+      },
+      "feePercent": {
+        "type": "number"
+      },
+      "feeAmount": {
+        "type": "number"
+      },
+      "pledge": {
+        "type": "number"
+      },
+      "saturation": {
+        "type": "number"
+      },
+      "stakeLimit": {},
+      "reserves": {
+        "type": "number"
+      },
+      "kparam": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "id",
+      "poolId",
+      "poolName",
+      "poolSize",
+      "reward",
+      "feePercent",
+      "feeAmount",
+      "pledge",
+      "saturation",
+      "stakeLimit",
+      "reserves",
+      "kparam"
+    ]
+  }
+}

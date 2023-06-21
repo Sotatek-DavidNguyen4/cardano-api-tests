@@ -1,0 +1,79 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "epochChart": {
+      "type": "object",
+      "properties": {
+        "highest": {
+          "type": "number"
+        },
+        "lowest": {
+          "type": "number"
+        },
+        "dataByDays": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "epochNo": {
+                "type": "number"
+              },
+              "totalStake": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "epochNo",
+              "totalStake"
+            ]
+          }
+        }
+      },
+      "required": [
+        "highest",
+        "lowest",
+        "dataByDays"
+      ]
+    },
+    "delegatorChart": {
+      "type": "object",
+      "properties": {
+        "highest": {
+          "type": "number"
+        },
+        "lowest": {
+          "type": "number"
+        },
+        "dataByDays": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "epochNo": {
+                "type": "number"
+              },
+              "numberDelegator": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "epochNo",
+              "numberDelegator"
+            ]
+          }
+        }
+      },
+      "required": [
+        "highest",
+        "lowest",
+        "dataByDays"
+      ]
+    }
+  },
+  "required": [
+    "epochChart",
+    "delegatorChart"
+  ]
+}

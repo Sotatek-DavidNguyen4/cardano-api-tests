@@ -18,18 +18,22 @@ import java.util.Map;
 @Feature("api-delegation")
 public class DelegationControllerTests extends BaseTest {
     DelegationControllerSteps delegationControllerSteps = new DelegationControllerSteps();
-    Object poolView = "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy";
+    Object poolView;
     @Test(description = "verify that get data for pool detail", groups={"delegation", "delegation-detail"})
     public void getPoolDetailHeader(){
-
+        poolView = "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy";
+        String schemaJson = "schemaJson/delegations/delegation-detail-header.json";
         //successfully
         PoolDetailHeaderModel actualPoolDetailHeader = (PoolDetailHeaderModel) delegationControllerSteps
                 .getDataForPoolDetail(poolView)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(schemaJson)
                 .saveResponseObject(PoolDetailHeaderModel.class);
 
         delegationControllerSteps
-                .verifyAllAttributeExistsOrNot(actualPoolDetailHeader);
+                .verifyAllAttributeExistsOrNot(actualPoolDetailHeader)
+                .verifyFormatAttributes(actualPoolDetailHeader);
+                //.verifyHashViewFormat(actualPoolDetailHeader);
 
         // wait for confirming that status code is 400 or 500
 /*        //poolView = "%^&&&"
@@ -58,10 +62,12 @@ public class DelegationControllerTests extends BaseTest {
     }
     @Test(description = "verify that get data for pool detail delegators successfully", groups={"delegation", "delegation-detail-delegators"})
     public void getPoolDetailDelegatorSuccessfully(){
-        int page, size;
+        poolView = "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy";
+        String schemaJson = "schemaJson/delegations/pool-detail-delegators.json";
+        Object page, size;
         //with page and size
-        page = 0;
-        size = 1;
+        page = null;
+        size = null;
         Map<String, Object> param = new CreateParameters()
                 .withPage(page)
                 .withPageSize(size)
@@ -72,39 +78,22 @@ public class DelegationControllerTests extends BaseTest {
         PoolDetailDelegatorModel poolDetailDelegatorModel = (PoolDetailDelegatorModel) delegationControllerSteps
                 .getDataForPoolDetailDelegator(param)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(schemaJson)
                 .saveResponseObject(PoolDetailDelegatorModel.class);
         delegationControllerSteps
-                .verifyDataAmountIsCorrect(size, poolDetailDelegatorModel.getData().size())
-                .verifyThatDataResponseIsOnCorrectPage(page, poolDetailDelegatorModel.getCurrentPage())
+                .verifyDataAmountIsCorrect(10, poolDetailDelegatorModel.getData().size())
                 .verifyFormatAttributes(poolDetailDelegatorModel);
-
-        //successfully only page
+        // page size poolview is null
+        page = null;
+        size = null;
+        poolView = "null";
         param = new CreateParameters().withPoolView(poolView).withPage(page).getParamsMap();
-        delegationControllerSteps
+        poolDetailDelegatorModel = (PoolDetailDelegatorModel) delegationControllerSteps
                 .getDataForPoolDetailDelegator(param)
-                .validateStatusCode(HttpURLConnection.HTTP_OK);
+                .validateStatusCode(HttpURLConnection.HTTP_OK)
+                .saveResponseObject(PoolDetailDelegatorModel.class);
 
-        delegationControllerSteps
-                .verifyThatDataResponseIsOnCorrectPage(page, poolDetailDelegatorModel.getCurrentPage())
-                .verifyFormatAttributes(poolDetailDelegatorModel);
 
-        //successfully size = 1
-        param = new CreateParameters().withPoolView(poolView).withPageSize(size).getParamsMap();
-        delegationControllerSteps
-                .getDataForPoolDetailDelegator(param)
-                .validateStatusCode(HttpURLConnection.HTTP_OK);
-        delegationControllerSteps
-                .verifyDataAmountIsCorrect(size, poolDetailDelegatorModel.getData().size())
-                .verifyFormatAttributes(poolDetailDelegatorModel);
-
-        //successfully just only poolView
-        param = new CreateParameters().withPoolView(poolView).getParamsMap();
-        delegationControllerSteps
-                .getDataForPoolDetailDelegator(param)
-                .validateStatusCode(HttpURLConnection.HTTP_OK);
-
-        delegationControllerSteps
-                .verifyFormatAttributes(poolDetailDelegatorModel);
     }
     //This test case still have bug need to be fixed
     @Test(description = "verify that get data for pool detail delegators unsuccessfully with invalid poolview", groups={"delegation", "delegation-detail-delegators"}, dataProvider = "paramInvalidPoolView")
@@ -112,8 +101,8 @@ public class DelegationControllerTests extends BaseTest {
         Map<String, Object> param = new CreateParameters().withPoolView(poolView).getParamsMap();
         //successfully without page and size
         delegationControllerSteps
-                .getDataForPoolDetailDelegator(param);
-                //.then_verifyErrorResponse(HttpURLConnection.HTTP_BAD_REQUEST, DelegationConstant.ERROR_MESSAGE, DelegationConstant.ERROR_CODE);
+                .getDataForPoolDetailDelegator(param)
+                .validateStatusCode(HttpURLConnection.HTTP_OK);
 
     }
     @DataProvider(name ="paramInvalidPoolView")

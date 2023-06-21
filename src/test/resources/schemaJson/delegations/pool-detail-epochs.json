@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "epoch": {
+            "type": "number"
+          },
+          "block": {
+          },
+          "stakeAmount": {
+            "type": "number"
+          },
+          "delegators": {
+            "type": "number"
+          },
+          "fee": {
+            "type": "number"
+          },
+          "ros": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "epoch",
+          "stakeAmount",
+          "delegators",
+          "fee",
+          "ros"
+        ]
+      }
+    },
+    "totalItems": {
+      "type": "number"
+    },
+    "totalPages": {
+      "type": "number"
+    },
+    "currentPage": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "data",
+    "totalItems",
+    "totalPages",
+    "currentPage"
+  ]
+}

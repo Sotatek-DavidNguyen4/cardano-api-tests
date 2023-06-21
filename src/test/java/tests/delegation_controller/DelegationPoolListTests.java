@@ -128,18 +128,29 @@ public class DelegationPoolListTests extends BaseTest {
                 {"jnfj#$%"},
         };
     }
-/*    @Test(description = "verify that get data from pool list successfully with sort", groups={"delegation", "delegation-pool-list"},dataProvider = "paramInvalidSort")
-    public void verifyGetDataFromPoolListSuccessfullyWithSort(){
+    @Test(description = "verify that get data from pool list successfully with sort", groups={"delegation", "delegation-pool-list"},dataProvider = "paramSort")
+    public void verifyGetDataFromPoolListSuccessfullyWithSort(String sort){
         search = "";
-        String sort = "pu.fixedCost, desc";
         Map<String, Object> param = new CreateParameters()
                 .withSearch(search)
                 .withSort(sort)
                 .getParamsMap();
 
-        delegationPoolListSteps
+        PoolListModel poolListModel = (PoolListModel) delegationPoolListSteps
                 .getDataForPoolList(param)
-                .validateStatusCode(HttpURLConnection.HTTP_OK);
+                .validateStatusCode(HttpURLConnection.HTTP_OK)
+                .saveResponseObject(PoolListModel.class);
+        delegationPoolListSteps.verifyDataAmountIsCorrect(10, poolListModel.getData().size());
 
-    }*/
+    }
+
+    @DataProvider(name ="paramSort")
+    public Object[][] dataSetSort(){
+        return new Object[][]{
+                {"pu.fixedCost,desc"},
+                {"pu.fixedCost,asc"},
+                {"pu.pledge,desc"},
+                {"pu.pledge,asc"},
+        };
+    }
 }

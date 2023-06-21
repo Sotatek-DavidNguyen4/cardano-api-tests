@@ -18,12 +18,12 @@ public class DelegationDetailEpchoSteps extends BaseSteps {
         return this;
     }
     @Step("verify data on right page")
-    public DelegationDetailEpchoSteps verifyDataOnRightPage(int actual, int expected){
+    public DelegationDetailEpchoSteps verifyDataOnRightPage(Object actual, int expected){
         Assert.assertTrue(dataResponseIsOnCorrectPage(actual, expected));
         return this;
     }
     @Step("verify enough amount of data ")
-    public DelegationDetailEpchoSteps verifyEnoughAmountOfData(int actual, int expected){
+    public DelegationDetailEpchoSteps verifyEnoughAmountOfData(Object actual, int expected){
         Assert.assertTrue(dataAmountIsCorrect(actual, expected));
         return this;
     }
