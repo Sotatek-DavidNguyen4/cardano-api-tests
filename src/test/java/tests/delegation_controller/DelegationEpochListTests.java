@@ -19,6 +19,7 @@ public class DelegationEpochListTests extends BaseTest {
     String poolView = "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy";
     @Test(description = "verify that get data from pool detail epochs successfully", groups={"delegation", "delegation-detail-epochs"})
     public void verifyGetDataFromPoolDetailAnalyticsSuccessfully(){
+        String poolView = "pool1pu5jlj4q9w9jlxeu370a3c9myx47md5j5m2str0naunn2q3lkdy";
         String jsonSchema = "schemaJson/delegations/pool-detail-epochs.json";
         Object page, size;
         //default

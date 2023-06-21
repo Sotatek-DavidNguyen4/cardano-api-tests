@@ -27,7 +27,6 @@ public class DelegationControllerSteps extends BaseSteps {
     @Step("get data for pool detail delegators")
     public DelegationControllerSteps getDataForPoolDetailDelegator(Map<String, Object> param){
         sendGet(Endpoints.DelegationApi.POOL_DETAIL_DELEGATORS_URI, param);
-        System.out.println(getResponse().getBody().print());
         return this;
     }
     @Step("verify attribute exists or not")
@@ -57,4 +56,5 @@ public class DelegationControllerSteps extends BaseSteps {
         Assert.assertTrue(AttributeStandard.areValidDates(poolDetailDelegatorModel.getData().stream().map(s -> s.getTime()).collect(Collectors.toList()), DATE_FORMAT[0]));
         return this;
     }
+
 }
