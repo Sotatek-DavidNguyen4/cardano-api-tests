@@ -18,10 +18,11 @@ public class GetAllBlockTests extends BaseTest {
     BlockSteps bockSteps = new BlockSteps();
     @Test(description = "Get all blocks successfully", groups = {"block", "get-all-blocks"}, dataProvider = "paramData")
     public void getAllBlockSuccessfully(Object page, Object size, Object sort){
-
+        String schemaJson = "schemaJson/block/all-block-schema.json";
         BlockListModel blockListModel = (BlockListModel) bockSteps
                 .getAllBlock()
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(schemaJson)
                 .saveResponseObject(BlockListModel.class);
 
         //verify currentPage = 0;

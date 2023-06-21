@@ -1,0 +1,72 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "blockNo": {
+            "type": "number"
+          },
+          "slotNo": {
+            "type": "number"
+          },
+          "epochNo": {
+            "type": "number"
+          },
+          "epochSlotNo": {
+            "type": "number"
+          },
+          "hash": {
+            "type": "string"
+          },
+          "time": {
+            "type": "string"
+          },
+          "txCount": {
+            "type": "number"
+          },
+          "totalFees": {
+            "type": "number"
+          },
+          "totalOutput": {
+            "type": "number"
+          },
+          "slotLeader": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "blockNo",
+          "slotNo",
+          "epochNo",
+          "epochSlotNo",
+          "hash",
+          "time",
+          "txCount",
+          "totalFees",
+          "totalOutput",
+          "slotLeader"
+        ]
+      }
+    },
+    "totalItems": {
+      "type": "number"
+    },
+    "totalPages": {
+      "type": "number"
+    },
+    "currentPage": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "data",
+    "totalItems",
+    "totalPages",
+    "currentPage"
+  ]
+}

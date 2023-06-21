@@ -9,6 +9,7 @@ import microservices.block.models.BlockListTxsModel;
 import microservices.common.constants.RequestParams;
 import microservices.common.steps.BaseSteps;
 //import microservices.common.util.SortListUtil;
+import microservices.delegation.steps.DelegationControllerSteps;
 import org.testng.Assert;
 import util.AttributeStandard;
 import util.SortListUtil;
@@ -129,6 +130,16 @@ public class BlockSteps extends BaseSteps {
         assertThat(blockResponse.getTotalFees())
                 .as("Value of field totalFees is wrong")
                 .isEqualTo(responseExpected.getTotalFees());
+        return this;
+    }
+    @Step("verify data response is on correct page")
+    public BlockSteps verifyThatDataResponseIsOnCorrectPage(Object expectedPage, int actualPage){
+        Assert.assertEquals(expectedPage, actualPage);
+        return this;
+    }
+    @Step("verify data amount is correct")
+    public BlockSteps verifyDataAmountIsCorrect(Object expectedSize, int ActualSize){
+        Assert.assertEquals(expectedSize, ActualSize);
         return this;
     }
 
