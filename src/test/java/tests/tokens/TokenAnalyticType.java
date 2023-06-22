@@ -32,7 +32,7 @@ public class TokenAnalyticType extends BaseTest {
                 {"THREE_MONTH"}
         };
     }
-    @Test(description = "get token analytics type tokenId = @#$", groups = {"token", "token_analytic_type"}, dataProvider = "type")
+    @Test(description = "get token analytics type | tokenId invalid", groups = {"token", "token_analytic_type"}, dataProvider = "type")
     public void getTokenAnalyticTypeWithTokenIdInvalid(String type){
         ArrayList<String> tokenIdInvalid = new ArrayList<>();
         tokenIdInvalid.add("@#$");
