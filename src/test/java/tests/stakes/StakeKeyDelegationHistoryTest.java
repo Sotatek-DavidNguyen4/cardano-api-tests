@@ -18,6 +18,7 @@ public class StakeKeyDelegationHistoryTest extends BaseTest {
     private int numberPage;
     @Test(description = "get stake delegation history", groups = {"stake", "stake_delegation_history"}, priority = 0)
     public void getStakeDelegationHistory(){
+        String pathStakeDelegationHistorySchema = "schemaJson/stakes/stakeDelegationHistory.json";
         Map<String, Object> param = new CreateParameters()
                 .getParamsMap();
         DelegationHistoryModel delegationHistoryModel = (DelegationHistoryModel)
@@ -27,7 +28,8 @@ public class StakeKeyDelegationHistoryTest extends BaseTest {
         numberPage = delegationHistoryModel.getTotalItems()/5 + 1;
         stakeKeySteps.then_verifySizeDelegationHistoryResponse(delegationHistoryModel, param, 5)
                 .then_verifyCurrentPageDelegationHistoryResponse(delegationHistoryModel, param)
-                .verifyStakeDelegationHistory(delegationHistoryModel.getData());
+                .verifyStakeDelegationHistory(delegationHistoryModel.getData())
+                .validateResponseSchema(pathStakeDelegationHistorySchema);
     }
     @Test(description = "get stake delegation history | stakeKey invalid", groups = {"stake", "stake_delegation_history"}, dataProvider = "stakeKey")
     public void getDelegationHistoryStakeKeyInvalid(String stakeKey){

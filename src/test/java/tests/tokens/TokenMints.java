@@ -18,6 +18,7 @@ public class TokenMints extends BaseTest {
     private int numberPage;
     @Test(description = "get token mints", groups = {"token", "token_mints"}, priority = 0)
     public void getTokenMints(){
+        String pathTokenMintsSchema = "schemaJson/tokens/tokenMints.json";
         Map<String, Object> param = new CreateParameters()
                 .getParamsMap();
         TokensMintsModel tokensMintsModel = (TokensMintsModel)
@@ -27,7 +28,8 @@ public class TokenMints extends BaseTest {
         numberPage = tokensMintsModel.getTotalItems()/20 + 1;
         tokenSteps.then_verifyPageTokensMintsResponse(tokensMintsModel, param)
                 .then_verifySizeTokensMintsResponse(tokensMintsModel, param, 6)
-                .verifyTokenMints(tokensMintsModel.getData());
+                .verifyTokenMints(tokensMintsModel.getData())
+                .validateResponseSchema(pathTokenMintsSchema);
     }
     @Test(description = "get token mints invalid tokenId", groups = {"token", "token_mints"}, dataProvider = "tokenInvalid")
     public void getTokenMintsInvalidTokenId(String token){

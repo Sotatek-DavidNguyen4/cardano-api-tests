@@ -1,0 +1,54 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "status": {
+      "type": "string"
+    },
+    "stakeAddress": {
+      "type": "string"
+    },
+    "totalStake": {
+      "type": "number"
+    },
+    "rewardAvailable": {
+      "type": "number"
+    },
+    "rewardWithdrawn": {
+      "type": "number"
+    },
+    "pool": {
+      "type": "object",
+      "properties": {
+        "tickerName": {
+          "type": "string"
+        },
+        "poolName": {
+          "type": "string"
+        },
+        "poolId": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "tickerName",
+        "poolName",
+        "poolId"
+      ]
+    },
+    "rewardPools": {
+      "type": "array",
+      "items": {}
+    }
+  },
+  "required": [
+    "status",
+    "stakeAddress",
+    "totalStake",
+    "rewardAvailable",
+    "rewardWithdrawn",
+    "pool",
+    "rewardPools"
+  ]
+}

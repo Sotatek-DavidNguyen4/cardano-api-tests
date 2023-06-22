@@ -21,6 +21,7 @@ public class StakeKeyListAddressTests extends BaseTest {
     private long nubmerPage;
     @Test(description = "get stake list address", groups = {"stake", "stake_list_address"}, priority = 0)
     public void getStakeListAddress(){
+        String pathStakeListAddressSchema = "schemaJson/stakes/stakeListAddress.json";
         Map<String, Object> param = new CreateParameters()
                 .getParamsMap();
         StakeListAddressModel stakeListAddressModel = (StakeListAddressModel)
@@ -36,7 +37,8 @@ public class StakeKeyListAddressTests extends BaseTest {
 
         stakeKeySteps.then_verifyPageStakeListAddressResponse(stakeListAddressModel, param)
                 .then_verifySizeStakeListAddressResponse(stakeListAddressModel, param, 15)
-                .verifyElementsIsNotDecimal(elements);
+                .verifyElementsIsNotDecimal(elements)
+                .validateResponseSchema(pathStakeListAddressSchema);
     }
     @Test(description = "get stake list addres | stakeKey invalid", groups = {"stake", "stake_list_address"}, dataProvider = "stake")
     public void getStakeListAddressStakeKeyInvalid(String stakeKey){

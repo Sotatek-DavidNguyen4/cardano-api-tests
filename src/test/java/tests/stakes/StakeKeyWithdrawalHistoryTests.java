@@ -21,6 +21,7 @@ public class StakeKeyWithdrawalHistoryTests extends BaseTest {
     private int numberPage;
     @Test(description = "get stake withdrawal history | hasn't withdrawal", groups = {"stake", "stake_withdrawal_history"})
     public void getStakeKeyWithdrawalHistoryNoWithdrawal(){
+        String pathStakeWithdrawalHistorySchema = "schemaJson/stakes/stakeWithdrawalHistory.json";
         Map<String, Object> param = new CreateParameters()
                 .getParamsMap();
         WithdrawalHistoryModel withdrawalHistoryModel = (WithdrawalHistoryModel)
@@ -28,7 +29,8 @@ public class StakeKeyWithdrawalHistoryTests extends BaseTest {
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(WithdrawalHistoryModel.class);
         stakeKeySteps.then_verifyPageStakeWithdrawalHistoryResponse(withdrawalHistoryModel, param)
-                .then_verifySizeStakeWithdrawalHistoryResponse(withdrawalHistoryModel, param, 0);
+                .then_verifySizeStakeWithdrawalHistoryResponse(withdrawalHistoryModel, param, 0)
+                .validateResponseSchema(pathStakeWithdrawalHistorySchema);
     }
     @Test(description = "get stake withdrawal history | withdrawal", groups = {"stake", "stake_withdrawal_history"}, priority = 0)
     public void getStakeKeyWithdrawalHistory(){

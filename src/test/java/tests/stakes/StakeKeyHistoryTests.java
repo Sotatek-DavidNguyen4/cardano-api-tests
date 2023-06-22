@@ -22,6 +22,7 @@ public class StakeKeyHistoryTests extends BaseTest {
     private long numberPage;
     @Test(description = "get stake history", groups = {"stake", "stake_history"}, priority = 0)
     public void getStakeHistory(){
+        String pathStakeHistorySchema = "schemaJson/stakes/stakeHistory.json";
         Map<String, Object> param = new CreateParameters()
                 .getParamsMap();
         StakeHistory stakeHistory = (StakeHistory) stakeKeySteps
@@ -38,7 +39,8 @@ public class StakeKeyHistoryTests extends BaseTest {
         stakeKeySteps.then_verifyPageStakeHistoryResponse(stakeHistory, param)
                 .then_verifySizeStakeHistoryResponse(stakeHistory, param, 1)
                 .verifyStakeHistory(stakeHistory.getData())
-                .verifyElementsIsNotDecimal(elements);
+                .verifyElementsIsNotDecimal(elements)
+                .validateResponseSchema(pathStakeHistorySchema);
     }
     @Test(description = "get stake history with invalid page", groups = {"stake", "stake_history"}, dataProvider = "page")
     public void getStakeHistoryInvalidPage(Object page){

@@ -20,6 +20,7 @@ public class TokenTxs extends BaseTest {
     private int pageNumber;
     @Test(description = "get token txs", groups = {"token", "token_txs"}, priority = 0)
     public void getTokenTxs(){
+        String pathTokensTxs = "schemaJson/tokens/tokenTxs.json";
         Map<String, Object> param = new CreateParameters()
                 .getParamsMap();
         TokensTxsModel tokensTxsModel = (TokensTxsModel)
@@ -28,7 +29,8 @@ public class TokenTxs extends BaseTest {
                 .saveResponseObject(TokensTxsModel.class);
         tokenSteps.then_verifyPageTokensTxsResponse(tokensTxsModel, param)
                 .then_verifySizeTokensTxsResponse(tokensTxsModel, param, 20)
-                .verifyTokenTxs(tokensTxsModel.getData());
+                .verifyTokenTxs(tokensTxsModel.getData())
+                .validateResponseSchema(pathTokensTxs);
     }
     @Test(description = "get token txs with page", groups = {"token", "token_txs"}, dataProvider = "tokenTxsPage")
     public void getTokenTxsPage(String page){
