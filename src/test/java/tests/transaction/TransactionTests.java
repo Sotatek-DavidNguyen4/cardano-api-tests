@@ -28,6 +28,7 @@ public class TransactionTests extends BaseTest {
     TransactionSteps txnSteps = new TransactionSteps();
     private TransactionResponse txnResponse;
     private String type, hash;
+    private long totalPages;
 
     @Test(description = "Get the transaction by valid hash", groups = "transactions")
     public void get_transaction_by_valid_hash() {
@@ -185,6 +186,28 @@ public class TransactionTests extends BaseTest {
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(TransactionResponse.class);
         txnSteps.then_verifyTransactionResponseWithDataTest(txnResponse, expectedResponse);
+    }
+
+    @Test(description = "Get filter transaction with page = totalPage + 1", groups = "transactions")
+    public void get_filter_transaction_success_with_total_page_max() {
+        String pathTransactionFilterSchema = "schemaJson/transactions/transactionFilter.json";
+        MultiMap params = new MultiValueMap();
+        params.put("page", "1");
+        params.put("size", "20");
+        FilterTransactionResponse filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
+                .validateResponse(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(pathTransactionFilterSchema)
+                .saveResponseObject(FilterTransactionResponse.class);
+        txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
+        totalPages = filterTxsRes.getTotalPages()+1;
+
+        params = new MultiValueMap();
+        params.put("page", String.valueOf(totalPages));
+        filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
+                .validateResponse(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(pathTransactionFilterSchema)
+                .saveResponseObject(FilterTransactionResponse.class);
+        txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
     }
 
     @DataProvider(name ="invalidHash")
