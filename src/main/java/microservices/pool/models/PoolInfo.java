@@ -3,6 +3,7 @@ package microservices.pool.models;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 
+import java.math.BigInteger;
 import java.util.List;
 @Data
 @AllArgsConstructor
@@ -14,8 +15,8 @@ public class PoolInfo {
     public int block;
     public int slotNo;
     public String poolName;
-    public long pledge;
-    public long cost;
+    public BigInteger pledge;
+    public BigInteger cost;
     public double margin;
     public int poolId;
     public String poolView;

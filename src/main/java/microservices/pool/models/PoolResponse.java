@@ -8,7 +8,7 @@ import java.util.List;
 @AllArgsConstructor
 public class PoolResponse {
     public List<PoolInfo> data;
-    public int totalItems;
-    public int totalPages;
-    public int currentPage;
+    public long totalItems;
+    public long totalPages;
+    public long currentPage;
 }

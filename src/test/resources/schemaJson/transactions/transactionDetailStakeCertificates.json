@@ -1,0 +1,225 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "tx": {
+      "type": "object",
+      "properties": {
+        "hash": {
+          "type": "string"
+        },
+        "time": {
+          "type": "string"
+        },
+        "blockNo": {
+          "type": "number"
+        },
+        "blockHash": {
+          "type": "string"
+        },
+        "epochSlot": {
+          "type": "number"
+        },
+        "maxEpochSlot": {
+          "type": "number"
+        },
+        "epochNo": {
+          "type": "number"
+        },
+        "status": {
+          "type": "string"
+        },
+        "confirmation": {
+          "type": "number"
+        },
+        "fee": {
+          "type": "number"
+        },
+        "totalOutput": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "hash",
+        "time",
+        "blockNo",
+        "blockHash",
+        "epochSlot",
+        "maxEpochSlot",
+        "epochNo",
+        "status",
+        "confirmation",
+        "fee",
+        "totalOutput"
+      ]
+    },
+    "summary": {
+      "type": "object",
+      "properties": {
+        "stakeAddress": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "address": {
+                "type": "string"
+              },
+              "value": {
+                "type": "number"
+              },
+              "tokens": {
+                "type": "array",
+                "items": {}
+              }
+            },
+            "required": [
+              "address",
+              "value",
+              "tokens"
+            ]
+          }
+        }
+      },
+      "required": [
+        "stakeAddress"
+      ]
+    },
+    "contracts": {},
+    "collaterals": {},
+    "notes": {},
+    "withdrawals": {},
+    "delegations": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "address": {
+            "type": "string"
+          },
+          "poolId": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "address",
+          "poolId"
+        ]
+      }
+    },
+    "mints": {},
+    "stakeCertificates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "stakeAddress": {
+            "type": "string"
+          },
+          "type": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "stakeAddress",
+          "type"
+        ]
+      }
+    },
+    "poolCertificates": {},
+    "protocols": {},
+    "previousProtocols": {},
+    "instantaneousRewards": {},
+    "utxOs": {
+      "type": "object",
+      "properties": {
+        "inputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "address": {
+                "type": "string"
+              },
+              "index": {
+                "type": "string"
+              },
+              "txHash": {
+                "type": "string"
+              },
+              "value": {
+                "type": "number"
+              },
+              "tokens": {
+                "type": "array",
+                "items": {}
+              },
+              "stakeAddress": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "address",
+              "index",
+              "txHash",
+              "value",
+              "tokens",
+              "stakeAddress"
+            ]
+          }
+        },
+        "outputs": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "address": {
+                "type": "string"
+              },
+              "index": {
+                "type": "string"
+              },
+              "value": {
+                "type": "number"
+              },
+              "tokens": {
+                "type": "array",
+                "items": {}
+              },
+              "stakeAddress": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "address",
+              "index",
+              "value",
+              "tokens",
+              "stakeAddress"
+            ]
+          }
+        }
+      },
+      "required": [
+        "inputs",
+        "outputs"
+      ]
+    }
+  },
+  "required": [
+    "tx",
+    "summary",
+    "contracts",
+    "collaterals",
+    "notes",
+    "withdrawals",
+    "delegations",
+    "mints",
+    "stakeCertificates",
+    "poolCertificates",
+    "protocols",
+    "previousProtocols",
+    "instantaneousRewards",
+    "utxOs"
+  ]
+}

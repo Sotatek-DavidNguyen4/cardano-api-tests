@@ -1,0 +1,85 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "txId": {
+            "type": "number"
+          },
+          "txHash": {
+            "type": "string"
+          },
+          "txTime": {
+            "type": "string"
+          },
+          "epoch": {
+            "type": "number"
+          },
+          "block": {
+            "type": "number"
+          },
+          "slotNo": {
+            "type": "number"
+          },
+          "poolName": {},
+          "pledge": {
+            "type": "number"
+          },
+          "cost": {
+            "type": "number"
+          },
+          "margin": {
+            "type": "number"
+          },
+          "poolId": {
+            "type": "number"
+          },
+          "poolView": {
+            "type": "string"
+          },
+          "stakeKey": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "txId",
+          "txHash",
+          "txTime",
+          "epoch",
+          "block",
+          "slotNo",
+          "poolName",
+          "pledge",
+          "cost",
+          "margin",
+          "poolId",
+          "poolView",
+          "stakeKey"
+        ]
+      }
+    },
+    "totalItems": {
+      "type": "number"
+    },
+    "totalPages": {
+      "type": "number"
+    },
+    "currentPage": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "data",
+    "totalItems",
+    "totalPages",
+    "currentPage"
+  ]
+}

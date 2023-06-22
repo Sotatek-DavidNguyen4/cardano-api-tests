@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "date": {
+        "type": "string"
+      },
+      "simpleTransactions": {
+        "type": "number"
+      },
+      "smartContract": {
+        "type": "number"
+      },
+      "metadata": {
+        "type": "number"
+      }
+    },
+    "required": [
+      "date",
+      "simpleTransactions",
+      "smartContract",
+      "metadata"
+    ]
+  }
+}

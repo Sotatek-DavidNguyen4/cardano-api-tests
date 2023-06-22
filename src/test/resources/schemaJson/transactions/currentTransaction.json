@@ -1,0 +1,58 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "blockNo": {
+        "type": "number"
+      },
+      "fromAddress": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "toAddress": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "amount": {
+        "type": "number"
+      },
+      "hash": {
+        "type": "string"
+      },
+      "epochNo": {
+        "type": "number"
+      },
+      "epochSlotNo": {
+        "type": "number"
+      },
+      "slot": {
+        "type": "number"
+      },
+      "time": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string"
+      }
+    },
+    "required": [
+      "blockNo",
+      "fromAddress",
+      "toAddress",
+      "amount",
+      "hash",
+      "epochNo",
+      "epochSlotNo",
+      "slot",
+      "time",
+      "status"
+    ]
+  }
+}
