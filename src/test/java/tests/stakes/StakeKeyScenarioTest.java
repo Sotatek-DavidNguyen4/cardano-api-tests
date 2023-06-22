@@ -6,6 +6,7 @@ import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
 import microservices.stakeKey.models.StakeHistory;
 import microservices.stakeKey.models.StakeModel;
+import microservices.stakeKey.models.history.DelegationHistoryModel;
 import microservices.stakeKey.models.topDelegators.TopDelegators;
 import microservices.stakeKey.steps.StakeKeySteps;
 import org.apache.commons.collections.MultiMap;
@@ -42,7 +43,7 @@ public class StakeKeyScenarioTest extends BaseTest {
         stakeKeySteps.then_verifyStakeResponseTopAndDetail(topDelegators,stakeModel);
     }
 
-    @Test(description = "Compare api: Get a stake detail by stake keywith api: Get delegation history of stake key",groups = {"stake","stake_scenario"})
+    @Test(description = "Compare api: Get a stake detail by stake key with api: Get delegation history of stake key",groups = {"stake","stake_scenario"})
     public void getDataForStakeDelegatorAndDelegationHistory(){
         MultiMap params = new MultiValueMap();
         params.put("page", null);
@@ -51,10 +52,10 @@ public class StakeKeyScenarioTest extends BaseTest {
                                                 .validateResponse(HttpURLConnection.HTTP_OK)
                                                 .saveResponseObject(TopDelegators.class);
 
-        StakeHistory stakeHistory = (StakeHistory) stakeKeySteps.getStakeHistory(topDelegators.getData().get(0).getStakeKey())
+        DelegationHistoryModel delegationHistoryModel = (DelegationHistoryModel) stakeKeySteps.getDelegationHistory(topDelegators.getData().get(0).getStakeKey(),params)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
-                .saveResponseObject(StakeHistory.class);
+                .saveResponseObject(DelegationHistoryModel.class);
 
-//        stakeKeySteps.then_verifyStakeResponseTopAndDetail(topDelegators,stakeModel);
+        stakeKeySteps.then_verifyStakeResponseTopAndDelegatorHistory(topDelegators,delegationHistoryModel);
     }
 }

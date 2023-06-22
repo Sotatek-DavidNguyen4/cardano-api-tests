@@ -35,8 +35,10 @@ public class EpochTests extends BaseTest {
         if(!sort.equals("")){
             param.put("sort", sort);
         }
+        String epochListSchema ="schemaJson/epoch/epochList.json";
         epoch = (Epoch) epochSteps.getListEpoch(param)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(epochListSchema)
                 .saveResponseObject(Epoch.class);
 
         epochData = epoch.getData();

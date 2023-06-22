@@ -132,6 +132,12 @@ public class TransactionTests extends BaseTest {
                 .saveResponseListObject(TransactionGraphResponse[].class);
         txnSteps.then_verifyTypeTransactionResponse(transactionGraphResponseList,14);
 
+        //type = ONE_MONTH
+        type = "ONE_MONTH";
+        transactionGraphResponseList = txnSteps.when_getTransactionOnFixableDays(type)
+                .validateResponse(HttpURLConnection.HTTP_OK)
+                .saveResponseListObject(TransactionGraphResponse[].class);
+        txnSteps.then_verifyTypeTransactionResponseWithMonth(transactionGraphResponseList,1);
     }
 
     @Test(description = "Get current transaction", groups = "transactions")

@@ -19,8 +19,10 @@ public class EpochCurrentTests extends BaseTest {
 
     @Test(description = "Verify get current epoch successfully" ,groups = {"epoch"})
     public void getCurrentEpoch(){
+        String currentEpochSchema = "schemaJson/epoch/currentEpoch.json";
         epochCurrent = (EpochCurrent) epochSteps.getCurrentEpoch()
                                                 .validateResponse(HttpURLConnection.HTTP_OK)
+                                                .validateResponseSchema(currentEpochSchema)
                                                 .saveResponseObject(EpochCurrent.class);
 
         epochSteps.verifyEpochCurrentResponseNotNull(epochCurrent)

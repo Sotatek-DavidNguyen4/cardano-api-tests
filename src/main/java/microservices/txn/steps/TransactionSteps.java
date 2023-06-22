@@ -95,6 +95,14 @@ public class TransactionSteps extends BaseSteps {
 //        assertTrue(AttributeStandard.areValidDates(transactionGraphResponseList.stream().map(s -> s.getDate()).collect(Collectors.toList()), DATE_FORMAT[0]));
         return this;
     }
+    @Step("Verify transaction graph response with MONTH")
+    public TransactionSteps then_verifyTypeTransactionResponseWithMonth(List<TransactionGraphResponse> transactionGraphResponseList, int month) {
+        for (TransactionGraphResponse  txnGraph : transactionGraphResponseList) {
+            assertTrue(DateUtil.compareDurationsMonth(txnGraph.getDate(),month),
+                    txnGraph.getDate() + " not true");
+        }
+        return this;
+    }
 
     @Step("Verify transaction response")
     public TransactionSteps then_verifyTransactionResponseWithDataTest(TransactionResponse txnResponse, TransactionResponse responseExpected) {

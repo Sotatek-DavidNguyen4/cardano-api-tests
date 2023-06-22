@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "no": {
+      "type": "integer"
+    },
+    "status": {
+      "type": "string"
+    },
+    "blkCount": {
+      "type": "integer"
+    },
+    "outSum": {
+      "type": "integer"
+    },
+    "txCount": {
+      "type": "integer"
+    },
+    "startTime": {
+      "type": "string"
+    },
+    "endTime": {
+      "type": "string"
+    },
+    "maxSlot": {
+      "type": "integer"
+    },
+    "rewardsDistributed": {
+      "type": "integer"
+    }
+  },
+  "required": [
+    "no",
+    "status",
+    "blkCount",
+    "outSum",
+    "txCount",
+    "startTime",
+    "endTime",
+    "maxSlot",
+    "rewardsDistributed"
+  ]
+}
