@@ -29,39 +29,37 @@ public class TransactionTests extends BaseTest {
     private TransactionResponse txnResponse;
     private String type, hash;
 
-    @Test(description = "Get the transaction by valid hash", groups = "transactions", dataProvider = "")
-    public void get_transaction_by_valid_hash(TransactionResponse expectedResponse) {
-        String pathTransactionDetailSchema = "schemaJson/transactions/transactionDetail.json";
+    @Test(description = "Get the transaction by valid hash", groups = "transactions")
+    public void get_transaction_by_valid_hash() {
+        String pathTransactionSchema = "schemaJson/transactions/transactionDetail.json";
         hash = "d5d9dfcb3e4237cd89274bef99b6cbbfd7e635fd2b11958b9a531f85d5551532";
-         txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(hash)
-                .validateStatusCode(HttpURLConnection.HTTP_OK)
-                .validateResponseSchema(pathTransactionDetailSchema)
-                .saveResponseObject(TransactionResponse.class);
-         txnSteps.then_verifyTransactionResponse(txnResponse, hash);
-
-         String pathTransactionDetailProtocolSchema = "schemaJson/transactions/transactionDetailProtocol.json";
-        hash = "62c3c13187423c47f629e6187f36fbd61a9ba1d05d101588340cfbfdf47b22d2";
-         txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(hash)
-                .validateStatusCode(HttpURLConnection.HTTP_OK)
-                .validateResponseSchema(pathTransactionDetailSchema)
-                .saveResponseObject(TransactionResponse.class);
-         txnSteps.then_verifyTransactionResponse(txnResponse, hash);
-        txnSteps.then_verifyTransactionResponseWithDataTest(txnResponse, expectedResponse);
-
-        String pathTransactionDetailStakeCertificatesSchema = "schemaJson/transactions/transactionDetailStakeCertificates.json";
-        hash = "5aafd8366187e1b9b155aab89ae91571b5e00df025b041d71710743216cb4e8c";
         txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(hash)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
-                .validateResponseSchema(pathTransactionDetailSchema)
+                .validateResponseSchema(pathTransactionSchema)
                 .saveResponseObject(TransactionResponse.class);
         txnSteps.then_verifyTransactionResponse(txnResponse, hash);
-        txnSteps.then_verifyTransactionResponseWithDataTest(txnResponse, expectedResponse);
 
-        String pathTransactionDetailPoolCertificatesSchema = "schemaJson/transactions/transactionDetailPoolCertificates.json";
+        pathTransactionSchema = "schemaJson/transactions/transactionDetailProtocol.json";
+        txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(TRANSACTION_PROTOCOLS.getTx().getHash())
+                .validateStatusCode(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(pathTransactionSchema)
+                .saveResponseObject(TransactionResponse.class);
+        txnSteps.then_verifyTransactionResponse(txnResponse, TRANSACTION_PROTOCOLS.getTx().getHash());
+        txnSteps.then_verifyTransactionResponseWithDataTest(txnResponse, TRANSACTION_PROTOCOLS);
+
+        pathTransactionSchema = "schemaJson/transactions/transactionDetailStakeCertificates.json";
+        txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(TRANSACTION_STAKE_CERTIFICATES.getTx().getHash())
+                .validateStatusCode(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(pathTransactionSchema)
+                .saveResponseObject(TransactionResponse.class);
+        txnSteps.then_verifyTransactionResponse(txnResponse, TRANSACTION_STAKE_CERTIFICATES.getTx().getHash());
+        txnSteps.then_verifyTransactionResponseWithDataTest(txnResponse, TRANSACTION_STAKE_CERTIFICATES);
+
+        pathTransactionSchema = "schemaJson/transactions/transactionDetailPoolCertificates.json";
         hash = "25fcc485bcdf43f6f7de2c314ef3be1b2172625f18889006bfa17667016d9f2c";
         txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(hash)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
-                .validateResponseSchema(pathTransactionDetailPoolCertificatesSchema)
+                .validateResponseSchema(pathTransactionSchema)
                 .saveResponseObject(TransactionResponse.class);
         txnSteps.then_verifyTransactionResponse(txnResponse, hash);
     }

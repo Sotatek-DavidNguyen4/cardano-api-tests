@@ -39,8 +39,12 @@ public class TransactionSteps extends BaseSteps {
         assertTrue(AttributeStandard.isValidDateFormat(txnResponse.getTx().getTime(), DATE_FORMAT[0]));
         assertTrue(AttributeStandard.isValidHash(txnResponse.getTx().getHash()));
         assertTrue(AttributeStandard.isValidBlockHash(txnResponse.getTx().getBlockHash()));
-        assertTrue(AttributeStandard.areValidPoolId(txnResponse.getPoolCertificates().stream().map(s -> s.getPoolId()).collect(Collectors.toList())));
-        assertTrue(AttributeStandard.areValidStakeAddress(txnResponse.getStakeCertificates().stream().map(s -> s.getStakeAddress()).collect(Collectors.toList()),length));
+        if(txnResponse.getPoolCertificates() != null) {
+            assertTrue(AttributeStandard.areValidPoolId(txnResponse.getPoolCertificates().stream().map(s -> s.getPoolId()).collect(Collectors.toList())));
+        }
+        if(txnResponse.getStakeCertificates() != null) {
+            assertTrue(AttributeStandard.areValidStakeAddress(txnResponse.getStakeCertificates().stream().map(s -> s.getStakeAddress()).collect(Collectors.toList()),length));
+        }
         assertTrue(AttributeStandard.isNotDecimal(txnResponse.getTx().getFee()));
         assertTrue(AttributeStandard.isNotDecimal(txnResponse.getTx().getOutSum()));
         return this;

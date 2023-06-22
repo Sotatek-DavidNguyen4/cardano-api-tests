@@ -62,10 +62,10 @@
   "transaction_protocols": {
     "tx": {
       "hash": "62c3c13187423c47f629e6187f36fbd61a9ba1d05d101588340cfbfdf47b22d2",
-      "blockNo": "",
-      "blockHash": "",
-      "maxEpochSlot": "",
-      "epochNo": ""
+      "blockNo": "8377923",
+      "blockHash": "36cb7c4cb0053e112f57cde99204c785a4375fb7c6ac3eabe3a02fdc2d4a2867",
+      "maxEpochSlot": "432000",
+      "epochNo": "392"
     },
     "protocols": {
       "maxBlockExSteps": 20000000000,
@@ -77,15 +77,17 @@
   "transaction_stake_certificates": {
     "tx": {
       "hash": "5aafd8366187e1b9b155aab89ae91571b5e00df025b041d71710743216cb4e8c",
-      "blockNo": "",
-      "blockHash": "",
-      "maxEpochSlot": "",
-      "epochNo": ""
+      "blockNo": "8909056",
+      "blockHash": "2fa620ea1bf54211300a2f4ad5a64d12f22e3481685ad8ddab24259202f949e8",
+      "maxEpochSlot": "432000",
+      "epochNo": "418"
     },
-    "stakeCertificates": {
+    "stakeCertificates": [
+      {
       "stakeAddress": "stake1u85nk6twwl8xgcpvf3f378pfaxx9rkdqk3g0dmw6jtvp5rs2knhhx",
       "type": "STAKE_REGISTRATION"
     }
+    ]
   },
 
   "epoch_by_no": {
