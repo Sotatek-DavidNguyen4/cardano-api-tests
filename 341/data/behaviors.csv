@@ -1,0 +1,4 @@
+"Epic","Feature","Story","FAILED","BROKEN","PASSED","SKIPPED","UNKNOWN"
+"cardano","api-transactions","Transactions test","9","0","30","0","0"
+"cardano","api-pools","","2","0","34","0","0"
+"cardano","api-transactions","Transactions Scenario test","0","0","3","0","0"
