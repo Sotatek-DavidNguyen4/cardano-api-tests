@@ -18,9 +18,9 @@ public class TransactionResponse {
     public Object withdrawals;
     public Object delegations;
     public Object mints;
-    public Object protocols;
-    public Object stakeCertificates;
-    public Object poolCertificates;
+    public Protocol protocols;
+    public ArrayList<StakeCertificates> stakeCertificates;
+    public ArrayList<Pool> poolCertificates;
     public Object previousProtocols;
     public UtxOs utxOs;
 
@@ -77,4 +77,30 @@ public class TransactionResponse {
         public String assetId;
     }
 
+    @Data
+    public class Pool{
+        public String poolId;
+        public String vrfKey;
+        public String rewardAccount;
+        public ArrayList<String> poolOwners;
+        public String metadataHash;
+        public String metadataUrl;
+        public double margin;
+        public int cost;
+        public int pledge;
+        public String type;
+    }
+
+    @Data
+    public class StakeCertificates{
+        public String stakeAddress;
+        public String type;
+    }
+
+    @Data
+    public class Protocol{
+        public long maxBlockExSteps;
+        public long protocolMajor;
+        public long protocolMinor;
+    }
 }

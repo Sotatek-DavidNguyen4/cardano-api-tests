@@ -15,6 +15,7 @@ import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import util.JsonUtils;
 import util.ObjectMappingUtils;
+import util.SortListUtil;
 
 import java.net.HttpURLConnection;
 import java.util.List;
@@ -27,14 +28,41 @@ public class TransactionTests extends BaseTest {
     TransactionSteps txnSteps = new TransactionSteps();
     private TransactionResponse txnResponse;
     private String type, hash;
+    private long totalPages;
 
     @Test(description = "Get the transaction by valid hash", groups = "transactions")
     public void get_transaction_by_valid_hash() {
-         hash = "d5d9dfcb3e4237cd89274bef99b6cbbfd7e635fd2b11958b9a531f85d5551532";
-         txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(hash)
+        String pathTransactionSchema = "schemaJson/transactions/transactionDetail.json";
+        hash = "d5d9dfcb3e4237cd89274bef99b6cbbfd7e635fd2b11958b9a531f85d5551532";
+        txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(hash)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(pathTransactionSchema)
                 .saveResponseObject(TransactionResponse.class);
-         txnSteps.then_verifyTransactionResponse(txnResponse, hash);
+        txnSteps.then_verifyTransactionResponse(txnResponse, hash);
+
+        pathTransactionSchema = "schemaJson/transactions/transactionDetailProtocol.json";
+        txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(TRANSACTION_PROTOCOLS.getTx().getHash())
+                .validateStatusCode(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(pathTransactionSchema)
+                .saveResponseObject(TransactionResponse.class);
+        txnSteps.then_verifyTransactionResponse(txnResponse, TRANSACTION_PROTOCOLS.getTx().getHash());
+        txnSteps.then_verifyTransactionResponseWithDataTest(txnResponse, TRANSACTION_PROTOCOLS);
+
+        pathTransactionSchema = "schemaJson/transactions/transactionDetailStakeCertificates.json";
+        txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(TRANSACTION_STAKE_CERTIFICATES.getTx().getHash())
+                .validateStatusCode(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(pathTransactionSchema)
+                .saveResponseObject(TransactionResponse.class);
+        txnSteps.then_verifyTransactionResponse(txnResponse, TRANSACTION_STAKE_CERTIFICATES.getTx().getHash());
+        txnSteps.then_verifyTransactionResponseWithDataTest(txnResponse, TRANSACTION_STAKE_CERTIFICATES);
+
+        pathTransactionSchema = "schemaJson/transactions/transactionDetailPoolCertificates.json";
+        hash = "25fcc485bcdf43f6f7de2c314ef3be1b2172625f18889006bfa17667016d9f2c";
+        txnResponse = (TransactionResponse) txnSteps.when_getTransactionByHash(hash)
+                .validateStatusCode(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(pathTransactionSchema)
+                .saveResponseObject(TransactionResponse.class);
+        txnSteps.then_verifyTransactionResponse(txnResponse, hash);
     }
 
     @Test(description = "Get the transaction by invalid hash", groups = "transactions", dataProvider = "invalidHash")
@@ -45,21 +73,25 @@ public class TransactionTests extends BaseTest {
 
     @Test(description = "Get filter transaction without sort", groups = "transactions", dataProvider = "paramWithPage&Size")
     public void get_filter_transaction_success_without_sort(String page, String size) {
+        String pathTransactionFilterSchema = "schemaJson/transactions/transactionFilter.json";
         MultiMap params = new MultiValueMap();
         params.put("page", page);
         params.put("size", size);
         FilterTransactionResponse filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
                 .validateResponse(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(pathTransactionFilterSchema)
                 .saveResponseObject(FilterTransactionResponse.class);
         txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
     }
 
-    @Test(description = "Get filter transaction with sort", groups = "transactions", enabled = false)
+    @Test(description = "Get filter transaction with sort", groups = "transactions")
     public void get_filter_transaction_success_with_sort() {
+        String pathTransactionFilterSchema = "schemaJson/transactions/transactionFilter.json";
         MultiMap params = new MultiValueMap();
         params.put("sort", "fee,ASC");
         FilterTransactionResponse filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
                 .validateResponse(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(pathTransactionFilterSchema)
                 .saveResponseObject(FilterTransactionResponse.class);
         txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
 
@@ -106,15 +138,17 @@ public class TransactionTests extends BaseTest {
     @Test(description = "Get number transaction with invalid days", groups = "transactions", dataProvider = "invalidType")
     public void get_number_transaction_with_invalid_days(String type) {
         txnSteps.when_getTransactionOnFixableDays(type)
-                .then_verifyErrorResponse(HttpURLConnection.HTTP_BAD_REQUEST, APIErrorMessage.TRANSACTION_NOT_FOUND, APIErrorCode.TRANSACTION_NOT_FOUND);
+                .then_verifyErrorResponse(HttpURLConnection.HTTP_BAD_REQUEST, APIErrorMessage.RANGE_NOT_VALID, APIErrorCode.RANGE_NOT_VALID);
     }
 
     @Test(description = "Get number transaction on fixable days", groups = "transactions")
     public void get_number_transaction_on_fixable_days() {
+        String pathTransactionChartSchema = "schemaJson/transactions/transactionChart.json";
         //type = ONE_DAY
         type = "ONE_DAY";
         List<TransactionGraphResponse> transactionGraphResponseList = txnSteps.when_getTransactionOnFixableDays(type)
                 .validateResponse(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(pathTransactionChartSchema)
                 .saveResponseListObject(TransactionGraphResponse[].class);
         txnSteps.then_verifyTypeTransactionResponse(transactionGraphResponseList,1);
 
@@ -122,6 +156,7 @@ public class TransactionTests extends BaseTest {
         type = "ONE_WEEK";
         transactionGraphResponseList = txnSteps.when_getTransactionOnFixableDays(type)
                 .validateResponse(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(pathTransactionChartSchema)
                 .saveResponseListObject(TransactionGraphResponse[].class);
         txnSteps.then_verifyTypeTransactionResponse(transactionGraphResponseList,7);
 
@@ -129,6 +164,7 @@ public class TransactionTests extends BaseTest {
         type = "TWO_WEEK";
         transactionGraphResponseList = txnSteps.when_getTransactionOnFixableDays(type)
                 .validateResponse(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(pathTransactionChartSchema)
                 .saveResponseListObject(TransactionGraphResponse[].class);
         txnSteps.then_verifyTypeTransactionResponse(transactionGraphResponseList,14);
 
@@ -136,8 +172,10 @@ public class TransactionTests extends BaseTest {
 
     @Test(description = "Get current transaction", groups = "transactions")
     public void get_current_transaction() {
+        String pathCurrentTransactionSchema = "schemaJson/transactions/currentTransaction.json";
         List<Transaction> currentTransactionsList = txnSteps.when_getCurrentTransaction()
                 .validateResponse(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(pathCurrentTransactionSchema)
                 .saveResponseListObject(Transaction[].class);
         txnSteps.then_verifyCurrentTransactionResponse(currentTransactionsList);
     }
@@ -148,6 +186,28 @@ public class TransactionTests extends BaseTest {
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
                 .saveResponseObject(TransactionResponse.class);
         txnSteps.then_verifyTransactionResponseWithDataTest(txnResponse, expectedResponse);
+    }
+
+    @Test(description = "Get filter transaction with page = totalPage + 1", groups = "transactions")
+    public void get_filter_transaction_success_with_total_page_max() {
+        String pathTransactionFilterSchema = "schemaJson/transactions/transactionFilter.json";
+        MultiMap params = new MultiValueMap();
+        params.put("page", "1");
+        params.put("size", "20");
+        FilterTransactionResponse filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
+                .validateResponse(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(pathTransactionFilterSchema)
+                .saveResponseObject(FilterTransactionResponse.class);
+        txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
+        totalPages = filterTxsRes.getTotalPages()+1;
+
+        params = new MultiValueMap();
+        params.put("page", String.valueOf(totalPages));
+        filterTxsRes = (FilterTransactionResponse) txnSteps.when_filterTransaction(params)
+                .validateResponse(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(pathTransactionFilterSchema)
+                .saveResponseObject(FilterTransactionResponse.class);
+        txnSteps.then_verifyFilterTransactionResponse(filterTxsRes, params);
     }
 
     @DataProvider(name ="invalidHash")
