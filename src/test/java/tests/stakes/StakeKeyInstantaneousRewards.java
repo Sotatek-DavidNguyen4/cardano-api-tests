@@ -20,6 +20,7 @@ public class StakeKeyInstantaneousRewards extends BaseTest {
     private long numberPage;
     @Test(description = "get stake instantaneous rewards with stakeKey", groups = {"stake", "stake_instantaneour_rewards"}, priority = 0)
     public void getStakeInstantaneousReward(){
+        String pathStakeInstantaneousRewardsSchema = "schemaJson/stakes/stakeInstantaneousRewards.json";
         Map<String, Object> param = new CreateParameters()
                 .getParamsMap();
         InstantaneousRewardModel instantaneousRewardModel = (InstantaneousRewardModel)
@@ -35,7 +36,8 @@ public class StakeKeyInstantaneousRewards extends BaseTest {
         stakeKeySteps.then_verifyPageInstantaneousResponse(instantaneousRewardModel, param)
                 .then_verifySizeInstantaneousResponse(instantaneousRewardModel, param, 6)
                 .verifyStakeInstantaneousRewards(instantaneousRewardModel.getData())
-                .verifyElementsIsNotDecimal(elements);
+                .verifyElementsIsNotDecimal(elements)
+                .validateResponseSchema(pathStakeInstantaneousRewardsSchema);
     }
     @Test(description = "get stake instantaneous rewards with stakeKey | invalid", groups = {"stake", "stake_instantaneour_rewards"}, dataProvider = "stakeKey")
     public void getStakeInstantaneousRewardWithStakeKeyInvalid(Object stakeKey){

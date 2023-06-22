@@ -22,6 +22,7 @@ public class StakeKeyAddress extends BaseTest {
     private String stakeAddress = "stake1u9tqcg5qatru0k7h45vtldj7j3c3zhgr6ndglgwu866qglqkzv6c2";
     @Test(description = "get a stake detail by address", groups = {"stake", "stake_address"})
     public void getStakeByAddress(){
+        String pathStakeAddressSchema = "schemaJson/stakes/stakeAddress.json";
         int length = isPreProd() ? STATKE_ADDRESS_LENGTH[0] : STATKE_ADDRESS_LENGTH[1];
         StakeModel stakeModel = (StakeModel)
         stakeKeySteps.getStakeByAddress(address)
@@ -34,7 +35,8 @@ public class StakeKeyAddress extends BaseTest {
         elements.add(stakeModel.getRewardWithdrawn());
 
         stakeKeySteps.verifyGetStakeAddressResponse(stakeModel, length, stakeAddress)
-                 .verifyElementsIsNotDecimal(elements);
+                 .verifyElementsIsNotDecimal(elements)
+                .validateResponseSchema(pathStakeAddressSchema);
     }
     @Test(description = "get stake detail by address wrong format", groups = {"stake", "stake_address"}, dataProvider = "listAddressWrongFormat")
     public void getStakeByAddresWrongFormat(Object address){

@@ -1,6 +1,9 @@
 package tests.tokens;
 
 import base.BaseTest;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import microservices.token.models.TokenModel;
 import microservices.token.models.TokensModel;
 import microservices.token.models.TokensTxsModel;
@@ -11,7 +14,9 @@ import util.RandomNumber;
 
 import java.net.HttpURLConnection;
 import java.util.Map;
-
+@Epic("cardano")
+@Feature("api-token-controller")
+@Story("Tokens Scenario")
 public class TokenScenario extends BaseTest {
     private TokenSteps tokenSteps = new TokenSteps();
     private RandomNumber randomNumber = new RandomNumber();
