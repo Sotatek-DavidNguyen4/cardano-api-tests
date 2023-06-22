@@ -9,10 +9,9 @@ import org.testng.Assert;
 import util.AttributeStandard;
 import util.SortListUtil;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 import static constants.DateFormats.DATE_FORMAT;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -222,9 +221,21 @@ public class TokenSteps extends BaseSteps {
         return this;
     }
     @Step("verify response of get token analytics type")
-    public TokenSteps verifyResponseTokenAnalyticsType(List<TokenAnalytics> ananlytics){
+    public TokenSteps verifyResponseTokenAnalyticsType(List<TokenAnalytics> ananlytics, String type){
+        ArrayList<Long> numberYears = new ArrayList<>();
         for(TokenAnalytics a : ananlytics){
             Assert.assertTrue(AttributeStandard.isValidDateFormat(a.getDate(), DATE_FORMAT[2]));
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            LocalDate date = LocalDate.parse(a.getDate(), formatter);
+            numberYears.add(date.toEpochDay());
+        }
+        for (int i = 0; i < numberYears.size() - 1; i++) {
+            if(Objects.equals(type, "ONE_DAY")){
+                Assert.assertEquals(numberYears.get(i + 1) - numberYears.get(i), 1);
+            }
+            if(Objects.equals(type, "ONE_WEEK")){
+                Assert.assertEquals(numberYears.get(i + 1) - numberYears.get(i), 7);
+            }
         }
         return this;
     }
