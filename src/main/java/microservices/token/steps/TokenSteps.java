@@ -10,6 +10,8 @@ import util.AttributeStandard;
 import util.SortListUtil;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static constants.DateFormats.DATE_FORMAT;
@@ -209,6 +211,21 @@ public class TokenSteps extends BaseSteps {
         Assert.assertEquals(data.getTotalVolume(), detailToken.getTotalVolume());
         Assert.assertEquals(data.getNumberOfHolders(), detailToken.getNumberOfHolders());
         Assert.assertEquals(data.getId(), detailToken.getId());
+        return this;
+    }
+    @Step("get token ananlytics type")
+    public TokenSteps getTokenAnalyticsType(String tokenId, String type){
+        Map<String, Object> pathParameters = new HashMap<>();
+        pathParameters.put(Endpoints.TokenApi.TOKEN_ID, tokenId);
+        pathParameters.put("type", type);
+        sendGetWithPathParams(Endpoints.TokenApi.GET_ANALYTICS_TYPE, pathParameters);
+        return this;
+    }
+    @Step("verify response of get token analytics type")
+    public TokenSteps verifyResponseTokenAnalyticsType(List<TokenAnalytics> ananlytics){
+        for(TokenAnalytics a : ananlytics){
+            Assert.assertTrue(AttributeStandard.isValidDateFormat(a.getDate(), DATE_FORMAT[2]));
+        }
         return this;
     }
 }
