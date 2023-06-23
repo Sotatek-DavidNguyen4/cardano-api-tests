@@ -21,6 +21,8 @@ import microservices.stakeKey.models.registration.StakeRegistrationData;
 import microservices.stakeKey.models.topDelegators.TopDelegators;
 import microservices.stakeKey.models.topDelegators.TopDelegatorsData;
 import microservices.stakeKey.models.history.WithdrawalHistoryModel;
+import microservices.stakeKey.models.transaction.StakeTransaction;
+import microservices.stakeKey.models.transaction.StakeTransactionData;
 import org.assertj.core.api.AssertFactory;
 import org.testng.Assert;
 import util.AttributeStandard;
@@ -47,6 +49,11 @@ public class StakeKeySteps extends BaseSteps {
     @Step("get a stake instantaneous-rewards with stakeKey")
     public StakeKeySteps getStakeInstantaneousRewards(Object stakeKey){
         sendGet(Endpoints.StakeKeyApi.GET_STAKE_INSTANTANEOUS_REWARDS, Endpoints.StakeKeyApi.STAKE_KEY, stakeKey);
+        return this;
+    }
+    @Step("get a stake transaction with stakeKey")
+    public StakeKeySteps getStakeTransaction(Object stakeKey,Map<String, Object> param){
+        sendGet(Endpoints.StakeKeyApi.GET_STAKE_TRANSACTION,param, Endpoints.StakeKeyApi.STAKE_KEY, stakeKey);
         return this;
     }
     @Step("get a stake instantaneous rewards with param")
@@ -226,6 +233,52 @@ public class StakeKeySteps extends BaseSteps {
             Assert.assertTrue(isValidDateFormat(stakeDeRegistrationData.getTxTime(),DATE_FORMAT[0]));
             Assert.assertTrue(isValidStakeAddress(stakeDeRegistrationData.getStakeKey(),length));
         }
+        return this;
+    }
+
+    @Step("Verify currentPage and size of Get transactions of stake keyn response")
+    public StakeKeySteps then_verifyStakeTransactionResponse(StakeTransaction stakeTransaction, Map<String, Object> params) {
+        RequestParams requestParams = new RequestParams(params, 0, 20);
+        assertThat(stakeTransaction.getCurrentPage())
+                .as("Value of field 'currentPage' is wrong")
+                .isEqualTo(requestParams.getPage());
+
+        assertThat(stakeTransaction.getData().size())
+                .as("The size of page is wrong")
+                .isEqualTo(requestParams.getSize());
+
+        return this;
+    }
+
+    @Step("verify response stake transaction ")
+    public StakeKeySteps verifyStakeTransactionFormat(List<StakeTransactionData> data){
+        for(StakeTransactionData stakeTransactionData : data){
+            Assert.assertTrue(AttributeStandard.isValidHash(stakeTransactionData.getHash()));
+            Assert.assertTrue(AttributeStandard.isValidHash(stakeTransactionData.getBlockHash()));
+            Assert.assertTrue(AttributeStandard.isValidDateFormat(stakeTransactionData.getTime(), DATE_FORMAT[0]));
+            for(StakeTransactionData.Tokens tokens : stakeTransactionData.getTokens())
+            Assert.assertTrue(AttributeStandard.isValidTokenFingerprint(tokens.getFingerprint()));
+        }
+        return this;
+    }
+
+    @Step("check elements is not decimal")
+    public StakeKeySteps verifyElementsIsNotDecimalStakeTransaction(List<StakeTransactionData> data){
+        for (StakeTransactionData stakeTransactionData : data){
+            Assert.assertTrue(AttributeStandard.isNotDecimal(stakeTransactionData.getFee()));
+            Assert.assertTrue(AttributeStandard.isNotDecimal(stakeTransactionData.getTotalOutput()));
+            Assert.assertTrue(AttributeStandard.isNotDecimal(stakeTransactionData.getBalance()));
+        }
+        return this;
+    }
+
+    @Step("Verify size of get stake transaction response with totalPage")
+    public StakeKeySteps then_verifyStakeTransactionResponseWithTotalPage(StakeTransaction stakeTransaction, Map<String, Object> params) {
+        RequestParams requestParams = new RequestParams(params, 0, 0);
+        assertThat(stakeTransaction.getData().size())
+                .as("The size of page is wrong")
+                .isEqualTo(requestParams.getSize());
+
         return this;
     }
 

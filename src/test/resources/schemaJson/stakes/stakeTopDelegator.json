@@ -1,0 +1,48 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "stakeKey": {
+            "type": "string"
+          },
+          "balance": {
+            "type": "number"
+          },
+          "poolId": {
+            "type": "string"
+          },
+          "tickerName": {
+          },
+          "poolName": {
+          }
+        },
+        "required": [
+          "stakeKey",
+          "balance",
+          "poolId"
+        ]
+      }
+    },
+    "totalItems": {
+      "type": "number"
+    },
+    "totalPages": {
+      "type": "number"
+    },
+    "currentPage": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "data",
+    "totalItems",
+    "totalPages",
+    "currentPage"
+  ]
+}

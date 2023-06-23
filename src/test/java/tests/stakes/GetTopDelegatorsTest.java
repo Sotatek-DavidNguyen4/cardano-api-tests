@@ -30,8 +30,10 @@ public class GetTopDelegatorsTest extends BaseTest {
         MultiMap params = new MultiValueMap();
         params.put("page", page);
         params.put("size", size);
+        String pathSchema="schemaJson/stakes/stakeTopDelegator.json";
         topDelegators = (TopDelegators) stakeKeySteps.getTopDelegators(params)
                                                 .validateResponse(HttpURLConnection.HTTP_OK)
+                                                .validateResponseSchema(pathSchema)
                                                 .saveResponseObject(TopDelegators.class);
 
         stakeKeySteps.then_verifyTopDelegatorsResponse(topDelegators,params)

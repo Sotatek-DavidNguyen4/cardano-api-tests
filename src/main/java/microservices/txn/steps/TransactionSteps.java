@@ -117,7 +117,7 @@ public class TransactionSteps extends BaseSteps {
     @Step("Verify transaction graph response with MONTH")
     public TransactionSteps then_verifyTypeTransactionResponseWithMonth(List<TransactionGraphResponse> transactionGraphResponseList, int month) {
         for (TransactionGraphResponse  txnGraph : transactionGraphResponseList) {
-            assertTrue(DateUtil.compareDurationsMonth(txnGraph.getDate(),month),
+            assertTrue(DateUtil.compareDurationsMonth(txnGraph.getDate(),month,DATE_FORMAT[1]),
                     txnGraph.getDate() + " not true");
         }
         return this;

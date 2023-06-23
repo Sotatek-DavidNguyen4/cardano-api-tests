@@ -4,7 +4,6 @@ import base.BaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Story;
-import microservices.stakeKey.models.deRegistration.StakeDeRegistration;
 import microservices.stakeKey.models.registration.StakeRegistration;
 import microservices.stakeKey.steps.StakeKeySteps;
 import org.apache.commons.collections.MultiMap;
@@ -30,8 +29,10 @@ public class GetDataForStakeRegistrationTest extends BaseTest {
         MultiMap params = new MultiValueMap();
         params.put("page", page);
         params.put("size", size);
+        String pathSchema = "schemaJson/stakes/stakeRegistrationAndDeRegistration.json";
         stakeRegistration = (StakeRegistration) stakeKeySteps.getDataForStakeRegistration(params)
                                                 .validateResponse(HttpURLConnection.HTTP_OK)
+                                                .validateResponseSchema(pathSchema)
                                                 .saveResponseObject(StakeRegistration.class);
 
         stakeKeySteps.then_verifyStakeRegistrationResponse(stakeRegistration,params)

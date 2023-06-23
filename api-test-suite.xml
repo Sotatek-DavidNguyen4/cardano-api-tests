@@ -67,6 +67,7 @@
             <class name="tests.stakes.GetDataForStakeRegistrationTest"/>
             <class name="tests.stakes.GetTopDelegatorsTest"/>
             <class name="tests.stakes.StakeKeyScenarioTest"/>
+            <class name="tests.stakes.StakeKeyTransactionTest"/>
             <class name="tests.transaction.TransactionTests"/>
             <class name="tests.transaction.TransactionScenarioTests"/>
             <class name="tests.contract.ContractTests"/>
