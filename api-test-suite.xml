@@ -71,6 +71,7 @@
             <class name="tests.transaction.TransactionTests"/>
             <class name="tests.transaction.TransactionScenarioTests"/>
             <class name="tests.contract.ContractTests"/>
+            <class name="tests.contract.GetNativeScriptOfContractTests"/>
             <class name="tests.epoch.EpochCurrentTests"/>
             <class name="tests.epoch.EpochNoBlockTests"/>
             <class name="tests.epoch.EpochNoTests"/>

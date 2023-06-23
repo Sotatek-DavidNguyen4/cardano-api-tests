@@ -16,6 +16,7 @@ import io.restassured.specification.RequestSpecification;
 import constants.RequestMethod;
 import httprequest.HttpRequest;
 import httprequest.HttpRequestClientFactory;
+import org.testng.Assert;
 import util.ObjectMappingUtils;
 import exceptions.NonParsableResponseException;
 
@@ -81,6 +82,11 @@ public class BaseApi extends HttpRequest {
                 then().
                 log().ifValidationFails().
                 statusCode(statusCode);
+        return this;
+    }
+
+    public BaseApi validateResponseBody(String responseBody) {
+        Assert.assertEquals(responseBody,getResponse().getBody().asString());
         return this;
     }
 

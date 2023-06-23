@@ -1,0 +1,81 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "hash": {
+            "type": "string"
+          },
+          "blockNo": {},
+          "blockHash": {
+            "type": "string"
+          },
+          "epochNo": {},
+          "epochSlotNo": {},
+          "slot": {},
+          "time": {
+            "type": "string"
+          },
+          "addressesInput": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "addressesOutput": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "fee": {
+            "type": "number"
+          },
+          "totalOutput": {
+            "type": "number"
+          },
+          "balance": {},
+          "tokens": {
+            "type": "array",
+            "items": {}
+          }
+        },
+        "required": [
+          "hash",
+          "blockNo",
+          "blockHash",
+          "epochNo",
+          "epochSlotNo",
+          "slot",
+          "time",
+          "addressesInput",
+          "addressesOutput",
+          "fee",
+          "totalOutput",
+          "balance",
+          "tokens"
+        ]
+      }
+    },
+    "totalItems": {
+      "type": "number"
+    },
+    "totalPages": {
+      "type": "number"
+    },
+    "currentPage": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "data",
+    "totalItems",
+    "totalPages",
+    "currentPage"
+  ]
+}

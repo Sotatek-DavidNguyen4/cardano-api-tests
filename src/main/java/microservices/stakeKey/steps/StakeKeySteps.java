@@ -381,10 +381,13 @@ public class StakeKeySteps extends BaseSteps {
         return this;
     }
     @Step("Verify response of top delegator and delegator history")
-    public StakeKeySteps then_verifyStakeResponseTopAndDelegatorHistory(TopDelegators topDelegators, StakeHistory stakeHistory) {
-//        assertThat(topDelegators.getData().get(0).getTickerName())
-//                .as("Value of field 'poolId' is wrong")
-//                .isEqualTo(stakeHistory.getData().get(0).get);
+    public StakeKeySteps then_verifyStakeResponseTopAndDelegatorHistory(TopDelegators topDelegators, DelegationHistoryModel delegationHistoryModel) {
+        assertThat(topDelegators.getData().get(0).getTickerName())
+                .as("Value of field 'tickerName' is wrong")
+                .isEqualTo(delegationHistoryModel.getData().get(0).getTickerName());
+        assertThat(topDelegators.getData().get(0).getPoolId())
+                .as("Value of field 'poolId' is wrong")
+                .isEqualTo(delegationHistoryModel.getData().get(0).getPoolId());
         return this;
     }
 }

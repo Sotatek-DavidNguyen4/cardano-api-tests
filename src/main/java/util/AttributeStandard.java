@@ -22,7 +22,6 @@ public class AttributeStandard {
 
     public static boolean areValidStakeAddress(List<String> stakeAddrs, int length) {
         for (String stakeAddr : stakeAddrs) {
-            System.out.println(stakeAddr);
             if (!isValidStakeAddress(stakeAddr, length)) {
                 return false;
             }

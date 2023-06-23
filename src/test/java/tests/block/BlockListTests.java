@@ -16,20 +16,23 @@ import java.net.HttpURLConnection;
 @Feature("api-block")
 public class BlockListTests extends BaseTest {
     BlockSteps blockSteps = new BlockSteps();
-    private String blockId = "950010";
+    private String blockId = "7249923";
 
     @Test(description = "get block list successfully", groups = {"block","block-list"})
     public void getBlockListSuccessfully(){
+        String schemaJson = "schemaJson/block/block-list.json";
+        int page = 10;
         BlockListModel blockListModel = (BlockListModel) blockSteps
                 .getTxListOfBlock(blockId)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(schemaJson)
                 .saveResponseObject(BlockListModel.class);
 
         blockSteps
                 .then_verifyDataNotNull(blockListModel)
                 .then_verifyValueFormatIsCorrectly(blockListModel);
 
-        String blockId = "950073";
+        String blockId = "1376";
         blockListModel = (BlockListModel) blockSteps
                 .getTxListOfBlock(blockId)
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
@@ -38,6 +41,26 @@ public class BlockListTests extends BaseTest {
         blockSteps
                 .then_verifyDataNull(blockListModel)
                 .then_verifyValueFormatIsCorrectly(blockListModel);
+
+        MultiMap param = new CreateMultiParameters()
+                .withPage(page)
+                .getParamsMap();
+
+        blockListModel = (BlockListModel) blockSteps
+                .getTxListOfBlock(blockId, param)
+                .validateStatusCode(HttpURLConnection.HTTP_OK)
+                .saveResponseObject(BlockListModel.class);
+        blockSteps.verifyThatDataResponseIsOnCorrectPage(10,blockListModel.getCurrentPage());
+
+        page = blockListModel.getTotalPages();
+        param = new CreateMultiParameters()
+                .withPage(page)
+                .getParamsMap();
+        blockListModel = (BlockListModel) blockSteps
+                .getTxListOfBlock(blockId, param)
+                .validateStatusCode(HttpURLConnection.HTTP_OK)
+                .saveResponseObject(BlockListModel.class);
+        blockSteps.verifyThatDataResponseIsOnCorrectPage(page ,blockListModel.getCurrentPage());
     }
     @Test(description = "get block list successfully with invalid page", groups = {"block","block-list"}, dataProvider = "paramInvalidPage")
     public void getBlockListSuccessfullyWithInvalidPage(Object page){
@@ -55,8 +78,9 @@ public class BlockListTests extends BaseTest {
     @DataProvider(name ="paramInvalidPage")
     public Object[][] dataSetInvalidPage(){
         return new Object[][]{
+                {10},
                 {"abc"},
-                {"-10"},
+                {-10},
                 {" "},
                 {"@#$%%"},
         };
@@ -96,9 +120,9 @@ public class BlockListTests extends BaseTest {
     @DataProvider(name ="paramInvalidSize")
     public Object[][] dataSetInvalidSize(){
         return new Object[][]{
-                {"1"},
-                {"y"},
-                {"-10"},
+                {1},
+                {"abc"},
+                {-10},
                 {" "},
                 {"!@@$$"},
         };

@@ -1,0 +1,33 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "type": {
+      "type": "string"
+    },
+    "scripts": {
+      "type": "array",
+      "items": [
+        {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string"
+            },
+            "keyHash": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "type",
+            "keyHash"
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "type",
+    "scripts"
+  ]
+}

@@ -6,8 +6,10 @@ import io.qameta.allure.Step;
 import io.restassured.response.Response;
 import microservices.common.constants.RequestParams;
 
+import microservices.common.steps.BaseSteps;
 import microservices.contract.models.Contract;
 import microservices.contract.models.DataContract;
+import microservices.contract.models.NativeScriptOfContract;
 import org.testng.Assert;
 import util.SortListUtil;
 
@@ -16,11 +18,16 @@ import java.util.Map;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-public class ContractSteps extends BaseApi {
+public class ContractSteps extends BaseSteps {
     private Contract contract = new Contract();
     @Step("get list contract")
     public ContractSteps getListContracts(Map<String, Object> paramsContract){
         sendGet(Endpoints.ContractApi.GET_LIST_CONTRACT, paramsContract);
+        return this;
+    }
+    @Step("Get native script of contract")
+    public ContractSteps getNativeScriptOfContracts(String address){
+        sendGet(Endpoints.ContractApi.GET_NATIVE_SCRIPT_OF_CONTRACT,Endpoints.ContractApi.ADDRESS,address);
         return this;
     }
 
@@ -31,6 +38,17 @@ public class ContractSteps extends BaseApi {
                  Assert.assertNotNull(data.getAddress());
                  Assert.assertNotNull(data.getTxCount());
                  Assert.assertNotNull(data.getBalance());
+             }
+        return this;
+    }
+
+    @Step("verify response data of Get native script of contract not null")
+    public ContractSteps verifyResponseDataOfNativeNotNull(NativeScriptOfContract nativeScriptOfContract){
+        Assert.assertNotNull(nativeScriptOfContract.getType());
+        for (int i=0;i<nativeScriptOfContract.getScripts().size();i++)
+             {
+                 Assert.assertNotNull(nativeScriptOfContract.getScripts().get(i).getType());
+                 Assert.assertNotNull(nativeScriptOfContract.getScripts().get(i).getKeyHash());
              }
         return this;
     }

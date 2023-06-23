@@ -24,8 +24,11 @@ public class EpochNoTests extends BaseTest {
 
     @Test(description = "Verify get epoch by its no successfully" ,groups = {"epoch"})
     public void getEpochByNo(){
+
+        String epochDetailByNoSchema = "schemaJson/epoch/epochDetailByNo.json";
         epochData = (EpochData) epochSteps.getEpochByEpochNo(EPOCH_BY_NO.getNo())
                                   .validateResponse(HttpURLConnection.HTTP_OK)
+                                  .validateResponseSchema(epochDetailByNoSchema)
                                   .saveResponseObject(EpochData.class);
 
         epochSteps.then_verifyEpochResponseWithDataTest(epochData,EPOCH_BY_NO);

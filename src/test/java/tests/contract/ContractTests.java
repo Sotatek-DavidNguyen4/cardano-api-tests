@@ -3,6 +3,7 @@ package tests.contract;
 import base.BaseTest;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import io.qameta.allure.Story;
 import microservices.contract.models.Contract;
 import microservices.contract.models.DataContract;
 import microservices.contract.steps.ContractSteps;
@@ -21,6 +22,7 @@ import java.util.Map;
 
 @Epic("cardano")
 @Feature("api-contract")
+@Story("Get list contract")
 public class ContractTests extends BaseTest {
     private ContractSteps contractSteps = new ContractSteps();
     private Contract contract = new Contract();
@@ -34,8 +36,11 @@ public class ContractTests extends BaseTest {
         if(!sort.equals("")){
             params.put("sort", sort);
         }
+
+        String listContract ="schemaJson/contract/listContract.json";
         contract = (Contract) contractSteps.getListContracts(params)
                 .validateResponse(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(listContract)
                 .saveResponseObject(Contract.class);
 
         dataContracts = contract.getData();

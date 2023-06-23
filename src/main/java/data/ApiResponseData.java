@@ -20,6 +20,8 @@ public class ApiResponseData {
     public static TransactionResponse TRANSACTION_MARY_ERA;
     public static TransactionResponse TRANSACTION_ALOZO_ERA;
     public static TransactionResponse TRANSACTION_BABBAGE_ERA;
+    public static TransactionResponse TRANSACTION_PROTOCOLS;
+    public static TransactionResponse TRANSACTION_STAKE_CERTIFICATES;
 
 /**
  *    Epoch
@@ -67,6 +69,8 @@ public class ApiResponseData {
         TRANSACTION_MARY_ERA = (TransactionResponse) ObjectMappingUtils.parseJsonToModel(map.getAsJsonObject("transaction_mary_era").toString(), TransactionResponse.class);
         TRANSACTION_ALOZO_ERA = (TransactionResponse) ObjectMappingUtils.parseJsonToModel(map.getAsJsonObject("transaction_alozo_era").toString(), TransactionResponse.class);
         TRANSACTION_BABBAGE_ERA = (TransactionResponse) ObjectMappingUtils.parseJsonToModel(map.getAsJsonObject("transaction_babbage_era").toString(), TransactionResponse.class);
+        TRANSACTION_PROTOCOLS = (TransactionResponse) ObjectMappingUtils.parseJsonToModel(map.getAsJsonObject("transaction_protocols").toString(), TransactionResponse.class);
+        TRANSACTION_STAKE_CERTIFICATES = (TransactionResponse) ObjectMappingUtils.parseJsonToModel(map.getAsJsonObject("transaction_stake_certificates").toString(), TransactionResponse.class);
 
         /*--------------------*/
         /* EPOCH API */

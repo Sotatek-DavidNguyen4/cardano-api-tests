@@ -52,7 +52,9 @@ public class Endpoints {
     }
 
     public static class ContractApi {
+        public static final String ADDRESS ="address";
         public static final String GET_LIST_CONTRACT = "contracts";
+        public static final String GET_NATIVE_SCRIPT_OF_CONTRACT = "contracts/{"+ADDRESS+"}/script";
 
     }
 
