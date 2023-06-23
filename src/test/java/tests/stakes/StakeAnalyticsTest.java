@@ -25,8 +25,10 @@ public class StakeAnalyticsTest extends BaseTest {
     StakeAnalytics stakeAnalytics ;
     @Test(description = "Verify active stake, live stake and total stake",groups = {"stake","active_live_stake"})
     public void getDataForStakeDeRegistration(){
+        String pathSchema ="schemaJson/stakes/stakeAnalytics.json";
         stakeAnalytics = (StakeAnalytics) stakeKeySteps.getStakeAnalytics()
                                                 .validateResponse(HttpURLConnection.HTTP_OK)
+                                                .validateResponseSchema(pathSchema)
                                                 .saveResponseObject(StakeAnalytics.class);
 
         stakeKeySteps.then_verifyStakeAnalyticsResponseNotNull(stakeAnalytics);

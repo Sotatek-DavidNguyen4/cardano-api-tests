@@ -1,0 +1,125 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "hash": {
+            "type": "string"
+          },
+          "blockNo": {
+            "type": "number"
+          },
+          "blockHash": {
+            "type": "string"
+          },
+          "epochNo": {
+            "type": "number"
+          },
+          "epochSlotNo": {
+            "type": "number"
+          },
+          "slot": {
+            "type": "number"
+          },
+          "time": {
+            "type": "string"
+          },
+          "addressesInput": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "addressesOutput": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "fee": {
+            "type": "number"
+          },
+          "totalOutput": {
+            "type": "number"
+          },
+          "balance": {
+            "type": "number"
+          },
+          "tokens": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "addressId": {
+                  "type": "number"
+                },
+                "address": {
+                  "type": "string"
+                },
+                "policy": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "displayName": {
+                  "type": "string"
+                },
+                "fingerprint": {
+                  "type": "string"
+                },
+                "quantity": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "addressId",
+                "address",
+                "policy",
+                "name",
+                "displayName",
+                "fingerprint",
+                "quantity"
+              ]
+            }
+          }
+        },
+        "required": [
+          "hash",
+          "blockNo",
+          "blockHash",
+          "epochNo",
+          "epochSlotNo",
+          "slot",
+          "time",
+          "addressesInput",
+          "addressesOutput",
+          "fee",
+          "totalOutput",
+          "balance",
+          "tokens"
+        ]
+      }
+    },
+    "totalItems": {
+      "type": "number"
+    },
+    "totalPages": {
+      "type": "number"
+    },
+    "currentPage": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "data",
+    "totalItems",
+    "totalPages",
+    "currentPage"
+  ]
+}
