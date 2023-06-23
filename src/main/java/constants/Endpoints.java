@@ -40,7 +40,7 @@ public class Endpoints {
         public static final String GET_TXS = "tokens/{"+ TOKEN_ID +"}/txs";
         public static final String GET_MINTS = "tokens/{"+ TOKEN_ID +"}/mints";
         public static final String GET_TOP_HOLDERS = "tokens/{"+ TOKEN_ID +"}/top_holders";
-        public static final String GET_ANALYTICS_TYPE = "tokens/analytics/{tokenId}/{type}";
+        public static final String GET_ANALYTICS_TYPE = "tokens/analytics/{"+ TOKEN_ID +"}/{type}";
     }
     public static class TransactionApi {
         public static final String HASH_ID = "hash";
