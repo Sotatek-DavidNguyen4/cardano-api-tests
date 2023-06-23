@@ -55,6 +55,7 @@
             <class name="tests.tokens.TokenMints"/>
             <class name="tests.tokens.TokenTopHolder"/>
             <class name="tests.tokens.TokenScenario"/>
+            <class name="tests.tokens.TokenAnalyticType"/>
             <class name="tests.stakes.StakeKeyAddress"/>
             <class name="tests.stakes.StakeKeyInstantaneousRewards"/>
             <class name="tests.stakes.StakeKeyWithdrawalHistoryTests"/>

@@ -5,15 +5,19 @@ import io.qameta.allure.Step;
 import microservices.common.constants.RequestParams;
 import microservices.common.steps.BaseSteps;
 import microservices.token.models.*;
+import microservices.txn.models.TransactionGraphResponse;
 import org.testng.Assert;
 import util.AttributeStandard;
+import util.DateUtil;
 import util.SortListUtil;
 
-import java.util.ArrayList;
-import java.util.Map;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 import static constants.DateFormats.DATE_FORMAT;
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.testng.Assert.assertTrue;
 
 public class TokenSteps extends BaseSteps {
     @Step("get list token")
@@ -209,6 +213,39 @@ public class TokenSteps extends BaseSteps {
         Assert.assertEquals(data.getTotalVolume(), detailToken.getTotalVolume());
         Assert.assertEquals(data.getNumberOfHolders(), detailToken.getNumberOfHolders());
         Assert.assertEquals(data.getId(), detailToken.getId());
+        return this;
+    }
+    @Step("get token ananlytics type")
+    public TokenSteps getTokenAnalyticsType(String tokenId, String type){
+        Map<String, Object> pathParameters = new HashMap<>();
+        pathParameters.put(Endpoints.TokenApi.TOKEN_ID, tokenId);
+        pathParameters.put("type", type);
+        sendGetWithPathParams(Endpoints.TokenApi.GET_ANALYTICS_TYPE, pathParameters);
+        return this;
+    }
+    @Step("verify response of get token analytics type")
+    public TokenSteps verifyResponseTokenAnalyticsType(List<TokenAnalytics> analytics, String type){
+        ArrayList<String> date = new ArrayList<>();
+        for(TokenAnalytics a : analytics){
+            date.add(a.getDate());
+        }
+        for(int i = 0; i < date.size() - 1; i++){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy/MM/dd");
+            LocalDate date1 = LocalDate.parse(date.get(i), formatter);
+            LocalDate date2 = LocalDate.parse(date.get(i+1), formatter);
+            if(Objects.equals(type, "ONE_DAY")){
+                Assert.assertEquals(date1.plusDays(1), date2);
+            }
+            if(Objects.equals(type, "ONE_WEEK")){
+                Assert.assertEquals(date1.plusWeeks(1), date2);
+            }
+            if(Objects.equals(type, "ONE_MONTH")){
+                Assert.assertEquals(date1.plusMonths(1), date2);
+            }
+            if(Objects.equals(type, "THREE_MONTH")){
+                Assert.assertEquals(date1.plusMonths(3), date2);
+            }
+        }
         return this;
     }
 }
