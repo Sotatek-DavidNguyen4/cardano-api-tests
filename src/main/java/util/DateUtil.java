@@ -3,6 +3,8 @@ package util;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.YearMonth;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
@@ -22,6 +24,41 @@ public class DateUtil {
             ex.printStackTrace();
         }
         return false;
+    }
+    public static boolean compareDurationsMonth(String date,int month) {
+        String[] parts = date.split(" ");
+        String datePart = parts[0];
+
+        LocalDate dateToCheck = LocalDate.parse(datePart);
+
+        LocalDate currentDate = LocalDate.now();
+        int currentYear = currentDate.getYear();
+        int currentMonth = currentDate.getMonthValue();
+        int currentDay = currentDate.getDayOfMonth();
+
+        int previousDay = currentDay;
+        int previousMonth = currentMonth - month;
+        int previousYear = currentYear;
+
+
+        if (previousMonth == 0) { // Handle January
+            previousMonth = 12; // Set to December
+            previousYear--; // Decrease the year
+        }
+
+        YearMonth yearMonthObject = YearMonth.of(previousYear, previousMonth);
+        int daysInMonth = yearMonthObject.lengthOfMonth();
+
+        if (!(previousDay <= daysInMonth)) {
+            System.out.println("The specified day does not exists in the previous month.");
+            previousDay= yearMonthObject.atEndOfMonth().getDayOfMonth();
+        }
+
+        LocalDate endDate = LocalDate.of(previousYear, previousMonth, previousDay);
+        LocalDate targetDate = LocalDate.of(dateToCheck.getYear(), dateToCheck.getMonth(), dateToCheck.getDayOfMonth());
+
+        return (targetDate.isEqual(currentDate) || targetDate.isEqual(endDate)) ||
+               (targetDate.isBefore(currentDate) && targetDate.isAfter(endDate));
     }
 
     public static String getCurrentUTCDate(String dateFormat) {

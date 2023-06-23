@@ -30,8 +30,10 @@ public class EpochNoBlockTests extends BaseTest {
     private List<EpochDataByEpochNo> epochDataByEpochNo ;
     @Test(description = "Verify get block list of epoch by its no successfully" ,groups = {"epoch"},dataProvider = "dataGetListEpochByEpochNo")
     public void getBlockListEpochByNo(Integer epochNo){
+        String blockListSchema = "schemaJson/epoch/blockListOfEpochByNo.json";
         epochByEpochNo = (EpochByEpochNo) epochSteps.getBLockListEpochByEpochNo(epochNo)
                                   .validateResponse(HttpURLConnection.HTTP_OK)
+                                  .validateResponseSchema(blockListSchema)
                                   .saveResponseObject(EpochByEpochNo.class);
 
         epochDataByEpochNo = epochByEpochNo.getData();

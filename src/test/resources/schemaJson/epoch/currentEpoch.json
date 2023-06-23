@@ -1,0 +1,32 @@
+{
+  "$schema": "http://json-schema.org/draft-04/schema#",
+  "type": "object",
+  "properties": {
+    "no": {
+      "type": "integer"
+    },
+    "slot": {
+      "type": "integer"
+    },
+    "totalSlot": {
+      "type": "integer"
+    },
+    "account": {
+      "type": "integer"
+    },
+    "startTime": {
+      "type": "string"
+    },
+    "endTime": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "no",
+    "slot",
+    "totalSlot",
+    "account",
+    "startTime",
+    "endTime"
+  ]
+}
