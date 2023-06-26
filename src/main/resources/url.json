@@ -6,6 +6,6 @@
     "API": "http://preprod-automation-test.sotatek.works/api/v1/"
   },
   "preprodProfile": {
-    "API": "http://preprod-authen-automation-test.sotatek.works/api/v1/"
+    "API": "http://172.16.1.230:8021/api/v1/"
   }
 }

@@ -12,6 +12,7 @@ import io.qameta.allure.Story;
 import microservices.common.constants.APIErrorCode;
 import microservices.common.constants.APIErrorMessage;
 import microservices.profile.constants.ProfileContants;
+import microservices.profile.models.BookmarkResponse;
 import microservices.profile.models.SignInResponse;
 import microservices.profile.models.UserInfoResponse;
 import microservices.profile.steps.ProfileSteps;
@@ -52,8 +53,7 @@ public class ProfileTest extends BaseTest {
         UserInfoResponse userInfoResponse = (UserInfoResponse) profileSteps.when_getUserInfo(params)
                 .validateResponse(HttpURLConnection.HTTP_OK)
                 .validateResponseSchema(pathUserSchema)
-                .saveResponseObject(FilterTransactionResponse.class);
-        System.out.println(userInfoResponse);
+                .saveResponseObject(UserInfoResponse.class);
         profileSteps.then_verifyUserInfoResponse(userInfoResponse, USER_SIGN_IN);
 
         // network = PRE_PROD
@@ -62,7 +62,7 @@ public class ProfileTest extends BaseTest {
         userInfoResponse = (UserInfoResponse) profileSteps.when_getUserInfo(params)
                 .validateResponse(HttpURLConnection.HTTP_OK)
                 .validateResponseSchema(pathUserSchema)
-                .saveResponseObject(FilterTransactionResponse.class);
+                .saveResponseObject(UserInfoResponse.class);
         profileSteps.then_verifyUserInfoResponse(userInfoResponse, USER_SIGN_IN);
     }
 
@@ -81,7 +81,6 @@ public class ProfileTest extends BaseTest {
         profileSteps.when_getUserInfo(params)
                 .then_verifyErrorResponse(HttpURLConnection.HTTP_UNAUTHORIZED, APIErrorMessage.ACCOUNT_NOT_UNAUTHORIZED, APIErrorCode.ACCOUNT_NOT_UNAUTHORIZED);
     }
-
     @DataProvider(name ="invalidNetwork")
     public Object[][] dataInvalidNetwork() {
         return new Object[][]{
