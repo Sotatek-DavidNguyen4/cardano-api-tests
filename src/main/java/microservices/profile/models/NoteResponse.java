@@ -13,7 +13,7 @@ public class NoteResponse {
 
     @Data
     public class Note{
-        public int id;
+        public String id;
         public String txHash;
         public String note;
         public String createdDate;

@@ -25,8 +25,6 @@ public class BaseSteps extends BaseApi {
         removeHeaders();
         AuthLoginInput authLoginInput = new AuthLoginInput(user.email, user.password, user.type);
         sendPost(Endpoints.AccountsApi.AUTH_LOGIN, authLoginInput);
-        System.out.println(getResponse().getBody().print());
-        System.out.println(getJsonValue("token"));
         setHeader("Authorization", "Bearer " + getJsonValue("token"));
         return this;
     }
