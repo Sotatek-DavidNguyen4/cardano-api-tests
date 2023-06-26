@@ -2,9 +2,12 @@ package microservices.common.steps;
 
 import constants.Endpoints;
 import core.BaseApi;
+import data.DataUser;
 import io.qameta.allure.Step;
 import microservices.common.models.AuthLoginInput;
 import microservices.common.models.ErrorResponse;
+import microservices.profile.models.SignInResponse;
+import microservices.txn.models.FilterTransactionResponse;
 import org.testng.Assert;
 
 public class BaseSteps extends BaseApi {
@@ -18,11 +21,14 @@ public class BaseSteps extends BaseApi {
     }
 
     @Step("Auth service by email for login")
-    public BaseSteps when_authLogin(String emailAddress, String userPassword, String type){
+    public BaseSteps when_authLogin(DataUser user){
         removeHeaders();
-        AuthLoginInput authLoginInput = new AuthLoginInput(emailAddress, userPassword, type);
+        AuthLoginInput authLoginInput = new AuthLoginInput(user.email, user.password, user.type);
         sendPost(Endpoints.AccountsApi.AUTH_LOGIN, authLoginInput);
-        setHeader("access-token", getJsonValue("accessToken"));
+        System.out.println(getResponse().getBody().print());
+        System.out.println(getJsonValue("token"));
+        setHeader("Authorization", "Bearer " + getJsonValue("token"));
         return this;
     }
+
 }
