@@ -4,6 +4,8 @@ import constants.Endpoints;
 import core.BaseApi;
 import io.qameta.allure.Step;
 import microservices.common.steps.BaseSteps;
+import microservices.delegation.models.PoolDetailAnalyticsChart;
+import microservices.delegation.models.PoolDetailInListModel;
 
 import java.util.Map;
 
