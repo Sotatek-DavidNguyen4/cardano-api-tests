@@ -8,6 +8,7 @@ import microservices.addresses.steps.AddressTransactionSteps;
 import microservices.common.steps.BaseSteps;
 import microservices.delegation.models.PoolDetailDelegatorModel;
 import microservices.delegation.models.PoolDetailHeaderModel;
+import microservices.delegation.models.PoolDetailInListModel;
 import org.testng.Assert;
 import util.AttributeStandard;
 
@@ -64,6 +65,15 @@ public class DelegationControllerSteps extends BaseSteps {
     @Step("verify format attributes")
     public DelegationControllerSteps verifyHashViewFormat(PoolDetailHeaderModel actualPoolDetailHeader){
         Assert.assertTrue(AttributeStandard.isValidHash(actualPoolDetailHeader.getHashView()));
+        return this;
+    }
+    @Step("verify top delegation match with data in pool detail")
+    public DelegationControllerSteps verifyDelegationMatchWithDataInPoolDetail(PoolDetailInListModel poolDetailInListModel, PoolDetailHeaderModel actualPoolDetailHeader){
+        Assert.assertEquals(poolDetailInListModel.getPoolName(), actualPoolDetailHeader.getPoolName(),"pool name not match");
+        Assert.assertEquals(poolDetailInListModel.getPoolSize(), actualPoolDetailHeader.getPoolSize(),"pool name not match");
+        Assert.assertEquals(poolDetailInListModel.getSaturation(), actualPoolDetailHeader.getSaturation(),"pool name not match");
+        Assert.assertEquals(poolDetailInListModel.getReward(), actualPoolDetailHeader.getReward(),"pool name not match");
+        Assert.assertEquals(poolDetailInListModel.getPoolName(), actualPoolDetailHeader.getPoolName(),"pool name not match");
         return this;
     }
 

@@ -21,10 +21,13 @@ public class AddressAnalyticsTests extends BaseTest {
     String address = "addr1vy6p2t2lspjhf2nr2g7hfygkxdeulw3vvr8yhrkyv9qvzncmulqgh";
     @Test(description = "verify that get data for address analytics successfully", groups={"addresses", "address-analytics"})
     public void verifyGetAddressAnalyticsResponseSuccessfully(){
+        String schemaAddress = "schemaJson/address/address-analytics.json";
+
         //dynamic data
         List<AddressAnalyticListModel> addressAnalytic = (List<AddressAnalyticListModel>) addressesSteps
-                .getAnAddressAnalytics(address, AnalyticsType.TWO_WEEK.getAlcType())
+                .getAnAddressAnalytics(address, AnalyticsType.ONE_WEEK.getAlcType())
                 .validateStatusCode(HttpURLConnection.HTTP_OK)
+                .validateResponseSchema(schemaAddress)
                 .saveResponseListObject(AddressAnalyticListModel[].class);
 
         addressesSteps.verifyFormatAttributes(addressAnalytic);
