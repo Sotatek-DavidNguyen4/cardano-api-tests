@@ -3,6 +3,7 @@ package microservices.pool.steps;
 import core.BaseApi;
 import io.qameta.allure.Step;
 import microservices.common.constants.RequestParams;
+import microservices.pool.models.PoolInfo;
 import microservices.pool.models.PoolResponse;
 
 import static constants.AttributeFormats.STATKE_ADDRESS_LENGTH;
@@ -52,6 +53,10 @@ public class PoolSteps extends BaseApi {
         assertTrue(AttributeStandard.areValidHashes(poolResponse.getData().stream().map(s -> s.getTxHash()).collect(Collectors.toList())));
         assertTrue(AttributeStandard.areValidPoolId(poolResponse.getData().stream().map(s -> s.getPoolView()).collect(Collectors.toList())));
         assertTrue(AttributeStandard.areValidStakeAddress(poolResponse.getData().stream().map(s -> s.getStakeKey()).flatMap(Collection::stream).collect(Collectors.toList()),length));
+        for (PoolInfo poolInfo : poolResponse.getData()) {
+            assertTrue(AttributeStandard.isNotDecimal(poolInfo.getPledge()));
+            assertTrue(AttributeStandard.isNotDecimal(poolInfo.getCost()));
+        }
         return this;
     }
 
