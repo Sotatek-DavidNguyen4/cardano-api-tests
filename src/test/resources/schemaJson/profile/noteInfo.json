@@ -1,0 +1,40 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Generated schema for Root",
+  "type": "object",
+  "properties": {
+    "data": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "txHash": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string"
+          },
+          "createdDate": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "txHash",
+          "note",
+          "createdDate"
+        ]
+      }
+    },
+    "totalItems": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "data",
+    "totalItems"
+  ]
+}

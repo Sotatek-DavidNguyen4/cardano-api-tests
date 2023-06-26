@@ -86,4 +86,14 @@ public class Endpoints {
         public static final String GET_STAKE_DELEGATION_HISTORY = "stakes/{"+ STAKE_KEY +"}/delegation-history";
         public static final String GET_STAKE_LIST_ADDRESS = "stakes/{"+ STAKE_KEY +"}/list-address";
     }
+
+    public static class AccountsApi{
+        public static final String NOTE_ID = "noteId";
+        public static final String AUTH_LOGIN = "auth/sign-in";
+        public static final String GET_USER_INFO = "user/info";
+        public static final String GET_BOOKMARK_FIND_ALL_KEY= "bookmark/find-all-key";
+        public static final String GET_NOTE_FIND_ALL = "note/find-all";
+        public static final String CREATE_NOTE = "note/add";
+        public static final String DELETE_NOTE = "note/delete/{"+ NOTE_ID +"}";
+    }
 }

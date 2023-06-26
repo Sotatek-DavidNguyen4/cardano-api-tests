@@ -5,11 +5,13 @@ import core.BaseApi;
 import data.ApiResponseData;
 import httprequest.HttpRequest;
 import io.restassured.RestAssured;
+import microservices.common.steps.BaseSteps;
 import org.testng.annotations.*;
 
 import java.io.File;
 
 public class BaseTest {
+    protected BaseSteps baseSteps = new BaseSteps();
     @BeforeSuite(alwaysRun = true)
     @Parameters({"env"})
     public void preconditions(@Optional("mainnet") String env) {

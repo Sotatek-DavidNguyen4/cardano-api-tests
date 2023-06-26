@@ -4,5 +4,8 @@
   },
   "preprod": {
     "API": "http://preprod-automation-test.sotatek.works/api/v1/"
+  },
+  "preprodProfile": {
+    "API": "https://preprod-authen-automation-test.sotatek.works/api/v1/"
   }
 }
